@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — One Shot</title>
+  <meta name="description" content="One Shot journal — writing on photography and AI consulting, one entry at a time." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,450;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=Poppins:ital,wght@0,400;1,400&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+</head>
+<body>
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container-wide">
+      <a href="index.html" class="logo"><span class="logo-icon" aria-hidden="true"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><polygon id="os-blade-nav" points="53.5,2 55.8,20 50,46 41.5,20.6" /><path id="os-corner-arc" d="M6,15 A9,9 0 0 1 15,6" /></defs><g fill="none" stroke="var(--trim)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(0 50 50)" /><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(90 50 50)" /><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(180 50 50)" /><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(270 50 50)" /></g><g class="os-blades" fill="currentColor"><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(0 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(45 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(90 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(135 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(180 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(225 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(270 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(315 50 50)" /></g></svg></span><span class="logo-text">OneShotLabs</span></a>
+      <nav class="nav" id="site-nav">
+        <a href="career.html">Career</a>
+        <a href="ai-consulting.html">AI</a>
+        <a href="photography.html">Photography</a>
+        <a href="blog.html" aria-current="page">Blog</a>
+        <a href="bio.html">Bio</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+    </div>
+    <div class="nav-backdrop"></div>
+  </header>
+
+  <section class="hero">
+    <div class="container-wide">
+      <p class="hero-eyebrow">Blog</p>
+      <h1>Notes from the field</h1>
+      <p>Writing on photography and AI consulting, filed under one archive. Every entry below is a plain markdown file — nothing here is hardcoded.</p>
+    </div>
+  </section>
+
+  <section class="section" style="border-top: none;">
+    <div class="container-wide">
+      <div class="blog-controls">
+        <input type="search" id="blog-search" placeholder="Search posts…" aria-label="Search posts" />
+        <select id="blog-sort" aria-label="Sort posts">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+        </select>
+        <span id="blog-count" class="blog-count"></span>
+      </div>
+      <div id="blog-tags" class="tag-bar" aria-label="Filter by tag"></div>
+
+      <div id="blog-grid" class="post-grid">
+        <div class="blog-status"><p>Loading posts…</p></div>
+      </div>
+
+      <div id="blog-pagination" class="pagination"></div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container-wide">
+      <span>© <span data-year></span> One Shot</span>
+      <div class="footer-links">
+        <a href="career.html">Career</a>
+        <a href="ai-consulting.html">AI</a>
+        <a href="photography.html">Photography</a>
+        <a href="blog.html">Blog</a>
+        <a href="bio.html">Bio</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+  <script src="js/blog.js" defer></script>
+</body>
+</html>

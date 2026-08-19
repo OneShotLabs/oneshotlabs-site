@@ -1,0 +1,9 @@
+{
+  "_comment": "One line per post file in this folder, no extension. This is the one manual step in an otherwise-automatic system — a static site with no build step and no server can't list a folder's contents on its own, so this file stands in for that. Everything else (rendering, cards, tags, search, sort, pagination, reading time, TOC, prev/next) is generated from it automatically by js/blog.js.",
+  "posts": [
+    "systems-thinkers-netflix",
+    "why-a-fixed-lens",
+    "one-shot-method",
+    "starting-one-shot"
+  ]
+}

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Consulting — One Shot</title>
+  <meta name="description" content="AI Consulting from One Shot — scoped engagements for commercial real estate finance teams, built once and shipped." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,450;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=Poppins:ital,wght@0,400;1,400&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+</head>
+<body>
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!--
+    NOTE ON NAMING: "One Shot" is already used by an active, funded AI company (OneShot.ai,
+    autonomous sales prospecting). Worth deciding deliberately whether this page brands the
+    consulting practice as "One Shot" outright, or as a sub-name (e.g. "One Shot Advisory")
+    under the One Shot parent brand, before this page goes live/gets indexed.
+  -->
+
+  <header class="site-header">
+    <div class="container-wide">
+      <a href="index.html" class="logo"><span class="logo-icon" aria-hidden="true"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><polygon id="os-blade-nav" points="53.5,2 55.8,20 50,46 41.5,20.6" /><path id="os-corner-arc" d="M6,15 A9,9 0 0 1 15,6" /></defs><g fill="none" stroke="var(--trim)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(0 50 50)" /><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(90 50 50)" /><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(180 50 50)" /><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(270 50 50)" /></g><g class="os-blades" fill="currentColor"><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(0 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(45 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(90 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(135 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(180 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(225 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(270 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(315 50 50)" /></g></svg></span><span class="logo-text">OneShotLabs</span></a>
+      <nav class="nav" id="site-nav">
+        <a href="career.html">Career</a>
+        <a href="ai-consulting.html" aria-current="page">AI</a>
+        <a href="photography.html">Photography</a>
+        <a href="blog.html">Blog</a>
+        <a href="bio.html">Bio</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+    </div>
+    <div class="nav-backdrop"></div>
+  </header>
+
+  <section class="hero">
+    <div class="container-wide">
+      <p class="hero-eyebrow">AI Consulting</p>
+      <h1>One clear engagement. No trial and error.</h1>
+      <p>Underwriting workflows, deal analysis, and reporting systems, scoped to a fixed outcome and shipped. Not an open-ended retainer.</p>
+      <div class="hero-actions">
+        <a href="contact.html" class="btn btn-accent">Book a call</a>
+      </div>
+
+      <div class="dt-hero-wrap reveal">
+        <span class="dt-hero-tag">// zero-prompt deploy</span>
+        <div class="deploy-terminal" id="deploy-terminal">
+          <div class="dt-scroll-viewport">
+            <div class="dt-scroll-inner" id="dt-scroll-inner">
+              <div class="dt-prompt-block">
+                <span class="dt-line" style="--d:.07s">$ oneshot deploy \</span>
+                <span class="dt-line" style="--d:.20s">&nbsp;&nbsp;--skill multifamily-ic-memo-cowork --property-types multifamily,mixed-use,student-housing,seniors,affordable-lihtc \</span>
+                <span class="dt-line" style="--d:.31s">&nbsp;&nbsp;--inputs sizing-model.xlsx,rent-roll.csv,t12.csv,debt-sched.csv,operating-budget.xlsx,capex-schedule.csv \</span>
+                <span class="dt-line" style="--d:.44s">&nbsp;&nbsp;--comps recent-sales.csv,rent-comps.csv,submarket-fundamentals.csv --geography primary,secondary-msas --radius 3mi \</span>
+                <span class="dt-line" style="--d:.55s">&nbsp;&nbsp;--guide multifamily-sizing-guide.yml --underwriting-standard institutional --review-tier senior-credit \</span>
+                <span class="dt-line" style="--d:.68s">&nbsp;&nbsp;--constraints dscr&gt;=1.25,ltv&lt;=0.75,debt-yield&gt;=0.08,min-dscr-stress&gt;=1.10 \</span>
+                <span class="dt-line" style="--d:.81s">&nbsp;&nbsp;--debt-structure senior,mezz:optional,io-period:24mo,rate-type:fixed-or-floating \</span>
+                <span class="dt-line" style="--d:.92s">&nbsp;&nbsp;--underwrite noi,cap-rate,exit-value,irr,equity-multiple --cite-reasoning --show-work \</span>
+                <span class="dt-line" style="--d:1.05s">&nbsp;&nbsp;--reserves capex,tax-insurance-escrow,replacement-reserve:250-unit \</span>
+                <span class="dt-line" style="--d:1.16s">&nbsp;&nbsp;--stress rate:+150bps,vacancy:+300bps,exit-cap:+50bps,expense-growth:+200bps \</span>
+                <span class="dt-line" style="--d:1.29s">&nbsp;&nbsp;--risk-flags concentration,rollover,capex-deferred,environmental,title-exceptions \</span>
+                <span class="dt-line" style="--d:1.41s">&nbsp;&nbsp;--sources-cite appraisal,psa,om,inspection,phase1-esa,zoning-letter \</span>
+                <span class="dt-line" style="--d:1.53s">&nbsp;&nbsp;--sponsor-review track-record,liquidity,net-worth,prior-sponsorships,guaranty-strength \</span>
+                <span class="dt-line" style="--d:1.66s">&nbsp;&nbsp;--exit-strategy refi,sale,hold-scenarios --hold-period 5yr,7yr,10yr \</span>
+                <span class="dt-line" style="--d:1.78s">&nbsp;&nbsp;--covenants reporting,springing-lockbox,cash-management,financial-maintenance \</span>
+                <span class="dt-line" style="--d:1.90s">&nbsp;&nbsp;--waterfall pref-return,promote-tiers,catch-up,gp-clawback \</span>
+                <span class="dt-line" style="--d:2.02s">&nbsp;&nbsp;--legal title,survey,zoning,entitlements,ground-lease-review \</span>
+                <span class="dt-line" style="--d:2.14s">&nbsp;&nbsp;--timeline loi-to-close:45days,diligence-period:21days,rate-lock:tbd \</span>
+                <span class="dt-line" style="--d:2.27s">&nbsp;&nbsp;--format ic-memo --tone executive --audience investment-committee \</span>
+                <span class="dt-line" style="--d:2.39s">&nbsp;&nbsp;--output pdf,pptx --distribution ic-committee,asset-management,portfolio-risk</span>
+              </div>
+              <div>
+                <span class="dt-check" style="--d:2.85s"><span class="ok">✓</span> sizing model reconciled to guide constraints (DSCR/LTV/yield)</span>
+                <span class="dt-check" style="--d:3.02s"><span class="ok">✓</span> comps validated against submarket fundamentals</span>
+                <span class="dt-check" style="--d:3.20s"><span class="ok">✓</span> NOI, cap rate &amp; exit value underwritten with cited reasoning</span>
+                <span class="dt-check" style="--d:3.38s"><span class="ok">✓</span> debt structure sized across senior/mezz tranches</span>
+                <span class="dt-check" style="--d:3.55s"><span class="ok">✓</span> capex &amp; tax/insurance escrow reserves sized</span>
+                <span class="dt-check" style="--d:3.74s"><span class="ok">✓</span> rate, vacancy &amp; exit-cap scenarios stress-tested</span>
+                <span class="dt-check" style="--d:3.91s"><span class="ok">✓</span> risk flags identified: concentration, rollover, capex-deferred</span>
+                <span class="dt-check" style="--d:4.08s"><span class="ok">✓</span> sponsor track record &amp; liquidity reviewed</span>
+                <span class="dt-check" style="--d:4.27s"><span class="ok">✓</span> title, survey &amp; environmental (Phase I) diligence confirmed</span>
+                <span class="dt-check" style="--d:4.44s"><span class="ok">✓</span> exit strategy scenarios compared across 5/7/10-yr holds</span>
+                <span class="dt-check" style="--d:4.61s"><span class="ok">✓</span> reporting covenants &amp; cash-management terms confirmed</span>
+                <span class="dt-check" style="--d:4.80s"><span class="ok">✓</span> equity waterfall modeled: pref, promote, catch-up, clawback</span>
+                <span class="dt-check" style="--d:4.97s"><span class="ok">✓</span> IC memo drafted for investment-committee distribution</span>
+                <span class="dt-check" style="--d:5.23s;margin-top:10px">&nbsp;</span>
+                <span class="dt-check dt-check-final" style="--d:5.23s"><span class="ok">✓</span> shipped in one shot &mdash; <span class="dt-brand">
+                  <span class="dt-brand-base">OneShotLabs</span>
+                  <span class="dt-brand-wipe"><span class="dt-brand-glisten">OneShotLabs</span></span>
+                </span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint" style="border-top: none;">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <h2>The method</h2>
+        <span class="muted">Three steps, run in order, every time</span>
+      </div>
+      <div class="method-grid">
+        <div class="method-step reveal">
+          <p class="step-num">01</p>
+          <h3>Assess</h3>
+          <p>A short, focused audit of where AI actually moves the needle for your business, and where it doesn't. No 40-page deck.</p>
+        </div>
+        <div class="method-step reveal">
+          <p class="step-num">02</p>
+          <h3>Build</h3>
+          <p>A scoped implementation against a fixed outcome: the workflow, integration, or tool gets built and tested, not endlessly iterated.</p>
+        </div>
+        <div class="method-step reveal">
+          <p class="step-num">03</p>
+          <h3>Ship</h3>
+          <p>It goes live, your team is handed off with what they need to run it, and the engagement ends on purpose.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <h2>Services</h2>
+        <span class="muted">Three engagement types, scoped separately</span>
+      </div>
+      <div class="post-list">
+        <div class="post-row reveal">
+          <span class="post-date">01</span>
+          <div>
+            <h3>AI strategy audit</h3>
+            <p>A focused review of where AI fits your operations. Specific and prioritized, not generic.</p>
+          </div>
+        </div>
+        <div class="post-row reveal">
+          <span class="post-date">02</span>
+          <div>
+            <h3>Workflow automation</h3>
+            <p>Identifying and building the automations that remove real manual work. Not novelty demos.</p>
+          </div>
+        </div>
+        <div class="post-row reveal">
+          <span class="post-date">03</span>
+          <div>
+            <h3>Model &amp; tooling integration</h3>
+            <p>Wiring the right AI tools into your existing stack, scoped to a fixed delivery date.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <h2>Results</h2>
+        <span class="muted">Numbers go here once the first engagements ship</span>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card reveal">
+          <p class="stat-num">00</p>
+          <p class="stat-label">Engagements shipped</p>
+        </div>
+        <div class="stat-card reveal">
+          <p class="stat-num">00%</p>
+          <p class="stat-label">Manual review time cut</p>
+        </div>
+        <div class="stat-card reveal">
+          <p class="stat-num">00 wks</p>
+          <p class="stat-label">Average time to ship</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-wide reveal" style="text-align: center;">
+      <h2 style="margin: 0 0 1.25rem;">Have a scoped problem in mind?</h2>
+      <a href="contact.html" class="btn btn-accent">Book a call</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container-wide">
+      <span>© <span data-year></span> One Shot</span>
+      <div class="footer-links">
+        <a href="career.html">Career</a>
+        <a href="ai-consulting.html">AI</a>
+        <a href="photography.html">Photography</a>
+        <a href="blog.html">Blog</a>
+        <a href="bio.html">Bio</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+  <script src="js/deploy-terminal.js" defer></script>
+</body>
+</html>
