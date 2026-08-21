@@ -3222,7 +3222,7 @@ html.no-splash .splash { display: none; }
 }
 
 .curve-brand-mark { display: flex; justify-content: flex-end; height: 0; overflow: visible; pointer-events: none; }
-.curve-brand-mark span { position: relative; z-index: 1; display: block; width: 34px; height: 34px; margin: -.05rem .1rem 0 0; overflow: hidden; }
+.curve-brand-mark span { position: relative; z-index: 1; display: block; width: 34px; height: 34px; margin: -1.18rem .1rem 0 0; overflow: hidden; }
 .curve-brand-mark img { position: absolute; left: 50%; top: 50%; width: 100px; max-width: none; height: auto; transform: translate(-50%, -50%); opacity: .28; }
 
 .curve-panel { outline: none; animation: curve-panel-in 420ms var(--oneshot-ease) both; }
@@ -3345,7 +3345,7 @@ html.no-splash .splash { display: none; }
   .curve-nav .btn { padding-left: .8rem; padding-right: .8rem; }
   .curve-dim-row { grid-template-columns: 6.6rem 1fr 2rem; gap: .5rem; }
   .curve-dim-label { font-size: .68rem; }
-  .curve-brand-mark span { width: 30px; height: 30px; }
+  .curve-brand-mark span { width: 30px; height: 30px; margin-top: -1rem; }
   .curve-brand-mark img { width: 88px; opacity: .24; }
   .curve-participation-head { display: block; }
   .curve-participation-update { display: block; padding: 0 0 .6rem; }
