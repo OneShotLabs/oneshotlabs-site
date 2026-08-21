@@ -1,0 +1,450 @@
+{
+  "assessment_version": "2026.08-10q-v1",
+  "title": "OneShotLabs AI Curve",
+  "active_question_ids": ["q01", "q02", "q03", "q05", "q06", "q08", "q09", "q10", "q12", "q15"],
+  "questions": [
+    {
+      "id": "q01",
+      "prompt": "How does AI show up in a typical workweek?",
+      "options": [
+        {
+          "id": "a",
+          "text": "I rarely or never use AI for work."
+        },
+        {
+          "id": "b",
+          "text": "Occasionally, for drafting, questions, or quick research."
+        },
+        {
+          "id": "c",
+          "text": "Several times a week across multiple tasks."
+        },
+        {
+          "id": "d",
+          "text": "Daily across several types of work."
+        },
+        {
+          "id": "e",
+          "text": "It is embedded across research, analysis, communication, or execution."
+        }
+      ]
+    },
+    {
+      "id": "q02",
+      "prompt": "You must review a report, spreadsheet, and supporting documents by tomorrow. What is your approach?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Review manually, using AI for occasional questions."
+        },
+        {
+          "id": "b",
+          "text": "Ask AI to summarize individual documents as I go."
+        },
+        {
+          "id": "c",
+          "text": "Provide the materials together with instructions on what to compare and flag."
+        },
+        {
+          "id": "d",
+          "text": "Use a repeatable workflow with context, sources, instructions, and validation."
+        },
+        {
+          "id": "e",
+          "text": "I generally would not use AI for this type of work."
+        }
+      ]
+    },
+    {
+      "id": "q03",
+      "prompt": "How does AI get the information needed for your work?",
+      "options": [
+        {
+          "id": "a",
+          "text": "I type or paste information into a chat."
+        },
+        {
+          "id": "b",
+          "text": "I upload files or groups of files when needed."
+        },
+        {
+          "id": "c",
+          "text": "I use persistent workspaces with instructions and source material."
+        },
+        {
+          "id": "d",
+          "text": "AI can access approved data or tools through integrations."
+        },
+        {
+          "id": "e",
+          "text": "I rarely use AI with professional information."
+        }
+      ]
+    },
+    {
+      "id": "q04",
+      "prompt": "AI identifies a fact or analytical conclusion that could materially affect a financial or business decision. What is your default next step?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Use it if the explanation sounds reasonable and the model is reputable."
+        },
+        {
+          "id": "b",
+          "text": "Ask the AI to confirm its answer a second time."
+        },
+        {
+          "id": "c",
+          "text": "Spot-check the most important part against the underlying material."
+        },
+        {
+          "id": "d",
+          "text": "Verify the material conclusion against authoritative source information before relying on it."
+        },
+        {
+          "id": "e",
+          "text": "Use a source-grounded review process that preserves traceability and human judgment for material conclusions."
+        }
+      ]
+    },
+    {
+      "id": "q05",
+      "prompt": "What distinguishes an AI agent from a conventional chatbot?",
+      "options": [
+        {
+          "id": "a",
+          "text": "An agent is simply a chatbot with a larger context window."
+        },
+        {
+          "id": "b",
+          "text": "It can pursue a goal across steps and use permitted tools or actions."
+        },
+        {
+          "id": "c",
+          "text": "An agent always works without human review."
+        },
+        {
+          "id": "d",
+          "text": "An agent is any AI that remembers a previous conversation."
+        },
+        {
+          "id": "e",
+          "text": "An agent is mainly a chatbot customized with company branding and instructions."
+        }
+      ]
+    },
+    {
+      "id": "q06",
+      "prompt": "What most expands AI from a consulted tool into a working system?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Generating longer responses in a single chat."
+        },
+        {
+          "id": "b",
+          "text": "Connecting it to approved knowledge and tools for context and permitted actions."
+        },
+        {
+          "id": "c",
+          "text": "Using a more conversational writing style."
+        },
+        {
+          "id": "d",
+          "text": "Giving the AI a permanent personality."
+        },
+        {
+          "id": "e",
+          "text": "Increasing the number of prompts you send each day."
+        }
+      ]
+    },
+    {
+      "id": "q07",
+      "prompt": "When an AI output is not good enough, what most closely describes how you improve it?",
+      "options": [
+        {
+          "id": "a",
+          "text": "I ask it to try again or make the answer better."
+        },
+        {
+          "id": "b",
+          "text": "I rewrite the request with more detail."
+        },
+        {
+          "id": "c",
+          "text": "I diagnose what is missing\u2014context, source material, constraints, examples, tools, or intermediate steps\u2014and adjust the approach."
+        },
+        {
+          "id": "d",
+          "text": "I usually switch to another model and repeat the same request."
+        },
+        {
+          "id": "e",
+          "text": "I generally stop using AI for that task."
+        }
+      ]
+    },
+    {
+      "id": "q08",
+      "prompt": "What does a standard such as Model Context Protocol primarily address?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It gives every AI model the same personality and writing style."
+        },
+        {
+          "id": "b",
+          "text": "How AI applications connect to external tools, data, and context."
+        },
+        {
+          "id": "c",
+          "text": "It is mainly a benchmark for comparing model intelligence."
+        },
+        {
+          "id": "d",
+          "text": "It is a method for compressing prompts to reduce token usage."
+        },
+        {
+          "id": "e",
+          "text": "It permanently stores all user conversations in a shared database."
+        }
+      ]
+    },
+    {
+      "id": "q09",
+      "prompt": "A weekly task gathers information, analyzes it, formats results, and flags exceptions. How is AI involved?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It is not meaningfully involved."
+        },
+        {
+          "id": "b",
+          "text": "I manually prompt AI for one or two steps."
+        },
+        {
+          "id": "c",
+          "text": "I use a saved prompt, template, or project."
+        },
+        {
+          "id": "d",
+          "text": "A defined workflow handles most steps with review points."
+        },
+        {
+          "id": "e",
+          "text": "A triggered workflow uses approved tools, completes steps, and surfaces exceptions."
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "prompt": "AI can read connected documents and use tools. Which risk becomes especially important?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The AI may use too much punctuation in its responses."
+        },
+        {
+          "id": "b",
+          "text": "Hidden instructions can manipulate the system, making permissions and validation critical."
+        },
+        {
+          "id": "c",
+          "text": "The AI will automatically make every connected document public."
+        },
+        {
+          "id": "d",
+          "text": "Connected tools eliminate the need for source verification because the data is direct."
+        },
+        {
+          "id": "e",
+          "text": "The main risk is that answers will always become shorter."
+        }
+      ]
+    },
+    {
+      "id": "q11",
+      "prompt": "Which best describes the breadth of your current professional AI use?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Mostly writing, rewriting, or answering questions."
+        },
+        {
+          "id": "b",
+          "text": "Writing plus research, analysis, or document review."
+        },
+        {
+          "id": "c",
+          "text": "Several recurring activities across research, analysis, documents, communication, or decision support."
+        },
+        {
+          "id": "d",
+          "text": "AI participates in a meaningful portion of my professional workflow across several categories of work."
+        },
+        {
+          "id": "e",
+          "text": "I do not meaningfully use AI professionally yet."
+        }
+      ]
+    },
+    {
+      "id": "q12",
+      "prompt": "Which practice best moves beyond one-off prompting?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Keeping prompts as short as possible so the model has fewer instructions to follow."
+        },
+        {
+          "id": "b",
+          "text": "Using persistent context, relevant sources, explicit constraints, and structured workflows."
+        },
+        {
+          "id": "c",
+          "text": "Always asking for the longest possible answer."
+        },
+        {
+          "id": "d",
+          "text": "Using only one AI model so outputs stay stylistically consistent."
+        },
+        {
+          "id": "e",
+          "text": "Avoiding files and structured data because language models perform best with plain text only."
+        }
+      ]
+    },
+    {
+      "id": "q13",
+      "prompt": "After AI produces something useful, what usually happens next?",
+      "options": [
+        {
+          "id": "a",
+          "text": "I manually recreate or re-enter the result in the system where it is needed."
+        },
+        {
+          "id": "b",
+          "text": "I copy/paste or download/upload the result into another application."
+        },
+        {
+          "id": "c",
+          "text": "I use a standardized export, template, or structured handoff."
+        },
+        {
+          "id": "d",
+          "text": "Parts of the handoff are integrated so approved information can move between AI and another system with limited manual work."
+        },
+        {
+          "id": "e",
+          "text": "Where appropriate, the workflow can pass structured results to approved tools/systems and preserve review or approval steps."
+        }
+      ]
+    },
+    {
+      "id": "q14",
+      "prompt": "What is the most advanced kind of AI execution you use with any regularity?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Single prompts or short conversations."
+        },
+        {
+          "id": "b",
+          "text": "Multi-step work where I manually guide each stage."
+        },
+        {
+          "id": "c",
+          "text": "Reusable workflows that carry out several defined steps after my initial instruction."
+        },
+        {
+          "id": "d",
+          "text": "Tool-connected or scheduled workflows that can perform defined actions and return results or exceptions for review."
+        },
+        {
+          "id": "e",
+          "text": "I do not meaningfully use AI for execution today."
+        }
+      ]
+    },
+    {
+      "id": "q15",
+      "prompt": "You want AI to help with confidential or client information. What is your approach?",
+      "options": [
+        {
+          "id": "a",
+          "text": "If the AI tool is popular, I assume it is appropriate for confidential information."
+        },
+        {
+          "id": "b",
+          "text": "I remove obvious names and then use whichever AI tool is most convenient."
+        },
+        {
+          "id": "c",
+          "text": "I assess sensitivity and use approved tools and settings."
+        },
+        {
+          "id": "d",
+          "text": "I follow applicable policies, data rules, and approved environments."
+        },
+        {
+          "id": "e",
+          "text": "I combine approved environments, least-necessary access, permissions, and human review."
+        }
+      ]
+    }
+  ],
+  "optional_unscored": {
+    "id": "q_optional_01",
+    "prompt": "What's the most useful thing you're currently doing with AI at work?",
+    "warning": "Optional. Do not include confidential, client, transaction, or proprietary information."
+  },
+  "optional_segmentation": {
+    "industry": [
+      "Commercial Real Estate",
+      "Banking / Lending",
+      "Private Equity",
+      "Investment Management",
+      "Insurance",
+      "Accounting",
+      "Consulting",
+      "Corporate Finance",
+      "Wealth Management",
+      "Venture Capital",
+      "Legal / Professional Services",
+      "Technology / FinTech",
+      "Other"
+    ],
+    "function": [
+      "Investments / Investing",
+      "Lending / Credit",
+      "Finance / FP&A",
+      "Asset / Portfolio Management",
+      "Research / Strategy",
+      "Operations",
+      "Sales / Origination / Business Development",
+      "Advisory / Consulting",
+      "Accounting / Audit / Tax",
+      "Legal / Risk / Compliance",
+      "Technology / Data",
+      "Executive / General Management",
+      "Other"
+    ],
+    "seniority": [
+      "Analyst / Entry Level",
+      "Associate / Individual Contributor",
+      "Manager / Vice President",
+      "Director / Senior Vice President",
+      "Managing Director / Partner / C-Suite",
+      "Founder / Owner",
+      "Other"
+    ],
+    "experience": [
+      "0\u20133 years",
+      "4\u20137 years",
+      "8\u201315 years",
+      "16\u201325 years",
+      "25+ years"
+    ]
+  }
+}

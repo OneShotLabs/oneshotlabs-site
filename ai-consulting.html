@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Consulting — One Shot</title>
-  <meta name="description" content="AI Consulting from One Shot — scoped engagements for commercial real estate finance teams, built once and shipped." />
+  <title>AI — OneShotLabs</title>
+  <meta name="description" content="AI work from OneShotLabs — focused systems, workflows, and tools for commercial real estate finance teams." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,450;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=Poppins:ital,wght@0,400;1,400&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -15,10 +15,10 @@
   <div class="grain-overlay" aria-hidden="true"></div>
 
   <!--
-    NOTE ON NAMING: "One Shot" is already used by an active, funded AI company (OneShot.ai,
-    autonomous sales prospecting). Worth deciding deliberately whether this page brands the
-    consulting practice as "One Shot" outright, or as a sub-name (e.g. "One Shot Advisory")
-    under the One Shot parent brand, before this page goes live/gets indexed.
+    NAMING: resolved. "One Shot" alone collides with an existing funded company
+    (OneShot.ai, autonomous sales prospecting) — the site now brands consistently
+    as "OneShotLabs" everywhere (titles, meta, footer, nav) instead of the bare
+    "One Shot" that was previously mixed in across several pages.
   -->
 
   <header class="site-header">
@@ -43,13 +43,14 @@
 
   <section class="hero">
     <div class="container-wide">
-      <p class="hero-eyebrow">AI Consulting</p>
       <h1>One clear engagement. No trial and error.</h1>
       <p>Underwriting workflows, deal analysis, and reporting systems, scoped to a fixed outcome and shipped. Not an open-ended retainer.</p>
       <div class="hero-actions">
         <a href="contact.html" class="btn btn-accent">Book a call</a>
       </div>
 
+      <!-- FUTURE VIDEO SLOT: replace this terminal demo with the approved
+           video embed while retaining the surrounding hero copy and CTA. -->
       <div class="dt-hero-wrap reveal">
         <span class="dt-hero-tag">// zero-prompt deploy</span>
         <div class="deploy-terminal" id="deploy-terminal">
@@ -185,6 +186,21 @@
     </div>
   </section>
 
+  <section class="section ai-curve-section" id="ai-curve">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <div>
+          <p class="hero-eyebrow">OneShotLabs / AI Curve</p>
+          <h2>Find your position on the curve.</h2>
+        </div>
+        <span class="muted">A private, five-minute professional AI assessment</span>
+      </div>
+      <div class="ai-curve-frame viewfinder reveal">
+        <div id="ai-curve-app" data-embedded="true" data-share-url="https://oneshotlabs.com/ai-consulting.html#ai-curve" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="container-wide reveal" style="text-align: center;">
       <h2 style="margin: 0 0 1.25rem;">Have a scoped problem in mind?</h2>
@@ -194,7 +210,7 @@
 
   <footer class="site-footer">
     <div class="container-wide">
-      <span>© <span data-year></span> One Shot</span>
+      <span>© <span data-year></span> OneShotLabs</span>
       <div class="footer-links">
         <a href="career.html">Career</a>
         <a href="ai-consulting.html">AI</a>
@@ -208,5 +224,7 @@
 
   <script src="js/main.js" defer></script>
   <script src="js/deploy-terminal.js" defer></script>
+  <script src="js/ai-curve.js" defer></script>
+  <script src="js/participation-globe.js" defer></script>
 </body>
 </html>

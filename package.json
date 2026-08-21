@@ -1,0 +1,13 @@
+{
+  "name": "oneshotlabs-ai-curve",
+  "private": true,
+  "version": "1.1.0",
+  "scripts": {
+    "dev": "node tests/dev-server.js",
+    "test": "node tests/score-curve.test.js && node tests/friction-feedback.test.js && node tests/package-integrity.test.js"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^10.0.0",
+    "@netlify/functions": "^4.2.5"
+  }
+}
