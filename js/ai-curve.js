@@ -124,13 +124,20 @@
   }
 
   function insertLiveParticipation(participation) {
-    if (!participation || document.querySelector('.curve-participation')) return;
+    if (!participation) return;
     state.result.participation = participation;
     const panel = root.querySelector('.curve-result');
     const disclosure = panel?.querySelector('.curve-disclosure');
     if (!panel || !disclosure) return;
-    panel.insertBefore(buildParticipationGlobe(participation), disclosure);
+    const globe = buildParticipationGlobe(participation);
+    const existing = panel.querySelector('.curve-participation');
+    if (existing) existing.replaceWith(globe);
+    else disclosure.after(globe);
     try { sessionStorage.setItem(RESULT_KEY, JSON.stringify(state.result)); } catch { /* non-fatal */ }
+  }
+
+  function emptyParticipation() {
+    return { status: 'pending', representative: false, total: 0, countries: 0, privacy_threshold: 3, locations: [] };
   }
 
   function applyLocalReturnRecognition(result) {
@@ -417,19 +424,6 @@
     panel.appendChild(nav);
     root.appendChild(panel);
 
-    if (!state.result.participation && storageNamespace !== 'preview') {
-      loadLiveParticipation().then(insertLiveParticipation).catch(() => {
-        insertLiveParticipation({
-          status: 'pending',
-          representative: false,
-          total: 0,
-          countries: 0,
-          privacy_threshold: 3,
-          locations: [],
-        });
-      });
-    }
-
     document.getElementById('curve-qual-back').addEventListener('click', () => {
       state.step = 'segmentation';
       render();
@@ -604,10 +598,6 @@
     const clinic = buildFrictionClinic(scoring, interpretation, assessment_version);
     panel.appendChild(clinic);
 
-    if (state.result.participation) {
-      panel.appendChild(buildParticipationGlobe(state.result.participation));
-    }
-
     panel.appendChild(
       el('details', { class: 'curve-disclosure curve-reveal-stage', style: '--curve-stage-delay:2260ms' }, [
         el('summary', {}, ['Methodology & privacy']),
@@ -622,8 +612,15 @@
         ]),
       ])
     );
+    panel.appendChild(buildParticipationGlobe(state.result.participation || emptyParticipation()));
 
     root.appendChild(panel);
+
+    if (storageNamespace !== 'preview') {
+      loadLiveParticipation().then(insertLiveParticipation).catch(() => {
+        /* The empty launch globe remains visible if live data is unavailable. */
+      });
+    }
 
     if (!reducedMotion) {
       setTimeout(() => animateScore(panel.querySelector('.curve-score-num'), Math.round(scoring.overall)), 820);
@@ -673,6 +670,7 @@
   }
 
   function buildParticipationGlobe(participation) {
+    const pending = participation.status === 'pending';
     const stage = el('div', {
       class: 'curve-participation-stage',
       'data-participation-globe': 'true',
@@ -684,12 +682,12 @@
     return el('section', { class: 'curve-participation curve-reveal-stage', style: '--curve-stage-delay:2260ms' }, [
       el('div', { class: 'curve-participation-head' }, [
         el('div', {}, [
-          el('p', { class: 'hero-eyebrow' }, [participation.representative ? 'Representative display' : 'Global participation']),
+          el('p', { class: 'hero-eyebrow' }, [pending ? 'Participation preview' : participation.representative ? 'Representative display' : 'Global participation']),
           el('h3', {}, ['Where the Curve is being taken']),
         ]),
-        el('span', { class: 'curve-participation-update' }, ['Updated weekly']),
+        el('span', { class: 'curve-participation-update' }, [pending ? 'Activates at launch' : 'Updated weekly']),
       ]),
-      el('p', { class: 'muted curve-participation-lede' }, ['Each response appears as a tiny brass map pin. Concentrated participation forms a soft navy ink field.']),
+      el('p', { class: 'muted curve-participation-lede' }, [pending ? 'The live map will begin recording privacy-protected participation when the assessment launches.' : 'Each response appears as a tiny brass map pin. Concentrated participation forms a soft navy ink field.']),
       stage,
       el('div', { class: 'curve-participation-foot' }, [
         el('span', {}, [`${Number(participation.total || 0).toLocaleString()} assessments`]),
