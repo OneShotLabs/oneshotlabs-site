@@ -132,7 +132,7 @@
     const globe = buildParticipationGlobe(participation);
     const existing = panel.querySelector('.curve-participation');
     if (existing) existing.replaceWith(globe);
-    else disclosure.after(globe);
+    else disclosure.before(globe);
     try { sessionStorage.setItem(RESULT_KEY, JSON.stringify(state.result)); } catch { /* non-fatal */ }
   }
 
@@ -598,6 +598,7 @@
     const clinic = buildFrictionClinic(scoring, interpretation, assessment_version);
     panel.appendChild(clinic);
 
+    panel.appendChild(buildParticipationGlobe(state.result.participation || emptyParticipation()));
     panel.appendChild(
       el('details', { class: 'curve-disclosure curve-reveal-stage', style: '--curve-stage-delay:2260ms' }, [
         el('summary', {}, ['Methodology & privacy']),
@@ -612,7 +613,6 @@
         ]),
       ])
     );
-    panel.appendChild(buildParticipationGlobe(state.result.participation || emptyParticipation()));
 
     root.appendChild(panel);
 
