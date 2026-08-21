@@ -112,7 +112,15 @@
     if (method === 'POST') {
       try { sessionStorage.setItem(recordedKey, '1'); } catch { /* non-fatal */ }
     }
-    return participation.status === 'live' ? participation : null;
+    if (participation.status === 'live') return participation;
+    return {
+      status: 'pending',
+      representative: false,
+      total: 0,
+      countries: 0,
+      privacy_threshold: 3,
+      locations: [],
+    };
   }
 
   function insertLiveParticipation(participation) {
@@ -294,11 +302,6 @@
     ]);
     root.appendChild(panel);
 
-    if (!state.result.participation && storageNamespace !== 'preview') {
-      loadLiveParticipation().then(insertLiveParticipation).catch(() => {
-        /* Participation must never delay or break personal results. */
-      });
-    }
   }
 
   function goNext() {
@@ -413,6 +416,19 @@
     ]);
     panel.appendChild(nav);
     root.appendChild(panel);
+
+    if (!state.result.participation && storageNamespace !== 'preview') {
+      loadLiveParticipation().then(insertLiveParticipation).catch(() => {
+        insertLiveParticipation({
+          status: 'pending',
+          representative: false,
+          total: 0,
+          countries: 0,
+          privacy_threshold: 3,
+          locations: [],
+        });
+      });
+    }
 
     document.getElementById('curve-qual-back').addEventListener('click', () => {
       state.step = 'segmentation';
@@ -882,27 +898,3 @@
 
   // ---------- Boot ----------
   restoreSession();
-  if (state.step === 'result' && state.result) {
-    // Result previews and restored results do not need the public question
-    // bank. This also allows the development results gallery to be opened
-    // directly from disk without Chrome blocking a local JSON fetch.
-    render();
-  } else {
-    loadQuestions()
-      .then(() => {
-        if (state.step === 'result' && !state.result) {
-          // Session said "result" but we lost the computed payload (e.g. tab
-          // closed mid-render) — safest is to restart rather than guess.
-          state.step = 'intro';
-        }
-        render();
-      })
-      .catch(() => {
-        root.appendChild(
-          el('div', { class: 'curve-panel' }, [
-            el('p', {}, ['The assessment couldn\u2019t load. Open this page through the local Netlify preview, then try again.']),
-          ])
-        );
-      });
-  }
-})();
