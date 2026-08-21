@@ -683,7 +683,7 @@
       el('div', { class: 'curve-participation-head' }, [
         el('div', {}, [
           el('p', { class: 'hero-eyebrow' }, [pending ? 'Participation preview' : participation.representative ? 'Representative display' : 'Global participation']),
-          el('h3', {}, ['Where the Curve is being taken']),
+          el('h3', {}, ['Participation Across the Curve']),
         ]),
         el('span', { class: 'curve-participation-update' }, [pending ? 'Activates at launch' : 'Updated weekly']),
       ]),
