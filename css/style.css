@@ -3185,3 +3185,31 @@ html.no-splash .splash { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .dl-rotor { transition: none !important; }
 }
+/* Sharp, directional link hover using Gold Body */
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  font-family: 'Source Sans 3', sans-serif;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2.3px; 
+  bottom: -2px;
+  left: 0;
+  background-color: #C6A153; 
+  transition: width 0.34s ease-out; 
+}
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Institutional, non-bouncy button hover */
+.button {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+.button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(19, 33, 63, 0.15); 
+}
