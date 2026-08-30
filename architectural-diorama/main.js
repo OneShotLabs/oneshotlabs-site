@@ -12,6 +12,27 @@ document.querySelector('#app').innerHTML = `
       <source src="OneShotLabs-Diorama-Master-16s.mp4" type="video/mp4">
     </video>
     <div class="ambient" aria-hidden="true"></div>
+    <div class="decision-signals" aria-hidden="true">
+      <span>STRATEGY ALIGNED</span><span>EVIDENCE RECONCILED</span><span>RISK ELEVATED</span><b>JUDGMENT READY</b>
+    </div>
+    <div class="brand-seal" aria-hidden="true">
+      <svg viewBox="0 0 800 800" role="presentation">
+        <g class="seal-star" fill="#1D2F4E">
+          <polygon style="--i:0" points="407,404 383,325 418,270 424,329"/>
+          <polygon style="--i:1" points="413,407 452,333 516,319 484,361"/>
+          <polygon style="--i:2" points="414,411 496,388 550,423 496,429"/>
+          <polygon style="--i:3" points="412,417 488,457 501,520 460,488"/>
+          <polygon style="--i:4" points="407,420 432,499 398,555 392,502"/>
+          <polygon style="--i:5" points="402,417 364,493 300,506 334,463"/>
+          <polygon style="--i:6" points="399,412 321,438 266,402 321,397"/>
+          <polygon style="--i:7" points="401,407 328,368 315,305 357,337"/>
+        </g>
+        <g class="seal-corners" fill="none" stroke="#C5A059" stroke-width="10" stroke-linecap="round">
+          <path d="M302 282 A24 24 0 0 0 278 306"/><path d="M515 282 A24 24 0 0 1 539 306"/>
+          <path d="M278 520 A24 24 0 0 0 302 544"/><path d="M539 520 A24 24 0 0 1 515 544"/>
+        </g>
+      </svg>
+    </div>
     <div class="editorial">
       <p class="eyebrow">ONESHOTLABS</p>
       <h1>Real estate intelligence,<br><em>made visible.</em></h1>
@@ -75,6 +96,11 @@ function phaseAt(t) {
 function paint(t) {
   hero.dataset.phase = phaseAt(t);
   hero.style.setProperty('--progress', `${(t / duration) * 100}%`);
+  const sealIn = Math.max(0, Math.min(1, (t - 13.35) / 0.9));
+  const sealOut = Math.max(0, Math.min(1, (t - 15.15) / 0.75));
+  hero.style.setProperty('--seal', String(sealIn * (1 - sealOut)));
+  hero.style.setProperty('--seal-in', String(sealIn));
+  hero.style.setProperty('--seal-out', String(sealOut));
 }
 
 function frame(now) {
