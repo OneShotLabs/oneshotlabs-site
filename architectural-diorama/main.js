@@ -7,10 +7,13 @@ const LAYERS = Object.freeze([
 ]);
 
 document.querySelector('#app').innerHTML = `
-  <section class="hero" data-phase="inputs" aria-label="OneShotLabs AI turns fragmented real estate evidence into investment judgment">
+  <section class="hero" data-phase="inputs" aria-label="OneShotLabs turns fragmented real estate evidence into investment judgment">
+    <video class="diorama-film" muted playsinline loop preload="auto" aria-hidden="true">
+      <source src="OneShotLabs-Diorama-Master-16s.mp4" type="video/mp4">
+    </video>
     <div class="ambient" aria-hidden="true"></div>
     <div class="editorial">
-      <p class="eyebrow">ONESHOTLABS AI</p>
+      <p class="eyebrow">ONESHOTLABS</p>
       <h1>Real estate intelligence,<br><em>made visible.</em></h1>
       <p class="intro">Transform fragmented property, market, capital and operating data into a coherent investment strategy.</p>
       <a class="action" href="../contact.html" target="_parent">EXPLORE THE APPROACH</a>
@@ -55,6 +58,7 @@ document.querySelector('#app').innerHTML = `
   </section>`;
 
 const hero = document.querySelector('.hero');
+const film = document.querySelector('.diorama-film');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)');
 const duration = 16;
 let start = performance.now();
@@ -74,7 +78,7 @@ function paint(t) {
 }
 
 function frame(now) {
-  const t = paused ? pausedAt : ((now - start) / 1000) % duration;
+  const t = paused ? pausedAt : film.readyState >= 2 && !film.paused ? film.currentTime % duration : ((now - start) / 1000) % duration;
   paint(t);
   requestAnimationFrame(frame);
 }
@@ -82,9 +86,14 @@ requestAnimationFrame(frame);
 
 function setPaused(value) {
   if (value === paused) return;
-  if (value) pausedAt = ((performance.now() - start) / 1000) % duration;
+  if (value) pausedAt = film.readyState >= 2 ? film.currentTime % duration : ((performance.now() - start) / 1000) % duration;
   else start = performance.now() - pausedAt * 1000;
   paused = value;
+  if (value) film.pause();
+  else {
+    film.currentTime = pausedAt;
+    film.play().catch(() => {});
+  }
   const button = document.querySelector('.pause');
   button.textContent = paused ? 'PLAY' : 'PAUSE';
   button.setAttribute('aria-pressed', String(paused));
@@ -94,5 +103,16 @@ document.querySelector('.pause').addEventListener('click', () => setPaused(!paus
 document.querySelectorAll('[data-jump]').forEach((button) => button.addEventListener('click', () => {
   setPaused(true);
   pausedAt = Number(button.dataset.jump);
+  film.currentTime = pausedAt;
   paint(pausedAt);
 }));
+
+film.addEventListener('canplay', () => hero.classList.add('film-ready'), { once: true });
+if (reduce.matches) {
+  film.addEventListener('loadedmetadata', () => {
+    film.currentTime = 15.2;
+    film.pause();
+  }, { once: true });
+} else {
+  film.play().catch(() => {});
+}

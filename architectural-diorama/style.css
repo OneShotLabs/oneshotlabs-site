@@ -2,3 +2,8 @@
 @media(max-width:980px){.hero{grid-template-columns:41% 59%}.editorial{padding-left:40px}.editorial h1{font-size:48px}.principle{display:none}.camera{inset:9% -8% 17% -4%}.summary footer span{display:none}}
 @media(max-width:650px){.hero{display:block;min-height:860px}.editorial{height:42%;justify-content:flex-start;padding:48px 24px 0}.eyebrow{margin-bottom:22px}.editorial h1{font-size:42px}.intro{font-size:14px;margin:22px 0}.action{padding:13px 16px}.visual{position:absolute;left:0;right:0;top:38%;bottom:45px}.camera{inset:0 -5% 17% -5%;transform:scale(.9)}.phase-copy{bottom:2%}.timeline{left:24px;right:24px;gap:14px}.timeline button{font-size:0}.timeline button::before{content:attr(data-jump);font-size:8px}.pause{right:24px}.summary{padding:9%}.summary-verdict{top:28%}.summary footer{display:none}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}.layer,.rays{opacity:0!important}.summary{opacity:1!important;transform:translateZ(110px)!important}.phase-copy [data-copy="judgment"]{opacity:1;transform:none}.timeline,.pause{display:none}}
+
+/* Higgsfield master film with deterministic live typography. */
+.diorama-film{position:absolute;z-index:1;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity .6s ease}.film-ready .diorama-film{opacity:1}.ambient{z-index:2;background:linear-gradient(90deg,rgba(249,248,246,.99) 0%,rgba(249,248,246,.94) 31%,rgba(249,248,246,.36) 47%,transparent 61%)}.visual{z-index:3}.film-ready .camera{opacity:0;transition:opacity .45s ease}
+@media(max-width:650px){.diorama-film{display:none}.film-ready .camera{opacity:1}}
+@media(prefers-reduced-motion:reduce){.diorama-film{display:none}.film-ready .camera{opacity:1}}
