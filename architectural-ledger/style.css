@@ -13,3 +13,18 @@
 /* Canonical Drive brand reconciliation. */
 @media(max-width:1000px) and (min-width:651px){.decision dl{display:grid}.decision footer{display:flex}}
 :root{font-family:"Source Sans 3","Helvetica Neue",Helvetica,Arial,sans-serif}.headline h1,.mandate-copy,.plane strong,.validation strong,.exception strong,.rate strong,.decision h2,.verdict strong,.mobile-story strong{font-family:Fraunces,Georgia,"Times New Roman",serif}.plane strong,.decision dd{font-variant-numeric:tabular-nums}.decision dd,.validation small,.exception small,.timeline button,.motion-toggle{font-family:"Source Code Pro",ui-monospace,monospace}.brand{height:34px}.brand-lockup{display:block;width:141px;height:auto;object-fit:contain}.brand-mark{display:none}
+
+/* Contrast pass: navy / cream / pale brass / verified green only. */
+.hero{--amber:#94763f;background:linear-gradient(112deg,#e7e9e8 0,#f9f8f6 24%,#f3f1eb 61%,#dfe3e3 100%)}
+.headline h1{color:#182b49;text-shadow:0 1px 0 #fff,0 14px 32px rgba(29,47,78,.08)}
+.headline em{color:#a47e35}
+.studio-light.key{opacity:.7;background:linear-gradient(90deg,transparent,rgba(197,160,89,.38),rgba(255,255,255,.92))}
+.studio-light.rim{opacity:.7;background:linear-gradient(90deg,transparent,rgba(29,47,78,.24),transparent)}
+.plane{border-color:rgba(255,255,255,.95);box-shadow:inset 0 0 0 1px rgba(29,47,78,.2),inset 18px 14px 28px rgba(255,255,255,.58),inset -8px -12px 24px rgba(29,47,78,.1),0 8px 0 rgba(125,139,145,.22),0 24px 42px rgba(29,47,78,.18)}
+.glass-edge{box-shadow:0 5px 13px rgba(29,47,78,.24)}
+.exception,.rate{color:#85692f}
+.exception{box-shadow:inset 0 0 0 1px rgba(197,160,89,.46),10px 25px 42px rgba(29,47,78,.17)}
+.rate{box-shadow:inset 0 0 0 1px rgba(197,160,89,.38),0 20px 34px rgba(29,47,78,.16)}
+.decision{background:linear-gradient(128deg,rgba(255,255,255,.9),rgba(241,240,235,.94));box-shadow:inset 0 0 0 1px rgba(29,47,78,.23),inset 0 -9px 18px rgba(29,47,78,.06),0 38px 90px rgba(29,47,78,.23),0 8px 0 rgba(103,120,129,.22)}
+.decision h2,.decision dd,.items b{color:#182b49}
+.connections{filter:drop-shadow(0 2px 2px rgba(197,160,89,.58))}

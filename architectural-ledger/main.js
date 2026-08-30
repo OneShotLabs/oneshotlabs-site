@@ -22,7 +22,7 @@ document.querySelector('#app').innerHTML = `
   <section class="hero" aria-label="OneShotLabs transforms investment evidence into judgment">
     <canvas id="depth" aria-hidden="true"></canvas>
     <div class="studio-light key" aria-hidden="true"></div><div class="studio-light rim" aria-hidden="true"></div>
-    <header class="brand"><img class="brand-lockup" src="OneShotLabs_Lockup_Transparent.png" alt="OneShotLabs" /><span class="prototype">AI / PROTOTYPE</span></header>
+    <header class="brand"><span class="prototype">AI / PROTOTYPE</span></header>
     <div class="headline"><p>INVESTMENT INTELLIGENCE</p><h1>From information<br><em>to judgment.</em></h1></div>
     <div class="stage" id="stage">
       <div class="mandate scene" data-scene="mandate">
