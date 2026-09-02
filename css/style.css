@@ -3459,3 +3459,59 @@ html.no-splash .splash { display: none; }
 
 /* Reuse the site’s existing brand mark in the integrated Curve panel. */
 .curve-brand-mark img { width: 100%; opacity: .26; }
+
+/* Approved REEFI / Curve typography. Scoped to the embedded AI-page section. */
+.ai-page .ai-curve-section {
+  --font-body: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  --fg: #1d2f4e;
+  --fg-dim: #52627a;
+  color: var(--fg);
+  font-family: var(--font-body);
+}
+
+.ai-page .ai-curve-section .section-head {
+  display: block;
+}
+
+.ai-page .ai-curve-section .section-head h2 {
+  color: var(--oneshot-navy);
+  font: 400 38px/1.08 var(--font-display);
+  letter-spacing: -.025em;
+}
+
+.ai-page .ai-curve-section .section-head > .muted {
+  display: block;
+  margin-top: 12px;
+  color: var(--fg-dim);
+  font: 400 17px/1.5 var(--font-body);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.ai-page .ai-curve-frame h2,
+.ai-page .ai-curve-frame .curve-question,
+.ai-page .ai-curve-frame .curve-friction-clinic h3,
+.ai-page .ai-curve-frame .curve-participation-head h3 {
+  color: var(--oneshot-navy);
+  font: 400 29px/1.16 var(--font-display);
+  letter-spacing: -.02em;
+}
+
+.ai-page .curve-intro h2 { margin-bottom: 15px; }
+
+.ai-page .curve-intro .curve-lede,
+.ai-page .curve-intro > .muted {
+  color: var(--fg-dim);
+  font: 400 17px/1.55 var(--font-body);
+  letter-spacing: normal;
+}
+
+@media (max-width: 520px) {
+  .ai-page .ai-curve-section .section-head h2 { font-size: 32px; }
+  .ai-page .ai-curve-frame h2,
+  .ai-page .ai-curve-frame .curve-question,
+  .ai-page .ai-curve-frame .curve-friction-clinic h3,
+  .ai-page .ai-curve-frame .curve-participation-head h3 { font-size: 27px; }
+  .ai-page .curve-intro .curve-lede,
+  .ai-page .curve-intro > .muted { font-size: 16px; }
+}
