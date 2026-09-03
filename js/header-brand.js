@@ -1,93 +1,104 @@
-/* The supplied ProRes artwork, losslessly converted to a one-play APNG.
-   Its first settled frame is at 820ms (340ms old draw + 480ms old glow).
-   The final frame remains displayed; no loop, CSS glow, or second logo. */
+/* Supplied artwork in 42 lossless frames. Explicit frame playback avoids
+   APNG autoplay/cache ambiguity. Frame 41 settles at 820ms, then releases
+   the timeline. No artwork, layout, or motion-speed changes. */
 (() => {
   const link = document.querySelector('.site-header a.logo');
   if (!link) return;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const splash = document.getElementById('splash');
   const stillUrl = 'assets/brand/header-commanding-still.png';
-  const motionUrl = 'assets/brand/header-commanding.png';
-  let motionBlob = null;
-  let objectUrl = null;
-  let started = false;
-  let scheduled = false;
-  let loading = false;
+  const startUrl = 'assets/brand/header-commanding-start.png';
+  const WIDTH = 948, HEIGHT = 182, COLUMNS = 7, LAST_FRAME = 41;
+  const FRAME_MS = 20, DURATION = LAST_FRAME * FRAME_MS;
+  let requested = false, started = false, completed = false;
+  let ready = false, failed = false, scheduled = false;
+  let elapsed = 0, previousTime = null;
+
   const art = new Image();
   art.className = 'header-brand-art';
   art.alt = '';
   art.setAttribute('aria-hidden', 'true');
   link.setAttribute('aria-label', 'OneShotLabs home');
   link.classList.add('header-brand');
-  art.addEventListener('load', () => {
-    link.classList.add('is-brand-ready');
-    scheduleStart();
-  });
-  art.addEventListener('error', () => {
-    if (art.getAttribute('src') !== stillUrl) art.src = stillUrl;
-    else link.classList.remove('is-brand-ready');
-  });
-  art.src = stillUrl;
+  art.addEventListener('load', () => link.classList.add('is-brand-ready'));
+  art.src = reduced.matches ? stillUrl : startUrl;
   link.appendChild(art);
+  const canvas = document.createElement('canvas');
+  canvas.width = WIDTH;
+  canvas.height = HEIGHT;
+  canvas.className = 'header-brand-art';
+  canvas.setAttribute('aria-hidden', 'true');
+  canvas.style.display = 'none';
+  link.appendChild(canvas);
+  const context = canvas.getContext('2d');
+  const frames = new Image();
 
-  // Fetch bytes without starting APNG playback behind the splash.
-  // No session flag: a prior visit or failed fetch must not suppress
-  // this page's first visible reveal. Slow downloads remain pending.
-  function loadMotion() {
-    if (reduced.matches || started || loading) return;
-    if (motionBlob) { scheduleStart(); return; }
-    loading = true;
-    fetch(motionUrl).then(response => {
-      if (!response.ok) throw new Error('Brand animation unavailable');
-      return response.blob();
-    }).then(blob => {
-      motionBlob = blob;
-      scheduleStart();
-    }).catch(() => {}).finally(() => { loading = false; });
+  function draw(frame) {
+    context.clearRect(0, 0, WIDTH, HEIGHT);
+    context.drawImage(frames, (frame % COLUMNS) * WIDTH,
+      Math.floor(frame / COLUMNS) * HEIGHT, WIDTH, HEIGHT, 0, 0, WIDTH, HEIGHT);
+    canvas.style.display = 'block';
+    art.style.display = 'none';
+    link.classList.add('is-brand-ready');
   }
-
-  function canStart() {
-    if (started || reduced.matches || !motionBlob ||
-        document.visibilityState !== 'visible' || document.readyState !== 'complete') return false;
+  function finish() {
+    if (completed) return;
+    completed = true;
+    if (ready && context) draw(LAST_FRAME);
+    else { art.src = stillUrl; art.style.display = 'block'; }
+    window.dispatchEvent(new Event('oneshot:header-brand-complete'));
+  }
+  function visible() {
+    if (document.visibilityState !== 'visible' || document.readyState !== 'complete') return false;
     if (splash && getComputedStyle(splash).display !== 'none') return false;
-    const rect = link.getBoundingClientRect();
+    const r = link.getBoundingClientRect();
     const style = getComputedStyle(link);
     return style.visibility === 'visible' && Number(style.opacity) > 0 &&
-      rect.width > 0 && rect.height > 0 && rect.top >= 0 && rect.left >= 0 &&
-      rect.bottom <= window.innerHeight && rect.right <= window.innerWidth;
+      r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < window.innerHeight;
   }
-
+  function tick(now) {
+    if (completed) return;
+    if (!visible()) { previousTime = null; requestAnimationFrame(tick); return; }
+    if (previousTime !== null) elapsed += now - previousTime;
+    previousTime = now;
+    draw(Math.min(LAST_FRAME, Math.floor(elapsed / FRAME_MS)));
+    if (elapsed >= DURATION) requestAnimationFrame(finish);
+    else requestAnimationFrame(tick);
+  }
   function scheduleStart() {
-    if (scheduled || !canStart()) return;
+    if (!requested || started || completed || scheduled || !visible()) return;
+    if (reduced.matches || failed) { finish(); return; }
+    if (!ready) return;
     scheduled = true;
-    // Two frames allow the uncovered main page to paint before revealing.
     requestAnimationFrame(() => requestAnimationFrame(() => {
       scheduled = false;
-      if (!canStart()) return;
+      if (!visible() || completed) return;
       started = true;
-      objectUrl = URL.createObjectURL(motionBlob);
-      art.src = objectUrl;
-      splashObserver?.disconnect();
-      headerObserver.disconnect();
+      draw(0);
+      requestAnimationFrame(tick);
     }));
   }
-  const splashObserver = splash ? new MutationObserver(scheduleStart) : null;
-  splashObserver?.observe(splash, { attributes: true, attributeFilter: ['style', 'class'] });
-  const headerObserver = new IntersectionObserver(scheduleStart, { threshold: 1 });
-  headerObserver.observe(link);
-  window.addEventListener('oneshot:header-brand-start', scheduleStart);
-  window.addEventListener('load', scheduleStart, { once: true });
+  frames.addEventListener('load', () => {
+    if (!context) { failed = true; scheduleStart(); return; }
+    ready = true;
+    draw(completed || reduced.matches ? LAST_FRAME : 0);
+    scheduleStart();
+  });
+  frames.addEventListener('error', () => { failed = true; scheduleStart(); });
+  frames.src = 'assets/brand/header-commanding-frames.png';
+  window.addEventListener('oneshot:header-brand-request', () => {
+    requested = true;
+    scheduleStart();
+  });
+  window.addEventListener('load', scheduleStart);
   window.addEventListener('pageshow', scheduleStart);
-  document.addEventListener('visibilitychange', scheduleStart);
-  window.addEventListener('online', loadMotion);
+  window.addEventListener('scroll', scheduleStart, { passive: true });
+  document.addEventListener('visibilitychange', () => {
+    previousTime = null;
+    scheduleStart();
+  });
   reduced.addEventListener('change', () => {
-    if (reduced.matches) art.src = stillUrl;
-    else loadMotion();
+    if (reduced.matches && requested) finish();
+    else scheduleStart();
   });
-  window.addEventListener('pagehide', () => {
-    art.src = stillUrl;
-    if (objectUrl) URL.revokeObjectURL(objectUrl);
-  });
-  loadMotion();
-  scheduleStart();
 })();
