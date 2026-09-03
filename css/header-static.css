@@ -1,0 +1,14 @@
+/* Original homepage lockup, with all brand motion disabled. */
+.site-header .logo,
+.site-header .logo *,
+.site-header .logo *::before,
+.site-header .logo *::after {
+  animation: none !important;
+  transition: none !important;
+}
+.site-header .logo-text {
+  background-image: var(--oneshot-president-gold);
+  background-size: 100% 2.3px;
+  background-position: left calc(100% - 0.45px);
+  box-shadow: none !important;
+}
