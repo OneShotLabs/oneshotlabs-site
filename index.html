@@ -3214,7 +3214,7 @@ html.no-splash .splash { display: none; }
     }
   </script>
   <link rel="stylesheet" href="css/header-brand.css?v=20260903-1" />
-  <script src="js/header-brand.js?v=20260903-2" defer></script>
+  <script src="js/header-brand.js?v=20260903-3" defer></script>
 </head>
 <body>
   <div class="grain-overlay" aria-hidden="true"></div>
@@ -3777,10 +3777,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.style.overflow = "";
     playing = false;
     armIdleTimer();
-    // Notify the header after the doors and finish buffer complete.
-    // Header code waits for painted visibility and asset readiness,
-    // and owns its one-play guard (including when splash is skipped).
-    window.dispatchEvent(new Event("oneshot:header-brand-start"));
+    // The visible timeline controller starts the header after this exit.
   }
 
   // ---- Viewfinder shutter click ----
@@ -4101,12 +4098,9 @@ document.addEventListener("DOMContentLoaded", () => {
     runCycles(0);
   }
 
-  // Trigger: once the strip has been continuously 100%-in-viewport for
-  // this long, fire the nudge (star roll-forward) to kick off the
-  // sequence. Spec: must begin within 0.5s of the strip being fully
-  // visible — no long "settle" buffer. If the page/strip becomes visible
-  // later than 0.5s after load, the nudge still fires immediately upon
-  // full visibility rather than being skipped or delayed further.
+  // Preserve the original 500ms fully-visible trigger, but give that
+  // start to the header underline. The strip remains at rest until the
+  // header reports its settled final frame; only then start the nudge.
   var VISIBLE_HOLD = 500;
   function isFullyVisible() {
     var r = root.getBoundingClientRect();
@@ -4116,17 +4110,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   var visibleSince = null;
+  var brandRequested = false;
+  var brandComplete = false;
+  window.addEventListener('oneshot:header-brand-complete', function () {
+    brandComplete = true;
+  });
   function splashBlocking() {
     var splash = document.getElementById('splash');
     return splash && getComputedStyle(splash).display !== 'none';
   }
   function poll() {
     if (started) return;
-    if (isFullyVisible() && !splashBlocking()) {
+    if (document.visibilityState === 'visible' && isFullyVisible() && !splashBlocking()) {
       if (visibleSince === null) visibleSince = performance.now();
       if (performance.now() - visibleSince >= VISIBLE_HOLD) {
-        start();
-        return;
+        if (!brandRequested) {
+          brandRequested = true;
+          window.dispatchEvent(new Event('oneshot:header-brand-request'));
+        }
+        if (brandComplete) {
+          start();
+          return;
+        }
       }
     } else {
       visibleSince = null;
