@@ -1,0 +1,25 @@
+/* Homepage only. Original lockup remains as an invisible layout spacer,
+   preserving the header's exact responsive dimensions and navigation position. */
+.site-header .logo.header-brand { position: relative; }
+.site-header .header-brand > .logo-icon,
+.site-header .header-brand > .logo-text {
+  animation: none !important;
+  box-shadow: none !important;
+}
+.site-header .header-brand > .logo-icon * { animation: none !important; }
+.site-header .header-brand.is-brand-ready > .logo-icon,
+.site-header .header-brand.is-brand-ready > .logo-text { visibility: hidden; }
+.site-header .header-brand-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+  display: block;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  filter: none;
+  pointer-events: none;
+}

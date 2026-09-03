@@ -3213,6 +3213,8 @@ html.no-splash .splash { display: none; }
       document.documentElement.classList.add("no-splash");
     }
   </script>
+  <link rel="stylesheet" href="css/header-brand.css?v=20260903-1" />
+  <script src="js/header-brand.js?v=20260903-1" defer></script>
 </head>
 <body>
   <div class="grain-overlay" aria-hidden="true"></div>
@@ -3997,6 +3999,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!sessionStorage.getItem("oneshot-header-underline-draw-seen")) {
       sessionStorage.setItem("oneshot-header-underline-draw-seen", "1");
       document.documentElement.classList.add("header-underline-draw-play");
+      window.dispatchEvent(new Event("oneshot:header-brand-start"));
     }
   }
 
