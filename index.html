@@ -3213,8 +3213,7 @@ html.no-splash .splash { display: none; }
       document.documentElement.classList.add("no-splash");
     }
   </script>
-  <link rel="stylesheet" href="css/header-brand.css?v=20260903-1" />
-  <script src="js/header-brand.js?v=20260903-3" defer></script>
+  <link rel="stylesheet" href="css/header-static.css?v=20260903-1" />
 </head>
 <body>
   <div class="grain-overlay" aria-hidden="true"></div>
@@ -3395,14 +3394,7 @@ document.addEventListener("DOMContentLoaded", () => {
     el.appendChild(glyphs);
   });
 
-  // Primary-logo gold shimmer: plays once per browser session (first
-  // page viewed), not once per page load — every subsequent page in the
-  // same session shows the settled gold immediately. Same session-gate
-  // pattern as the splash screen.
-  if (!sessionStorage.getItem("oneshot-brand-shimmer-seen")) {
-    sessionStorage.setItem("oneshot-brand-shimmer-seen", "1");
-    document.documentElement.classList.add("brand-shimmer-play");
-  }
+  // Homepage header uses the original static lockup, without shimmer.
 
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.querySelector(".nav");
@@ -3777,7 +3769,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.style.overflow = "";
     playing = false;
     armIdleTimer();
-    // The visible timeline controller starts the header after this exit.
+    // The timeline waits until this splash exit is complete.
   }
 
   // ---- Viewfinder shutter click ----
@@ -4098,9 +4090,8 @@ document.addEventListener("DOMContentLoaded", () => {
     runCycles(0);
   }
 
-  // Preserve the original 500ms fully-visible trigger, but give that
-  // start to the header underline. The strip remains at rest until the
-  // header reports its settled final frame; only then start the nudge.
+  // Start the timeline after 500ms fully visible, once the splash is gone.
+  // The header lockup is static and has no playback dependency.
   var VISIBLE_HOLD = 500;
   function isFullyVisible() {
     var r = root.getBoundingClientRect();
@@ -4110,11 +4101,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   var visibleSince = null;
-  var brandRequested = false;
-  var brandComplete = false;
-  window.addEventListener('oneshot:header-brand-complete', function () {
-    brandComplete = true;
-  });
   function splashBlocking() {
     var splash = document.getElementById('splash');
     return splash && getComputedStyle(splash).display !== 'none';
@@ -4124,14 +4110,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.visibilityState === 'visible' && isFullyVisible() && !splashBlocking()) {
       if (visibleSince === null) visibleSince = performance.now();
       if (performance.now() - visibleSince >= VISIBLE_HOLD) {
-        if (!brandRequested) {
-          brandRequested = true;
-          window.dispatchEvent(new Event('oneshot:header-brand-request'));
-        }
-        if (brandComplete) {
-          start();
-          return;
-        }
+        start();
+        return;
       }
     } else {
       visibleSince = null;
