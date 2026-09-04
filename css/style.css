@@ -109,8 +109,8 @@ body {
 
 @media (max-width: 650px) {
   .ai-ledger-shell {
-    height: 960px;
-    min-height: 960px;
+    height: 820px;
+    min-height: 820px;
   }
 }
 
@@ -2361,6 +2361,7 @@ a.post-title-link:active {
 /* ----- Large phone / small tablet & below (<=768px) ----- */
 @media (max-width: 768px) {
   .site-header .container-wide { height: 76px; }
+  .site-header .logo { min-height: 44px; }
   .nav { padding-top: 5.75rem; }
 
   .post-row { grid-template-columns: 1fr; }
@@ -2388,6 +2389,14 @@ a.post-title-link:active {
   .hero-actions .btn { text-align: center; }
   .timeline-controls { flex-wrap: wrap; row-gap: 0.6rem; }
   .contact-form { max-width: 100%; }
+  .site-footer .container-wide { align-items: flex-start; }
+  .footer-links { width: 100%; flex-wrap: wrap; gap: 0 .75rem; }
+  .footer-links a {
+    display: inline-flex;
+    align-items: center;
+    min-width: 44px;
+    min-height: 44px;
+  }
 }
 
 /* ----- Large desktop (>=1440px): a little extra breathing room ----- */
