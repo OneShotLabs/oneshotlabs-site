@@ -1515,6 +1515,89 @@ h1, h2, h3 {
   grid-template-columns: repeat(2, 1fr);
 }
 
+/* ---------- Homepage editorial story ---------- */
+.founder-note {
+  border-top: none;
+  padding-block: clamp(5.5rem, 10vw, 10rem);
+}
+
+.founder-note-inner { width: min(100%, 700px); }
+
+.founder-note-label {
+  margin: 0 0 1.5rem;
+  color: var(--oneshot-navy);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.founder-note-copy {
+  margin: 0;
+  color: var(--oneshot-navy);
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.15vw, 1.85rem);
+  font-variation-settings: "opsz" 48;
+  font-weight: 450;
+  line-height: 1.5;
+}
+
+.founder-note-copy + .founder-note-copy { margin-top: 1.35em; }
+
+.editorial-quote {
+  display: grid;
+  min-height: clamp(460px, 62vw, 720px);
+  place-items: center;
+  padding-block: clamp(7rem, 15vw, 13rem);
+}
+
+.editorial-quote-inner {
+  width: min(100%, 980px);
+  margin-inline: auto;
+  text-align: center;
+}
+
+.editorial-quote blockquote {
+  margin: 0;
+  color: var(--oneshot-navy);
+  font-family: "Spectral", var(--font-display);
+  font-size: clamp(2.15rem, 5.2vw, 4.8rem);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+
+.editorial-quote-line {
+  display: block;
+  opacity: 0;
+  transform: translateY(0.4em);
+  transition: opacity 700ms var(--oneshot-ease), transform 700ms var(--oneshot-ease);
+}
+
+.editorial-quote.is-visible .editorial-quote-line {
+  opacity: 1;
+  transform: none;
+}
+
+.editorial-quote.is-visible .editorial-quote-line:nth-child(2) { transition-delay: 140ms; }
+
+@media (max-width: 650px) {
+  .founder-note { padding-block: 4.5rem 5.5rem; }
+  .editorial-quote { min-height: 440px; padding-block: 6rem; }
+  .editorial-quote blockquote { font-size: clamp(2rem, 10vw, 3rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editorial-quote-line {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 .path-card.is-featured {
   border-color: var(--trim);
 }
@@ -3296,41 +3379,24 @@ html.no-splash .splash { display: none; }
     </div>
   </section>
 
-  <section class="hero shutter-hero">
-    <div class="container-wide shutter-grid">
-      <div class="shutter-copy">
-        <h1>Complex underwriting, solved in one shot.</h1>
-        <p>Twenty years underwriting institutional real estate at PGIM. Now I build the AI systems that give your team the same rigor — scoped to a fixed outcome, built once, and shipped to production. A second practice in photography runs on the same principle.</p>
-        <div class="tag-bar" aria-label="Background">
-          <span class="tag-pill">20 Years at PGIM Real Estate</span>
-          <span class="tag-pill">FHA · LIHTC · Tax-Exempt Bonds</span>
-        </div>
-        <div class="hero-actions">
-          <a href="contact.html" class="btn btn-accent">Book a call</a>
-        </div>
+  <section class="section founder-note">
+    <div class="container-wide">
+      <div class="founder-note-inner reveal">
+        <p class="founder-note-label">A note from the founder</p>
+        <p class="founder-note-copy">I decided to start OneShotLabs after an aha moment in the summer of 2026, when I worked with agentic AI for the first time in an institutional setting. The results were too good, too fast to ignore. The learning curve was intimidating, but achievable. You could brainstorm a thought, vet an idea, and build a prototype within an hour.</p>
+        <p class="founder-note-copy">Success compounds. Curiosity is rewarded. Problems start to feel more like puzzles than work. Every issue becomes an opportunity to solve something in a new way.</p>
+        <p class="founder-note-copy">The space is moving quickly, and OneShotLabs is my way of staying close to that frontier, testing what is actually useful, and continuing to push how far these tools can go.</p>
       </div>
     </div>
   </section>
 
-  <section class="section" style="border-top: none;">
+  <section class="section editorial-quote reveal" aria-label="OneShotLabs standard">
     <div class="container-wide">
-      <div class="path-grid is-duo">
-        <a href="ai-consulting.html" class="path-card is-featured reveal">
-          <div>
-            <p class="path-eyebrow">Start here</p>
-            <h3>AI Leadership</h3>
-            <p>Scoped AI engagements for commercial real estate finance teams — strategy, implementation, and integration, built once and shipped on a fixed timeline.</p>
-          </div>
-          <span class="path-arrow">Explore AI Leadership →</span>
-        </a>
-        <a href="career.html" class="path-card reveal">
-          <div>
-            <p class="path-eyebrow">Real Estate Finance</p>
-            <h3>Career</h3>
-            <p>Twenty years at PGIM Real Estate underwriting market-rate and affordable housing to the same standard — the domain expertise behind every engagement.</p>
-          </div>
-          <span class="path-arrow">Explore Career →</span>
-        </a>
+      <div class="editorial-quote-inner">
+        <blockquote>
+          <span class="editorial-quote-line">The standard remains high.</span>
+          <span class="editorial-quote-line">The path from idea to execution compresses every day.</span>
+        </blockquote>
       </div>
     </div>
   </section>
