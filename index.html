@@ -1515,87 +1515,241 @@ h1, h2, h3 {
   grid-template-columns: repeat(2, 1fr);
 }
 
-/* ---------- Homepage editorial story ---------- */
-.founder-note {
+/* ---------- Homepage editorial sequence ---------- */
+.editorial-hero {
+  position: relative;
+  min-height: min(72vw, 780px);
+  overflow: hidden;
   border-top: none;
-  padding-block: clamp(5.5rem, 10vw, 10rem);
+  background: #d9d0c3;
 }
 
-.founder-note-inner { width: min(100%, 700px); }
+.editorial-hero-media,
+.editorial-hero-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
 
-.founder-note-label {
-  margin: 0 0 1.5rem;
+.editorial-hero-media img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.editorial-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255, 253, 248, 0.36), transparent 50%, rgba(29, 47, 78, 0.08));
+  pointer-events: none;
+}
+
+.editorial-hero-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: min(72vw, 780px);
+  align-items: center;
+}
+
+.editorial-hero-thesis {
+  width: min(25ch, 42vw);
+  margin: 0;
   color: var(--oneshot-navy);
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  line-height: 1.4;
+  font: 600 clamp(0.72rem, 1vw, 0.9rem)/1.75 var(--font-body);
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
-.founder-note-copy {
-  margin: 0;
-  color: var(--oneshot-navy);
-  font-family: var(--font-display);
-  font-size: clamp(1.3rem, 2.15vw, 1.85rem);
-  font-variation-settings: "opsz" 48;
-  font-weight: 450;
-  line-height: 1.5;
+.editorial-hero-thesis::after {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 1px;
+  margin-top: 1.65rem;
+  background: var(--trim);
 }
-
-.founder-note-copy + .founder-note-copy { margin-top: 1.35em; }
 
 .editorial-quote {
   display: grid;
-  min-height: clamp(460px, 62vw, 720px);
+  min-height: clamp(680px, 92svh, 940px);
   place-items: center;
-  padding-block: clamp(7rem, 15vw, 13rem);
+  padding-block: clamp(8rem, 16vw, 14rem);
+  border-top: none;
 }
 
 .editorial-quote-inner {
-  width: min(100%, 980px);
+  width: min(100%, 1060px);
   margin-inline: auto;
   text-align: center;
+}
+
+.editorial-quote-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+  margin: 0 auto 4rem;
+  color: var(--trim);
+}
+
+.editorial-quote-mark::before,
+.editorial-quote-mark::after {
+  content: "";
+  width: clamp(3rem, 7vw, 6rem);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.75;
+}
+
+.editorial-quote-mark .logo-icon {
+  width: 30px;
+  height: 30px;
+  color: var(--oneshot-navy);
 }
 
 .editorial-quote blockquote {
   margin: 0;
   color: var(--oneshot-navy);
   font-family: "Spectral", var(--font-display);
-  font-size: clamp(2.15rem, 5.2vw, 4.8rem);
+  font-size: clamp(2.55rem, 5.4vw, 5rem);
   font-style: italic;
   font-weight: 400;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.035em;
   line-height: 1.08;
 }
 
 .editorial-quote-line {
   display: block;
   opacity: 0;
-  transform: translateY(0.4em);
-  transition: opacity 700ms var(--oneshot-ease), transform 700ms var(--oneshot-ease);
+  transform: translateY(0.35em);
+  transition: opacity 800ms var(--oneshot-ease), transform 800ms var(--oneshot-ease);
 }
 
-.editorial-quote.is-visible .editorial-quote-line {
-  opacity: 1;
-  transform: none;
+.editorial-quote.is-visible .editorial-quote-line { opacity: 1; transform: none; }
+.editorial-quote.is-visible .editorial-quote-line:nth-child(2) { transition-delay: 160ms; }
+
+.editorial-section {
+  padding-block: clamp(7.5rem, 14vw, 13rem);
 }
 
-.editorial-quote.is-visible .editorial-quote-line:nth-child(2) { transition-delay: 140ms; }
+.editorial-index {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  width: min(100%, 740px);
+  margin: 0 0 clamp(3rem, 6vw, 5rem);
+  color: var(--oneshot-navy);
+  font: 600 0.72rem/1.4 var(--font-body);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
 
-@media (max-width: 650px) {
-  .founder-note { padding-block: 4.5rem 5.5rem; }
-  .editorial-quote { min-height: 440px; padding-block: 6rem; }
-  .editorial-quote blockquote { font-size: clamp(2rem, 10vw, 3rem); }
+.editorial-index::after {
+  content: "";
+  width: clamp(5rem, 18vw, 14rem);
+  height: 1px;
+  background: var(--trim);
+  opacity: 0.7;
+}
+
+.founder-note-inner { width: min(100%, 740px); margin-inline: auto; }
+
+.founder-note-beat {
+  margin: 0;
+  color: var(--oneshot-navy);
+  font-family: "Cormorant Garamond", "EB Garamond", Georgia, serif;
+  font-size: clamp(1.5rem, 2.25vw, 2rem);
+  font-weight: 500;
+  line-height: 1.48;
+}
+
+.founder-note-beat + .founder-note-beat {
+  margin-top: clamp(6rem, 14vw, 11rem);
+}
+
+.founder-note-beat::before {
+  content: "";
+  display: block;
+  width: 2.25rem;
+  height: 1px;
+  margin-bottom: 2.1rem;
+  background: var(--trim);
+}
+
+.founder-note-signature {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: clamp(5rem, 10vw, 8rem) 0 0;
+  color: var(--oneshot-navy);
+  font: 600 0.7rem/1.65 var(--font-body);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.founder-note-signature::before { content: ""; width: 2rem; height: 1px; background: var(--trim); }
+
+.editorial-continue {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: center;
+  margin-top: clamp(5rem, 10vw, 8rem);
+  color: var(--oneshot-navy);
+  font: 600 0.65rem/1 var(--font-body);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.editorial-continue span:last-child { color: var(--trim-dim); font-size: 1.7rem; font-weight: 400; }
+
+.editorial-work-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr) auto;
+  gap: clamp(2.5rem, 7vw, 7rem);
+  align-items: end;
+}
+
+.editorial-work h2 {
+  max-width: 11ch;
+  margin: 0;
+  color: var(--oneshot-navy);
+  font-size: clamp(2.6rem, 5vw, 4.8rem);
+  line-height: 0.98;
+}
+
+.editorial-work-copy { max-width: 48ch; margin: 0; color: var(--oneshot-navy); }
+
+.editorial-work-link {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  border: 1px solid var(--trim-dim);
+  border-radius: 50%;
+  color: var(--oneshot-navy);
+  font-size: 1.25rem;
+  transition: var(--motion-signature);
+}
+
+.editorial-work-link:hover { color: var(--trim-dim); transform: translateX(3px); }
+
+@media (max-width: 760px) {
+  .editorial-hero,
+  .editorial-hero-copy { min-height: 68svh; }
+  .editorial-hero-media img { object-position: 57% center; }
+  .editorial-hero-thesis { width: 18ch; font-size: 0.7rem; }
+  .editorial-quote { min-height: 78svh; padding-block: 7rem; }
+  .editorial-quote-mark { margin-bottom: 3rem; }
+  .editorial-quote blockquote { font-size: clamp(2.3rem, 10vw, 3.3rem); }
+  .editorial-section { padding-block: 6rem; }
+  .founder-note-beat + .founder-note-beat { margin-top: 6rem; }
+  .editorial-work-grid { grid-template-columns: 1fr; align-items: start; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .editorial-quote-line {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+  .editorial-quote-line { opacity: 1; transform: none; transition: none; }
 }
 
 .path-card.is-featured {
@@ -3344,59 +3498,75 @@ html.no-splash .splash { display: none; }
   <div id="smooth-wrapper">
   <div style="height: 96px;" aria-hidden="true"></div>
 
-  <section class="section turn-strip" style="border-top: none; padding-bottom: 0;">
-    <div class="container-wide">
-      <p class="turn-eyebrow" id="turn-eyebrow">Weeks turn into days</p>
-      <div class="turn-row">
-        <div class="turn-content">
-          <span class="turn-logo-slot">
-            <svg class="turn-logo" id="turn-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><polygon id="turn-blade" points="53.5,2 55.8,20 50,46 41.5,20.6" /><path id="turn-corner-arc" d="M6,15 A9,9 0 0 1 15,6" /></defs><g fill="none" stroke="var(--trim)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><use href="#turn-corner-arc" xlink:href="#turn-corner-arc" transform="rotate(0 50 50)" /><use href="#turn-corner-arc" xlink:href="#turn-corner-arc" transform="rotate(90 50 50)" /><use href="#turn-corner-arc" xlink:href="#turn-corner-arc" transform="rotate(180 50 50)" /><use href="#turn-corner-arc" xlink:href="#turn-corner-arc" transform="rotate(270 50 50)" /></g><g fill="currentColor"><use href="#turn-blade" xlink:href="#turn-blade" transform="rotate(0 50 50)" /><use href="#turn-blade" xlink:href="#turn-blade" transform="rotate(45 50 50)" /><use href="#turn-blade" xlink:href="#turn-blade" transform="rotate(90 50 50)" /><use href="#turn-blade" xlink:href="#turn-blade" transform="rotate(135 50 50)" /><use href="#turn-blade" xlink:href="#turn-blade" transform="rotate(180 50 50)" /><use href="#turn-blade" xlink:href="#turn-blade" transform="rotate(225 50 50)" /><use href="#turn-blade" xlink:href="#turn-blade" transform="rotate(270 50 50)" /><use href="#turn-blade" xlink:href="#turn-blade" transform="rotate(315 50 50)" /></g></svg>
-            <span class="turn-logo-ring"></span>
-          </span>
-          <div class="turn-dials-wrap">
-            <div class="turn-dial" data-unit="weeks">
-              <div class="turn-dial-face"><div class="turn-dial-ring"></div><div class="turn-hand"></div><div class="turn-dial-tick"></div></div>
-              <span class="turn-word">Weeks</span>
-            </div>
-            <div class="turn-dial" data-unit="days">
-              <div class="turn-dial-face"><div class="turn-dial-ring"></div><div class="turn-hand"></div><div class="turn-dial-tick"></div></div>
-              <span class="turn-word">Days</span>
-            </div>
-            <div class="turn-dial" data-unit="hours">
-              <div class="turn-dial-face"><div class="turn-dial-ring"></div><div class="turn-hand"></div><div class="turn-dial-tick"></div></div>
-              <span class="turn-word">Hours</span>
-            </div>
-            <div class="turn-dial" data-unit="minutes">
-              <div class="turn-dial-face"><div class="turn-dial-ring"></div><div class="turn-hand"></div><div class="turn-dial-tick"></div></div>
-              <span class="turn-word">Minutes</span>
-            </div>
-          </div>
-          <span class="turn-check" id="turn-check">&#10003;</span>
-          <div class="turn-track"><div class="turn-track-fill" id="turn-track-fill"></div></div>
-        </div>
-      </div>
-      <p class="turn-eyebrow" style="margin: 1.75rem 0 0;">AI Leadership · Commercial Real Estate Finance</p>
+  <section class="editorial-hero" aria-label="Real estate expertise meets what's next">
+    <!-- The picture is intentionally isolated so it can be replaced by a muted,
+         autoplaying video without changing the surrounding layout. -->
+    <picture class="editorial-hero-media">
+      <img src="assets/editorial/architectural-hero-v1.png" alt="Abstract limestone architecture in soft directional light" width="1792" height="1024" fetchpriority="high" />
+    </picture>
+    <div class="container-wide editorial-hero-copy">
+      <p class="editorial-hero-thesis reveal">Real estate expertise<br />meets what’s next</p>
     </div>
   </section>
 
-  <section class="section founder-note">
-    <div class="container-wide">
-      <div class="founder-note-inner reveal">
-        <p class="founder-note-label">A note from the founder</p>
-        <p class="founder-note-copy">I decided to start OneShotLabs after an aha moment in the summer of 2026, when I worked with agentic AI for the first time in an institutional setting. The results were too good, too fast to ignore. The learning curve was intimidating, but achievable. You could brainstorm a thought, vet an idea, and build a prototype within an hour.</p>
-        <p class="founder-note-copy">Success compounds. Curiosity is rewarded. Problems start to feel more like puzzles than work. Every issue becomes an opportunity to solve something in a new way.</p>
-        <p class="founder-note-copy">The space is moving quickly, and OneShotLabs is my way of staying close to that frontier, testing what is actually useful, and continuing to push how far these tools can go.</p>
+  <!-- Archived in place for a future restoration. Content inside a template is
+       inert, so the original dial timeline CSS and JavaScript remain available
+       without loading or running in the current homepage experience. -->
+  <template id="archived-homepage-timeline-v1">
+    <section class="section turn-strip" style="border-top: none; padding-bottom: 0;">
+      <div class="container-wide">
+        <p class="turn-eyebrow" id="turn-eyebrow">Weeks turn into days</p>
+        <div class="turn-row"><div class="turn-content">
+          <span class="turn-logo-slot"><svg class="turn-logo" id="turn-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><polygon id="turn-blade" points="53.5,2 55.8,20 50,46 41.5,20.6" /></defs><g fill="currentColor"><use href="#turn-blade" transform="rotate(0 50 50)" /><use href="#turn-blade" transform="rotate(45 50 50)" /><use href="#turn-blade" transform="rotate(90 50 50)" /><use href="#turn-blade" transform="rotate(135 50 50)" /><use href="#turn-blade" transform="rotate(180 50 50)" /><use href="#turn-blade" transform="rotate(225 50 50)" /><use href="#turn-blade" transform="rotate(270 50 50)" /><use href="#turn-blade" transform="rotate(315 50 50)" /></g></svg><span class="turn-logo-ring"></span></span>
+          <div class="turn-dials-wrap">
+            <div class="turn-dial" data-unit="weeks"><div class="turn-dial-face"><div class="turn-dial-ring"></div><div class="turn-hand"></div><div class="turn-dial-tick"></div></div><span class="turn-word">Weeks</span></div>
+            <div class="turn-dial" data-unit="days"><div class="turn-dial-face"><div class="turn-dial-ring"></div><div class="turn-hand"></div><div class="turn-dial-tick"></div></div><span class="turn-word">Days</span></div>
+            <div class="turn-dial" data-unit="hours"><div class="turn-dial-face"><div class="turn-dial-ring"></div><div class="turn-hand"></div><div class="turn-dial-tick"></div></div><span class="turn-word">Hours</span></div>
+            <div class="turn-dial" data-unit="minutes"><div class="turn-dial-face"><div class="turn-dial-ring"></div><div class="turn-hand"></div><div class="turn-dial-tick"></div></div><span class="turn-word">Minutes</span></div>
+          </div>
+          <span class="turn-check" id="turn-check">&#10003;</span>
+          <div class="turn-track"><div class="turn-track-fill" id="turn-track-fill"></div></div>
+        </div></div>
+        <p class="turn-eyebrow" style="margin: 1.75rem 0 0;">AI Leadership · Commercial Real Estate Finance</p>
       </div>
-    </div>
-  </section>
+    </section>
+  </template>
 
   <section class="section editorial-quote reveal" aria-label="OneShotLabs standard">
     <div class="container-wide">
       <div class="editorial-quote-inner">
+        <div class="editorial-quote-mark" aria-hidden="true">
+          <span class="logo-icon"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><polygon id="quote-blade" points="53.5,2 55.8,20 50,46 41.5,20.6" /></defs><g fill="currentColor"><use href="#quote-blade" transform="rotate(0 50 50)" /><use href="#quote-blade" transform="rotate(45 50 50)" /><use href="#quote-blade" transform="rotate(90 50 50)" /><use href="#quote-blade" transform="rotate(135 50 50)" /><use href="#quote-blade" transform="rotate(180 50 50)" /><use href="#quote-blade" transform="rotate(225 50 50)" /><use href="#quote-blade" transform="rotate(270 50 50)" /><use href="#quote-blade" transform="rotate(315 50 50)" /></g></svg></span>
+        </div>
         <blockquote>
           <span class="editorial-quote-line">The standard remains high.</span>
           <span class="editorial-quote-line">The path from idea to execution compresses every day.</span>
         </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="section editorial-section founder-note" id="origin">
+    <div class="container-wide">
+      <div class="founder-note-inner">
+        <p class="editorial-index">01 / Origin</p>
+        <p class="founder-note-beat reveal">I decided to start OneShotLabs after a moment in the summer of 2026 that reset my sense of what was possible. I was working with agentic AI for the first time in an institutional setting. The results were too good, too fast to ignore.</p>
+        <p class="founder-note-beat reveal">The learning curve was intimidating, but achievable. You could brainstorm a thought, vet an idea, and build a prototype within an hour.</p>
+        <p class="founder-note-beat reveal">Success compounds. Curiosity is rewarded. Problems start to feel more like puzzles than work. Every issue becomes an opportunity to solve something in a new way.</p>
+        <p class="founder-note-beat reveal">The space is moving quickly, and OneShotLabs is my way of staying close to that frontier, testing what is actually useful, and continuing to push how far these tools can go.</p>
+        <p class="founder-note-signature">David Jergovic<br />Founder, OneShotLabs</p>
+        <a class="editorial-continue" href="#work"><span>Continue</span><span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section editorial-section editorial-work" id="work">
+    <div class="container-wide">
+      <p class="editorial-index">02 / Work</p>
+      <div class="editorial-work-grid">
+        <h2>Across the life of the deal.</h2>
+        <p class="editorial-work-copy">From underwriting to asset management, we explore how AI can support better analysis, clearer decisions, and stronger outcomes across the real estate investment lifecycle.</p>
+        <a class="editorial-work-link" href="ai-consulting.html" aria-label="Explore AI leadership">→</a>
       </div>
     </div>
   </section>
