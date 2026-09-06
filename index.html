@@ -1573,7 +1573,7 @@ h1, h2, h3 {
 
 .editorial-quote {
   display: grid;
-  min-height: clamp(680px, 92svh, 940px);
+  min-height: max(780px, 130svh);
   place-items: center;
   padding-block: clamp(8rem, 16vw, 14rem);
   border-top: none;
@@ -1627,8 +1627,11 @@ h1, h2, h3 {
   transition: opacity 800ms var(--oneshot-ease), transform 800ms var(--oneshot-ease);
 }
 
-.editorial-quote.is-visible .editorial-quote-line { opacity: 1; transform: none; }
-.editorial-quote.is-visible .editorial-quote-line:nth-child(2) { transition-delay: 160ms; }
+.editorial-quote[data-quote-step="1"] .editorial-quote-line:first-child,
+.editorial-quote[data-quote-step="2"] .editorial-quote-line {
+  opacity: 1;
+  transform: none;
+}
 
 .editorial-section {
   padding-block: clamp(7.5rem, 14vw, 13rem);
@@ -1691,6 +1694,24 @@ h1, h2, h3 {
 
 .founder-note-signature::before { content: ""; width: 2rem; height: 1px; background: var(--trim); }
 
+.founder-name-story {
+  margin-top: clamp(8rem, 16vw, 13rem);
+  padding-top: clamp(4rem, 8vw, 6.5rem);
+  border-top: var(--border-thread);
+}
+
+.founder-name-story .editorial-index { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+
+.founder-name-story-copy {
+  max-width: 31ch;
+  margin: 0;
+  color: var(--oneshot-navy);
+  font-family: "Cormorant Garamond", "EB Garamond", Georgia, serif;
+  font-size: clamp(1.65rem, 2.8vw, 2.4rem);
+  font-weight: 500;
+  line-height: 1.42;
+}
+
 .editorial-continue {
   display: grid;
   gap: 0.75rem;
@@ -1740,7 +1761,7 @@ h1, h2, h3 {
   .editorial-hero-copy { min-height: 68svh; }
   .editorial-hero-media img { object-position: 57% center; }
   .editorial-hero-thesis { width: 18ch; font-size: 0.7rem; }
-  .editorial-quote { min-height: 78svh; padding-block: 7rem; }
+  .editorial-quote { min-height: 120svh; padding-block: 7rem; }
   .editorial-quote-mark { margin-bottom: 3rem; }
   .editorial-quote blockquote { font-size: clamp(2.3rem, 10vw, 3.3rem); }
   .editorial-section { padding-block: 6rem; }
@@ -3532,7 +3553,7 @@ html.no-splash .splash { display: none; }
     </section>
   </template>
 
-  <section class="section editorial-quote reveal" aria-label="OneShotLabs standard">
+  <section class="section editorial-quote" aria-label="OneShotLabs standard" data-quote-step="0">
     <div class="container-wide">
       <div class="editorial-quote-inner">
         <div class="editorial-quote-mark" aria-hidden="true">
@@ -3550,10 +3571,14 @@ html.no-splash .splash { display: none; }
     <div class="container-wide">
       <div class="founder-note-inner">
         <p class="editorial-index">01 / Origin</p>
-        <p class="founder-note-beat reveal">I decided to start OneShotLabs after a moment in the summer of 2026 that reset my sense of what was possible. I was working with agentic AI for the first time in an institutional setting. The results were too good, too fast to ignore.</p>
+        <p class="founder-note-beat reveal">I decided to start OneShotLabs after a moment in the summer of 2026 that fundamentally changed my sense of what was possible. I was working with agentic AI for the first time in an institutional setting. The results were too good, too fast to ignore.</p>
         <p class="founder-note-beat reveal">The learning curve was intimidating, but achievable. You could brainstorm a thought, vet an idea, and build a prototype within an hour.</p>
         <p class="founder-note-beat reveal">Success compounds. Curiosity is rewarded. Problems start to feel more like puzzles than work. Every issue becomes an opportunity to solve something in a new way.</p>
         <p class="founder-note-beat reveal">The space is moving quickly, and OneShotLabs is my way of staying close to that frontier, testing what is actually useful, and continuing to push how far these tools can go.</p>
+        <div class="founder-name-story reveal">
+          <p class="editorial-index">Why OneShotLabs</p>
+          <p class="founder-name-story-copy">The name came from the same idea. When a prompt is framed correctly, a task can be completed in one click—in one shot. Photography works the same way: the real work happens in the framing, light, and setup before the shutter is pressed, not in post-production. OneShotLabs connects the two disciplines: prepare carefully, then execute once.</p>
+        </div>
         <p class="founder-note-signature">David Jergovic<br />Founder, OneShotLabs</p>
         <a class="editorial-continue" href="#work"><span>Continue</span><span aria-hidden="true">↓</span></a>
       </div>
@@ -3716,6 +3741,39 @@ document.addEventListener("DOMContentLoaded", () => {
     revealEls.forEach((el) => io.observe(el));
   } else {
     revealEls.forEach((el) => el.classList.add("is-visible"));
+  }
+
+  // The homepage thesis is paced by scrolling, not by a timer. The first
+  // line arrives as the quote settles into view; the second joins only after
+  // the visitor advances farther through the deliberately tall section.
+  const quoteScene = document.querySelector(".editorial-quote");
+  if (quoteScene) {
+    const reduceQuoteMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let quoteStep = 0;
+    let quoteTicking = false;
+
+    const updateQuoteStep = () => {
+      quoteTicking = false;
+      if (reduceQuoteMotion.matches) {
+        quoteStep = 2;
+      } else {
+        const sceneTop = quoteScene.offsetTop - window.scrollY;
+        if (sceneTop <= window.innerHeight * 0.35) quoteStep = Math.max(quoteStep, 1);
+        if (sceneTop <= window.innerHeight * -0.12) quoteStep = 2;
+      }
+      quoteScene.dataset.quoteStep = String(quoteStep);
+    };
+
+    const requestQuoteUpdate = () => {
+      if (quoteTicking) return;
+      quoteTicking = true;
+      requestAnimationFrame(updateQuoteStep);
+    };
+
+    updateQuoteStep();
+    window.addEventListener("scroll", requestQuoteUpdate, { passive: true });
+    window.addEventListener("resize", requestQuoteUpdate);
+    reduceQuoteMotion.addEventListener?.("change", requestQuoteUpdate);
   }
 
   // Set current year in footer.
