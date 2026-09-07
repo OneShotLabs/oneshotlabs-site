@@ -1617,7 +1617,7 @@ h1, h2, h3 {
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.035em;
-  line-height: 1.08;
+  line-height: 1.458;
 }
 
 .editorial-quote-line {
@@ -1625,6 +1625,10 @@ h1, h2, h3 {
   opacity: 0;
   transform: translateY(0.35em);
   transition: opacity 800ms var(--oneshot-ease), transform 800ms var(--oneshot-ease);
+}
+
+.editorial-quote-line + .editorial-quote-line {
+  margin-top: 0;
 }
 
 .editorial-quote[data-quote-step="1"] .editorial-quote-line:first-child,
@@ -1657,7 +1661,22 @@ h1, h2, h3 {
   opacity: 0.7;
 }
 
-.founder-note-inner { width: min(100%, 740px); margin-inline: auto; }
+.founder-note {
+  position: relative;
+  overflow: clip;
+}
+
+.founder-note-inner {
+  position: relative;
+  z-index: 1;
+  width: min(100%, var(--max-w-wide));
+  margin-inline: auto;
+}
+
+.founder-note-inner > .editorial-index,
+.founder-note-beat {
+  width: min(70%, 940px);
+}
 
 .founder-note-beat {
   margin: 0;
@@ -1669,48 +1688,89 @@ h1, h2, h3 {
 }
 
 .founder-note-beat + .founder-note-beat {
-  margin-top: clamp(6rem, 14vw, 11rem);
+  margin-top: 1.05em;
 }
 
-.founder-note-beat::before {
-  content: "";
-  display: block;
-  width: 2.25rem;
-  height: 1px;
-  margin-bottom: 2.1rem;
-  background: var(--trim);
-}
+.founder-note-beat::before { content: none; }
 
 .founder-note-signature {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  justify-content: center;
+  gap: 0;
   margin: clamp(5rem, 10vw, 8rem) 0 0;
+  text-align: center;
   color: var(--oneshot-navy);
   font: 600 0.7rem/1.65 var(--font-body);
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.founder-note-signature::before { content: ""; width: 2rem; height: 1px; background: var(--trim); }
+.founder-note-signature::before { content: none; }
 
 .founder-name-story {
-  margin-top: clamp(8rem, 16vw, 13rem);
-  padding-top: clamp(4rem, 8vw, 6.5rem);
+  position: relative;
+  width: min(70%, 940px);
+  max-width: 940px;
+  margin-left: auto;
+  transform: none;
+  margin-top: clamp(5rem, 9vw, 7rem);
+  padding-top: clamp(3rem, 6vw, 4.5rem);
   border-top: var(--border-thread);
 }
 
-.founder-name-story .editorial-index { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+.founder-watermark {
+  position: absolute;
+  z-index: 0;
+  top: 55%;
+  left: 50%;
+  right: auto;
+  width: 108vw;
+  max-width: none;
+  color: var(--oneshot-navy);
+  opacity: 0.0225;
+  pointer-events: none;
+  transform: translate(-50%, -50%) rotate(8deg);
+}
+
+.founder-watermark svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.founder-name-story .editorial-index {
+  justify-content: flex-end;
+  gap: 1rem;
+  width: 100%;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  text-align: right;
+}
+
+.founder-name-story .editorial-index::before {
+  content: "";
+  flex: 0 1 4rem;
+  width: auto;
+  height: 1px;
+  background: var(--trim);
+  opacity: 0.78;
+}
+
+.founder-name-story .editorial-index::after { content: none; }
 
 .founder-name-story-copy {
-  max-width: 31ch;
+  max-width: none;
   margin: 0;
   color: var(--oneshot-navy);
   font-family: "Cormorant Garamond", "EB Garamond", Georgia, serif;
-  font-size: clamp(1.65rem, 2.8vw, 2.4rem);
+  font-size: clamp(1.5rem, 2.25vw, 2rem);
   font-weight: 500;
-  line-height: 1.42;
+  line-height: 1.48;
+  overflow-wrap: break-word;
 }
+
+.founder-name-story-copy + .founder-name-story-copy { margin-top: 1.05em; }
 
 .editorial-continue {
   display: grid;
@@ -1765,7 +1825,7 @@ h1, h2, h3 {
   .editorial-quote-mark { margin-bottom: 3rem; }
   .editorial-quote blockquote { font-size: clamp(2.3rem, 10vw, 3.3rem); }
   .editorial-section { padding-block: 6rem; }
-  .founder-note-beat + .founder-note-beat { margin-top: 6rem; }
+  .founder-note-beat + .founder-note-beat { margin-top: 1.05em; }
   .editorial-work-grid { grid-template-columns: 1fr; align-items: start; }
 }
 
@@ -2493,6 +2553,7 @@ a.post-title-link:active {
    hairline above it. */
 
 .site-footer {
+  position: relative;
   padding: 4rem 0 4.5rem;
   background: var(--bg);
   color: var(--fg-dim);
@@ -2505,8 +2566,15 @@ a.post-title-link:active {
 .site-footer .container-wide {
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+.footer-right {
+  display: grid;
+  justify-items: end;
+  gap: 0;
 }
 
 .footer-links {
@@ -2533,12 +2601,16 @@ a.post-title-link:active {
 .footer-links a:active::after { transform: scaleX(1); }
 
 .footer-mark {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  margin-top: 2.5rem;
+  margin: 0;
   color: var(--header-navy);
+  transform: translateX(-50%);
 }
 
 .footer-mark svg {
@@ -2549,7 +2621,31 @@ a.post-title-link:active {
   display: block;
   width: 16px;
   height: 1px;
-  background: var(--header-navy);
+  background: var(--trim);
+}
+
+@media (max-width: 1024px) {
+  .founder-note-inner > .editorial-index,
+  .founder-note-beat {
+    width: 100%;
+  }
+
+  .founder-name-story {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+    transform: none;
+  }
+
+  .founder-watermark {
+    top: 56%;
+    left: 50%;
+    right: auto;
+    width: 90rem;
+    max-width: none;
+    opacity: 0.0175;
+    transform: translate(-50%, -50%) rotate(8deg);
+  }
 }
 
 /* ---------- Responsive ----------
@@ -3575,23 +3671,28 @@ html.no-splash .splash { display: none; }
         <p class="founder-note-beat reveal">The learning curve was intimidating, but achievable. You could brainstorm a thought, vet an idea, and build a prototype within an hour.</p>
         <p class="founder-note-beat reveal">Success compounds. Curiosity is rewarded. Problems start to feel more like puzzles than work. Every issue becomes an opportunity to solve something in a new way.</p>
         <p class="founder-note-beat reveal">The space is moving quickly, and OneShotLabs is my way of staying close to that frontier, testing what is actually useful, and continuing to push how far these tools can go.</p>
-        <div class="founder-name-story reveal">
-          <p class="editorial-index">Why OneShotLabs</p>
-          <p class="founder-name-story-copy">The name came from the same idea. When a prompt is framed correctly, a task can be completed in one click—in one shot. Photography works the same way: the real work happens in the framing, light, and setup before the shutter is pressed, not in post-production. OneShotLabs connects the two disciplines: prepare carefully, then execute once.</p>
+        <div class="founder-watermark" aria-hidden="true">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs><polygon id="founder-watermark-blade" points="53.5,2 55.8,20 50,46 41.5,20.6" /></defs>
+            <g fill="currentColor">
+              <use href="#founder-watermark-blade" transform="rotate(0 50 50)" />
+              <use href="#founder-watermark-blade" transform="rotate(45 50 50)" />
+              <use href="#founder-watermark-blade" transform="rotate(90 50 50)" />
+              <use href="#founder-watermark-blade" transform="rotate(135 50 50)" />
+              <use href="#founder-watermark-blade" transform="rotate(180 50 50)" />
+              <use href="#founder-watermark-blade" transform="rotate(225 50 50)" />
+              <use href="#founder-watermark-blade" transform="rotate(270 50 50)" />
+              <use href="#founder-watermark-blade" transform="rotate(315 50 50)" />
+            </g>
+          </svg>
         </div>
-        <p class="founder-note-signature">David Jergovic<br />Founder, OneShotLabs</p>
-        <a class="editorial-continue" href="#work"><span>Continue</span><span aria-hidden="true">↓</span></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section editorial-section editorial-work" id="work">
-    <div class="container-wide">
-      <p class="editorial-index">02 / Work</p>
-      <div class="editorial-work-grid">
-        <h2>Across the life of the deal.</h2>
-        <p class="editorial-work-copy">From underwriting to asset management, we explore how AI can support better analysis, clearer decisions, and stronger outcomes across the real estate investment lifecycle.</p>
-        <a class="editorial-work-link" href="ai-consulting.html" aria-label="Explore AI leadership">→</a>
+        <div class="founder-name-story reveal">
+          <p class="editorial-index">02 / Name</p>
+          <p class="founder-name-story-copy">The name OneShotLabs came from a thought I had as I started to see real momentum in what I was building with AI. When the problem was framed correctly and the prompt was good enough, something that had previously taken several steps could suddenly be carried from beginning to end in one click, or one shot.</p>
+          <p class="founder-name-story-copy">The phrase stayed with me. Over the following weeks, as I kept experimenting and the wins started to compound, I found myself coming back to it.</p>
+          <p class="founder-name-story-copy">Once I realized the connection to photography, one of my favorite hobbies, the idea took on another layer. OneShotLabs was born.</p>
+        </div>
+        <p class="founder-note-signature">David Jergovic&nbsp;&nbsp;·&nbsp;&nbsp;Founder, OneShotLabs</p>
       </div>
     </div>
   </section>
@@ -3599,18 +3700,10 @@ html.no-splash .splash { display: none; }
   <footer class="site-footer">
     <div class="container-wide">
       <span>© <span data-year></span> One Shot</span>
-      <div class="footer-links">
-        <a href="career.html">Career</a>
-        <a href="ai-consulting.html">AI</a>
-        <a href="photography.html">Photography</a>
-        <a href="blog.html">Blog</a>
-        <a href="bio.html">Bio</a>
-        <a href="contact.html">Contact</a>
-      </div>
-    </div>
-    <div class="footer-mark" aria-hidden="true">
-      <span class="footer-mark-dash" style="width: 20px;"></span>
-      <svg viewBox="0 0 38 20" width="39" height="20.5">
+      <div class="footer-right">
+        <div class="footer-mark" aria-hidden="true">
+          <span class="footer-mark-dash" style="width: 20px;"></span>
+          <svg viewBox="0 0 38 20" width="39" height="20.5">
         <defs>
           <pattern id="knit-texture" width="2.4" height="2.4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
             <line x1="0" y1="0" x2="0" y2="2.4" stroke="#000000" stroke-width="0.6" />
@@ -3630,8 +3723,18 @@ html.no-splash .splash { display: none; }
           <circle cx="1.7" cy="9.6" r="0.55" /><circle cx="4.3" cy="9.6" r="0.55" /><circle cx="6.9" cy="9.6" r="0.55" /><circle cx="9.5" cy="9.6" r="0.55" /><circle cx="12.1" cy="9.6" r="0.55" />
         </g>
         <rect x="0" y="0" width="38" height="20" fill="url(#knit-texture)" opacity="0.16" />
-      </svg>
-      <span class="footer-mark-dash" style="width: 20px;"></span>
+          </svg>
+          <span class="footer-mark-dash" style="width: 20px;"></span>
+        </div>
+        <div class="footer-links">
+          <a href="career.html">Career</a>
+          <a href="ai-consulting.html">AI</a>
+          <a href="photography.html">Photography</a>
+          <a href="blog.html">Blog</a>
+          <a href="bio.html">Bio</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
     </div>
   </footer>
   </div>

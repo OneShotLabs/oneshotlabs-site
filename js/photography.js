@@ -187,7 +187,7 @@ const PHOTOS = [
     shutter: 0.01,
   },
   {
-    src: "images/photo-2026-01-bulldog-ball.jpg",
+    src: "images/photo-2026-01-bulldog-ball-v2.jpg",
     month: "January",
     year: 2026,
     caption: "",
@@ -362,10 +362,9 @@ const PHOTOS = [
     // Casino/craps-table shot — not family, public per instruction.
     visibility: "public",
     location: "Las Vegas",
-    // Pinned to always sort last in the Chronological view, regardless of
-    // its real capture date (this is the earliest public photo by EXIF —
-    // see sortChronological below for how the pin is applied).
-    pinLast: true,
+    // Deliberate editorial placement: keep this immediately before the
+    // September 2026 train frame (see sortChronological below).
+    pinBefore: "images/photo-2026-09-train-sunset.webp",
     iso: 6400,
     aperture: 2,
     shutter: 0.0125,
@@ -585,6 +584,71 @@ const PHOTOS = [
     ratio: "1184 / 1776", visibility: "private",
     iso: 1250, aperture: 4, shutter: 0.01,
   },
+  {
+    src: "images/photo-2026-06-playground-spinner.jpg",
+    month: "June", year: 2026, caption: "",
+    ratio: "540 / 360", visibility: "private",
+    iso: 640, aperture: 5.6, shutter: 0.0666667,
+  },
+  {
+    src: "images/photo-2026-08-lifeguard-chair.webp",
+    month: "August", year: 2026, caption: "",
+    ratio: "724 / 1086", visibility: "private",
+    iso: 250, aperture: 5.6, shutter: 0.0009091,
+  },
+  {
+    src: "images/photo-2026-08-bulldog-laptop.webp",
+    month: "August", year: 2026, caption: "",
+    ratio: "724 / 1086", visibility: "private",
+    iso: 5000, aperture: 2, shutter: 0.01,
+  },
+  {
+    src: "images/photo-2026-08-rain-boots-umbrella.webp",
+    month: "August", year: 2026, caption: "",
+    ratio: "724 / 1086", visibility: "private",
+    iso: 160, aperture: 2.5, shutter: 0.0066667,
+  },
+  {
+    src: "images/photo-2026-09-pink-umbrella.webp",
+    month: "September", year: 2026, caption: "",
+    ratio: "666 / 1182", visibility: "private",
+    iso: 1000, aperture: 2, shutter: 0.01,
+  },
+  {
+    src: "images/photo-2026-09-train-sunset.webp",
+    month: "September", year: 2026, caption: "",
+    ratio: "900 / 1200", visibility: "public",
+    location: "Southport",
+    iso: 160, aperture: 2.2, shutter: 0.0090909,
+  },
+  {
+    src: "images/photo-2026-09-fishing-boats.webp",
+    month: "September", year: 2026, caption: "",
+    ratio: "1067 / 1600", visibility: "public",
+    location: "Hyannis Port",
+    iso: 320, aperture: 5.6, shutter: 0.00125,
+  },
+  {
+    src: "images/photo-2026-09-concert-globe-close.webp",
+    month: "September", year: 2026, caption: "",
+    ratio: "901 / 1600", visibility: "public",
+    location: "Soldier Field",
+    iso: 6400, aperture: 2, shutter: 0.0238095,
+  },
+  {
+    src: "images/photo-2026-09-concert-silhouettes.webp",
+    month: "September", year: 2026, caption: "",
+    ratio: "1178 / 884", visibility: "public",
+    location: "Soldier Field",
+    iso: 6400, aperture: 2, shutter: 0.0178571,
+  },
+  {
+    src: "images/photo-2026-09-concert-globe-wide.webp",
+    month: "September", year: 2026, caption: "",
+    ratio: "1086 / 724", visibility: "public",
+    location: "Soldier Field",
+    iso: 6400, aperture: 2, shutter: 0.0263158,
+  },
 ];
 
 const MONTH_ORDER = [
@@ -594,17 +658,21 @@ const MONTH_ORDER = [
 
 function sortChronological(photos, direction) {
   // direction "asc" (default) = oldest first, feed reads top-to-bottom as
-  // forward-moving time. "desc" = newest first. Photos flagged pinLast
-  // (manual override, real date left untouched) always render after every
-  // non-pinned photo, in their given order, regardless of direction.
-  const pinned = photos.filter((p) => p.pinLast);
-  const rest = photos.filter((p) => !p.pinLast);
+  // forward-moving time. "desc" = newest first. A pinBefore reference is
+  // an editorial override that places one frame immediately before another
+  // while leaving both photos' real dates untouched.
+  const pinned = photos.filter((p) => p.pinBefore);
+  const rest = photos.filter((p) => !p.pinBefore);
   rest.sort((a, b) => {
     if (a.year !== b.year) return a.year - b.year;
     return MONTH_ORDER.indexOf(a.month) - MONTH_ORDER.indexOf(b.month);
   });
   if (direction === "desc") rest.reverse();
-  return [...rest, ...pinned];
+  pinned.forEach((photo) => {
+    const targetIndex = rest.findIndex((candidate) => candidate.src === photo.pinBefore);
+    rest.splice(targetIndex < 0 ? rest.length : targetIndex, 0, photo);
+  });
+  return rest;
 }
 
 // True if a photo's own ratio is wider than it is tall — used to give

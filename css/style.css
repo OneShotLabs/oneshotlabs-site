@@ -2127,6 +2127,42 @@ a.post-title-link:active {
   max-width: 14ch;
 }
 
+/* Bio editorial profile: preserve the existing portrait at its current
+   desktop footprint while giving the canonical copy a wider reading measure. */
+.about-grid-editorial {
+  display: block;
+}
+
+.about-grid-editorial .about-portrait-wrap {
+  width: min(100%, 574px);
+  margin-inline: auto;
+}
+
+.about-grid-editorial .about-copy {
+  width: min(100%, 900px);
+  max-width: 900px;
+  margin: clamp(2.275rem, 4.55vw, 3.9rem) auto 0;
+  padding-top: 0;
+}
+
+.about-grid-editorial .about-copy p {
+  margin: 0 0 1.65em;
+  color: var(--oneshot-navy);
+  font-family: "Cormorant Garamond", "EB Garamond", Georgia, serif;
+  font-size: clamp(1.3rem, 1.55vw, 1.55rem);
+  font-weight: 500;
+  line-height: 1.48;
+  letter-spacing: -0.012em;
+}
+
+.about-grid-editorial .portrait-caption {
+  margin-top: 0.55rem;
+  color: var(--trim-dim);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .contact-block {
   margin-top: 3.5rem;
   padding-top: 2.5rem;
@@ -2354,6 +2390,10 @@ a.post-title-link:active {
   }
   .path-grid { grid-template-columns: 1fr; }
   .about-grid { grid-template-columns: 1fr; }
+  .about-grid-editorial .about-copy {
+    max-width: 900px;
+    padding-top: 0;
+  }
   .shutter-grid { grid-template-columns: 1fr; }
   .shutter-visual { aspect-ratio: 16 / 10; }
 }
