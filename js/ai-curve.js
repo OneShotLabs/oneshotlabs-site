@@ -21,6 +21,19 @@
   const HISTORY_KEY = `oneshot-ai-curve-history-v1-${storageNamespace}`;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const horizonSection = document.querySelector('.capability-horizon');
+  const horizonPath = document.getElementById('capability-curve-path');
+  const horizonMarker = document.getElementById('capability-curve-marker');
+
+  const horizon = {
+    progress: 0.24,
+    target: 0.24,
+    velocity: 0,
+    frame: 0,
+    previousTime: 0,
+    mode: 'standard',
+    locked: false,
+  };
 
   /** @type {{assessment_version:string, questions:Array, optional_unscored:Object, optional_segmentation:Object}} */
   let BANK = null;
@@ -35,6 +48,85 @@
     question_started_at: null,
     answer_times_ms: {},
   };
+
+  function drawHorizon(progress) {
+    if (!horizonPath || !horizonMarker) return;
+    const length = horizonPath.getTotalLength();
+    const clamped = Math.max(0, Math.min(1, progress));
+    const point = horizonPath.getPointAtLength(length * clamped);
+    horizonPath.style.strokeDashoffset = String(1 - clamped);
+    horizonMarker.setAttribute('transform', `translate(${point.x} ${point.y}) rotate(${clamped * 2520})`);
+  }
+
+  function animateHorizon(time) {
+    const delta = horizon.target - horizon.progress;
+    const direction = Math.sign(delta);
+    const deltaTime = Math.min((time - (horizon.previousTime || time)) / 1000, 0.032);
+    horizon.previousTime = time;
+
+    const introMotion = horizon.mode === 'intro';
+    const acceleration = introMotion ? (direction > 0 ? 5.2 : 3.35) : 3.1;
+    const maxSpeed = introMotion ? (direction > 0 ? 1.35 : 0.95) : 0.9;
+    const brakingDistance = (horizon.velocity * horizon.velocity) / (2 * acceleration);
+
+    if (Math.sign(horizon.velocity) === direction && Math.abs(delta) <= brakingDistance + 0.002) {
+      horizon.velocity -= direction * acceleration * deltaTime;
+    } else {
+      horizon.velocity += direction * acceleration * deltaTime;
+    }
+    horizon.velocity = Math.max(-maxSpeed, Math.min(maxSpeed, horizon.velocity));
+
+    let next = horizon.progress + horizon.velocity * deltaTime;
+    const crossedTarget = direction !== 0 && Math.sign(horizon.target - next) !== direction;
+    const settled = Math.abs(delta) < 0.0015 && Math.abs(horizon.velocity) < 0.08;
+    if (crossedTarget || settled) {
+      next = horizon.target;
+      horizon.velocity = 0;
+    }
+
+    horizon.progress = next;
+    drawHorizon(next);
+    if (next !== horizon.target || horizon.velocity !== 0) {
+      horizon.frame = requestAnimationFrame(animateHorizon);
+    } else {
+      horizon.frame = 0;
+      horizon.previousTime = 0;
+    }
+  }
+
+  function setHorizonTarget(target, mode) {
+    horizon.target = Math.max(0, Math.min(1, target));
+    horizon.mode = mode || 'standard';
+    if (reducedMotion) {
+      cancelAnimationFrame(horizon.frame);
+      horizon.progress = horizon.target;
+      horizon.velocity = 0;
+      horizon.frame = 0;
+      drawHorizon(horizon.progress);
+      return;
+    }
+    if (!horizon.frame) {
+      horizon.previousTime = 0;
+      horizon.frame = requestAnimationFrame(animateHorizon);
+    }
+  }
+
+  function syncHorizonForState() {
+    if (!horizonSection) return;
+    ['intro', 'question', 'segmentation', 'qualitative', 'submitting', 'result', 'error', 'transitioning'].forEach((name) => {
+      horizonSection.classList.remove(`is-${name}`);
+    });
+    horizonSection.classList.add(`is-${state.step}`);
+
+    if (state.step !== 'intro') horizon.locked = false;
+    if (state.step === 'intro') setHorizonTarget(0.24, 'intro');
+    else if (state.step === 'question') setHorizonTarget(0.2 + (state.index / Math.max(1, BANK.questions.length)) * 0.62);
+    else if (state.step === 'segmentation') setHorizonTarget(0.84);
+    else if (state.step === 'qualitative') setHorizonTarget(0.9);
+    else if (state.step === 'submitting') setHorizonTarget(1, 'intro');
+    else if (state.step === 'result') setHorizonTarget(0.23 + (Number(state.result?.scoring?.overall || 0) / 100) * 0.7);
+    else setHorizonTarget(0.24);
+  }
 
   function restoreSession() {
     try {
@@ -203,6 +295,7 @@
         renderError();
         break;
     }
+    syncHorizonForState();
     persistSession();
   }
 
@@ -225,29 +318,36 @@
   function renderIntro() {
     const wrap = el('div', { class: 'curve-panel curve-intro reveal is-visible' }, [
       el('p', { class: 'hero-eyebrow' }, ['OneShotLabs / AI Curve']),
-      el('h2', {}, ['Where are you on the AI Curve?']),
-      el('p', { class: 'curve-lede' }, [
-        'A focused assessment of how you use AI professionally against today\u2019s capability frontier \u2014 10 questions and a straight read on where you stand.',
-      ]),
-      el('p', { class: 'muted' }, [
-        'Built for professionals in finance, investing, real estate and other knowledge-intensive industries.',
-      ]),
+      el('h2', {}, ['Find your place on the frontier']),
+      el('p', { class: 'curve-lede' }, ['Ten questions. Five minutes. See where your habits place you on the AI curve.']),
       el('ul', { class: 'curve-intro-facts' }, [
-        el('li', {}, ['About 3 minutes']),
+        el('li', {}, ['Private']),
         el('li', {}, ['No email required']),
-        el('li', {}, ['Private, server-side scoring']),
       ]),
-      el('button', { class: 'btn btn-accent', id: 'curve-start' }, ['Take the Assessment \u2192']),
+      el('button', { class: 'btn btn-accent', id: 'curve-start' }, ['Find my position \u2192']),
     ]);
     root.appendChild(wrap);
-    document.getElementById('curve-start').addEventListener('click', () => {
-      state.started_at = new Date().toISOString();
-      state.step = 'question';
-      state.index = 0;
-      state.question_started_at = Date.now();
-      track('start', {});
-      render();
-      focusPanel();
+    const startButton = document.getElementById('curve-start');
+    const advanceMarker = () => { if (!horizon.locked) setHorizonTarget(0.68, 'intro'); };
+    const returnMarker = () => { if (!horizon.locked) setHorizonTarget(0.24, 'intro'); };
+    startButton.addEventListener('pointerenter', advanceMarker);
+    startButton.addEventListener('pointerleave', returnMarker);
+    startButton.addEventListener('focus', advanceMarker);
+    startButton.addEventListener('blur', returnMarker);
+    startButton.addEventListener('click', () => {
+      horizon.locked = true;
+      startButton.disabled = true;
+      horizonSection?.classList.add('is-transitioning');
+      setHorizonTarget(1, 'intro');
+      window.setTimeout(() => {
+        state.started_at = new Date().toISOString();
+        state.step = 'question';
+        state.index = 0;
+        state.question_started_at = Date.now();
+        track('start', {});
+        render();
+        focusPanel();
+      }, reducedMotion ? 0 : 720);
     });
   }
 
@@ -895,6 +995,7 @@
   }
 
   // ---------- Boot ----------
+  drawHorizon(horizon.progress);
   restoreSession();
   if (state.step === 'result' && state.result) {
     // Result previews and restored results do not need the public question

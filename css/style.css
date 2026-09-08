@@ -3564,3 +3564,185 @@ html.no-splash .splash { display: none; }
   .ai-page .curve-intro .curve-lede,
   .ai-page .curve-intro > .muted { font-size: 16px; }
 }
+
+/* ---------- Capability Horizon: approved AI Curve entry experience ---------- */
+
+.ai-page .capability-horizon {
+  position: relative;
+  min-height: calc(100svh - 96px);
+  padding: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--oneshot-cream);
+}
+
+.capability-horizon-art {
+  position: absolute;
+  z-index: 0;
+  inset: 0 auto auto 0;
+  display: block;
+  width: 100%;
+  height: clamp(720px, calc(100svh - 96px), 900px);
+  pointer-events: none;
+}
+
+.capability-mineral-body {
+  opacity: .92;
+  transform-origin: center;
+  transition: opacity 700ms var(--oneshot-ease), transform 950ms var(--oneshot-ease);
+}
+
+.capability-horizon-shadow {
+  fill: none;
+  stroke: rgba(29, 47, 78, .16);
+  stroke-width: 28;
+  filter: blur(18px);
+  transform: translateY(16px);
+}
+
+.capability-curve-base,
+.capability-curve-live {
+  fill: none;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.capability-curve-base {
+  stroke: rgba(159, 121, 48, .2);
+  stroke-width: 1.1;
+}
+
+.capability-curve-live {
+  stroke: var(--oneshot-gold-body);
+  stroke-width: 1.75;
+  stroke-dasharray: 1;
+  stroke-dashoffset: .76;
+}
+
+#capability-curve-marker {
+  pointer-events: none;
+  will-change: transform;
+}
+
+.capability-horizon-inner {
+  position: relative;
+  z-index: 1;
+  min-height: calc(100svh - 96px);
+  padding-top: clamp(74px, 10vh, 120px);
+  padding-bottom: 80px;
+}
+
+.ai-page .capability-horizon .ai-curve-frame {
+  width: min(720px, 56vw);
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.capability-horizon .curve-brand-mark { display: none; }
+.capability-horizon .curve-intro { max-width: 650px; }
+
+.ai-page .capability-horizon .curve-intro h2 {
+  max-width: 10ch;
+  margin: 0;
+  color: var(--fg);
+  font: 450 clamp(54px, 5.5vw, 84px)/1.06 var(--font-display);
+  letter-spacing: -.045em;
+}
+
+.ai-page .capability-horizon .curve-intro .curve-lede {
+  max-width: 520px;
+  margin: 34px 0 0;
+  color: #39342e;
+  font: 400 clamp(18px, 1.5vw, 22px)/1.58 var(--font-body);
+}
+
+.capability-horizon .curve-intro-facts {
+  display: flex;
+  gap: 30px;
+  margin: 37px 0 0;
+  color: var(--fg);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .08em;
+}
+
+.capability-horizon .curve-intro-facts li::before { content: none; }
+.capability-horizon .curve-intro-facts li + li {
+  padding-left: 30px;
+  border-left: 1px solid rgba(29, 47, 78, .35);
+}
+
+.capability-horizon .curve-intro .btn {
+  margin-top: 38px;
+}
+
+.capability-horizon .curve-intro .btn.btn-accent {
+  color: #fff;
+}
+
+.capability-horizon .curve-intro .btn.btn-accent:hover,
+.capability-horizon .curve-intro .btn.btn-accent:active {
+  color: var(--header-navy);
+}
+
+.capability-horizon.is-question .capability-mineral-body,
+.capability-horizon.is-segmentation .capability-mineral-body,
+.capability-horizon.is-qualitative .capability-mineral-body,
+.capability-horizon.is-submitting .capability-mineral-body {
+  opacity: .14;
+  transform: translate(4%, 3%) scale(1.035);
+}
+
+.capability-horizon.is-question .capability-horizon-shadow,
+.capability-horizon.is-segmentation .capability-horizon-shadow,
+.capability-horizon.is-qualitative .capability-horizon-shadow,
+.capability-horizon.is-submitting .capability-horizon-shadow {
+  opacity: .14;
+}
+
+.capability-horizon.is-question .capability-curve-base,
+.capability-horizon.is-segmentation .capability-curve-base,
+.capability-horizon.is-qualitative .capability-curve-base,
+.capability-horizon.is-submitting .capability-curve-base {
+  opacity: .25;
+}
+
+.capability-horizon.is-question .capability-curve-live,
+.capability-horizon.is-segmentation .capability-curve-live,
+.capability-horizon.is-qualitative .capability-curve-live,
+.capability-horizon.is-submitting .capability-curve-live {
+  opacity: .52;
+}
+
+@media (max-width: 900px) {
+  .ai-page .capability-horizon { min-height: calc(100svh - 76px); }
+  .capability-horizon-art { left: -18%; width: 140%; height: clamp(720px, calc(100svh - 76px), 900px); opacity: .72; }
+  .capability-horizon::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(255,253,248,.96) 0%, rgba(255,253,248,.76) 63%, rgba(255,253,248,.18) 100%);
+  }
+  .capability-horizon-inner { min-height: calc(100svh - 76px); padding-top: 60px; padding-bottom: 110px; }
+  .ai-page .capability-horizon .ai-curve-frame { width: min(660px, 100%); }
+  .ai-page .capability-horizon .curve-intro h2 { font-size: clamp(48px, 12vw, 70px); }
+}
+
+@media (max-width: 560px) {
+  .capability-horizon-inner { padding-top: 46px; }
+  .ai-page .capability-horizon .curve-intro h2 { font-size: clamp(43px, 13vw, 58px); }
+  .ai-page .capability-horizon .curve-intro .curve-lede { margin-top: 25px; font-size: 17px; }
+  .capability-horizon .curve-intro-facts { flex-direction: column; gap: 10px; margin-top: 28px; }
+  .capability-horizon .curve-intro-facts li + li { padding-left: 0; border-left: 0; }
+  .capability-horizon .curve-intro .btn { width: 100%; margin-top: 29px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capability-mineral-body,
+  .capability-curve-live { transition: none !important; }
+}
