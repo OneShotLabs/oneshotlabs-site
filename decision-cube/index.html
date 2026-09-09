@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>OneShotLabs Decision Cube</title></head><body>
+<div id="osl-navy-study">
+ <div class="hero">
+  <div class="headline"><h2>Complexity,<br> organized for<br> <em>judgment.</em></h2><div class="endline">Intelligence for<br> What’s Next.</div></div>
+  <div class="stage" role="img" aria-label="A large puzzle cube with raised matte brand-cream star and brass corners on canonical navy, and bold diligence stickers with navy transaction tiles and brand-cream lettering, blue underwriting frames and gold transaction frames. It solves into the canonical OneShotLabs star on the front, blue frames on top and gold frames on the right."><span class="loading">Preparing material study…</span></div>
+ </div>
+ <div class="viz-controls"><button class="btn btn-primary" data-play disabled>Play 10-second study</button><button class="btn" data-time="0" disabled>Unsorted</button><button class="btn" data-time="4.64" disabled>In motion</button><button class="btn" data-time="10" disabled>Finished</button></div>
+ <label class="form-label">Sequence <output>0.0s / 10s</output><input class="form-range" type="range" min="0" max="10" step="0.01" value="0" aria-label="Scrub material study" disabled></label>
+ <div class="text-small" data-state aria-live="polite">Material study · Illustrative transaction notes</div>
+</div>
+<style>
+#osl-navy-study .hero{position:relative;min-height:735px;background:#fffdf8;overflow:hidden;color:#1d2f4e}
+#osl-navy-study .headline{position:absolute;left:30px;top:24px;z-index:2;pointer-events:none}
+#osl-navy-study h2 br{display:none}
+#osl-navy-study h2{font:400 39px/1.13 Georgia,serif;letter-spacing:-1.2px;color:#1d2f4e;margin:0}
+#osl-navy-study h2 em{font-weight:400;color:#a98038}
+#osl-navy-study .endline{font:400 39px/1.13 Georgia,serif;color:#1d2f4e;position:absolute;top:0;left:0;width:660px;opacity:0}
+#osl-navy-study .endline br{display:none}
+#osl-navy-study .stage{position:absolute;inset:100px 0 0}
+#osl-navy-study canvas{width:100%;height:100%;display:block}
+#osl-navy-study .loading{position:absolute;top:50%;left:20%;font:13px Arial,sans-serif;color:#1d2f4e}
+#osl-navy-study .viz-controls{margin-top:10px}
+#osl-navy-study output{float:right;font-variant-numeric:tabular-nums}
+@media(max-width:560px){#osl-navy-study .hero{min-height:610px}#osl-navy-study .headline{left:18px;top:24px;right:18px}#osl-navy-study h2{font-size:30px}#osl-navy-study h2 em{display:block}#osl-navy-study .endline{font-size:30px;width:300px}#osl-navy-study .stage{inset:115px 0 0} }
+
+html,body { margin:0; padding:0; background:#fffdf8; overflow:hidden; }
+#osl-navy-study .hero { height:100vh; min-height:0; background:#fffdf8; }
+#osl-navy-study .stage { inset:0; }
+#osl-navy-study .headline,
+#osl-navy-study .viz-controls,
+#osl-navy-study .form-label,
+#osl-navy-study [data-state] { display:none; }
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
+<script>
+(async()=>{
+ const root=document.getElementById('osl-navy-study'),stage=root.querySelector('.stage'),play=root.querySelector('[data-play]'),slider=root.querySelector('input'),output=root.querySelector('output'),status=root.querySelector('[data-state]');
+ try{
+ if(!window.THREE)throw Error('The material renderer could not load.');
+ const T=window.THREE,scene=new T.Scene(),camera=new T.PerspectiveCamera(32,1,.1,60);camera.position.set(0,.3,10.5);camera.lookAt(0,-.15,0);
+ const renderer=new T.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setClearColor(0xffffff,0);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.0;renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.VSMShadowMap;stage.replaceChildren(renderer.domElement);
+ const cube=new T.Group();scene.add(cube);
+ scene.add(new T.HemisphereLight(0xffffff,0x756c59,.9));
+ const key=new T.DirectionalLight(0xfff5e4,2.2);key.position.set(-3,7,6);key.castShadow=true;key.shadow.mapSize.set(2048,2048);key.shadow.camera.left=-5;key.shadow.camera.right=5;key.shadow.camera.top=5;key.shadow.camera.bottom=-5;key.shadow.normalBias=.035;key.shadow.bias=-.0003;key.shadow.radius=6;key.shadow.blurSamples=12;scene.add(key);
+ const fill=new T.DirectionalLight(0xe5edff,.8);fill.position.set(5,2,3);scene.add(fill);
+ const rim=new T.DirectionalLight(0xffffff,1.2);rim.position.set(-2,3,-4);scene.add(rim);
+ // Soft studio reflections give the molded plastic rounded highlights.
+ const envScene=new T.Scene();envScene.background=new T.Color(0x929292);
+ function panel(x,y,z,w,h,power){const p=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshBasicMaterial({color:new T.Color(power,power,power),side:T.DoubleSide}));p.position.set(x,y,z);p.lookAt(0,0,0);envScene.add(p)}
+ panel(-4,5,4,4,7,5);panel(5,2,1,2,6,3);panel(0,6,-3,5,3,4);
+ const pmrem=new T.PMREMGenerator(renderer),environment=pmrem.fromScene(envScene,.08);scene.environment=environment.texture;
+ const floor=new T.Mesh(new T.PlaneGeometry(100,100),new T.ShadowMaterial({color:0x332b1e,opacity:0}));floor.rotation.x=-Math.PI/2;floor.position.y=-2.3;floor.receiveShadow=true;scene.add(floor);
+ const shadowCanvas=document.createElement('canvas');shadowCanvas.width=shadowCanvas.height=256;const sh=shadowCanvas.getContext('2d'),gradient=sh.createRadialGradient(128,128,12,128,128,126);gradient.addColorStop(0,'rgba(40,32,20,.24)');gradient.addColorStop(.4,'rgba(40,32,20,.13)');gradient.addColorStop(1,'rgba(40,32,20,0)');sh.fillStyle=gradient;sh.fillRect(0,0,256,256);const softShadow=new T.Mesh(new T.PlaneGeometry(6.8,6.8),new T.MeshBasicMaterial({map:new T.CanvasTexture(shadowCanvas),transparent:true,depthWrite:false,toneMapped:false}));softShadow.rotation.x=-Math.PI/2;softShadow.position.set(.2,-2.28,.1);scene.add(softShadow);
+ function roundedBox(w,h,d,r){const g=new T.BoxGeometry(w,h,d,8,8,8),p=g.attributes.position,n=g.attributes.normal;const inner=new T.Vector3(w/2-r,h/2-r,d/2-r),v=new T.Vector3(),q=new T.Vector3(),normal=new T.Vector3();for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i);q.set(Math.max(-inner.x,Math.min(inner.x,v.x)),Math.max(-inner.y,Math.min(inner.y,v.y)),Math.max(-inner.z,Math.min(inner.z,v.z)));normal.copy(v).sub(q).normalize();v.copy(q).addScaledVector(normal,r);p.setXYZ(i,v.x,v.y,v.z);n.setXYZ(i,normal.x,normal.y,normal.z)}return g}
+ const grain=document.createElement('canvas');grain.width=grain.height=128;const gc=grain.getContext('2d'),pixels=gc.createImageData(128,128);let seed=17;for(let i=0;i<pixels.data.length;i+=4){seed=(seed*1664525+1013904223)>>>0;const c=120+(seed%17);pixels.data.set([c,c,c,255],i)}gc.putImageData(pixels,0,0);const bump=new T.CanvasTexture(grain);bump.wrapS=bump.wrapT=T.RepeatWrapping;bump.repeat.set(3,3);
+ const plastic=new T.MeshPhysicalMaterial({color:0x151718,roughness:.57,metalness:0,clearcoat:.05,clearcoatRoughness:.6,envMapIntensity:.16,bumpMap:bump,bumpScale:.0012});
+ const bodyGeometry=roundedBox(.985,.985,.985,.085),backingGeometry=roundedBox(.866,.866,.015,.007),reliefBacking=roundedBox(.974,.974,.019,.009);
+ const navyBase=new T.MeshPhysicalMaterial({color:0x1d2f4e,roughness:.82,clearcoat:0});
+ const stickerBase=new T.MeshPhysicalMaterial({color:0xfffdf8,roughness:.82,clearcoat:0});
+ const s=new T.Shape(),a=.428,r=.041;s.moveTo(-a+r,-a);s.lineTo(a-r,-a);s.quadraticCurveTo(a,-a,a,-a+r);s.lineTo(a,a-r);s.quadraticCurveTo(a,a,a-r,a);s.lineTo(-a+r,a);s.quadraticCurveTo(-a,a,-a,a-r);s.lineTo(-a,-a+r);s.quadraticCurveTo(-a,-a,-a+r,-a);const decalGeometry=new T.ShapeGeometry(s,10);const pos=decalGeometry.attributes.position,uv=decalGeometry.attributes.uv;for(let i=0;i<pos.count;i++)uv.setXY(i,(pos.getX(i)+a)/(2*a),(pos.getY(i)+a)/(2*a));
+ const logo=new Image();logo.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iODAwIiB2aWV3Qm94PSIwIDAgODAwIDgwMCI+CiAgPHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI4MDAiIGZpbGw9IiMxRDJGNEUiLz4KICA8cG9seWdvbiBwb2ludHM9IjQwNyw0MDQgMzgzLDMyNSA0MTgsMjcwIDQyNCwzMjkiIGZpbGw9IiNGRkZERjgiLz4KICA8cG9seWdvbiBwb2ludHM9IjQxMyw0MDcgNDUyLDMzMyA1MTYsMzE5IDQ4NCwzNjEiIGZpbGw9IiNGRkZERjgiLz4KICA8cG9seWdvbiBwb2ludHM9IjQxNCw0MTEgNDk2LDM4OCA1NTAsNDIzIDQ5Niw0MjkiIGZpbGw9IiNGRkZERjgiLz4KICA8cG9seWdvbiBwb2ludHM9IjQxMiw0MTcgNDg4LDQ1NyA1MDEsNTIwIDQ2MCw0ODgiIGZpbGw9IiNGRkZERjgiLz4KICA8cG9seWdvbiBwb2ludHM9IjQwNyw0MjAgNDMyLDQ5OSAzOTgsNTU1IDM5Miw1MDIiIGZpbGw9IiNGRkZERjgiLz4KICA8cG9seWdvbiBwb2ludHM9IjQwMiw0MTcgMzY0LDQ5MyAzMDAsNTA2IDMzNCw0NjMiIGZpbGw9IiNGRkZERjgiLz4KICA8cG9seWdvbiBwb2ludHM9IjM5OSw0MTIgMzIxLDQzOCAyNjYsNDAyIDMyMSwzOTciIGZpbGw9IiNGRkZERjgiLz4KICA8cG9seWdvbiBwb2ludHM9IjQwMSw0MDcgMzI4LDM2OCAzMTUsMzA1IDM1NywzMzciIGZpbGw9IiNGRkZERjgiLz4KICA8ZyBmaWxsPSJub25lIiBzdHJva2U9IiNBOTgwMzgiIHN0cm9rZS13aWR0aD0iMTIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+CiAgPHBhdGggZD0iTSAzMDIgMjgyIEEgMjQgMjQgMCAwIDAgMjc4IDMwNiIvPgogIDxwYXRoIGQ9Ik0gNTE1IDI4MiBBIDI0IDI0IDAgMCAxIDUzOSAzMDYiLz4KICA8cGF0aCBkPSJNIDI3OCA1MjAgQSAyNCAyNCAwIDAgMCAzMDIgNTQ0Ii8+CiAgPHBhdGggZD0iTSA1MzkgNTIwIEEgMjQgMjQgMCAwIDEgNTE1IDU0NCIvPgogIDwvZz4KPC9zdmc+Cgo=';await logo.decode();
+ const blue=[['Rent roll','204 units','Occupancy / restrictions'],['Operating statement','NOI $1,045,540','Reporting period required'],['Debt service','$850,033 / year','Confirm applicable scope'],['Appraisal','Value $16,728,640','Basis requires review'],['Coverage','DSCR 1.23x','Illustrative underwriting'],['Leverage','LTV 72.93%','Loan / underwritten value'],['Market study','Rent comparables','Restricted rent analysis'],['Sensitivity','Downside assumptions','Separate from baseline'],['Committee memo','Recommendation','Human judgment required']];
+ const gold=[['Borrower email','Re: diligence request','Please supply attachments'],['Legal review','Loan agreement','Counsel comments'],['Title work','Schedule B','Exceptions to review'],['Property condition','Repair scope','Follow-up questions'],['Diligence call','Agenda / questions','Owner • next action'],['Survey','Access / easements','Reconcile with title'],['Insurance','Coverage schedule','Confirm requirements'],['Closing checklist','Document requests','Outstanding items'],['Open items','Evidence required','Remains unresolved']];
+ const other=[['Source register','Document reference','Version / reporting date'],['Lease review','Term / concessions','Supporting schedule'],['Borrower follow-up','Missing attachment','Response requested'],['Rehabilitation','Scope / budget','Contractor questions'],['Environmental','Report review','Follow-up requirements'],['Tax assessment','Assessment / taxes','Reporting basis'],['Sponsor review','Experience / ownership','Supporting information'],['Call notes','Action register','Owner / due date'],['Evidence index','Source / calculation','Review basis']];
+ const textures=[];
+ function artwork(f,row,col){const c=document.createElement('canvas');c.width=c.height=512;const ctx=c.getContext('2d');ctx.fillStyle='#fffdf8';ctx.fillRect(0,0,512,512);
+ if(f===0){ctx.fillStyle='#1D2F4E';ctx.fillRect(0,0,512,512)}
+ else{const data=f===4?blue:f===2?gold:other,[title,l1,l2]=data[row*3+col],color=f===4?'#1D2F4E':f===2?'#A98038':f===3?'#6f8198':f===5?'#ad9a75':'#c4bca9';
+ ctx.fillStyle=color;ctx.fillRect(0,0,512,512);ctx.fillStyle=f===2?'#1D2F4E':'#fffdf8';ctx.beginPath();ctx.roundRect(26,26,460,460,15);ctx.fill();
+ ctx.fillStyle=f===2?'#FFFDF8':color;ctx.font='600 24px Arial';ctx.fillText(String(row*3+col+1).padStart(2,'0')+' / '+(f===4?'ANALYSIS':f===2?'TRANSACTION':'DILIGENCE'),43,80);
+ const words=title.toUpperCase().split(' ');let fontSize=74;ctx.font=`700 ${fontSize}px Arial`;while(words.some(w=>ctx.measureText(w).width>426)&&fontSize>44){fontSize--;ctx.font=`700 ${fontSize}px Arial`}
+ let lines=[],line='';for(const word of words){const next=line?line+' '+word:word;if(ctx.measureText(next).width>426&&line){lines.push(line);line=word}else line=next}lines.push(line);
+ ctx.fillStyle=f===2?'#FFFDF8':'#132640';lines.forEach((line,i)=>ctx.fillText(line,43,182+i*(fontSize+5)));
+ const baseline=Math.max(320,190+lines.length*(fontSize+5));ctx.strokeStyle=color;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(43,baseline-25);ctx.lineTo(466,baseline-25);ctx.stroke();
+ ctx.font='32px Arial';let sub=[],part='';for(const word of l1.split(' ')){const next=part?part+' '+word:word;if(ctx.measureText(next).width>420&&part){sub.push(part);part=word}else part=next}sub.push(part);sub.slice(0,2).forEach((line,i)=>ctx.fillText(line,43,baseline+20+i*38));
+ }
+ const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());textures.push(tex);return new T.MeshPhysicalMaterial({map:tex,emissiveMap:tex,emissive:0xffffff,emissiveIntensity:.65,roughness:.72,metalness:0,clearcoat:0,envMapIntensity:.04});}
+ const pieces=[];const I=[1,0,0,0,1,0,0,0,1];
+ // Extrude the supplied canonical star polygons; retain their exact outlines.
+ const logoPolygons=[[[407.0, 404.0], [383.0, 325.0], [418.0, 270.0], [424.0, 329.0]], [[413.0, 407.0], [452.0, 333.0], [516.0, 319.0], [484.0, 361.0]], [[414.0, 411.0], [496.0, 388.0], [550.0, 423.0], [496.0, 429.0]], [[412.0, 417.0], [488.0, 457.0], [501.0, 520.0], [460.0, 488.0]], [[407.0, 420.0], [432.0, 499.0], [398.0, 555.0], [392.0, 502.0]], [[402.0, 417.0], [364.0, 493.0], [300.0, 506.0], [334.0, 463.0]], [[399.0, 412.0], [321.0, 438.0], [266.0, 402.0], [321.0, 397.0]], [[401.0, 407.0], [328.0, 368.0], [315.0, 305.0], [357.0, 337.0]]];
+ const navyRelief=new T.MeshPhysicalMaterial({color:0xfffdf8,roughness:.8,metalness:0,clearcoat:0,envMapIntensity:.32,bumpMap:bump,bumpScale:.0025});
+ const navyEdge=new T.MeshPhysicalMaterial({color:0xfffdf8,roughness:.66,metalness:0,envMapIntensity:.28});
+ const brass=new T.MeshPhysicalMaterial({color:0xa98038,roughness:.48,metalness:.75,envMapIntensity:.65,bumpMap:bump,bumpScale:.0008});
+ const mapped=logoPolygons.map(poly=>poly.map(([x,y])=>[(x-408)/345*2.72,(413-y)/345*2.72]));
+ // Sutherland-Hodgman clipping keeps each relief segment on its physical tile.
+ function clip(poly,axis,bound,sign){const result=[];for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],ina=sign*(a[axis]-bound)>=-1e-8,inb=sign*(b[axis]-bound)>=-1e-8;if(ina)result.push(a);if(ina!==inb){const t=(bound-a[axis])/(b[axis]-a[axis]);result.push([a[0]+t*(b[0]-a[0]),a[1]+t*(b[1]-a[1])])}}return result}
+ function addRelief(face,row,col){const cx=(col-1)*1.01,cy=(1-row)*1.01;
+ function piece(poly,material,edge,depth){for(const [axis,bound,sign] of [[0,cx-.477,1],[0,cx+.477,-1],[1,cy-.477,1],[1,cy+.477,-1]]){poly=clip(poly,axis,bound,sign);if(poly.length<3)return}const shape=new T.Shape();poly.forEach(([x,y],i)=>i?shape.lineTo(x-cx,y-cy):shape.moveTo(x-cx,y-cy));shape.closePath();const g=new T.ExtrudeGeometry(shape,{depth,bevelEnabled:true,bevelThickness:.008,bevelSize:.006,bevelSegments:2,steps:1,curveSegments:12});const mesh=new T.Mesh(g,[material,edge]);mesh.position.z=.517;mesh.castShadow=true;mesh.receiveShadow=true;face.add(mesh)}
+ mapped.forEach(poly=>piece(poly,navyRelief,navyEdge,.073));
+ // Gold corner arcs use the centers and radius in the supplied master.
+ const arcs=[[302,306,-Math.PI,-Math.PI/2],[515,306,-Math.PI/2,0],[302,520,Math.PI/2,Math.PI],[515,520,0,Math.PI/2]];
+ for(const [x,y,from,to] of arcs){const poly=[];for(let i=0;i<=20;i++){const a=from+(to-from)*i/20;poly.push([(x+30*Math.cos(a)-408)/345*2.72,(413-y-30*Math.sin(a))/345*2.72])}for(let i=20;i>=0;i--){const a=from+(to-from)*i/20;poly.push([(x+18*Math.cos(a)-408)/345*2.72,(413-y-18*Math.sin(a))/345*2.72])}piece(poly,brass,brass,.038)}
+ }
+ for(let x=-1;x<=1;x++)for(let y=-1;y<=1;y++)for(let z=-1;z<=1;z++){const group=new T.Group(),body=new T.Mesh(bodyGeometry,plastic);body.castShadow=body.receiveShadow=true;group.add(body);cube.add(group);pieces.push({p:[x,y,z],m:I.slice(),group});const exterior=[z===1,z===-1,x===1,x===-1,y===1,y===-1];
+ exterior.forEach((yes,f)=>{if(!yes)return;let row,col;if(f===0){row=1-y;col=x+1}else if(f===2){row=1-y;col=1-z}else if(f===4){row=z+1;col=x+1}else{row=1-y;col=x+1;if(f===3)col=z+1;if(f===5)row=1-z}
+ const face=new T.Group();if(f===1)face.rotation.y=Math.PI;if(f===2)face.rotation.y=Math.PI/2;if(f===3)face.rotation.y=-Math.PI/2;if(f===4)face.rotation.x=-Math.PI/2;if(f===5)face.rotation.x=Math.PI/2;
+ const base=new T.Mesh(f===0?reliefBacking:backingGeometry,f===0||f===2?navyBase:stickerBase);base.position.z=.495;const decal=new T.Mesh(decalGeometry,artwork(f,row,col));decal.position.z=f===0?.507:.504;if(f===0)decal.scale.set(1.13,1.13,1);base.castShadow=true;decal.receiveShadow=true;face.add(base,decal);if(f===0)addRelief(face,row,col);group.add(face)});
+ }
+ const mul=(a,b)=>a.map((_,i)=>[0,1,2].reduce((v,k)=>v+a[Math.floor(i/3)*3+k]*b[k*3+i%3],0)),vec=(m,p)=>[0,1,2].map(i=>m[i*3]*p[0]+m[i*3+1]*p[1]+m[i*3+2]*p[2]);
+ function rot(axis,a){const c=Math.cos(a),s=Math.sin(a);return axis===0?[1,0,0,0,c,-s,0,s,c]:axis===1?[c,0,s,0,1,0,-s,0,c]:[c,-s,0,s,c,0,0,0,1]}
+ const moves=[[1,1,1],[0,-1,-1],[2,1,1],[1,0,-1],[0,1,1],[2,-1,-1],[1,-1,1],[0,0,1],[2,1,-1],[1,1,-1],[0,-1,1],[2,0,1]],durations=[1.05,.9,.85,.8,.7,.55,.48,.44,.40,.38,.38,.67];
+ function apply(ps,m,f=1){const r=rot(m[0],m[2]*Math.PI/2*f);ps.forEach(p=>{if(Math.round(p.p[m[0]])===m[1]){p.p=vec(r,p.p);p.m=mul(r,p.m);if(f===1){p.p=p.p.map(Math.round);p.m=p.m.map(Math.round)}}})}
+ const initial=pieces.map(p=>({p:p.p.slice(),m:I.slice()}));for(const m of moves.slice().reverse())apply(initial,[m[0],m[1],-m[2]]);
+ let current=0,running=false,raf=0,start=0,announced=false;const smooth=u=>u*u*(3-2*u);
+ function draw(t){current=t;const storyTime=t*1.4;const ps=initial.map(p=>({p:p.p.slice(),m:p.m.slice()}));let elapsed=Math.max(0,storyTime-.14);for(let i=0;i<moves.length;i++){if(elapsed>=durations[i]){apply(ps,moves[i]);elapsed-=durations[i]}else{apply(ps,moves[i],smooth(Math.max(0,elapsed/durations[i])));break}}
+ ps.forEach((p,i)=>{const m=p.m,g=pieces[i].group;g.position.set(...p.p.map(v=>v*1.01));g.setRotationFromMatrix(new T.Matrix4().set(m[0],m[1],m[2],0,m[3],m[4],m[5],0,m[6],m[7],m[8],0,0,0,0,1))});
+ const settle=smooth(Math.max(0,Math.min(1,(storyTime-6.3)/1.4)));cube.rotation.set(.45+settle*.035,-.50+settle*.015,-.025+settle*.025);cube.position.y=.10;
+ const reveal=smooth(Math.max(0,Math.min(1,(storyTime-8.1)/.8)));root.querySelector('h2').style.opacity=1-reveal;root.querySelector('.endline').style.opacity=reveal;
+ slider.value=t;output.value=`${t.toFixed(1)}s / 10s`;renderer.render(scene,camera);
+ root.dataset.time=t.toFixed(2);if(t<10)announced=false;if(t>=10&&!announced){announced=true;parent.postMessage({type:'oneshot:cube-state',state:'complete'},'*');}
+ }
+ function stop(){running=false;cancelAnimationFrame(raf);play.textContent='Play 10-second study'}
+ play.onclick=()=>{if(running){stop();return}running=true;start=performance.now()-(current>=10?0:current*1000);play.textContent='Pause';const frame=now=>{if(!root.isConnected){stop();return}const t=Math.min(10,(now-start)/1000);draw(t);if(t<10&&running)raf=requestAnimationFrame(frame);else{stop();status.textContent='Organized for judgment · Blue: underwriting · Gold: transaction review'}};raf=requestAnimationFrame(frame)};
+ slider.oninput=()=>{stop();draw(+slider.value)};root.querySelectorAll('[data-time]').forEach(b=>b.onclick=()=>{stop();draw(+b.dataset.time);status.textContent=b.textContent+' · Illustrative transaction notes'});
+ new ResizeObserver(()=>{const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h);camera.aspect=w/h;camera.position.z=Math.max(9.2,8.6/(w/h));camera.updateProjectionMatrix();draw(current)}).observe(stage);
+ root.querySelectorAll('button,input').forEach(e=>e.disabled=false);draw(0);
+ window.addEventListener('message',event=>{
+   if(event.source!==parent||event.data?.type!=='oneshot:cube')return;
+   if(event.data.action==='start'&&!running)play.click();
+   if(event.data.action==='pause')stop();
+   if(event.data.action==='finish'){stop();draw(10);}
+ });
+ parent.postMessage({type:'oneshot:cube-state',state:'ready'},'*');
+
+ // Expose only a compact geometry check for review; no scene mutation API.
+ const check=initial.map(p=>({p:p.p.slice(),m:p.m.slice()}));moves.forEach(m=>apply(check,m));root.dataset.solved=String(check.every((p,i)=>p.p.every((v,k)=>v===pieces[i].p[k])&&p.m.every((v,k)=>v===I[k])));
+ }catch(error){status.textContent=error.message;const note=root.querySelector('.loading');if(note)note.textContent='Preview unavailable';console.error(error)}
+})();
+</script>
+</body></html>
