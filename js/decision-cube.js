@@ -20,8 +20,8 @@
   function schedule() {
     if (started || reduced || !ready || !loaded || !visible()) { cancel(); return; }
     if (timer !== null) return;
-    // Start only after the uncovered document has painted, then wait two seconds.
-    timer = setTimeout(() => { timer = null; start(); }, 2000);
+    // Start only after the uncovered document has painted, then wait one second.
+    timer = setTimeout(() => { timer = null; start(); }, 1000);
   }
   function afterPaint() { requestAnimationFrame(() => requestAnimationFrame(schedule)); }
   window.addEventListener('load', () => { loaded = true; afterPaint(); }, { once: true });

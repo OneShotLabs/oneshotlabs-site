@@ -20,18 +20,24 @@
   height: clamp(540px, 66vw, 780px);
   margin: 0 auto;
   border: 0;
-  background: transparent;
+  background: var(--oneshot-cream, #fffdf8);
 }
 .decision-cube-toggle {
   color: var(--oneshot-navy, #1d2f4e);
-  font: inherit;
-  font-size: 14px;
-  padding: 10px 18px;
+  font: 600 11px/1 var(--font-label, "Arial Narrow", sans-serif);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  opacity: .58;
+  padding: 7px 2px 6px;
   background: transparent;
-  border: 1px solid currentColor;
-  border-radius: 3px;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--oneshot-gold-body, #c6a153) 55%, transparent);
+  border-radius: 0;
   cursor: pointer;
+  transition: opacity 400ms cubic-bezier(0.16, 1, 0.3, 1), border-color 400ms cubic-bezier(0.16, 1, 0.3, 1);
 }
+.decision-cube-toggle:hover { opacity: .86; border-bottom-color: var(--oneshot-gold-body, #c6a153); }
+.decision-cube-toggle:focus-visible { opacity: 1; outline: 1px solid var(--oneshot-gold-body, #c6a153); outline-offset: 5px; }
 .decision-cube-toggle:disabled { visibility: hidden; }
 @media (max-width: 600px) {
   .decision-cube-heading { min-height: 2.3em; }

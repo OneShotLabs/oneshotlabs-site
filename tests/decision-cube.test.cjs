@@ -24,13 +24,13 @@ function setup({ splashVisible = true, reduced = false, loaded = true } = {}) {
   return { messages, state, advance, heading, toggle, document, events, documentEvents, reveal() { splash.display = 'none'; observer(); } };
 }
 let t = setup(); t.state('ready'); t.advance(5000); assert.deepEqual(t.messages, []);
-t.reveal(); t.advance(1999); assert.deepEqual(t.messages, []); t.advance(1); assert.deepEqual(t.messages, ['start']);
+t.reveal(); t.advance(999); assert.deepEqual(t.messages, []); t.advance(1); assert.deepEqual(t.messages, ['start']);
 t.state('complete'); assert.equal(t.heading.textContent, 'Intelligence for What’s Next.');
 t.toggle.click(); assert.equal(t.messages.at(-1), 'start');
 t = setup({ splashVisible: false, loaded: false }); t.state('ready'); t.advance(3000); assert.deepEqual(t.messages, []);
-t.events.load(); t.advance(2000); assert.deepEqual(t.messages, ['start']);
+t.events.load(); t.advance(1000); assert.deepEqual(t.messages, ['start']);
 t = setup({ splashVisible: false }); t.state('ready'); t.advance(1000); t.document.visibilityState = 'hidden'; t.documentEvents.visibilitychange(); t.advance(3000); assert.deepEqual(t.messages, []);
-t.document.visibilityState = 'visible'; t.documentEvents.visibilitychange(); t.advance(2000); assert.deepEqual(t.messages, ['start']);
+t.document.visibilityState = 'visible'; t.documentEvents.visibilitychange(); t.advance(1000); assert.deepEqual(t.messages, ['start']);
 t = setup({ splashVisible: false, reduced: true }); t.state('ready'); t.advance(5000); assert.deepEqual(t.messages, ['finish']);
 t = setup({ splashVisible: false }); t.events.message({ source: {}, data: { type: 'oneshot:cube-state', state: 'ready' } }); t.advance(3000); assert.deepEqual(t.messages, []);
 console.log('Cube timing, splash gating, visibility, reduced motion, replay, and message isolation passed.');
