@@ -6,7 +6,7 @@
 }
 .decision-cube-heading {
   color: var(--oneshot-navy, #1d2f4e);
-  font: 400 clamp(32px, 4.3vw, 64px)/1.13 var(--font-heading, Georgia, serif);
+  font: 500 clamp(32px, 4.3vw, 64px)/1.08 "Cormorant Garamond", "EB Garamond", Georgia, serif;
   letter-spacing: -.035em;
   margin: 0 auto;
   max-width: 1100px;

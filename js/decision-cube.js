@@ -34,7 +34,7 @@
     }
     if (event.data.state === 'complete') {
       running = false; complete = true;
-      heading.textContent = 'Intelligence for What’s Next.';
+      heading.innerHTML = 'Intelligence for What’s <em>Next.</em>';
       toggle.textContent = 'Replay animation'; toggle.disabled = false;
     }
   });
