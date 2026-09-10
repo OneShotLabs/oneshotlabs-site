@@ -1,6 +1,7 @@
 .decision-cube-hero {
+  position: relative;
   background: var(--oneshot-cream, #fffdf8);
-  padding: clamp(24px, 4vw, 64px) 0 32px;
+  padding: clamp(24px, 4vw, 64px) 0 clamp(36px, 4vw, 52px);
   text-align: center;
 }
 .decision-cube-heading {
@@ -17,12 +18,15 @@
 .decision-cube-frame {
   display: block;
   width: min(100%, 1080px);
-  height: clamp(540px, 66vw, 780px);
+  height: clamp(520px, 50vw, 620px);
   margin: 0 auto;
   border: 0;
   background: var(--oneshot-cream, #fffdf8);
 }
 .decision-cube-toggle {
+  position: absolute;
+  right: clamp(24px, 5vw, 80px);
+  bottom: clamp(14px, 1.8vw, 26px);
   color: var(--oneshot-navy, #1d2f4e);
   font: 600 11px/1 var(--font-label, "Arial Narrow", sans-serif);
   letter-spacing: .12em;
@@ -42,4 +46,5 @@
 @media (max-width: 600px) {
   .decision-cube-heading { min-height: 2.3em; }
   .decision-cube-frame { height: clamp(410px, 116vw, 580px); }
+  .decision-cube-toggle { right: 20px; }
 }

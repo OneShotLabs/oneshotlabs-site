@@ -1573,9 +1573,9 @@ h1, h2, h3 {
 
 .editorial-quote {
   display: grid;
-  min-height: max(780px, 130svh);
+  min-height: 0;
   place-items: center;
-  padding-block: clamp(8rem, 16vw, 14rem);
+  padding: clamp(2.5rem, 5vw, 5rem) 0 clamp(7rem, 12vw, 11rem);
   border-top: none;
 }
 
@@ -1664,6 +1664,7 @@ h1, h2, h3 {
 .founder-note {
   position: relative;
   overflow: clip;
+  border-top: none;
 }
 
 .founder-note-inner {
@@ -1685,6 +1686,9 @@ h1, h2, h3 {
   font-size: clamp(1.5rem, 2.25vw, 2rem);
   font-weight: 500;
   line-height: 1.48;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
 
 .founder-note-beat + .founder-note-beat {
@@ -1768,6 +1772,9 @@ h1, h2, h3 {
   font-weight: 500;
   line-height: 1.48;
   overflow-wrap: break-word;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
 
 .founder-name-story-copy + .founder-name-story-copy { margin-top: 1.05em; }
@@ -1821,7 +1828,7 @@ h1, h2, h3 {
   .editorial-hero-copy { min-height: 68svh; }
   .editorial-hero-media img { object-position: 57% center; }
   .editorial-hero-thesis { width: 18ch; font-size: 0.7rem; }
-  .editorial-quote { min-height: 120svh; padding-block: 7rem; }
+  .editorial-quote { min-height: 0; padding: 3rem 0 7rem; }
   .editorial-quote-mark { margin-bottom: 3rem; }
   .editorial-quote blockquote { font-size: clamp(2.3rem, 10vw, 3.3rem); }
   .editorial-section { padding-block: 6rem; }

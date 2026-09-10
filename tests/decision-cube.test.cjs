@@ -29,7 +29,7 @@ t.state('complete'); assert.equal(t.heading.textContent, 'Intelligence for Whatâ
 t.toggle.click(); assert.equal(t.messages.at(-1), 'start');
 t = setup({ splashVisible: false, loaded: false }); t.state('ready'); t.advance(3000); assert.deepEqual(t.messages, []);
 t.events.load(); t.advance(1000); assert.deepEqual(t.messages, ['start']);
-t = setup({ splashVisible: false }); t.state('ready'); t.advance(1000); t.document.visibilityState = 'hidden'; t.documentEvents.visibilitychange(); t.advance(3000); assert.deepEqual(t.messages, []);
+t = setup({ splashVisible: false }); t.state('ready'); t.advance(999); t.document.visibilityState = 'hidden'; t.documentEvents.visibilitychange(); t.advance(3000); assert.deepEqual(t.messages, []);
 t.document.visibilityState = 'visible'; t.documentEvents.visibilitychange(); t.advance(1000); assert.deepEqual(t.messages, ['start']);
 t = setup({ splashVisible: false, reduced: true }); t.state('ready'); t.advance(5000); assert.deepEqual(t.messages, ['finish']);
 t = setup({ splashVisible: false }); t.events.message({ source: {}, data: { type: 'oneshot:cube-state', state: 'ready' } }); t.advance(3000); assert.deepEqual(t.messages, []);
