@@ -32,9 +32,11 @@
       if (reduced) { send('finish'); started = true; }
       afterPaint();
     }
+    if (event.data.state === 'solved') {
+      heading.innerHTML = 'Intelligence for What’s <em>Next.</em>';
+    }
     if (event.data.state === 'complete') {
       running = false; complete = true;
-      heading.innerHTML = 'Intelligence for What’s <em>Next.</em>';
       toggle.textContent = 'Replay animation'; toggle.disabled = false;
     }
   });

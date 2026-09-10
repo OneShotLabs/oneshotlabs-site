@@ -25,7 +25,8 @@ function setup({ splashVisible = true, reduced = false, loaded = true } = {}) {
 }
 let t = setup(); t.state('ready'); t.advance(5000); assert.deepEqual(t.messages, []);
 t.reveal(); t.advance(999); assert.deepEqual(t.messages, []); t.advance(1); assert.deepEqual(t.messages, ['start']);
-t.state('complete'); assert.equal(t.heading.innerHTML, 'Intelligence for What’s <em>Next.</em>');
+t.state('solved'); assert.equal(t.heading.innerHTML, 'Intelligence for What’s <em>Next.</em>');
+t.state('complete'); assert.equal(t.toggle.textContent, 'Replay animation');
 t.toggle.click(); assert.equal(t.messages.at(-1), 'start');
 t = setup({ splashVisible: false, loaded: false }); t.state('ready'); t.advance(3000); assert.deepEqual(t.messages, []);
 t.events.load(); t.advance(1000); assert.deepEqual(t.messages, ['start']);

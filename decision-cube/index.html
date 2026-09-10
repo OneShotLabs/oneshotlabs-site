@@ -105,13 +105,18 @@ html,body { margin:0; padding:0; background:#fffdf8; overflow:hidden; }
  const moves=[[1,1,1],[0,-1,-1],[2,1,1],[1,0,-1],[0,1,1],[2,-1,-1],[1,-1,1],[0,0,1],[2,1,-1],[1,1,-1],[0,-1,1],[2,0,1]],durations=[1.05,.9,.85,.8,.7,.55,.48,.44,.40,.38,.38,.67];
  function apply(ps,m,f=1){const r=rot(m[0],m[2]*Math.PI/2*f);ps.forEach(p=>{if(Math.round(p.p[m[0]])===m[1]){p.p=vec(r,p.p);p.m=mul(r,p.m);if(f===1){p.p=p.p.map(Math.round);p.m=p.m.map(Math.round)}}})}
  const initial=pieces.map(p=>({p:p.p.slice(),m:I.slice()}));for(const m of moves.slice().reverse())apply(initial,[m[0],m[1],-m[2]]);
- let current=0,running=false,raf=0,start=0,announced=false;const smooth=u=>u*u*(3-2*u);
+ const solvedAt=(.14+durations.reduce((sum,duration)=>sum+duration,0))/1.4;
+ let current=0,running=false,raf=0,start=0,announcedSolved=false,announcedComplete=false;const smooth=u=>u*u*(3-2*u);
  function draw(t){current=t;const storyTime=t*1.4;const ps=initial.map(p=>({p:p.p.slice(),m:p.m.slice()}));let elapsed=Math.max(0,storyTime-.14);for(let i=0;i<moves.length;i++){if(elapsed>=durations[i]){apply(ps,moves[i]);elapsed-=durations[i]}else{apply(ps,moves[i],smooth(Math.max(0,elapsed/durations[i])));break}}
  ps.forEach((p,i)=>{const m=p.m,g=pieces[i].group;g.position.set(...p.p.map(v=>v*1.01));g.setRotationFromMatrix(new T.Matrix4().set(m[0],m[1],m[2],0,m[3],m[4],m[5],0,m[6],m[7],m[8],0,0,0,0,1))});
  const settle=smooth(Math.max(0,Math.min(1,(storyTime-6.3)/1.4)));cube.rotation.set(.45+settle*.035,-.50+settle*.015,-.025+settle*.025);cube.position.y=.10;
  const reveal=smooth(Math.max(0,Math.min(1,(storyTime-8.1)/.8)));root.querySelector('h2').style.opacity=1-reveal;root.querySelector('.endline').style.opacity=reveal;
  slider.value=t;output.value=`${t.toFixed(1)}s / 10s`;renderer.render(scene,camera);
- root.dataset.time=t.toFixed(2);if(t<10)announced=false;if(t>=10&&!announced){announced=true;parent.postMessage({type:'oneshot:cube-state',state:'complete'},'*');}
+ root.dataset.time=t.toFixed(2);
+ if(t<solvedAt)announcedSolved=false;
+ if(t<10)announcedComplete=false;
+ if(t>=solvedAt&&!announcedSolved){announcedSolved=true;parent.postMessage({type:'oneshot:cube-state',state:'solved'},'*');}
+ if(t>=10&&!announcedComplete){announcedComplete=true;parent.postMessage({type:'oneshot:cube-state',state:'complete'},'*');}
  }
  function stop(){running=false;cancelAnimationFrame(raf);play.textContent='Play 10-second study'}
  play.onclick=()=>{if(running){stop();return}running=true;start=performance.now()-(current>=10?0:current*1000);play.textContent='Pause';const frame=now=>{if(!root.isConnected){stop();return}const t=Math.min(10,(now-start)/1000);draw(t);if(t<10&&running)raf=requestAnimationFrame(frame);else{stop();status.textContent='Organized for judgment · Blue: underwriting · Gold: transaction review'}};raf=requestAnimationFrame(frame)};

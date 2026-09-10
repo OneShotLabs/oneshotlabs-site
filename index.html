@@ -1676,7 +1676,7 @@ h1, h2, h3 {
 
 .founder-note-inner > .editorial-index,
 .founder-note-beat {
-  width: min(70%, 940px);
+  width: min(76%, 1020px);
 }
 
 .founder-note-inner > .editorial-index {
@@ -1707,7 +1707,9 @@ h1, h2, h3 {
   line-height: 1.48;
   text-align: justify;
   text-justify: inter-word;
-  hyphens: auto;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
 }
 
 .founder-note-beat + .founder-note-beat {
@@ -1734,8 +1736,8 @@ h1, h2, h3 {
 
 .founder-name-story {
   position: relative;
-  width: min(70%, 940px);
-  max-width: 940px;
+  width: min(76%, 1020px);
+  max-width: 1020px;
   margin-inline: auto;
   transform: none;
   margin-top: clamp(5rem, 9vw, 7rem);
@@ -1779,10 +1781,11 @@ h1, h2, h3 {
   font-size: clamp(1.5rem, 2.25vw, 2rem);
   font-weight: 500;
   line-height: 1.48;
-  overflow-wrap: break-word;
+  overflow-wrap: normal;
+  word-break: normal;
   text-align: justify;
   text-justify: inter-word;
-  hyphens: auto;
+  hyphens: none;
 }
 
 .founder-name-story-copy + .founder-name-story-copy { margin-top: 1.05em; }
@@ -3583,7 +3586,7 @@ html.no-splash .splash { display: none; }
     }
   </script>
   <link rel="stylesheet" href="css/header-static.css?v=20260903-1" />
-  <link rel="stylesheet" href="css/decision-cube.css?v=20260910">
+  <link rel="stylesheet" href="css/decision-cube.css?v=20260910-2">
 </head>
 <body>
   <div class="grain-overlay" aria-hidden="true"></div>
@@ -3633,7 +3636,7 @@ html.no-splash .splash { display: none; }
 
   <section class="decision-cube-hero" aria-labelledby="decision-cube-heading">
     <h1 class="decision-cube-heading" id="decision-cube-heading">Complexity, organized for <em>judgment.</em></h1>
-    <iframe class="decision-cube-frame" id="decision-cube-frame" src="decision-cube/index.html?v=20260910" title="OneShotLabs decision cube: transaction information organized for judgment" sandbox="allow-scripts" referrerpolicy="no-referrer" scrolling="no" loading="eager"></iframe>
+    <iframe class="decision-cube-frame" id="decision-cube-frame" src="decision-cube/index.html?v=20260910-2" title="OneShotLabs decision cube: transaction information organized for judgment" sandbox="allow-scripts" referrerpolicy="no-referrer" scrolling="no" loading="eager"></iframe>
     <button class="decision-cube-toggle" id="decision-cube-toggle" type="button" disabled>Pause animation</button>
   </section>
 
@@ -4544,6 +4547,6 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="control-row"><label for="corner-slider">Corners</label><input type="range" id="corner-slider" min="3" max="20" step="1" value="8" /></div>
     <div class="control-row"><label for="flag-slider">Flag</label><input type="range" id="flag-slider" min="0" max="1" step="0.05" value="0.85" /></div>
   </div>
-  <script src="js/decision-cube.js?v=20260910"></script>
+  <script src="js/decision-cube.js?v=20260910-2"></script>
 </body>
 </html>
