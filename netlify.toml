@@ -8,6 +8,11 @@
     Cache-Control = "public, max-age=300"
 
 [[headers]]
+  for = "/assets/video/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
   for = "/ai-curve.html"
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"

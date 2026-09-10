@@ -40,36 +40,25 @@
       <h1 class="dl-heading">Every Stage.<br>One Trusted Partner.</h1>
       <div class="dl-divider" aria-hidden="true"><span></span><b></b><span></span></div>
 
-      <div class="dl-viewport" aria-label="Horizontal four-sided lifecycle display">
-        <div class="dl-floor" aria-hidden="true"></div>
-        <div class="dl-rig">
-          <div class="dl-rotor" id="dl-rotor">
-            <div class="dl-face">
-              <img src="images/career-underwriting.png" alt="Underwriting" loading="lazy" decoding="async" />
-              <span>UNDERWRITING</span>
-            </div>
-            <div class="dl-face">
-              <img src="images/career-closing.png" alt="Closing" loading="lazy" decoding="async" />
-              <span>CLOSING</span>
-            </div>
-            <div class="dl-face">
-              <img src="images/career-construction.png" alt="Construction" loading="lazy" decoding="async" />
-              <span>CONSTRUCTION</span>
-            </div>
-            <div class="dl-face">
-              <img src="images/career-asset-management.png" alt="Asset Management &amp; Servicing" loading="lazy" decoding="async" />
-              <span>ASSET MANAGEMENT<br>&amp; SERVICING</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="dl-readout" id="dl-readout" aria-live="polite">
-        <h2 id="dl-stage-title">UNDERWRITING</h2>
-        <p id="dl-stage-text">Financial review, risk analysis, and deal structuring.</p>
-      </div>
-
-      <p class="dl-note">Rotates 90° horizontally · Holds each stage for 2.2 seconds</p>
+      <figure class="career-film-stage" aria-label="OneShotLabs career and apartment-to-brand animation">
+        <video
+          class="career-film"
+          id="career-film"
+          muted
+          playsinline
+          autoplay
+          preload="auto"
+          poster="assets/video/oneshotlabs-career-animation-poster.jpg"
+          disablepictureinpicture
+        >
+          <source src="assets/video/oneshotlabs-career-animation-1440p.mp4" type="video/mp4" media="(min-width: 1200px) and (min-resolution: 1.5dppx)" />
+          <source src="assets/video/oneshotlabs-career-animation-1080p.mp4" type="video/mp4" />
+        </video>
+        <button class="career-film-replay" id="career-film-replay" type="button" aria-label="Replay career animation">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.34 5.66M20 4v7h-7" /></svg>
+          <span>Replay</span>
+        </button>
+      </figure>
     </div>
   </section>
 
