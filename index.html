@@ -11,6 +11,7 @@
   <meta name="twitter:card" content="summary" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet" />
   <!-- Same exact request as every other page — keeps this one URL/cache-key
        identical site-wide so the header's Bodoni Moda always loads from
        cache instantly, whichever page was visited first. -->
@@ -19,21 +20,18 @@
        compete with (or change the cache key of) the shared request above. -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet" />
   <style>
-/* ===== One Shot — structural-framing / single-motion-signature system =====
+/* ===== One Shot — continuous-canvas editorial system =====
    One unifying visual thread, sitewide:
    1. Structural framing — every content block is separated by a razor-thin,
       low-opacity hairline (--border-thread), never a shadow or a filled
       color block.
-   2. Signature interaction — every interactive element transitions on
-      hover/focus/active using the exact same timing (--motion-signature).
-      No other transition duration or easing curve appears anywhere.
-   Both are CSS custom properties, applied everywhere, never redefined
-   per component. */
+   2. Deliberate motion — controls, state changes, reveals, and editorial
+      statements use four related timing tiers with the same easing curve. */
 
 :root {
   --bg: #fffdf8;                      /* matches the logo wordmark's paper-cream color */
-  --fg: oklch(20% 0.02 55);           /* warm ink, near-black with a brown undertone */
-  --fg-dim: oklch(48% 0.025 55);      /* muted warm gray-brown */
+  --fg: #1d2f4e;                      /* canonical navy ink */
+  --fg-dim: #52627a;                  /* canonical secondary slate */
   /* ---- OneShot Labs locked brand system (Brand Kit v1) ---- */
   --oneshot-navy: #1d2f4e;
   --oneshot-cream: #fffdf8;
@@ -48,6 +46,10 @@
   --oneshot-shimmer-delay: 120ms;
   --oneshot-shimmer-duration: 720ms;
   --oneshot-ease: cubic-bezier(.22,.72,.18,1);
+  --motion-control: 120ms;
+  --motion-state: 180ms;
+  --motion-reveal: 240ms;
+  --motion-statement: 480ms;
   --oneshot-wordmark-lean: 0deg;
   --heritage: #3a4a34;                /* muted hunter green — rare accent, used sparingly */
   /* --trim/--trim-dim kept as aliases — every existing var(--trim) usage
@@ -56,27 +58,28 @@
      find-and-replace risk across the rest of this file. */
   --trim: var(--oneshot-gold-body);   /* gold — hairline accents and icon strokes only, never fills */
   --trim-dim: var(--oneshot-gold-shadow); /* gold in shadow */
-  --on-trim: oklch(20% 0.02 55);      /* ink text set on top of the gold trim */
+  --on-trim: var(--oneshot-navy);     /* navy text set on top of the gold trim */
   --paper: var(--oneshot-cream);      /* warm paper white */
   --header-navy: var(--oneshot-navy); /* header banner and primary UI fill */
-  --patina-intensity: 0.005;          /* tweakable: overall strength of the aged-paper wash */
+  --patina-intensity: 0.004;          /* restrained aged-paper wash */
   --star-scale: 0.95;                 /* tweakable: logo blade/star size */
   --frame-scale: 1.12;                /* tweakable: logo corner-bracket size */
   --flag-opacity: 0.85;                /* tweakable: footer flag mark prominence */
 
   --font-label: "Barlow Condensed", "Arial Narrow", sans-serif; /* condensed sans — nav, UI labels, small print */
 
-  --border-thread: 1px solid rgba(28, 22, 15, 0.14); /* the one border, everywhere */
-  --motion-signature: all 400ms cubic-bezier(0.16, 1, 0.3, 1); /* the one transition, everywhere */
+  --border-thread: 1px solid rgba(29, 47, 78, 0.14); /* navy architectural hairline */
+  --motion-signature: all var(--motion-state) var(--oneshot-ease); /* concise functional feedback */
 
   --max-w: 1120px;
   --max-w-wide: 1400px;
   --gap: clamp(1.5rem, 4vw, 3.5rem);
 
-  --font-display: "Fraunces", Georgia, serif;       /* editorial, high-contrast serif — storytelling */
-  --font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "Space Mono", ui-monospace, "SF Mono", Menlo, monospace; /* technical — UI, labels, stats */
-  --font-header: "Bodoni Moda", "Didot", "Bodoni MT", Georgia, serif; /* main nav links */
+  --font-display: "Source Serif 4", Georgia, serif; /* precise editorial voice */
+  --font-reflective: "Cormorant Garamond", "EB Garamond", Georgia, serif;
+  --font-body: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Source Code Pro", ui-monospace, "SF Mono", Menlo, monospace; /* evidence and data */
+  --font-header: "Bodoni Moda", "Didot", "Bodoni MT", Georgia, serif; /* protected wordmark voice */
   /* Logo wordmark only. True ITC Avant Garde Gothic is not a licensed web
      font (not on Google Fonts) — this stack tries the real name first for
      any machine that has it installed/licensed, then falls back through
@@ -130,11 +133,11 @@ img { max-width: 100%; display: block; }
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: 0.028;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 240px 240px;
-  animation: grain-shift 1.4s steps(4) infinite;
+  animation: none;
 }
 
 @keyframes grain-shift {
@@ -216,8 +219,8 @@ h1, h2, h3 {
 
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
-  transition: var(--motion-signature);
+  transform: translateY(8px);
+  transition: opacity var(--motion-reveal) var(--oneshot-ease), transform var(--motion-reveal) var(--oneshot-ease);
 }
 
 .reveal.is-visible {
@@ -234,7 +237,7 @@ h1, h2, h3 {
   top: 0;
   z-index: 50;
   background: var(--header-navy);
-  color: #ffffff;
+  color: var(--oneshot-warm-white);
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   transition: var(--motion-signature);
 }
@@ -351,7 +354,7 @@ h1, h2, h3 {
   height: 1.8em;
   margin-right: 0.4em;
   vertical-align: middle;
-  color: #ffffff;
+  color: var(--oneshot-warm-white);
 }
 
 .logo-icon .os-frame {
@@ -406,7 +409,7 @@ h1, h2, h3 {
   font-weight: 600;
   letter-spacing: 0.01em;
   text-transform: none;
-  color: #ffffff;
+  color: var(--oneshot-warm-white);
 }
 
 .nav a {
@@ -421,7 +424,7 @@ h1, h2, h3 {
   bottom: 0;
   height: 1px;
   width: 100%;
-  background: #ffffff;
+  background: var(--oneshot-warm-white);
   transform: scaleX(0);
   transform-origin: left;
   transition: var(--motion-signature);
@@ -463,7 +466,7 @@ h1, h2, h3 {
   display: block;
   width: 20px;
   height: 1.5px;
-  background: #ffffff;
+  background: var(--oneshot-warm-white);
   transition: var(--motion-signature);
 }
 
@@ -1118,7 +1121,7 @@ h1, h2, h3 {
 .frame:hover,
 .frame:active {
   transform: translateY(-4px);
-  border-color: rgba(28, 22, 15, 0.3);
+  border-color: rgba(29, 47, 78, 0.3);
 }
 
 .frame .frame-label {
@@ -1282,7 +1285,7 @@ h1, h2, h3 {
   bottom: 0;
   left: 50%;
   width: 1px;
-  background: rgba(28, 22, 15, 0.16);
+  background: rgba(29, 47, 78, 0.14);
   transform: translateX(-50%);
 }
 
@@ -1434,7 +1437,7 @@ h1, h2, h3 {
   width: 100%;
   aspect-ratio: var(--photo-ratio, 4 / 5);
   object-fit: cover;
-  background: #efe9dc; /* same flat tint as .section-tint — no gradient */
+  background: var(--oneshot-warm-white);
 }
 
 .timeline-photo.is-placeholder {
@@ -1612,7 +1615,7 @@ h1, h2, h3 {
 .editorial-quote blockquote {
   margin: 0;
   color: var(--oneshot-navy);
-  font-family: "Spectral", var(--font-display);
+  font-family: var(--font-reflective);
   font-size: clamp(2.55rem, 5.4vw, 5rem);
   font-style: italic;
   font-weight: 400;
@@ -1623,8 +1626,8 @@ h1, h2, h3 {
 .editorial-quote-line {
   display: block;
   opacity: 0;
-  transform: translateY(0.35em);
-  transition: opacity 800ms var(--oneshot-ease), transform 800ms var(--oneshot-ease);
+  transform: translateY(8px);
+  transition: opacity var(--motion-statement) var(--oneshot-ease), transform var(--motion-statement) var(--oneshot-ease);
 }
 
 .editorial-quote-line + .editorial-quote-line {
@@ -2036,7 +2039,7 @@ h1, h2, h3 {
 }
 
 .tag-btn:hover,
-.tag-btn:active { color: var(--fg); border-color: rgba(28, 22, 15, 0.3); }
+.tag-btn:active { color: var(--fg); border-color: rgba(29, 47, 78, 0.3); }
 
 .tag-btn.is-active {
   color: var(--paper);
@@ -2099,13 +2102,13 @@ h1, h2, h3 {
 
 .blog-status code {
   font-family: var(--font-label);
-  background: rgba(28, 22, 15, 0.06);
+  background: rgba(29, 47, 78, 0.06);
   padding: 0.1rem 0.4rem;
   border-radius: 2px;
 }
 
 .section-tint {
-  background: #efe9dc;
+  background: var(--oneshot-cream);
 }
 
 .pagination {
@@ -2135,14 +2138,14 @@ h1, h2, h3 {
 
 .post-body-content code {
   font-family: var(--font-label);
-  background: rgba(28, 22, 15, 0.06);
+  background: rgba(29, 47, 78, 0.06);
   padding: 0.1rem 0.4rem;
   border-radius: 2px;
   font-size: 0.9em;
 }
 
 .post-body-content pre {
-  background: rgba(28, 22, 15, 0.04);
+  background: rgba(29, 47, 78, 0.04);
   border: var(--border-thread);
   padding: 1rem 1.25rem;
   overflow-x: auto;
@@ -3586,7 +3589,7 @@ html.no-splash .splash { display: none; }
     }
   </script>
   <link rel="stylesheet" href="css/header-static.css?v=20260903-1" />
-  <link rel="stylesheet" href="css/decision-cube.css?v=20260910-2">
+  <link rel="stylesheet" href="css/decision-cube.css?v=20260910-grade">
 </head>
 <body>
   <div class="grain-overlay" aria-hidden="true"></div>
