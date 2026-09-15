@@ -1,9 +1,8 @@
 // Opening splash — heritage quote reveal (fade-in lines, hard-hitting
 // "hustle" drop), then vault-door logo reveal. The logo's corner
-// brackets act as a camera viewfinder locked onto the mark: once they're
-// visible, clicking them fires the shutter and opens the site
-// immediately; left alone, the same click-and-open happens on its own a
-// beat later. Plays once per browser session on first load (see the
+// brackets act as a camera viewfinder locked onto the mark, then fire the
+// shutter and open the site automatically. Plays once per browser session
+// on first load (see the
 // sessionStorage check below and the inline <script> in <head> that
 // adds .no-splash before first paint) — and additionally replays itself
 // if the page sits stalled, with no user input at all, for a full
@@ -269,13 +268,10 @@
     }
   }
 
-  // ---- Viewfinder shutter click ----
-  // The brackets are clickable like a camera shutter button the moment
-  // they're visible on screen. Clicking snaps them tight (the "click")
-  // and opens the vault doors right away, skipping whatever's left of the
-  // automatic hold. Left alone, the exact same click-and-open sequence
-  // fires on its own once the viewfinder has held long enough.
-  const DIAL_DONE = 1900; // dial-unlock finishes / brackets are ready to "shoot"
+  // ---- Automatic focus lock ----
+  // The mark resolves, the brackets acquire it, then the lock snaps and
+  // the panels open. No click or instruction is required.
+  const DIAL_DONE = 950;
   const CLICK_DUR = 220; // matches splash-bolt-click's duration in CSS
   const DOORS_DUR = 500; // matches splash-panel-*-out's duration in CSS
   const FINISH_BUFFER = 200;
@@ -306,8 +302,6 @@
     playBoltSnapSfx();
     openTimer = setTimeout(openDoors, CLICK_DUR);
   }
-
-  if (frameEl) frameEl.addEventListener("click", fireShutter);
 
   function playSplash() {
     if (playing) return;
@@ -393,10 +387,7 @@
     setTimeout(() => {
       splash.classList.add("animate");
       clickable = true;
-      if (frameEl) frameEl.classList.add("clickable");
-      // Auto path: same shutter click and door-open the visitor would
-      // trigger by clicking, just fired on a timer once the dial-unlock
-      // settles (1900ms) if nobody has clicked already.
+      // Fire the focus lock automatically once the mark has resolved.
       shutterTimer = setTimeout(fireShutter, DIAL_DONE);
     }, QUOTE_DONE + QUOTE_FADE); // logo pops on screen right as the quote finishes fading
   }

@@ -1,0 +1,167 @@
+/* OneShotLabs homepage motion direction — quiet, editorial, and tactile. */
+
+.decision-cube-hero {
+  --cube-handoff: 0;
+  overflow: clip;
+  isolation: isolate;
+}
+
+.decision-cube-hero::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 0;
+  width: min(76vw, 920px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--oneshot-gold-body), transparent);
+  opacity: calc(.12 + var(--cube-handoff) * .42);
+  transform: translateX(-50%) scaleX(var(--cube-handoff));
+  transform-origin: center;
+}
+
+.decision-cube-heading {
+  opacity: calc(1 - var(--cube-handoff) * .46);
+  transform: translate3d(0, calc(var(--cube-handoff) * -20px), 0);
+  transform-origin: 50% 100%;
+  will-change: transform, opacity;
+}
+
+.decision-cube-frame {
+  opacity: calc(1 - var(--cube-handoff) * .12);
+  transform: translate3d(0, calc(var(--cube-handoff) * -12px), 0) scale(calc(1 - var(--cube-handoff) * .018));
+  transform-origin: 50% 54%;
+  will-change: transform, opacity;
+}
+
+.decision-cube-toggle {
+  transform: translate3d(0, calc(var(--cube-handoff) * -5px), 0);
+}
+
+.decision-cube-hero.is-handing-off .decision-cube-toggle {
+  opacity: .22;
+  pointer-events: none;
+}
+
+/* The quotation is staged as a mark, a first thought, and a second thought. */
+.editorial-quote-mark {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  transition: opacity 560ms var(--oneshot-ease), transform 680ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.editorial-quote-mark::before,
+.editorial-quote-mark::after {
+  transform: scaleX(0);
+  transition: transform 700ms cubic-bezier(.16, 1, .3, 1) 90ms;
+}
+
+.editorial-quote-mark::before { transform-origin: 100% 50%; }
+.editorial-quote-mark::after { transform-origin: 0 50%; }
+
+.editorial-quote[data-quote-step="1"] .editorial-quote-mark,
+.editorial-quote[data-quote-step="2"] .editorial-quote-mark {
+  opacity: 1;
+  transform: none;
+}
+
+.editorial-quote[data-quote-step="1"] .editorial-quote-mark::before,
+.editorial-quote[data-quote-step="1"] .editorial-quote-mark::after,
+.editorial-quote[data-quote-step="2"] .editorial-quote-mark::before,
+.editorial-quote[data-quote-step="2"] .editorial-quote-mark::after {
+  transform: scaleX(1);
+}
+
+.editorial-quote-line {
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 720ms var(--oneshot-ease), transform 820ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.editorial-quote-line:nth-child(2) {
+  transition-delay: 70ms;
+}
+
+/* The navigation changes state, rather than twitching at every scroll event. */
+.site-header {
+  will-change: transform;
+  transition: transform 260ms cubic-bezier(.16, 1, .3, 1), box-shadow 220ms var(--oneshot-ease), border-color 220ms var(--oneshot-ease);
+}
+
+.site-header .container-wide {
+  transition: height 280ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.site-header.nav-compact {
+  border-bottom-color: rgba(253, 251, 246, .21);
+  box-shadow: 0 10px 30px rgba(10, 22, 40, .10);
+}
+
+.site-header.nav-compact .container-wide { height: 76px; }
+.site-header.nav-hidden { transform: translate3d(0, -105%, 0); }
+
+/* Related content enters as a family, with only 60ms between beats. */
+.motion-ready .founder-note .editorial-index,
+.motion-ready .founder-note .founder-note-signature,
+.motion-ready .site-footer .container-wide {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition: opacity 620ms var(--oneshot-ease), transform 720ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.motion-ready .founder-note.is-motion-visible .editorial-index,
+.motion-ready .founder-note.is-motion-visible .founder-note-signature,
+.motion-ready .site-footer.is-motion-visible .container-wide {
+  opacity: 1;
+  transform: none;
+}
+
+.motion-ready .founder-note.is-motion-visible .founder-note-signature { transition-delay: 120ms; }
+
+.reveal {
+  transform: translate3d(0, 14px, 0);
+  transition-duration: 640ms, 720ms;
+  transition-timing-function: var(--oneshot-ease), cubic-bezier(.16, 1, .3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+/* Finishing behavior: lift, acknowledge, settle. */
+:where(.btn, .nav a, .footer-links a, .decision-cube-toggle, .nav-toggle) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { transform: translate3d(0, -2px, 0); }
+  .nav a:hover,
+  .footer-links a:hover { transform: translate3d(0, -1px, 0); }
+  .decision-cube-toggle:hover { opacity: .86; }
+}
+
+.btn:active { transform: translate3d(0, 0, 0) scale(.985); }
+.nav a:active,
+.footer-links a:active,
+.decision-cube-toggle:active { transform: translate3d(0, 1px, 0); }
+
+:where(a, button):focus-visible {
+  outline: 2px solid var(--oneshot-gold-highlight);
+  outline-offset: 4px;
+}
+
+@media (max-width: 1024px) {
+  .site-header.nav-compact .container-wide { height: 68px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .decision-cube-heading,
+  .decision-cube-frame,
+  .decision-cube-toggle,
+  .editorial-quote-mark,
+  .editorial-quote-mark::before,
+  .editorial-quote-mark::after,
+  .motion-ready .founder-note .editorial-index,
+  .motion-ready .founder-note .founder-note-signature,
+  .motion-ready .site-footer .container-wide {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

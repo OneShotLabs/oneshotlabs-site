@@ -1,0 +1,33 @@
+/* The questionnaire remains in the navy scene; results return to ivory. */
+#questionnaire .curve-participation-stage{touch-action:none}
+#questionnaire .curve-participation-stage.is-dragging{cursor:grabbing}
+.participation-signal-ring .signal-pulse{transform-box:fill-box;transform-origin:center;animation:signal-breathe 4s ease-out infinite}
+.participation-signal-ring .signal-core{animation:signal-glimmer 4s ease-in-out infinite}
+@keyframes signal-breathe{0%,15%{transform:scale(.85);opacity:0}30%{opacity:.6}85%,100%{transform:scale(1.9);opacity:0}}
+@keyframes signal-glimmer{0%,100%{opacity:.72}40%{opacity:1}70%{opacity:.85}}
+@media(prefers-reduced-motion:reduce){.participation-signal-ring .signal-pulse{animation:none;opacity:0}.participation-signal-ring .signal-core{animation:none;opacity:1}}
+#questionnaire .globe-view-button{background:transparent;border:1px solid #c6a15370;color:#1d2f4e;padding:8px 10px;font:11px Inter,sans-serif;cursor:pointer}
+#questionnaire .curve-participation-controls{flex-wrap:wrap;gap:8px}
+#questionnaire .curve-scoring-mark{width:72px;height:72px;animation:none;color:#fffdf8;--trim:#c6a153}
+#questionnaire .curve-scoring-mark svg{display:block;width:100%;height:100%}
+#questionnaire .curve-scoring-mark .os-blades{transform-origin:50px 50px;animation:curve-mark-turn 5s linear infinite}
+@media(prefers-reduced-motion:reduce){#questionnaire .curve-scoring-mark .os-blades{animation:none}}
+#questionnaire.has-result .curve-participation,#questionnaire .curve-participation-stage{background:#f7f3eb;color:#1d2f4e}
+#questionnaire .curve-participation-stage{max-width:644px;width:100%}
+#questionnaire.has-result .curve-participation h3,#questionnaire.has-result .curve-participation h4,#questionnaire.has-result .curve-participation p,#questionnaire.has-result .curve-participation .muted,#questionnaire.has-result .curve-participation-foot,#questionnaire.has-result .curve-participation-foot span,#questionnaire.has-result .curve-globe-zoom{color:#1d2f4e}
+#questionnaire .results-globe-hint{font:11px/1.5 Inter,sans-serif;text-align:center;letter-spacing:.04em;opacity:.7;margin:20px 0 0}
+.questionnaire .curve-participation-stage{position:relative;max-width:560px;aspect-ratio:1;margin:24px auto;background:#1d2f4e;min-height:0;cursor:grab;touch-action:pan-y}
+.questionnaire .curve-participation-stage canvas,.questionnaire .curve-participation-stage svg{display:block;position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.questionnaire .curve-participation-stage svg circle{filter:drop-shadow(0 0 3px #e8d5a355)}
+#questionnaire .curve-participation-stage{height:auto!important;aspect-ratio:1;border:0;overflow:hidden}
+#questionnaire .curve-participation-stage canvas,#questionnaire .curve-participation-stage svg{width:100%;height:100%;max-height:none;max-width:none}
+#questionnaire .curve-participation-foot,#questionnaire .curve-participation-foot span,#questionnaire .curve-globe-zoom{color:#e2e8ef}.questionnaire .curve-globe-zoom{background:transparent;border-color:#c6a15366}
+.questionnaire:not(.has-result){background:#1d2f4e}.questionnaire:not(.has-result){width:70%;padding:0 5vw 40px;position:relative;z-index:2;scroll-margin-top:35px}.questionnaire-header{padding:20px 0 30px}.questionnaire-paper{background:none;border-top:1px solid #c6a15355;padding:26px 0 0;min-height:0}.questionnaire:not(.has-result) h2,.questionnaire:not(.has-result) .curve-question{color:#fffdf8}.questionnaire:not(.has-result) .curve-question{font-size:36px;max-width:720px}.questionnaire:not(.has-result) .curve-option{color:#e4e9ef;background:#1d2f4e;border:0;border-bottom:1px solid #ffffff22;padding:17px 4px;min-height:61px}.questionnaire:not(.has-result) .curve-option:has(input:checked){background:#293c56;border-color:#c6a153}.questionnaire:not(.has-result) .curve-option:hover{background:#293c56}.questionnaire:not(.has-result) .curve-option input{accent-color:#c6a153}.questionnaire:not(.has-result) .muted{color:#bec8d7}.questionnaire:not(.has-result) .curve-progress{background:#ffffff15;height:2px}.questionnaire:not(.has-result) .btn-accent{background:#dbc38f;color:#1d2f4e;border-color:#dbc38f;padding:14px 34px}.questionnaire:not(.has-result) .curve-back{color:#e6e9ef;border:0;padding-left:0}.questionnaire-open:not(.assessment-result) .horizon{position:fixed;right:0;top:0;width:43%;height:100vh;min-height:0;padding:0;z-index:0;pointer-events:none}.questionnaire-open:not(.assessment-result) .horizon .copy,.questionnaire-open:not(.assessment-result) .horizon .scene-controls{display:none}.questionnaire-open:not(.assessment-result) .horizon .art,.questionnaire-open:not(.assessment-result) .horizon .globe-stage{mask-image:linear-gradient(90deg,transparent,#000 45%);opacity:.75}.questionnaire-open:not(.assessment-result) .horizon .art{object-position:72% center}.questionnaire-open:not(.assessment-result) .horizon .globe-stage{top:18%;height:100%}.questionnaire:not(.has-result) .curve-progress-label{color:#dbc38f}
+.questionnaire:not(.has-result) .curve-lede,.questionnaire:not(.has-result) .curve-intro-facts,.questionnaire:not(.has-result) .curve-panel p,.questionnaire:not(.has-result) .curve-panel label{color:#d8e1eb}
+.questionnaire:not(.has-result) .curve-panel h3,.questionnaire:not(.has-result) .curve-panel legend{color:#fffdf8}
+.questionnaire:not(.has-result) .curve-option span{font:14px/1.5 Inter,sans-serif}
+.questionnaire:not(.has-result) .curve-panel::after{display:none}.questionnaire.has-result{width:100%}
+.questionnaire.has-result .questionnaire-paper{background:#f7f3eb}
+.questionnaire.has-result .curve-participation{background:#1d2f4e;color:#fffdf8;padding:32px;border-top:1px solid #c6a153}
+.questionnaire.has-result .curve-participation h3,.questionnaire.has-result .curve-participation h4,.questionnaire.has-result .curve-participation p,.questionnaire.has-result .curve-participation .muted{color:#d9e2eb}
+@media(max-width:700px){.questionnaire:not(.has-result){width:100%;padding:0 24px 40px;background:#1d2f4ef5}.questionnaire:not(.has-result) .curve-question{font-size:28px}.questionnaire-open:not(.assessment-result) .horizon{width:100%;opacity:.22;pointer-events:none}.questionnaire:not(.has-result) .questionnaire-header{padding-top:24px}.questionnaire.has-result .curve-participation{padding:20px}}

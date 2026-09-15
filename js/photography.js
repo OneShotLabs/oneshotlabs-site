@@ -688,7 +688,7 @@ function photoCardHTML(photo, index) {
   const side = index % 2 === 1 ? " side-right" : "";
   const landscape = isLandscape(photo.ratio) ? " is-landscape" : "";
   const photoEl = photo.src
-    ? `<img class="timeline-photo" src="${photo.src}" alt="${photo.caption || `${photo.month} ${photo.year}`}" style="--photo-ratio: ${photo.ratio || "4 / 5"};" loading="lazy" decoding="async" />`
+    ? `<img class="timeline-photo" src="${photo.src}" alt="${photo.caption || `${photo.month} ${photo.year}`}" style="--photo-ratio: ${photo.ratio || "4 / 5"};" loading="${index < 2 ? "eager" : "lazy"}" ${index < 2 ? 'fetchpriority="high"' : ''} decoding="async" />`
     : `<div class="timeline-photo is-placeholder" style="--photo-ratio: ${photo.ratio || "4 / 5"};">Photo</div>`;
   // Only real photos get an EXIF line — placeholders have no metadata to read.
   const exifEl = photo.src ? `<span class="timeline-exif"></span>` : "";

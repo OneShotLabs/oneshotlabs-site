@@ -7,8 +7,8 @@
   <div class="headline"><h2>Complexity,<br> organized for<br> <em>judgment.</em></h2><div class="endline">Intelligence for<br> What’s Next.</div></div>
   <div class="stage" role="img" aria-label="A large puzzle cube with raised matte brand-cream star and brass corners on canonical navy, and bold diligence stickers with navy transaction tiles and brand-cream lettering, blue underwriting frames and gold transaction frames. It solves into the canonical OneShotLabs star on the front, blue frames on top and gold frames on the right."><span class="loading">Preparing material study…</span></div>
  </div>
- <div class="viz-controls"><button class="btn btn-primary" data-play disabled>Play 10-second study</button><button class="btn" data-time="0" disabled>Unsorted</button><button class="btn" data-time="4.64" disabled>In motion</button><button class="btn" data-time="10" disabled>Finished</button></div>
- <label class="form-label">Sequence <output>0.0s / 10s</output><input class="form-range" type="range" min="0" max="10" step="0.01" value="0" aria-label="Scrub material study" disabled></label>
+ <div class="viz-controls"><button class="btn btn-primary" data-play disabled>Play 6.2-second study</button><button class="btn" data-time="0" disabled>Unsorted</button><button class="btn" data-time="2.3" disabled>In motion</button><button class="btn" data-time="6.2" disabled>Finished</button></div>
+ <label class="form-label">Sequence <output>0.0s / 6.2s</output><input class="form-range" type="range" min="0" max="6.2" step="0.01" value="0" aria-label="Scrub material study" disabled></label>
  <div class="text-small" data-state aria-live="polite">Material study · Illustrative transaction notes</div>
 </div>
 <style>
@@ -48,7 +48,7 @@ html,body { margin:0; padding:0; background:#fffdf8; overflow:hidden; }
  const key=new T.DirectionalLight(0xfff5e4,2.2);key.position.set(-3,7,6);key.castShadow=true;key.shadow.mapSize.set(2048,2048);key.shadow.camera.left=-5;key.shadow.camera.right=5;key.shadow.camera.top=5;key.shadow.camera.bottom=-5;key.shadow.normalBias=.035;key.shadow.bias=-.0003;key.shadow.radius=6;key.shadow.blurSamples=12;scene.add(key);
  const fill=new T.DirectionalLight(0xe5edff,.8);fill.position.set(5,2,3);scene.add(fill);
  const rim=new T.DirectionalLight(0xffffff,1.2);rim.position.set(-2,3,-4);scene.add(rim);
- // Soft studio reflections give the molded plastic rounded highlights.
+ // Preserve the current site's studio response and canonical navy rendering.
  const envScene=new T.Scene();envScene.background=new T.Color(0x929292);
  function panel(x,y,z,w,h,power){const p=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshBasicMaterial({color:new T.Color(power,power,power),side:T.DoubleSide}));p.position.set(x,y,z);p.lookAt(0,0,0);envScene.add(p)}
  panel(-4,5,4,4,7,5);panel(5,2,1,2,6,3);panel(0,6,-3,5,3,4);
@@ -56,7 +56,7 @@ html,body { margin:0; padding:0; background:#fffdf8; overflow:hidden; }
  const floor=new T.Mesh(new T.PlaneGeometry(100,100),new T.ShadowMaterial({color:0x332b1e,opacity:0}));floor.rotation.x=-Math.PI/2;floor.position.y=-1.3;floor.receiveShadow=true;scene.add(floor);
  const shadowCanvas=document.createElement('canvas');shadowCanvas.width=shadowCanvas.height=256;const sh=shadowCanvas.getContext('2d'),gradient=sh.createRadialGradient(128,128,12,128,128,126);gradient.addColorStop(0,'rgba(40,32,20,.24)');gradient.addColorStop(.4,'rgba(40,32,20,.13)');gradient.addColorStop(1,'rgba(40,32,20,0)');sh.fillStyle=gradient;sh.fillRect(0,0,256,256);const softShadow=new T.Mesh(new T.PlaneGeometry(6.8,6.8),new T.MeshBasicMaterial({map:new T.CanvasTexture(shadowCanvas),transparent:true,depthWrite:false,toneMapped:false}));softShadow.rotation.x=-Math.PI/2;softShadow.position.set(.12,-1.28,.05);softShadow.scale.setScalar(.762);scene.add(softShadow);
  function roundedBox(w,h,d,r){const g=new T.BoxGeometry(w,h,d,8,8,8),p=g.attributes.position,n=g.attributes.normal;const inner=new T.Vector3(w/2-r,h/2-r,d/2-r),v=new T.Vector3(),q=new T.Vector3(),normal=new T.Vector3();for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i);q.set(Math.max(-inner.x,Math.min(inner.x,v.x)),Math.max(-inner.y,Math.min(inner.y,v.y)),Math.max(-inner.z,Math.min(inner.z,v.z)));normal.copy(v).sub(q).normalize();v.copy(q).addScaledVector(normal,r);p.setXYZ(i,v.x,v.y,v.z);n.setXYZ(i,normal.x,normal.y,normal.z)}return g}
- const grain=document.createElement('canvas');grain.width=grain.height=128;const gc=grain.getContext('2d'),pixels=gc.createImageData(128,128);let seed=17;for(let i=0;i<pixels.data.length;i+=4){seed=(seed*1664525+1013904223)>>>0;const c=120+(seed%17);pixels.data.set([c,c,c,255],i)}gc.putImageData(pixels,0,0);const bump=new T.CanvasTexture(grain);bump.wrapS=bump.wrapT=T.RepeatWrapping;bump.repeat.set(3,3);
+ const grain=document.createElement('canvas');grain.width=grain.height=256;const gc=grain.getContext('2d'),pixels=gc.createImageData(256,256);let seed=17;for(let i=0;i<pixels.data.length;i+=4){seed=(seed*1664525+1013904223)>>>0;const fine=(seed>>>24)-128;seed=(seed*1664525+1013904223)>>>0;const broad=((seed>>>27)-16)*2;const c=Math.max(82,Math.min(174,128+fine*.16+broad));pixels.data.set([c,c,c,255],i)}gc.putImageData(pixels,0,0);gc.globalAlpha=.12;gc.strokeStyle='#f4efe5';gc.lineWidth=.45;for(let i=0;i<42;i++){seed=(seed*1664525+1013904223)>>>0;const x=seed%256;seed=(seed*1664525+1013904223)>>>0;const y=seed%256;gc.beginPath();gc.moveTo(x,y);gc.lineTo(x+7+(seed%18),y+(seed%5)-2);gc.stroke()}const bump=new T.CanvasTexture(grain);bump.wrapS=bump.wrapT=T.RepeatWrapping;bump.repeat.set(4.5,4.5);
  const plastic=new T.MeshPhysicalMaterial({color:0x151718,roughness:.57,metalness:0,clearcoat:.05,clearcoatRoughness:.6,envMapIntensity:.16,bumpMap:bump,bumpScale:.0012});
  const bodyGeometry=roundedBox(.985,.985,.985,.085),backingGeometry=roundedBox(.866,.866,.015,.007),reliefBacking=roundedBox(.974,.974,.019,.009);
  const navyBase=new T.MeshPhysicalMaterial({color:0x1d2f4e,roughness:.82,clearcoat:0});
@@ -67,10 +67,14 @@ html,body { margin:0; padding:0; background:#fffdf8; overflow:hidden; }
  const gold=[['Borrower email','Re: diligence request','Please supply attachments'],['Legal review','Loan agreement','Counsel comments'],['Title work','Schedule B','Exceptions to review'],['Property condition','Repair scope','Follow-up questions'],['Diligence call','Agenda / questions','Owner • next action'],['Survey','Access / easements','Reconcile with title'],['Insurance','Coverage schedule','Confirm requirements'],['Closing checklist','Document requests','Outstanding items'],['Open items','Evidence required','Remains unresolved']];
  const other=[['Source register','Document reference','Version / reporting date'],['Lease review','Term / concessions','Supporting schedule'],['Borrower follow-up','Missing attachment','Response requested'],['Rehabilitation','Scope / budget','Contractor questions'],['Environmental','Report review','Follow-up requirements'],['Tax assessment','Assessment / taxes','Reporting basis'],['Sponsor review','Experience / ownership','Supporting information'],['Call notes','Action register','Owner / due date'],['Evidence index','Source / calculation','Review basis']];
  const textures=[];
+ // Color-neutral surface variation for cream sticker fields only. The navy,
+ // black mechanism and brass keep the production material treatment.
+ function surfaceTexture(ctx,salt,dark){let s=(salt+1)*2654435761>>>0;ctx.save();ctx.globalCompositeOperation='soft-light';for(let i=0;i<1150;i++){s=(s*1664525+1013904223)>>>0;const x=s%512;s=(s*1664525+1013904223)>>>0;const y=s%512;s=(s*1664525+1013904223)>>>0;const size=1.1+(s%34)/10;ctx.fillStyle=i%2?'rgba(255,253,248,.14)':'rgba(29,47,78,.09)';ctx.fillRect(x,y,size,size)}ctx.globalAlpha=dark?.105:.078;ctx.strokeStyle=dark?'#fffdf8':'#1d2f4e';ctx.lineWidth=1.65;for(let i=0;i<58;i++){s=(s*1664525+1013904223)>>>0;const x=s%512;s=(s*1664525+1013904223)>>>0;const y=s%512;s=(s*1664525+1013904223)>>>0;const len=48+s%108;ctx.beginPath();ctx.moveTo(x,y);ctx.quadraticCurveTo(x+len*.48,y+(s%11)-5,x+len,y+(s%7)-3);ctx.stroke()}ctx.globalAlpha=dark?.026:.018;for(let i=0;i<26;i++){s=(s*1664525+1013904223)>>>0;const x=s%512;s=(s*1664525+1013904223)>>>0;const y=s%512;const radius=10+s%24;const haze=ctx.createRadialGradient(x,y,0,x,y,radius);haze.addColorStop(0,dark?'#fffdf8':'#1d2f4e');haze.addColorStop(1,'transparent');ctx.fillStyle=haze;ctx.fillRect(x-radius,y-radius,radius*2,radius*2)}ctx.restore()}
  function artwork(f,row,col){const c=document.createElement('canvas');c.width=c.height=512;const ctx=c.getContext('2d');ctx.fillStyle='#fffdf8';ctx.fillRect(0,0,512,512);
  if(f===0){ctx.fillStyle='#1D2F4E';ctx.fillRect(0,0,512,512)}
  else{const data=f===4?blue:f===2?gold:other,[title,l1,l2]=data[row*3+col],color=f===4?'#1D2F4E':f===2?'#A98038':f===3?'#6f8198':f===5?'#ad9a75':'#c4bca9';
  ctx.fillStyle=color;ctx.fillRect(0,0,512,512);ctx.fillStyle=f===2?'#1D2F4E':'#fffdf8';ctx.beginPath();ctx.roundRect(26,26,460,460,15);ctx.fill();
+ if(f!==2){ctx.save();ctx.beginPath();ctx.roundRect(26,26,460,460,15);ctx.clip();surfaceTexture(ctx,f*20+row*3+col,false);ctx.restore()}
  ctx.fillStyle=f===2?'#FFFDF8':color;ctx.font='600 24px Arial';ctx.fillText(String(row*3+col+1).padStart(2,'0')+' / '+(f===4?'ANALYSIS':f===2?'TRANSACTION':'DILIGENCE'),43,80);
  const words=title.toUpperCase().split(' ');let fontSize=74;ctx.font=`700 ${fontSize}px Arial`;while(words.some(w=>ctx.measureText(w).width>426)&&fontSize>44){fontSize--;ctx.font=`700 ${fontSize}px Arial`}
  let lines=[],line='';for(const word of words){const next=line?line+' '+word:word;if(ctx.measureText(next).width>426&&line){lines.push(line);line=word}else line=next}lines.push(line);
@@ -78,7 +82,7 @@ html,body { margin:0; padding:0; background:#fffdf8; overflow:hidden; }
  const baseline=Math.max(320,190+lines.length*(fontSize+5));ctx.strokeStyle=color;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(43,baseline-25);ctx.lineTo(466,baseline-25);ctx.stroke();
  ctx.font='32px Arial';let sub=[],part='';for(const word of l1.split(' ')){const next=part?part+' '+word:word;if(ctx.measureText(next).width>420&&part){sub.push(part);part=word}else part=next}sub.push(part);sub.slice(0,2).forEach((line,i)=>ctx.fillText(line,43,baseline+20+i*38));
  }
- const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());textures.push(tex);return new T.MeshPhysicalMaterial({map:tex,emissiveMap:tex,emissive:0xffffff,emissiveIntensity:.65,roughness:.72,metalness:0,clearcoat:0,envMapIntensity:.04});}
+ const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());textures.push(tex);const tactileWhite=f!==0&&f!==2;return new T.MeshPhysicalMaterial({map:tex,emissiveMap:tex,emissive:0xffffff,emissiveIntensity:tactileWhite?.16:.65,roughness:tactileWhite?.89:.72,metalness:0,clearcoat:tactileWhite?.008:0,clearcoatRoughness:.94,envMapIntensity:tactileWhite?.13:.04,bumpMap:tactileWhite?bump:null,bumpScale:tactileWhite?.0042:0});}
  const pieces=[];const I=[1,0,0,0,1,0,0,0,1];
  // Extrude the supplied canonical star polygons; retain their exact outlines.
  const logoPolygons=[[[407.0, 404.0], [383.0, 325.0], [418.0, 270.0], [424.0, 329.0]], [[413.0, 407.0], [452.0, 333.0], [516.0, 319.0], [484.0, 361.0]], [[414.0, 411.0], [496.0, 388.0], [550.0, 423.0], [496.0, 429.0]], [[412.0, 417.0], [488.0, 457.0], [501.0, 520.0], [460.0, 488.0]], [[407.0, 420.0], [432.0, 499.0], [398.0, 555.0], [392.0, 502.0]], [[402.0, 417.0], [364.0, 493.0], [300.0, 506.0], [334.0, 463.0]], [[399.0, 412.0], [321.0, 438.0], [266.0, 402.0], [321.0, 397.0]], [[401.0, 407.0], [328.0, 368.0], [315.0, 305.0], [357.0, 337.0]]];
@@ -102,24 +106,41 @@ html,body { margin:0; padding:0; background:#fffdf8; overflow:hidden; }
  }
  const mul=(a,b)=>a.map((_,i)=>[0,1,2].reduce((v,k)=>v+a[Math.floor(i/3)*3+k]*b[k*3+i%3],0)),vec=(m,p)=>[0,1,2].map(i=>m[i*3]*p[0]+m[i*3+1]*p[1]+m[i*3+2]*p[2]);
  function rot(axis,a){const c=Math.cos(a),s=Math.sin(a);return axis===0?[1,0,0,0,c,-s,0,s,c]:axis===1?[c,0,s,0,1,0,-s,0,c]:[c,-s,0,s,c,0,0,0,1]}
- const moves=[[1,1,1],[0,-1,-1],[2,1,1],[1,0,-1],[0,1,1],[2,-1,-1],[1,-1,1],[0,0,1],[2,1,-1],[1,1,-1],[0,-1,1],[2,0,1]],durations=[1.05,.9,.85,.8,.7,.55,.48,.44,.40,.38,.38,.67];
+ const moves=[[1,1,1],[0,-1,-1],[2,1,1],[1,0,-1],[0,1,1],[2,-1,-1],[1,-1,1],[0,0,1],[2,1,-1],[1,1,-1],[0,-1,1],[2,0,1]];
+ // A competition-style solve is read in phrases: quick recognition, one
+ // controlled opening pair, a dense finger-trick burst, a tiny regrip, then
+ // a decisive last-layer algorithm. The gaps are intentional and physical.
+ const plan=[
+  [.34,.055],[.30,.035],[.27,.085],
+  [.22,.025],[.195,.018],[.18,.105],
+  [.17,.018],[.158,.014],[.148,.012],[.142,.012],[.138,.016],[.17,0]
+ ];
  function apply(ps,m,f=1){const r=rot(m[0],m[2]*Math.PI/2*f);ps.forEach(p=>{if(Math.round(p.p[m[0]])===m[1]){p.p=vec(r,p.p);p.m=mul(r,p.m);if(f===1){p.p=p.p.map(Math.round);p.m=p.m.map(Math.round)}}})}
  const initial=pieces.map(p=>({p:p.p.slice(),m:I.slice()}));for(const m of moves.slice().reverse())apply(initial,[m[0],m[1],-m[2]]);
- const solvedAt=(.14+durations.reduce((sum,duration)=>sum+duration,0))/1.4;
- let current=0,running=false,raf=0,start=0,announcedSolved=false,announcedComplete=false;const smooth=u=>u*u*(3-2*u);
- function draw(t){current=t;const storyTime=t*1.4;const ps=initial.map(p=>({p:p.p.slice(),m:p.m.slice()}));let elapsed=Math.max(0,storyTime-.14);for(let i=0;i<moves.length;i++){if(elapsed>=durations[i]){apply(ps,moves[i]);elapsed-=durations[i]}else{apply(ps,moves[i],smooth(Math.max(0,elapsed/durations[i])));break}}
+ const solveStart=.68,schedule=[];let cursor=solveStart;plan.forEach(([duration,gap])=>{schedule.push({start:cursor,end:cursor+duration,duration});cursor+=duration+gap});const solvedAt=schedule[schedule.length-1].end;
+ const TOTAL=6.2;let current=0,running=false,raf=0,start=0,announcedSolved=false,announcedComplete=false,handoff=0;const clamp=u=>Math.max(0,Math.min(1,u)),smooth=u=>u*u*(3-2*u);
+ // Fast fingers do not look like a generic ease-in-out. There is a short
+ // pickup, a nearly linear powered middle, and a crisp magnetic alignment.
+ function championEase(u){u=clamp(u);if(u<.12)return .08*Math.pow(u/.12,2);if(u<.82)return .08+.84*((u-.12)/.70);const q=(u-.82)/.18;return .92+.08*(1-Math.pow(1-q,3))}
+ function draw(t){current=t;const ps=initial.map(p=>({p:p.p.slice(),m:p.m.slice()}));let active=-1,turnProgress=0;for(let i=0;i<moves.length;i++){const slot=schedule[i];if(t>=slot.end){apply(ps,moves[i]);continue}if(t>=slot.start){active=i;turnProgress=clamp((t-slot.start)/slot.duration);apply(ps,moves[i],championEase(turnProgress))}break}
  ps.forEach((p,i)=>{const m=p.m,g=pieces[i].group;g.position.set(...p.p.map(v=>v*1.01));g.setRotationFromMatrix(new T.Matrix4().set(m[0],m[1],m[2],0,m[3],m[4],m[5],0,m[6],m[7],m[8],0,0,0,0,1))});
- const settle=smooth(Math.max(0,Math.min(1,(storyTime-6.3)/1.4)));cube.rotation.set(.45+settle*.035,-.50+settle*.015,-.025+settle*.025);cube.position.y=.10;
- const reveal=smooth(Math.max(0,Math.min(1,(storyTime-8.1)/.8)));root.querySelector('h2').style.opacity=1-reveal;root.querySelector('.endline').style.opacity=reveal;
- slider.value=t;output.value=`${t.toFixed(1)}s / 10s`;renderer.render(scene,camera);
+ const inspection=smooth(clamp((t-.08)/.48)),settle=smooth(clamp((t-solvedAt)/.62));
+ const regripA=smooth(clamp((t-schedule[2].end)/.16))*(1-settle),regripB=smooth(clamp((t-schedule[5].end)/.13))*(1-settle);
+ const axis=active<0?1:moves[active][0],direction=active<0?0:moves[active][2],drive=active<0?0:Math.sin(Math.PI*championEase(turnProgress));
+ const recoil=active<0?0:direction*drive*.0085;
+ cube.rotation.set(.423+inspection*.027+regripA*.007-regripB*.006+(axis===0?recoil:0)+handoff*.018,-.535+inspection*.035-regripA*.012+regripB*.008+(axis===1?recoil:0)-handoff*.024,-.034+inspection*.009+settle*.025+(axis===2?recoil:0)+handoff*.011);
+ cube.position.y=.10-handoff*.055+(active>=0?Math.sin(Math.PI*turnProgress)*.006:0);cube.scale.setScalar(.728*(1-handoff*.025)*(1+(active>=0?Math.sin(Math.PI*turnProgress)*.0018:0)));
+ softShadow.material.opacity=1-handoff*.22;softShadow.scale.setScalar(1-handoff*.05);
+ const reveal=smooth(clamp((t-(solvedAt+.42))/.62));root.querySelector('h2').style.opacity=1-reveal;root.querySelector('.endline').style.opacity=reveal;
+ slider.value=t;output.value=`${t.toFixed(1)}s / ${TOTAL.toFixed(1)}s`;renderer.render(scene,camera);
  root.dataset.time=t.toFixed(2);
  if(t<solvedAt)announcedSolved=false;
- if(t<10)announcedComplete=false;
+ if(t<TOTAL)announcedComplete=false;
  if(t>=solvedAt&&!announcedSolved){announcedSolved=true;parent.postMessage({type:'oneshot:cube-state',state:'solved'},'*');}
- if(t>=10&&!announcedComplete){announcedComplete=true;parent.postMessage({type:'oneshot:cube-state',state:'complete'},'*');}
+ if(t>=TOTAL&&!announcedComplete){announcedComplete=true;parent.postMessage({type:'oneshot:cube-state',state:'complete'},'*');}
  }
- function stop(){running=false;cancelAnimationFrame(raf);play.textContent='Play 10-second study'}
- play.onclick=()=>{if(running){stop();return}running=true;start=performance.now()-(current>=10?0:current*1000);play.textContent='Pause';const frame=now=>{if(!root.isConnected){stop();return}const t=Math.min(10,(now-start)/1000);draw(t);if(t<10&&running)raf=requestAnimationFrame(frame);else{stop();status.textContent='Organized for judgment · Blue: underwriting · Gold: transaction review'}};raf=requestAnimationFrame(frame)};
+ function stop(){running=false;cancelAnimationFrame(raf);play.textContent='Play 6.2-second study'}
+ play.onclick=()=>{if(running){stop();return}running=true;start=performance.now()-(current>=TOTAL?0:current*1000);play.textContent='Pause';const frame=now=>{if(!root.isConnected){stop();return}const t=Math.min(TOTAL,(now-start)/1000);draw(t);if(t<TOTAL&&running)raf=requestAnimationFrame(frame);else{stop();status.textContent='Organized for judgment · Blue: underwriting · Gold: transaction review'}};raf=requestAnimationFrame(frame)};
  slider.oninput=()=>{stop();draw(+slider.value)};root.querySelectorAll('[data-time]').forEach(b=>b.onclick=()=>{stop();draw(+b.dataset.time);status.textContent=b.textContent+' · Illustrative transaction notes'});
  new ResizeObserver(()=>{const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h);camera.aspect=w/h;camera.position.z=Math.max(9.2,8.6/(w/h));camera.updateProjectionMatrix();draw(current)}).observe(stage);
  root.querySelectorAll('button,input').forEach(e=>e.disabled=false);draw(0);
@@ -127,7 +148,8 @@ html,body { margin:0; padding:0; background:#fffdf8; overflow:hidden; }
    if(event.source!==parent||event.data?.type!=='oneshot:cube')return;
    if(event.data.action==='start'&&!running)play.click();
    if(event.data.action==='pause')stop();
-   if(event.data.action==='finish'){stop();draw(10);}
+   if(event.data.action==='finish'){stop();draw(TOTAL);}
+   if(event.data.action==='handoff'){handoff=clamp(Number(event.data.progress)||0);draw(current);}
  });
  parent.postMessage({type:'oneshot:cube-state',state:'ready'},'*');
 

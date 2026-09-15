@@ -60,27 +60,43 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Nav recedes on scroll down, reappears on scroll up.
+  // Nav changes state only after intentional travel, preventing one-pixel
+  // scroll reversals from making the chrome flicker.
   if (header) {
     let lastY = window.scrollY;
+    let travel = 0;
+    let direction = 0;
     let ticking = false;
+
+    const showHeader = () => header.classList.remove("nav-hidden");
 
     window.addEventListener("scroll", () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const y = window.scrollY;
-          const goingDown = y > lastY;
+          const delta = y - lastY;
+          const nextDirection = Math.abs(delta) < 1 ? direction : Math.sign(delta);
 
-          if (y > 120 && goingDown) {
-            header.classList.add("nav-hidden");
-            if (nav.classList.contains("open")) {
-              nav.classList.remove("open"); // close mobile drawer if hiding
-              toggle.setAttribute("aria-expanded", "false");
-              if (backdrop) backdrop.classList.remove("is-visible");
-              document.body.style.overflow = "";
-            }
+          if (nextDirection !== direction) {
+            direction = nextDirection;
+            travel = Math.abs(delta);
+            if (direction < 0) showHeader();
           } else {
-            header.classList.remove("nav-hidden");
+            travel += Math.abs(delta);
+          }
+
+          header.classList.toggle("nav-compact", y > 38);
+
+          const menuOpen = nav?.classList.contains("open");
+          const headerFocused = header.matches(":focus-within");
+          if (y < 96 || menuOpen || headerFocused) {
+            showHeader();
+          } else if (direction > 0 && y > 180 && travel > 28) {
+            header.classList.add("nav-hidden");
+            travel = 0;
+          } else if (direction < 0 && travel > 10) {
+            showHeader();
+            travel = 0;
           }
 
           lastY = y;
@@ -89,6 +105,8 @@ document.addEventListener("DOMContentLoaded", () => {
         ticking = true;
       }
     });
+
+    header.addEventListener("focusin", showHeader);
   }
 
   // Reveal elements as they enter the viewport.
@@ -105,7 +123,13 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
     );
-    revealEls.forEach((el) => io.observe(el));
+    revealEls.forEach((el) => {
+      const group = el.parentElement;
+      const siblings = group ? [...group.querySelectorAll(":scope > .reveal")] : [];
+      const index = siblings.indexOf(el);
+      if (index > 0) el.style.setProperty("--reveal-delay", `${Math.min(index, 4) * 60}ms`);
+      io.observe(el);
+    });
   } else {
     revealEls.forEach((el) => el.classList.add("is-visible"));
   }

@@ -2,12 +2,22 @@
 (() => {
   const film = document.getElementById("career-film");
   const replay = document.getElementById("career-film-replay");
-  if (!film || !replay) return;
+  const audioButton = document.getElementById("career-film-audio");
+  if (!film || !replay || !audioButton) return;
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let finalHoldTime = 24.80;
   let locked = false;
   let monitoring = false;
+  let narrationEnabled = false;
+
+  const setNarrationState = (enabled) => {
+    narrationEnabled = enabled;
+    film.muted = !enabled;
+    audioButton.setAttribute("aria-pressed", String(enabled));
+    audioButton.setAttribute("aria-label", enabled ? "Turn narration off" : "Play narration and restart animation");
+    audioButton.querySelector("span").textContent = enabled ? "Narration on" : "Play narration";
+  };
 
   const holdFinalMark = () => {
     if (locked) return;
@@ -59,6 +69,22 @@
         film.requestVideoFrameCallback(monitor);
       }
     }).catch(() => replay.classList.add("is-ready"));
+  });
+
+  audioButton.addEventListener("click", () => {
+    if (narrationEnabled) {
+      setNarrationState(false);
+      return;
+    }
+
+    setNarrationState(true);
+    locked = false;
+    replay.classList.remove("is-ready");
+    film.currentTime = 0;
+    film.play().catch(() => {
+      setNarrationState(false);
+      replay.classList.add("is-ready");
+    });
   });
 
   // Muted inline video is eligible for autoplay. This early attempt and the

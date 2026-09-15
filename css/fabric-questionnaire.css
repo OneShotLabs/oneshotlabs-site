@@ -1,0 +1,10 @@
+.questionnaire{padding:0 5vw 70px;background:#1d2f4e;scroll-margin-top:9svh}.questionnaire[hidden]{display:none}
+.questionnaire-header{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;color:#dac18b;font:10px/1.5 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.questionnaire-header button{font:12px Inter,sans-serif;color:#fffdf8;background:none;border:0;border-bottom:1px solid #c6a153;padding:9px 0;cursor:pointer}
+.questionnaire-paper{background:#f7f3eb;color:#1d2f4e;border-top:2px solid #c6a153;padding:clamp(24px,4vw,64px);min-height:520px}
+.questionnaire #ai-curve-app{max-width:980px;margin:auto;color:#1d2f4e}.questionnaire .curve-panel{background:none;border:0;box-shadow:none;padding:0;color:#1d2f4e;max-width:none}
+.questionnaire h2,.questionnaire .curve-question{font-family:Fraunces,Georgia,serif;color:#1d2f4e;font-weight:400;letter-spacing:-.025em}.questionnaire h2{font-size:clamp(32px,4vw,54px)}.questionnaire .curve-question{font-size:clamp(25px,2.6vw,38px);line-height:1.2;margin-bottom:24px}
+.questionnaire .curve-option{border:1px solid #1d2f4e26;background:transparent;color:#1d2f4e;border-radius:0;padding:16px 18px;font:14px/1.5 Inter,sans-serif}.questionnaire .curve-option:has(input:checked){border-color:#a77e36;background:#eae2d1}.questionnaire .curve-option:hover{border-color:#a77e36}.questionnaire .curve-option input{accent-color:#a77e36}
+.questionnaire .muted,.questionnaire .curve-lede{color:#536176}.questionnaire .btn{border-radius:0}.questionnaire .btn-accent{background:#1d2f4e;color:#fffdf8;border-color:#1d2f4e}.questionnaire .curve-progress-fill{background:#a77e36}.questionnaire .curve-nav{margin-top:26px}.questionnaire :focus-visible{outline:2px solid #a77e36;outline-offset:4px}
+.questionnaire-note{font:11px/1.6 Inter,sans-serif;color:#bcc6d3;margin:16px 0 0}.questionnaire-open .horizon .scene-controls{opacity:.4}
+@media(max-width:700px){.questionnaire{padding:0 20px 40px;scroll-margin-top:20px}.questionnaire-paper{padding:24px 20px;min-height:480px}.questionnaire-header{letter-spacing:.06em}.questionnaire .curve-option{padding:12px;font-size:13px}}

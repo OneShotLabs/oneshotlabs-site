@@ -10,6 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,450;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=Poppins:ital,wght@0,400;1,400&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css?v=20260910-grade" />
+  <link rel="stylesheet" href="css/site-motion.css?v=20260913-review2" />
+  <script src="js/navy-veil.js?v=20260914-cinema2" defer></script>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 </head>
 <body>
@@ -37,7 +39,6 @@
 
   <section class="dl-lifecycle">
     <div class="container-wide">
-      <p class="dl-eyebrow">Career Deal Lifecycle</p>
       <h1 class="dl-heading">Every Stage.<br>One Trusted Partner.</h1>
       <div class="dl-divider" aria-hidden="true"><span></span><b></b><span></span></div>
 
@@ -52,9 +53,13 @@
           poster="assets/video/oneshotlabs-career-animation-poster.jpg"
           disablepictureinpicture
         >
-          <source src="assets/video/oneshotlabs-career-animation-1440p.mp4" type="video/mp4" media="(min-width: 1200px) and (min-resolution: 1.5dppx)" />
-          <source src="assets/video/oneshotlabs-career-animation-1080p.mp4" type="video/mp4" />
+          <source src="assets/video/oneshotlabs-career-animation-clean-1440p.mp4" type="video/mp4" media="(min-width: 1200px) and (min-resolution: 1.5dppx)" />
+          <source src="assets/video/oneshotlabs-career-animation-clean-1080p.mp4" type="video/mp4" />
         </video>
+        <button class="career-film-audio" id="career-film-audio" type="button" aria-label="Play narration and restart animation" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Zm4.5 4.5a4 4 0 0 1 0 5m2.5-8a8 8 0 0 1 0 11" /></svg>
+          <span>Play narration</span>
+        </button>
         <button class="career-film-replay" id="career-film-replay" type="button" aria-label="Replay career animation">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.34 5.66M20 4v7h-7" /></svg>
           <span>Replay</span>
@@ -119,6 +124,7 @@
   </footer>
 
   <script src="js/main.js" defer></script>
-  <script src="js/career-lifecycle.js" defer></script>
+  <script src="js/career-lifecycle.js?v=20260911-clean-closing" defer></script>
+  <script src="js/site-motion.js?v=20260913-review2" defer></script>
 </body>
 </html>

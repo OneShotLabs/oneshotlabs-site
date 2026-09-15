@@ -3286,30 +3286,19 @@ html.no-splash .splash { display: none; }
   background-position: left calc(100% - 0.45px), 134% calc(100% - 0.45px);
 }
 
-/* Vault-unlock choreography: the icon pops in, then dials like a
-   combination lock (right, hold, left, hold, final turn) — this part is
-   always automatic, ~1900ms. Once it settles, the viewfinder brackets
-   are "live": the visitor can click them like a shutter button, or (if
-   they don't) the same click-and-open fires on its own shortly after.
-   Either way it's the same sequence — bolts snap tight, then the vault
-   doors (panels) swing open. Timing for that second half lives entirely
-   in js/splash.js (DIAL_DONE / CLICK_DUR / DOORS_DUR), not in a CSS
-   animation-delay, so a real click can jump straight to it. */
+/* Focus-lock choreography: the mark resolves quickly, the framing bolts
+   acquire it, then everything snaps into focus before the panels open.
+   The sequence is fully automatic; there is no interaction prompt. */
 .splash.animate .splash-icon {
-  animation: splash-dial-unlock 1900ms cubic-bezier(0.45, 0, 0.2, 1) both;
+  animation: splash-dial-unlock 820ms cubic-bezier(0.22, 0.72, 0.18, 1) both;
 }
 .splash.animate .splash-word {
-  animation: splash-word-in 420ms cubic-bezier(0.16, 1, 0.3, 1) 90ms both;
+  animation: splash-word-in 340ms cubic-bezier(0.16, 1, 0.3, 1) 160ms both;
 }
 
 @keyframes splash-dial-unlock {
-  0%   { opacity: 0; transform: rotate(-70deg) scale(0.75); }
-  20%  { opacity: 1; transform: rotate(4deg) scale(1.015); }
-  28%  { opacity: 1; transform: rotate(0deg) scale(1); }
-  45%  { transform: rotate(10deg) scale(1); }
-  56%  { transform: rotate(10deg) scale(1); }
-  74%  { transform: rotate(-7deg) scale(1); }
-  86%  { transform: rotate(-7deg) scale(1); }
+  0%   { opacity: 0; transform: rotate(-45deg) scale(0.78); }
+  62%  { opacity: 1; transform: rotate(3deg) scale(1.01); }
   100% { opacity: 1; transform: rotate(0deg) scale(1); }
 }
 @keyframes splash-word-in {
@@ -3338,11 +3327,6 @@ html.no-splash .splash { display: none; }
   pointer-events: none;
 }
 
-.splash-frame.clickable {
-  pointer-events: auto;
-  cursor: pointer;
-}
-
 .splash-bracket {
   position: absolute;
   width: 26px;
@@ -3362,7 +3346,7 @@ html.no-splash .splash { display: none; }
 
 /* Entrance only — flies in from off-screen once, holds. */
 .splash.animate .splash-bracket {
-  animation: splash-bracket-in 320ms cubic-bezier(0.16, 1, 0.3, 1) 500ms both;
+  animation: splash-bracket-in 360ms cubic-bezier(0.16, 1, 0.3, 1) 340ms both;
 }
 
 @keyframes splash-bracket-in {
@@ -3589,7 +3573,10 @@ html.no-splash .splash { display: none; }
     }
   </script>
   <link rel="stylesheet" href="css/header-static.css?v=20260903-1" />
-  <link rel="stylesheet" href="css/decision-cube.css?v=20260910-grade">
+  <link rel="stylesheet" href="css/decision-cube.css?v=20260914-merged1">
+  <link rel="stylesheet" href="css/home-motion.css?v=20260914-merged1">
+  <link rel="stylesheet" href="css/site-motion.css?v=20260913-review2">
+  <script src="js/navy-veil.js?v=20260914-cinema2" defer></script>
 </head>
 <body>
   <div class="grain-overlay" aria-hidden="true"></div>
@@ -3639,7 +3626,7 @@ html.no-splash .splash { display: none; }
 
   <section class="decision-cube-hero" aria-labelledby="decision-cube-heading">
     <h1 class="decision-cube-heading" id="decision-cube-heading">Complexity, organized for <em>judgment.</em></h1>
-    <iframe class="decision-cube-frame" id="decision-cube-frame" src="decision-cube/index.html?v=20260910-2" title="OneShotLabs decision cube: transaction information organized for judgment" sandbox="allow-scripts" referrerpolicy="no-referrer" scrolling="no" loading="eager"></iframe>
+    <iframe class="decision-cube-frame" id="decision-cube-frame" src="decision-cube/index.html?v=20260914-merged1" title="OneShotLabs decision cube: transaction information organized for judgment" sandbox="allow-scripts" referrerpolicy="no-referrer" scrolling="no" loading="eager"></iframe>
     <button class="decision-cube-toggle" id="decision-cube-toggle" type="button" disabled>Pause animation</button>
   </section>
 
@@ -3813,27 +3800,44 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Nav recedes on scroll down, reappears on scroll up.
+  // Nav changes state only after intentional travel, preventing one-pixel
+  // scroll reversals from making the chrome flicker.
   if (header) {
     let lastY = window.scrollY;
+    let travel = 0;
+    let direction = 0;
     let ticking = false;
+
+    const showHeader = () => header.classList.remove("nav-hidden");
 
     window.addEventListener("scroll", () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const y = window.scrollY;
-          const goingDown = y > lastY;
+          const delta = y - lastY;
+          const nextDirection = Math.abs(delta) < 1 ? direction : Math.sign(delta);
 
-          if (y > 120 && goingDown) {
-            header.classList.add("nav-hidden");
-            if (nav.classList.contains("open")) {
-              nav.classList.remove("open"); // close mobile drawer if hiding
-              toggle.setAttribute("aria-expanded", "false");
-              if (backdrop) backdrop.classList.remove("is-visible");
-              document.body.style.overflow = "";
-            }
+          if (nextDirection !== direction) {
+            direction = nextDirection;
+            travel = Math.abs(delta);
+            if (direction < 0) showHeader();
           } else {
-            header.classList.remove("nav-hidden");
+            travel += Math.abs(delta);
+          }
+
+          header.classList.toggle("nav-compact", y > 38);
+
+          const menuOpen = nav?.classList.contains("open");
+          const headerFocused = header.matches(":focus-within");
+          if (y < 96 || menuOpen || headerFocused) {
+            showHeader();
+          } else if (direction > 0 && y > 180 && travel > 28) {
+            header.classList.add("nav-hidden");
+            travel = 0;
+          } else if (direction < 0 && travel > 10) {
+            showHeader();
+
+            travel = 0;
           }
 
           lastY = y;
@@ -3842,6 +3846,8 @@ document.addEventListener("DOMContentLoaded", () => {
         ticking = true;
       }
     });
+
+    header.addEventListener("focusin", showHeader);
   }
 
   // Reveal elements as they enter the viewport.
@@ -3858,7 +3864,13 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
     );
-    revealEls.forEach((el) => io.observe(el));
+    revealEls.forEach((el) => {
+      const group = el.parentElement;
+      const siblings = group ? [...group.querySelectorAll(":scope > .reveal")] : [];
+      const index = siblings.indexOf(el);
+      if (index > 0) el.style.setProperty("--reveal-delay", `${Math.min(index, 4) * 60}ms`);
+      io.observe(el);
+    });
   } else {
     revealEls.forEach((el) => el.classList.add("is-visible"));
   }
@@ -3877,9 +3889,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (reduceQuoteMotion.matches) {
         quoteStep = 2;
       } else {
-        const sceneTop = quoteScene.offsetTop - window.scrollY;
-        if (sceneTop <= window.innerHeight * 0.35) quoteStep = Math.max(quoteStep, 1);
-        if (sceneTop <= window.innerHeight * -0.12) quoteStep = 2;
+          const sceneTop = quoteScene.offsetTop - window.scrollY;
+          if (sceneTop <= window.innerHeight * 0.55) quoteStep = Math.max(quoteStep, 1);
+          if (sceneTop <= window.innerHeight * 0.08) quoteStep = 2;
       }
       quoteScene.dataset.quoteStep = String(quoteStep);
     };
@@ -4186,13 +4198,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // The timeline waits until this splash exit is complete.
   }
 
-  // ---- Viewfinder shutter click ----
-  // The brackets are clickable like a camera shutter button the moment
-  // they're visible on screen. Clicking snaps them tight (the "click")
-  // and opens the vault doors right away, skipping whatever's left of the
-  // automatic hold. Left alone, the exact same click-and-open sequence
-  // fires on its own once the viewfinder has held long enough.
-  const DIAL_DONE = 1900; // dial-unlock finishes / brackets are ready to "shoot"
+  // ---- Automatic focus lock ----
+  // The mark resolves, the brackets acquire it, then the lock snaps and
+  // the panels open. No click or instruction is required.
+  const DIAL_DONE = 950;
   const CLICK_DUR = 220; // matches splash-bolt-click's duration in CSS
   const DOORS_DUR = 500; // matches splash-panel-*-out's duration in CSS
   const FINISH_BUFFER = 200;
@@ -4221,8 +4230,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (iconFrameEl) iconFrameEl.classList.add("clicked");
     openTimer = setTimeout(openDoors, CLICK_DUR);
   }
-
-  if (frameEl) frameEl.addEventListener("click", fireShutter);
 
   function playSplash() {
     if (playing) return;
@@ -4306,10 +4313,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       splash.classList.add("animate");
       clickable = true;
-      if (frameEl) frameEl.classList.add("clickable");
-      // Auto path: same shutter click and door-open the visitor would
-      // trigger by clicking, just fired on a timer once the dial-unlock
-      // settles (1900ms) if nobody has clicked already.
+      // Fire the focus lock automatically once the mark has resolved.
       shutterTimer = setTimeout(fireShutter, DIAL_DONE);
     }, QUOTE_DONE + QUOTE_FADE); // logo pops on screen right as the quote finishes fading
   }
@@ -4550,6 +4554,8 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="control-row"><label for="corner-slider">Corners</label><input type="range" id="corner-slider" min="3" max="20" step="1" value="8" /></div>
     <div class="control-row"><label for="flag-slider">Flag</label><input type="range" id="flag-slider" min="0" max="1" step="0.05" value="0.85" /></div>
   </div>
-  <script src="js/decision-cube.js?v=20260910-2"></script>
+  <script src="js/decision-cube.js?v=20260914-merged1"></script>
+  <script src="js/home-motion.js?v=20260914-merged1"></script>
+  <script src="js/site-motion.js?v=20260913-review2"></script>
 </body>
 </html>
