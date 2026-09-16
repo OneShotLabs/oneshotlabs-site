@@ -55,6 +55,43 @@ const PHOTOS = [
   // above) rather than left to the live auto-reader, so they render
   // instantly and correctly regardless of network/CORS conditions.
   {
+    src: "images/photo-2025-09-brooklyn-basketball.jpg",
+    month: "September",
+    year: 2025,
+    caption: "",
+    ratio: "724 / 1086",
+    visibility: "public",
+    location: "Brooklyn",
+    iso: 1250,
+    aperture: 2,
+    shutter: 0.01,
+  },
+  {
+    // Foreground concrete corrected to match the surrounding road while
+    // preserving the original subject, framing, and sunset color grade.
+    src: "images/photo-2025-08-girl-pink-dress-road-edited.jpg",
+    month: "August",
+    year: 2025,
+    caption: "",
+    ratio: "3 / 2",
+    visibility: "private",
+    iso: 640,
+    aperture: 4,
+    shutter: 0.0045455,
+  },
+  {
+    src: "images/photo-2025-05-soldier-field-acdc.jpg",
+    month: "May",
+    year: 2025,
+    caption: "",
+    ratio: "3 / 2",
+    visibility: "public",
+    location: "Soldier Field",
+    iso: 6400,
+    aperture: 2,
+    shutter: 0.0238095,
+  },
+  {
     src: "images/photo-2026-08-beach-shell.jpg",
     month: "August",
     year: 2026,
