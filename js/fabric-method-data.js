@@ -19,6 +19,5 @@ window.OSL_METHOD={raw:[
 ['Adobe','DESIGN','TESTED → MOVED ON','Called as a design test, it explored capabilities that did not become part of the preferred system.',4,-1.6,-.6],
 ['Human Judgment','JUDGMENT','The deciding layer','Called at every decision, human judgment applies taste, context, responsibility, and standards before anything becomes final.',-1.05,.42,.5],
 ['Descript','CREATE','Supporting experiment','Called for rapid media experiments, it tests transcript-led audio and video editing outside the core workflow.',4.25,.8,-.6],
-['Buttondown / Beehiiv','PUBLISH','Supporting experiment','Called while shaping distribution, these platforms test newsletter publishing and audience communication options.',1.3,2.8,-.9],
-['RoEx','CREATE','Supporting experiment','Called during audio experiments, it tests automated mixing and finishing before human review.',3.15,2.55,-.7]
-],links:[[0,17],[0,1],[1,11],[11,12],[12,13],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[0,9],[0,14],[0,18],[0,19],[0,20],[8,17],[8,10],[10,17]]};
+['Buttondown / Beehiiv','PUBLISH','Supporting experiment','Called while shaping distribution, these platforms test newsletter publishing and audience communication options.',1.3,2.8,-.9]
+],links:[[0,17],[0,1],[1,11],[11,12],[12,13],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[0,9],[0,14],[0,18],[0,19],[8,17],[8,10],[10,17]]};

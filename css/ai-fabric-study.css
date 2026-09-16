@@ -25,23 +25,32 @@
 .fabric-material-study .woven-network{
   transition:opacity 800ms ease,transform 1850ms cubic-bezier(.12,.72,.14,1)
 }
+.fabric-material-study .system-viewport{display:contents}
+.fabric-material-study.exploring-system{--fabric-stretch:1}
+.fabric-material-study.exploring-system .system-viewport{
+  display:flex;flex-direction:column;height:100svh;min-height:520px;overflow:hidden;background:#1d2f4e
+}
 .fabric-material-study.exploring-system .fabric{
-  height:58svh;min-height:58svh;padding:0
+  flex:1 1 auto;height:auto;min-height:0;padding:0;
+  background:linear-gradient(#1d2f4e33,#1d2f4e55),url('../images/fabric-photoreal-study-v2.png') center/cover no-repeat
 }
 .fabric-material-study.exploring-system .fabric .copy{
   display:block!important;opacity:0;transform:translate3d(-28px,-12px,0);filter:blur(7px);pointer-events:none
 }
 .fabric-material-study.exploring-system .fabric>img.art,
-.fabric-material-study.exploring-system #fabric-breath,
-.fabric-material-study.exploring-system .woven-network{
-  width:100%;height:100%;left:0;right:0;object-position:54% top;mask-image:linear-gradient(#000 0%,#000 91%,transparent 100%);
-  transform-origin:63% 0;transform:scale(1.075)
+.fabric-material-study.exploring-system #fabric-breath{
+  width:100%;height:100%;left:0;right:0;object-fit:fill;object-position:50% 50%;
+  -webkit-mask-image:linear-gradient(#000 0%,#000 91%,transparent 100%);mask-image:linear-gradient(#000 0%,#000 91%,transparent 100%);
+  transform-origin:50% 50%;transform:none
 }
+.fabric-material-study.exploring-system .woven-network{width:100%;height:100%;left:0;right:0;mask-image:none;transform:none}
 .fabric-material-study.exploring-system .fabric>img.art{filter:brightness(.82) saturate(.82) contrast(1.06)}
 .fabric-material-study.exploring-system #fabric-breath{opacity:1!important;clip-path:inset(0 0 0 0)}
 .fabric-material-study.exploring-system .woven-network{mask-image:none;opacity:1;animation:study-network-settle 900ms ease-out 1150ms both}
-.fabric-material-study.exploring-system .woven-method{height:42svh}
-.fabric-material-study.exploring-system .method-expanded{max-height:calc(42svh - 72px)}
+.fabric-material-study.exploring-system .woven-method{
+  flex:0 0 auto;height:auto;max-height:min(46svh,390px);min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain
+}
+.fabric-material-study.exploring-system .method-expanded{max-height:none;overflow:visible;padding-right:0}
 .fabric-material-study.exploring-system .fabric::before{
   content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;
   background:linear-gradient(90deg,transparent 0%,#e8d19b18 48%,transparent 62%);
@@ -52,12 +61,11 @@
 @keyframes study-network-settle{from{opacity:0;filter:blur(5px)}to{opacity:1;filter:blur(0)}}
 @media(max-width:700px){
   .fabric-material-study .study-ribbon{right:10px;bottom:10px}
-  .fabric-material-study.exploring-system .fabric{height:44svh;min-height:44svh}
-  .fabric-material-study.exploring-system .woven-method{height:56svh}
-  .fabric-material-study.exploring-system .method-expanded{max-height:calc(56svh - 132px)}
+  .fabric-material-study.exploring-system{--fabric-stretch:1}
+  .fabric-material-study.exploring-system .system-viewport{min-height:480px}
+  .fabric-material-study.exploring-system .woven-method{max-height:61svh}
   .fabric-material-study.exploring-system .fabric>img.art,
-  .fabric-material-study.exploring-system #fabric-breath,
-  .fabric-material-study.exploring-system .woven-network{object-position:63% top;transform-origin:64% 0;transform:scale(1.085)}
+  .fabric-material-study.exploring-system #fabric-breath{object-fit:contain;object-position:50% 50%;transform-origin:50% 50%;transform:none}
 }
 @media(prefers-reduced-motion:reduce){
   .fabric-material-study .fabric,.fabric-material-study .fabric .copy,.fabric-material-study .fabric>img.art,
