@@ -1,0 +1,66 @@
+/* Local study: photographic material, editorial exit, and left-to-right kinetic takeover. */
+.fabric-material-study .study-ribbon{
+  position:fixed;right:18px;bottom:18px;z-index:30;padding:8px 11px;
+  color:#efe3c5;background:#142742d9;border:1px solid #c6a15355;
+  font:500 9px/1.2 "Barlow Condensed",Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;
+  backdrop-filter:blur(12px);pointer-events:none
+}
+.fabric-material-study .fabric{
+  min-height:100svh;transition:min-height 1450ms cubic-bezier(.16,.76,.18,1),padding 1450ms cubic-bezier(.16,.76,.18,1)
+}
+.fabric-material-study .fabric .copy{
+  display:block!important;transition:opacity 760ms cubic-bezier(.2,.65,.2,1),transform 980ms cubic-bezier(.16,.76,.18,1),filter 760ms ease;
+  will-change:opacity,transform,filter
+}
+.fabric-material-study .fabric>img.art{
+  transform:scale(1.015) translate3d(0,0,0);transform-origin:63% 8%;
+  transition:transform 1850ms cubic-bezier(.12,.72,.14,1),filter 1400ms ease,opacity 900ms ease;
+  filter:brightness(.96) saturate(.88) contrast(1.035)
+}
+.fabric-material-study #fabric-breath{
+  opacity:0!important;clip-path:inset(0 100% 0 0);transform:scale(1.015) translate3d(0,0,0);transform-origin:63% 8%;
+  transition:clip-path 1750ms cubic-bezier(.64,0,.2,1),opacity 260ms ease,transform 1850ms cubic-bezier(.12,.72,.14,1);
+  will-change:clip-path,transform
+}
+.fabric-material-study .woven-network{
+  transition:opacity 800ms ease,transform 1850ms cubic-bezier(.12,.72,.14,1)
+}
+.fabric-material-study.exploring-system .fabric{
+  height:58svh;min-height:58svh;padding:0
+}
+.fabric-material-study.exploring-system .fabric .copy{
+  display:block!important;opacity:0;transform:translate3d(-28px,-12px,0);filter:blur(7px);pointer-events:none
+}
+.fabric-material-study.exploring-system .fabric>img.art,
+.fabric-material-study.exploring-system #fabric-breath,
+.fabric-material-study.exploring-system .woven-network{
+  width:100%;height:100%;left:0;right:0;object-position:54% top;mask-image:linear-gradient(#000 0%,#000 91%,transparent 100%);
+  transform-origin:63% 0;transform:scale(1.075)
+}
+.fabric-material-study.exploring-system .fabric>img.art{filter:brightness(.82) saturate(.82) contrast(1.06)}
+.fabric-material-study.exploring-system #fabric-breath{opacity:1!important;clip-path:inset(0 0 0 0)}
+.fabric-material-study.exploring-system .woven-network{mask-image:none;opacity:1;animation:study-network-settle 900ms ease-out 1150ms both}
+.fabric-material-study.exploring-system .woven-method{height:42svh}
+.fabric-material-study.exploring-system .method-expanded{max-height:calc(42svh - 72px)}
+.fabric-material-study.exploring-system .fabric::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;
+  background:linear-gradient(90deg,transparent 0%,#e8d19b18 48%,transparent 62%);
+  transform:translateX(-100%);animation:material-light-pass 2200ms cubic-bezier(.2,.72,.18,1) 380ms both;
+  mix-blend-mode:screen
+}
+@keyframes material-light-pass{0%{opacity:0;transform:translateX(-100%)}18%{opacity:.5}70%{opacity:.26}100%{opacity:0;transform:translateX(100%)}}
+@keyframes study-network-settle{from{opacity:0;filter:blur(5px)}to{opacity:1;filter:blur(0)}}
+@media(max-width:700px){
+  .fabric-material-study .study-ribbon{right:10px;bottom:10px}
+  .fabric-material-study.exploring-system .fabric{height:44svh;min-height:44svh}
+  .fabric-material-study.exploring-system .woven-method{height:56svh}
+  .fabric-material-study.exploring-system .method-expanded{max-height:calc(56svh - 132px)}
+  .fabric-material-study.exploring-system .fabric>img.art,
+  .fabric-material-study.exploring-system #fabric-breath,
+  .fabric-material-study.exploring-system .woven-network{object-position:63% top;transform-origin:64% 0;transform:scale(1.085)}
+}
+@media(prefers-reduced-motion:reduce){
+  .fabric-material-study .fabric,.fabric-material-study .fabric .copy,.fabric-material-study .fabric>img.art,
+  .fabric-material-study #fabric-breath,.fabric-material-study .woven-network{transition:none}
+  .fabric-material-study.exploring-system .fabric::before,.fabric-material-study.exploring-system .woven-network{animation:none}
+}

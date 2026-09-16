@@ -8,7 +8,7 @@
 .fabric::after{content:"";position:absolute;inset:auto auto 0 0;width:55%;height:65%;z-index:-1;pointer-events:none;background:linear-gradient(90deg,#1d2f4eb8,transparent);mask-image:linear-gradient(transparent,#000 40%)}
 @media(max-width:700px){.fabric::after{display:none}.fabric .copy h1{font-size:clamp(40px,10vw,64px)}}
 html{overflow-x:clip}
-</style><link rel="stylesheet" href="css/fabric-finish.css?v=20260914-merged1"></head><body class="study">
+</style><link rel="stylesheet" href="css/fabric-finish.css?v=20260914-merged1"><link rel="stylesheet" href="css/ai-fabric-study.css?v=20260916-study2"></head><body class="study fabric-material-study">
   <header class="site-header">
     <div class="container-wide">
       <a href="index.html" class="logo"><span class="logo-icon" aria-hidden="true"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><polygon id="os-blade-nav" points="53.5,2 55.8,20 50,46 41.5,20.6" /><path id="os-corner-arc" d="M6,15 A9,9 0 0 1 15,6" /></defs><g fill="none" stroke="var(--trim)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(0 50 50)" /><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(90 50 50)" /><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(180 50 50)" /><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(270 50 50)" /></g><g class="os-blades" fill="currentColor"><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(0 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(45 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(90 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(135 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(180 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(225 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(270 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(315 50 50)" /></g></svg></span><span class="logo-text">OneShotLabs</span></a>
@@ -30,21 +30,21 @@ html{overflow-x:clip}
   </header>
 <main>
 <section class="study-section fabric" aria-labelledby="fabric-title">
-<img class="art" alt="" src="images/fabric-woven-v6.png">
+<img class="art" alt="" src="images/fabric-photoreal-study-v2.png">
 <canvas class="art" id="fabric-breath" aria-hidden="true"></canvas>
 <div class="fabric-light" aria-hidden="true"></div><div class="light-veil" aria-hidden="true"></div>
 <div class="woven-network" aria-label="Tools woven into the practice"><svg aria-hidden="true"><g></g></svg><div class="woven-nodes"></div></div>
-<div class="copy"><p class="eyebrow">An independent practice in applied AI</p><h1 id="fabric-title">The scope of<br>possibility<br>is changing.</h1><a href="#woven-method">Explore the system ↘</a></div>
+<div class="copy"><h1 id="fabric-title">The scope of<br>possibility<br>is changing.</h1><a href="#woven-method">Explore the system</a></div>
 <button class="motion-toggle" type="button" id="motion-toggle" hidden>Pause motion</button>
 </section>
 <section class="woven-method" id="woven-method" aria-labelledby="method-heading">
-<div class="method-heading"><p class="eyebrow">Woven into the work</p><h2 id="method-heading">Many instruments.<br> One practice.</h2></div>
+<div class="method-heading"><p class="eyebrow">Woven into the work</p><h2 id="method-heading">An independent practice <br>in applied AI</h2></div>
 <div class="method-body">
-<article class="woven-detail" aria-live="polite" aria-atomic="true"><p class="method-status">Explore the fabric</p><h3>Follow a light.</h3><p class="method-description">Select a light above to discover its role in the practice.</p></article>
+<article class="woven-detail" aria-live="polite" aria-atomic="true"><p class="method-status">System / Full system</p><h3>Full system</h3><p class="method-description">ChatGPT holds the plan and coordinates models, APIs, and connections; human judgment guides what moves forward.</p></article>
 <details class="method-expansion"><summary><span class="expand-label">Explore the system</span><span class="collapse-label">Close the system</span><span class="expansion-mark" aria-hidden="true">＋</span></summary>
-<div class="method-expanded"><div class="method-related"><p class="eyebrow">Connected instruments</p><div class="method-connections"></div><button class="method-clear" hidden type="button">Clear selection ↗</button></div>
-<nav class="method-filters" aria-label="Filter tools by role"></nav>
-<details class="method-directory" open><summary>All 21 tools &amp; influences <span>＋</span></summary><div></div></details></div></details></div>
+<div class="method-expanded"><nav class="method-filters" aria-label="Filter tools by role"></nav>
+<details class="method-directory" open><summary><span class="directory-label">Core path · 5 parts</span><span>＋</span></summary><div></div></details>
+<div class="method-related"><p class="eyebrow">Connected instruments</p><div class="method-connections"></div><button class="method-clear" hidden type="button">Clear selection ↗</button></div></div></details></div>
 </section>
 <div class="navy-interval method-to-globe" aria-hidden="true"></div>
 <section class="study-section horizon" id="horizon" aria-labelledby="curve-title">
@@ -66,4 +66,4 @@ const backdrop=document.querySelector('.nav-backdrop');
 function setNav(open){toggle.setAttribute('aria-expanded',String(open));nav.classList.toggle('open',open);backdrop.classList.toggle('is-visible',open);document.body.style.overflow=open?'hidden':'';}
 toggle?.addEventListener('click',()=>setNav(toggle.getAttribute('aria-expanded')!=='true'));
 backdrop.addEventListener('click',()=>setNav(false));document.addEventListener('keydown',e=>{if(e.key==='Escape')setNav(false)});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setNav(false)));
-</script><script src="js/fabric-finish.js?v=20260914-merged1"></script><script src="js/fabric-breath.js?v=20260914-merged1"></script><script src="js/fabric-method-data.js?v=20260914-merged1"></script><script src="js/fabric-method.js?v=20260914-merged1"></script><script src="js/fabric-scroll.js?v=20260914-merged1"></script><script src="js/fabric-explorer.js?v=20260914-merged1"></script><link rel="stylesheet" href="css/fabric-method.css?v=20260914-merged1"></body></html>
+</script><script src="js/fabric-finish.js?v=20260914-merged1"></script><script src="js/fabric-breath-left-drop-study.js?v=20260916-clock4"></script><script src="js/fabric-method-data.js?v=20260916-flow5"></script><script src="js/fabric-method.js?v=20260916-context14"></script><script src="js/fabric-scroll.js?v=20260914-merged1"></script><script src="js/fabric-explorer.js?v=20260914-merged1"></script><link rel="stylesheet" href="css/fabric-method.css?v=20260916-layout13"></body></html>
