@@ -1288,23 +1288,23 @@ h1, h2, h3 {
   border-color: var(--oneshot-gold-body, var(--trim));
   /* 70% larger overall: outer padding scaled with it (3px base -> ~5px)
      so the thumb inset below stays flush with the button edge. */
-  padding: 5px;
+  padding: var(--visibility-shell-padding, 5px);
 }
 
 .visibility-toggle-row .visibility-toggle .shutter-toggle-thumb {
   background: var(--oneshot-navy, var(--header-navy));
   border-color: var(--oneshot-gold-body, var(--trim));
-  top: 5px;
-  left: 5px;
-  bottom: 5px;
-  width: calc(50% - 5px);
+  top: var(--visibility-shell-padding, 5px);
+  left: var(--visibility-shell-padding, 5px);
+  bottom: var(--visibility-shell-padding, 5px);
+  width: calc(50% - var(--visibility-shell-padding, 5px));
 }
 
 .visibility-toggle-row .visibility-toggle .shutter-toggle-btn {
   /* Base .shutter-toggle-btn: padding 0.65rem 1.1rem, font-size 0.72rem.
      +70% on both. */
-  padding: 1.105rem 1.87rem;
-  font-size: 1.224rem;
+  padding: var(--visibility-button-pad-y, 1.105rem) var(--visibility-button-pad-x, 1.87rem);
+  font-size: var(--visibility-button-font, 1.224rem);
 }
 
 .visibility-toggle-row .visibility-toggle .shutter-toggle-btn.is-active {
@@ -1365,6 +1365,7 @@ h1, h2, h3 {
   position: absolute;
   top: 0.4rem;
   left: 50%;
+  display: block;
   width: 9px;
   height: 9px;
   border-radius: 50%;
@@ -1417,6 +1418,7 @@ h1, h2, h3 {
      lift-on-hover layered on top — see .photo-framed below for the mat/
      grain/stacking rules themselves. */
   display: inline-block;
+  width: auto;
   transition: var(--motion-signature);
 }
 
@@ -1462,12 +1464,12 @@ h1, h2, h3 {
   pointer-events: none;
 }
 
-.timeline-item:nth-child(odd) .timeline-photo-frame { transform: rotate(-0.6deg); }
-.timeline-item:nth-child(even) .timeline-photo-frame { transform: rotate(0.6deg); }
+.timeline-item:nth-child(odd) .timeline-photo-frame,
+.timeline-item:nth-child(even) .timeline-photo-frame { transform: none; }
 
 .timeline-photo-frame:hover,
 .timeline-photo-frame:active {
-  transform: rotate(0deg) translateY(-3px);
+  transform: translateY(-3px);
   border-color: var(--trim);
 }
 
@@ -1514,6 +1516,7 @@ h1, h2, h3 {
 
   .timeline-item,
   .timeline-item.side-right {
+    display: grid;
     grid-template-columns: 20px 1fr;
   }
 
@@ -1524,6 +1527,7 @@ h1, h2, h3 {
     grid-column: 2;
     justify-self: stretch;
     width: 100%;
+    margin-inline: 0;
     padding: 0 0 0 1.5rem;
     text-align: left;
   }
@@ -2451,8 +2455,8 @@ a.post-title-link:active {
      reads oversized on phones. First cut to 50% of that, then bumped back
      up 25% per feedback — net ~62.5% of the desktop-scale size. */
   .visibility-toggle-row .visibility-toggle .shutter-toggle-btn {
-    padding: 0.690625rem 1.16875rem;
-    font-size: 0.765rem;
+    padding: var(--visibility-button-pad-y, 0.690625rem) var(--visibility-button-pad-x, 1.16875rem);
+    font-size: var(--visibility-button-font, 0.765rem);
   }
 }
 

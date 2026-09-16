@@ -9,12 +9,70 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,450;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=Poppins:ital,wght@0,400;1,400&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=20260910-grade" />
+  <link rel="stylesheet" href="css/style.css?v=20260916-mobile-buttons-120" />
+  <link rel="stylesheet" href="css/photography-editorial.css?v=20260916-mobile-buttons-120" />
+  <script>
+    const photographyPreviewParams = new URLSearchParams(window.location.search);
+    if (photographyPreviewParams.get("header") === "navy") {
+      document.documentElement.dataset.headerPreview = "navy";
+    }
+    if (photographyPreviewParams.get("tool") === "1") {
+      document.documentElement.dataset.layoutTool = "true";
+    }
+  </script>
   <script src="js/navy-veil.js?v=20260914-cinema2" defer></script>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 </head>
-<body>
+<body class="photo-page">
   <div class="grain-overlay" aria-hidden="true"></div>
+
+  <details class="photo-layout-tool" open>
+    <summary>Photography layout controls</summary>
+    <div class="photo-layout-tool-body">
+      <fieldset class="photo-layout-control-group">
+        <legend>Header</legend>
+        <div class="photo-layout-toggle">
+          <label><input type="radio" name="photo-header" value="cream" data-header-choice /><span>Cream</span></label>
+          <label><input type="radio" name="photo-header" value="navy" data-header-choice /><span>Navy</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="photo-layout-control-group">
+        <legend>Adjust layout for</legend>
+        <div class="photo-layout-toggle">
+          <label><input type="radio" name="photo-device" value="web" data-device-choice /><span>Web</span></label>
+          <label><input type="radio" name="photo-device" value="mobile" data-device-choice /><span>Mobile</span></label>
+        </div>
+      </fieldset>
+
+      <label for="photo-title-y">
+        <span>PHOTO</span>
+        <output for="photo-title-y" data-title-y-output>0 px</output>
+      </label>
+      <input id="photo-title-y" type="range" min="-200" max="240" step="1" value="0" data-title-y />
+
+      <label for="photo-copy-y">
+        <span>Paragraph</span>
+        <output for="photo-copy-y" data-copy-y-output>0 px</output>
+      </label>
+      <input id="photo-copy-y" type="range" min="-250" max="350" step="1" value="0" data-copy-y />
+
+      <label for="photo-divider-y">
+        <span>Blue divider line</span>
+        <output for="photo-divider-y" data-divider-y-output>0 px</output>
+      </label>
+      <input id="photo-divider-y" type="range" min="-48" max="260" step="1" value="0" data-divider-y />
+
+      <label for="photo-buttons-size">
+        <span>Home / Away size</span>
+        <output for="photo-buttons-size" data-buttons-size-output>100%</output>
+      </label>
+      <input id="photo-buttons-size" type="range" min="65" max="150" step="1" value="100" data-buttons-size />
+
+      <p class="photo-layout-tool-note" data-layout-target-note>Editing Web values. Negative positions move up.</p>
+      <button type="button" data-layout-reset>Reset selected layout</button>
+    </div>
+  </details>
 
   <header class="site-header">
     <div class="container-wide">
@@ -36,16 +94,14 @@
     <div class="nav-backdrop"></div>
   </header>
 
-  <section class="hero hero-camera">
-    <img class="hero-camera-outline" src="images/camera-outline-sepia.png" alt="" aria-hidden="true" />
-    <div class="container-wide">
-      <p class="hero-eyebrow">One frame. No do-overs.</p>
-      <h1>Photography</h1>
-      <p>A working portfolio and journal. Photos and words, added as they're made.</p>
-      <div class="hero-actions">
-        <a href="#work" class="btn btn-accent">View the work</a>
-        <a href="blog.html" class="btn">Read the journal</a>
-      </div>
+  <section class="photo-editorial-hero" aria-labelledby="photo-title">
+    <div class="photo-editorial-title-wrap">
+      <h1 id="photo-title" class="photo-editorial-title" data-photo-title data-word="photo">PHOTO</h1>
+    </div>
+
+    <div class="photo-editorial-copy">
+      <p class="photo-editorial-intro">I shoot with a Fujifilm X100V because it lets me decide how a photograph should feel before I take it. Custom film recipes that determine the color, texture, and character of an image can be programmed directly into the camera. The work happens up front; then, with one click, the camera produces a distinctive photograph that is print-ready. As a professional and a parent of young children, I don’t have hours to spend adjusting photos in Lightroom. The ability to produce a high quality image straight out of camera is a game changer. In a world of a trillion cell phone photos, I value the distinctive character that the X100V gives each photograph.</p>
+      <p class="photo-editorial-intro">The same philosophy shapes OneShotLabs. Think carefully, build the right system, and make the decisive action simple. Whether it’s a camera setting, a creative prompt, or a production workflow, the goal remains the same. Results ready for production with intention already built in.</p>
     </div>
   </section>
 
@@ -78,31 +134,6 @@
     </div>
   </section>
 
-  <section class="section">
-    <div class="container-wide">
-      <div class="section-head reveal">
-        <h2>From the journal</h2>
-        <a href="blog.html" class="muted">View all →</a>
-      </div>
-      <div class="post-list">
-        <div class="post-row reveal">
-          <span class="post-date">May 10, 2026</span>
-          <div>
-            <h3><a class="post-title-link" href="post.html?slug=starting-one-shot">Starting One Shot</a></h3>
-            <p>Why this project exists, and what "one shot" means as a way of shooting, no do-overs, no spray-and-pray.</p>
-          </div>
-        </div>
-        <div class="post-row reveal">
-          <span class="post-date">July 15, 2026</span>
-          <div>
-            <h3><a class="post-title-link" href="post.html?slug=why-a-fixed-lens">Why a Fixed Lens</a></h3>
-            <p>A 35mm prime forces a decision before the shot happens, not after.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <footer class="site-footer">
     <div class="container-wide">
       <span>© <span data-year></span> One Shot</span>
@@ -120,6 +151,7 @@
   <script src="https://cdn.jsdelivr.net/npm/exifr@7.1.3/dist/full.umd.js" async></script>
   <script src="js/main.js" defer></script>
   <script src="js/photography.js" defer></script>
+  <script src="js/photography-layout-tool.js?v=20260916-mobile-buttons-120" defer></script>
   <script src="js/lightbox.js" defer></script>
 </body>
 </html>
