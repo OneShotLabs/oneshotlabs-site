@@ -1,86 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blog — One Shot</title>
-  <meta name="description" content="One Shot journal — writing on photography and AI consulting, one entry at a time." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,450;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=Poppins:ital,wght@0,400;1,400&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=20260910-grade" />
-  <link rel="stylesheet" href="css/site-motion.css?v=20260913-review2" />
-  <script src="js/navy-veil.js?v=20260914-cinema2" defer></script>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-</head>
-<body>
-  <div class="grain-overlay" aria-hidden="true"></div>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Musings — OneShotLabs</title><style>
+@font-face{font-family:Source;src:url(/assets/musings/SourceSans3-Regular.ttf);font-weight:400}@font-face{font-family:Source;src:url(/assets/musings/SourceSans3-Semibold.ttf);font-weight:600}@font-face{font-family:Bodoni;src:url(/assets/musings/BodoniModa.ttf);font-weight:100 900;font-display:swap}
+:root{--cream:#fffdf8;--navy:#1d2f4e;--muted:#596574;--line:#d7d8d4;--gold:#c6a153}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--navy);font:18px/1.5 Source,Arial,sans-serif}a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}a:focus-visible,button:focus-visible{outline:2px solid #a77e36;outline-offset:5px}.review{padding:8px 5%;background:#eeede7;font-size:12px;display:flex;justify-content:space-between;gap:20px}.review a{text-decoration:underline;text-underline-offset:3px}.shell{max-width:1360px;margin:auto;padding:0 64px}header{height:105px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}header img{width:220px;height:90px;object-fit:contain}nav{display:flex;gap:30px;font-size:16px}nav a{padding:9px 0}nav .active{border-bottom:2.3px solid var(--gold)}.masthead{padding:33px 0 28px;display:flex;align-items:end;justify-content:space-between;gap:30px}.kicker{font-size:11px;letter-spacing:1.7px;text-transform:uppercase;font-weight:600;margin:0 0 13px}h1{font-family:Bodoni,Didot,serif;font-size:88px;line-height:1.08;letter-spacing:-3.5px;font-weight:400;font-optical-sizing:auto;margin:0}.masthead p:last-child{max-width:330px;font-size:18px;line-height:1.5;margin:0 0 5px;color:var(--muted)}.edition{display:flex;justify-content:space-between;border-top:1px solid var(--navy);border-bottom:1px solid var(--line);padding:9px 0;font-size:11px;letter-spacing:1px;text-transform:uppercase}.lead{display:grid;grid-template-columns:1.13fr 1fr;gap:46px;padding:30px 0 35px;border-bottom:1px solid var(--navy)}figure{margin:0}.lead figure img{display:block;width:100%;height:350px;object-fit:cover;object-position:50% 30%}figcaption{font-size:11px;color:var(--muted);margin-top:9px}.lead-copy{padding:12px 0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}h2,h3{font-family:Source,Arial,sans-serif;font-weight:600;margin:0;letter-spacing:-.8px}.lead h2{font-size:43px;line-height:1.08;max-width:470px}.lead .summary{font-size:20px;line-height:1.45;margin:20px 0;max-width:450px;color:var(--muted)}.byline{font-size:12px;margin:0 0 23px;color:var(--muted)}.read{display:inline-block;border-bottom:1px solid var(--gold);padding:0 0 5px;font-size:15px;font-weight:600}.section-title{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;margin:26px 0 22px}.stories{display:grid;grid-template-columns:repeat(3,1fr);gap:29px;padding-bottom:38px}.story{position:relative}.story+.story:before{content:'';position:absolute;left:-15px;top:0;bottom:0;border-left:1px solid var(--line)}.story img{width:100%;height:225px;object-fit:cover;display:block;margin-bottom:19px}.story:nth-child(1) img{object-position:50% 40%}.story:nth-child(2) img{object-position:50% 36%}.story:nth-child(3) img{object-position:50% 55%}.story .kicker{font-size:10px;margin-bottom:9px}.story h3{font-size:28px;line-height:1.13}.story p{font-size:18px;line-height:1.45;color:var(--muted);margin:13px 0}.story .meta{font-size:12px;margin:15px 0}.about{padding:30px 0;border-top:1px solid var(--navy);display:grid;grid-template-columns:1fr 2fr;gap:50px}.about h2{font-size:23px}.about p{margin:0;max-width:720px;font-size:18px;color:var(--muted)}footer{border-top:1px solid var(--line);padding:24px 0 35px;font-size:12px;display:flex;justify-content:space-between;gap:20px;color:var(--muted)}footer div{display:flex;gap:22px}.notes{background:#eeede7;padding:20px 5%;font-size:14px;color:var(--muted)}.notes summary{cursor:pointer;font-weight:600;color:var(--navy)}.notes p{max-width:920px}.notes a{text-decoration:underline}dialog{max-width:630px;width:calc(100% - 40px);padding:36px;border:1px solid var(--line);background:var(--cream);color:var(--navy)}dialog::backdrop{background:#1d2f4e88}dialog h2{font-size:30px;line-height:1.2}dialog button{background:var(--navy);color:var(--cream);border:0;padding:9px 20px}.skip{position:absolute;left:20px;top:-80px;background:var(--cream);padding:10px}.skip:focus{top:40px}.image-link{display:block;overflow:hidden}.image-link img{transition:transform .5s ease}.image-link:hover img{transform:scale(1.015)}
+@media(max-width:900px){.shell{padding:0 30px}nav{gap:17px}nav a:nth-child(-n+3){display:none}.lead{gap:28px}.lead h2{font-size:35px}.lead figure img{height:330px}.stories{gap:24px}.story h3{font-size:24px}.story img{height:190px}h1{font-size:70px}}
+@media(max-width:600px){.shell{padding:0 23px}.review{font-size:10px;padding:9px 23px}.review span:last-child{display:none}header{height:82px}header img{width:174px;height:72px}nav a{display:none}nav .active{display:block;font-size:15px}.masthead{display:block;padding:27px 0 24px}h1{font-size:57px;letter-spacing:-2px}.masthead p:last-child{margin:17px 0 0;font-size:18px}.edition{font-size:9px;gap:15px}.lead{grid-template-columns:1fr;gap:19px;padding:24px 0 29px}.lead figure img{height:295px;object-position:50% 27%}.lead-copy{padding:0}.lead h2{font-size:34px;line-height:1.12}.lead .summary{font-size:19px;margin:15px 0}.byline{margin-bottom:15px}.stories{grid-template-columns:1fr;gap:29px}.story+.story{border-top:1px solid var(--line);padding-top:25px}.story+.story:before{display:none}.story img{height:270px}.story h3{font-size:28px}.about{grid-template-columns:1fr;gap:15px}.about p{font-size:18px}footer{flex-direction:column;gap:12px}.notes{padding:20px 23px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.image-link img{transition:none}.image-link:hover img{transform:none}}
 
-  <header class="site-header">
-    <div class="container-wide">
-      <a href="index.html" class="logo"><span class="logo-icon" aria-hidden="true"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><polygon id="os-blade-nav" points="53.5,2 55.8,20 50,46 41.5,20.6" /><path id="os-corner-arc" d="M6,15 A9,9 0 0 1 15,6" /></defs><g fill="none" stroke="var(--trim)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(0 50 50)" /><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(90 50 50)" /><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(180 50 50)" /><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(270 50 50)" /></g><g class="os-blades" fill="currentColor"><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(0 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(45 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(90 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(135 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(180 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(225 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(270 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(315 50 50)" /></g></svg></span><span class="logo-text">OneShotLabs</span></a>
-      <nav class="nav" id="site-nav">
-        <a href="career.html">Career</a>
-        <a href="ai-consulting.html">AI</a>
-        <a href="photography.html">Photography</a>
-        <a href="blog.html" aria-current="page">Blog</a>
-        <a href="bio.html">Bio</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">
-        <span class="nav-toggle-bar"></span>
-        <span class="nav-toggle-bar"></span>
-        <span class="nav-toggle-bar"></span>
-      </button>
-    </div>
-    <div class="nav-backdrop"></div>
-  </header>
+.star-masthead{position:relative;height:640px;overflow:hidden;isolation:isolate;background:var(--cream)}.watermark{position:absolute;left:81%;top:32%;width:102%;aspect-ratio:1;background:var(--navy);mask:url(/assets/musings/star-no-corners.svg) center/contain no-repeat;opacity:.09;transform:translate(-50%,-50%) rotate(-147deg);pointer-events:none;z-index:-2}.star-cover{position:absolute;inset:0 0 auto;height:21%;background:var(--cream);z-index:-1}.star-cut{position:absolute;left:5%;right:5%;top:21%;border-top:1px solid #bfc4c7;z-index:-1}.star-masthead .masthead{display:block;padding:0;position:absolute;inset:0}.star-masthead .masthead>div{position:absolute;left:5%;top:130px}.star-masthead .masthead h1{font-size:64px}.star-masthead .masthead p:last-child{position:absolute;left:53%;right:5%;top:410px;font-size:23px;max-width:none;margin:0;line-height:1.5}.star-masthead .masthead .kicker{position:absolute!important;top:-102px!important;left:0!important;right:auto!important;white-space:nowrap;font-size:11px!important;margin:0 0 13px!important}.star-masthead .edition{position:absolute;left:5%;right:5%;bottom:35px;border-bottom:0;width:auto}.star-masthead .edition span{display:none}.star-masthead .edition a{margin-left:auto}
+@media(max-width:600px){.star-masthead{height:550px}.star-masthead .masthead>div{top:100px}.star-masthead .masthead h1{font-size:44px}.star-masthead .masthead p:last-child{left:8%;right:8%;top:350px;font-size:20px}.star-masthead .masthead .kicker{top:-72px!important;font-size:9px!important;letter-spacing:1px}.star-masthead .edition{font-size:10px}}
 
-  <section class="hero">
-    <div class="container-wide">
-      <p class="hero-eyebrow">Blog</p>
-      <h1>Notes from the field</h1>
-      <p>Writing on photography and AI consulting, filed under one archive. Every entry below is a plain markdown file — nothing here is hardcoded.</p>
-    </div>
-  </section>
-
-  <section class="section" style="border-top: none;">
-    <div class="container-wide">
-      <div class="blog-controls">
-        <input type="search" id="blog-search" placeholder="Search posts…" aria-label="Search posts" />
-        <select id="blog-sort" aria-label="Sort posts">
-          <option value="newest">Newest first</option>
-          <option value="oldest">Oldest first</option>
-        </select>
-        <span id="blog-count" class="blog-count"></span>
-      </div>
-      <div id="blog-tags" class="tag-bar" aria-label="Filter by tag"></div>
-
-      <div id="blog-grid" class="post-grid">
-        <div class="blog-status"><p>Loading posts…</p></div>
-      </div>
-
-      <div id="blog-pagination" class="pagination"></div>
-    </div>
-  </section>
-
-  <footer class="site-footer">
-    <div class="container-wide">
-      <span>© <span data-year></span> One Shot</span>
-      <div class="footer-links">
-        <a href="career.html">Career</a>
-        <a href="ai-consulting.html">AI</a>
-        <a href="photography.html">Photography</a>
-        <a href="blog.html">Blog</a>
-        <a href="bio.html">Bio</a>
-        <a href="contact.html">Contact</a>
-      </div>
-    </div>
-  </footer>
-
-  <script src="js/main.js" defer></script>
-  <script src="js/site-motion.js?v=20260913-review2" defer></script>
-  <script src="js/blog.js" defer></script>
-</body>
-</html>
+/* Tighter masthead; preserve the star composition through proportional vertical framing. */
+.star-masthead{height:448px}
+.star-cut{display:none}
+.star-masthead .masthead>div{top:91px}
+.star-masthead .masthead .kicker{top:-71px!important}
+.star-masthead .masthead p:last-child{left:5%;right:auto;top:260px;width:40%;max-width:440px;font-size:22px}
+.star-masthead .edition{bottom:24px}
+@media(max-width:600px){.star-masthead{height:385px}.star-masthead .masthead>div{top:70px}.star-masthead .masthead .kicker{top:-50px!important}.star-masthead .masthead p:last-child{left:5%;right:5%;top:208px;width:auto;max-width:300px;font-size:19px}.star-masthead .edition{bottom:24px}}
+/* Extend the watermark to the masthead’s top divider. */
+.star-cover{display:none}
+</style><style>header{border-bottom:0}.star-masthead{margin-left:-64px;margin-right:-64px}.star-cover,.star-cut{display:none}.star-masthead{height:391px}.star-masthead .masthead h1{font-size:113px}.star-masthead .masthead>div{top:92.0px}.star-masthead .masthead .kicker{top:-68.0px!important}.star-masthead .masthead p:last-child{top:227.28px}.star-masthead .edition{top:359px;bottom:auto;left:0;right:0}.approved-upper{position:absolute;top:3px;left:0;right:0;height:1px;background:#cbd0cf}.approved-layer{position:absolute;inset:0;z-index:-2;clip-path:inset(3px 0 32px 0);overflow:hidden}.watermark{top:102.68px;left:92%;width:93%;opacity:0.09;transform:translate(-50%,-50%) rotate(-119deg);z-index:auto}@media(max-width:900px){.star-masthead{margin-left:-30px;margin-right:-30px}}@media(max-width:600px){.star-masthead{margin-left:-23px;margin-right:-23px}.star-masthead{height:273px}.star-masthead .masthead h1{font-size:49px}.star-masthead .masthead>div{top:72.0px}.star-masthead .masthead .kicker{top:-48.0px!important}.star-masthead .masthead p:last-child{top:151.2px}.star-masthead .edition{top:240px;bottom:auto;left:0;right:0}.approved-upper{position:absolute;top:0px;left:0;right:0;height:1px;background:#cbd0cf}.approved-layer{position:absolute;inset:0;z-index:-2;clip-path:inset(0px 0 33px 0);overflow:hidden}.watermark{top:60.0px;left:91%;width:119%;opacity:0.06;transform:translate(-50%,-50%) rotate(-129deg);z-index:auto}}</style><style>.star-masthead .masthead h1{font-size:144px}@media(max-width:600px){.star-masthead .masthead h1{font-size:56px}}</style><meta name="description" content="Musings from OneShotLabs: perspectives on AI, photography and deliberate work."><link rel="icon" href="/favicon.svg"><style>.mobile-menu{display:none}@media(max-width:900px){header{position:relative}header>nav{display:none}.mobile-menu{display:block;font-size:16px}.mobile-menu summary{cursor:pointer;padding:12px}.mobile-menu>div{position:absolute;right:0;top:80px;z-index:10;background:var(--cream);border:1px solid var(--line);padding:14px 24px;min-width:170px;box-shadow:0 8px 24px #1d2f4e12}.mobile-menu a{display:block;padding:9px 0}}</style></head><body><a class="skip" href="#main">Skip to journal</a><div class="shell"><header><a href="/" aria-label="OneShotLabs home"><img src="/assets/musings/navy-logo.svg" alt="OneShotLabs"></a><nav aria-label="Main navigation"><a href="/career">Career</a><a href="/ai-consulting">AI</a><a href="/photography">Photography</a><a class="active" href="#main" aria-current="page">Blog</a><a href="/bio">Bio</a><a href="/contact">Contact</a></nav><details class="mobile-menu"><summary>Menu</summary><div><a href="/career">Career</a><a href="/ai-consulting">AI</a><a href="/photography">Photography</a><a href="/blog" aria-current="page">Musings</a><a href="/bio">Bio</a><a href="/contact">Contact</a></div></details></header><main id="main"><section class="star-masthead" aria-label="Musings masthead"><div class="approved-layer" aria-hidden="true"><div class="watermark"></div></div><div class="approved-upper" aria-hidden="true"></div><div class="star-cover" aria-hidden="true"></div><div class="star-cut" aria-hidden="true"></div><div class="masthead"><div><h1>Musings</h1></div></div><div class="edition"><span>Independent thinking. Practical perspective.</span><a href="#more">Explore the notes</a></div></section><article class="lead"><figure><a class="image-link" href="/post.html?slug=systems-thinkers-netflix"><img src="/assets/musings/bridge.jpg" alt="The interconnected steel structure beneath a Chicago bridge, above the frozen river"></a><figcaption>Chicago, January 2025 · From the OneShotLabs photography collection</figcaption></figure><div class="lead-copy"><p class="kicker">The lead · AI &amp; work</p><h2><a href="/post.html?slug=systems-thinkers-netflix">Why Netflix Is Betting on Systems Thinkers</a></h2><p class="summary">As AI changes the boundaries of work, the ability to see how the pieces fit together becomes more valuable.</p><p class="byline">August 3, 2026 &nbsp; · &nbsp; 2 min read</p><a class="read" href="/post.html?slug=systems-thinkers-netflix">Read the perspective</a></div></article><section id="more" aria-labelledby="more-title"><h2 class="section-title" id="more-title">More from the journal</h2><div class="stories"><article class="story"><a class="image-link" href="/post.html?slug=why-a-fixed-lens"><img src="/assets/musings/marina.jpg" alt="Marina City's repeating balconies, framed between its two towers" loading="lazy"></a><p class="kicker">Photography · Perspective</p><h3><a href="/post.html?slug=why-a-fixed-lens">Why a Fixed Lens</a></h3><p>A 35mm prime asks you to make a decision before the shutter opens.</p><p class="meta">July 15, 2026 &nbsp; · &nbsp; 1 min read</p><a class="read" href="/post.html?slug=why-a-fixed-lens">Read the note</a></article><article class="story"><a class="image-link" href="/post.html?slug=one-shot-method"><img src="/assets/musings/architecture.png" alt="A sequence of stone planes and steps in natural light" loading="lazy"></a><p class="kicker">AI · Process</p><h3><a href="/post.html?slug=one-shot-method">The One-Shot Method</a></h3><p>Assess, build, ship. A focused approach to turning an idea into working practice.</p><p class="meta">June 1, 2026 &nbsp; · &nbsp; 1 min read</p><a class="read" href="/post.html?slug=one-shot-method">Read the note</a></article><article class="story"><a class="image-link" href="/post.html?slug=starting-one-shot"><img src="/assets/musings/street.jpg" alt="People pausing on Chicago's BP Bridge with the city beyond" loading="lazy"></a><p class="kicker">Origins · Photography</p><h3><a href="/post.html?slug=starting-one-shot">Starting One Shot</a></h3><p>The thinking behind the work—and what it means to make a deliberate choice.</p><p class="meta">May 10, 2026 &nbsp; · &nbsp; 1 min read</p><a class="read" href="/post.html?slug=starting-one-shot">Read the note</a></article></div></section><section class="about"><div><p class="kicker">Behind the musings</p></div><p>Musings reflect the founder’s belief that AI can structure and sharpen ideas, while perspective, voice and final edit belong to the author.</p></section></main><footer><span>© 2026 OneShotLabs</span><div><a href="#main">Back to top</a></div></footer></div></body></html>
