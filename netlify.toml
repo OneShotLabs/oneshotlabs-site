@@ -20,6 +20,21 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
 
 [[redirects]]
+  from = "/blog"
+  to = "/musings"
+  status = 301
+
+[[redirects]]
+  from = "/blog.html"
+  to = "/musings"
+  status = 301
+
+[[redirects]]
+  from = "/musings.html"
+  to = "/musings"
+  status = 301
+
+[[redirects]]
   from = "/musings/:slug"
   to = "/post.html?slug=:slug"
   status = 200

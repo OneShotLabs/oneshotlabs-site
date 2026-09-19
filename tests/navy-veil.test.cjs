@@ -4,7 +4,7 @@ const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
-const pages = ['index.html', 'bio.html', 'blog.html', 'career.html', 'contact.html', 'photography.html', 'post.html', 'ai-consulting.html'];
+const pages = ['index.html', 'bio.html', 'musings.html', 'career.html', 'contact.html', 'photography.html', 'post.html', 'ai-consulting.html'];
 
 for (const page of pages) {
   const html = read(page);

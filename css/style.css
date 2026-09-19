@@ -1533,7 +1533,7 @@ h1, h2, h3 {
   }
 }
 
-/* ---------- Breadcrumb (journal/post back-links) ---------- */
+/* ---------- Breadcrumb (musings/post back-links) ---------- */
 
 .breadcrumb {
   display: inline-block;
@@ -1691,9 +1691,9 @@ h1, h2, h3 {
   letter-spacing: 0.04em;
 }
 
-/* ---------- Blog index: controls, tags, card grid, pagination ---------- */
+/* ---------- Musings index: controls, tags, card grid, pagination ---------- */
 
-.blog-controls {
+.musings-controls {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
@@ -1701,8 +1701,8 @@ h1, h2, h3 {
   margin-bottom: 1.5rem;
 }
 
-#blog-search,
-#blog-sort {
+#musings-search,
+#musings-sort {
   background: var(--oneshot-warm-white);
   border: var(--border-thread);
   color: var(--fg);
@@ -1713,11 +1713,11 @@ h1, h2, h3 {
   transition: var(--motion-signature);
 }
 
-#blog-search { flex: 1; min-width: 200px; }
-#blog-search:focus,
-#blog-sort:focus { outline: none; border-color: var(--trim); }
+#musings-search { flex: 1; min-width: 200px; }
+#musings-search:focus,
+#musings-sort:focus { outline: none; border-color: var(--trim); }
 
-.blog-count {
+.musings-count {
   color: var(--fg-dim);
   font-family: var(--font-label);
   font-size: 0.78rem;
@@ -1800,7 +1800,7 @@ h1, h2, h3 {
   border-radius: 2px;
 }
 
-.blog-status {
+.musings-status {
   grid-column: 1 / -1;
   padding: 2rem 0;
   color: var(--fg-dim);
@@ -1808,7 +1808,7 @@ h1, h2, h3 {
   max-width: 60ch;
 }
 
-.blog-status code {
+.musings-status code {
   font-family: var(--font-label);
   background: rgba(29, 47, 78, 0.06);
   padding: 0.1rem 0.4rem;
@@ -1970,7 +1970,7 @@ h1, h2, h3 {
 
 .post-nav-link.is-disabled { opacity: 0.35; pointer-events: none; }
 
-/* ---------- Blog list ---------- */
+/* ---------- Musings list ---------- */
 
 .post-list {
   display: flex;
@@ -2447,7 +2447,7 @@ a.post-title-link:active {
   .post-row { grid-template-columns: 1fr; }
   .method-grid { grid-template-columns: 1fr; }
   .stat-grid { grid-template-columns: repeat(3, 1fr); }
-  .blog-controls { flex-direction: column; align-items: stretch; }
+  .musings-controls { flex-direction: column; align-items: stretch; }
   .post-nav { flex-direction: column; }
   .post-nav-link-next { text-align: left; align-items: flex-start; }
   .about-copy .tag-bar { gap: 0.5rem; }

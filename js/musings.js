@@ -1,4 +1,4 @@
-// One Shot — blog engine.
+// One Shot — musings engine.
 //
 // Content model: /posts/manifest.json lists post filenames (no extension).
 // Each /posts/<slug>.md is a plain markdown file with a frontmatter block:
@@ -111,7 +111,7 @@ async function loadAllPosts() {
 
 function showFetchError(container, err) {
   container.innerHTML = `
-    <div class="blog-status">
+    <div class="musings-status">
       <p><strong>Couldn't load posts.</strong></p>
       <p>${err.message || err}</p>
       <p>This is almost always because the page was opened directly as a file
@@ -122,15 +122,15 @@ function showFetchError(container, err) {
     </div>`;
 }
 
-// ---------- Blog index page ----------
+// ---------- Musings index page ----------
 
-async function initBlogIndex() {
-  const grid = document.getElementById("blog-grid");
-  const tagBar = document.getElementById("blog-tags");
-  const searchInput = document.getElementById("blog-search");
-  const sortSelect = document.getElementById("blog-sort");
-  const paginationEl = document.getElementById("blog-pagination");
-  const countEl = document.getElementById("blog-count");
+async function initMusingsIndex() {
+  const grid = document.getElementById("musings-grid");
+  const tagBar = document.getElementById("musings-tags");
+  const searchInput = document.getElementById("musings-search");
+  const sortSelect = document.getElementById("musings-sort");
+  const paginationEl = document.getElementById("musings-pagination");
+  const countEl = document.getElementById("musings-count");
   if (!grid) return;
 
   const PAGE_SIZE = 6;
@@ -209,12 +209,12 @@ async function initBlogIndex() {
     }
 
     if (!pageItems.length) {
-      grid.innerHTML = `<div class="blog-status"><p>No posts match that search or filter.</p></div>`;
+      grid.innerHTML = `<div class="musings-status"><p>No posts match that search or filter.</p></div>`;
     } else {
       grid.innerHTML = pageItems
         .map(
           (p) => `
-        <a class="post-card" href="post.html?slug=${encodeURIComponent(p.slug)}">
+        <a class="post-card" href="${postHref(p.slug)}">
           <div class="post-card-meta">
             <span>${formatDate(p.date)}</span>
             <span>${p.readMinutes} min read</span>
@@ -279,14 +279,14 @@ async function initPostPage() {
 
   if (!post) {
     contentEl.innerHTML = `
-      <div class="blog-status">
+      <div class="musings-status">
         <p><strong>Post not found.</strong></p>
-        <p>No post matches "${slug || ""}". <a href="blog.html" class="post-title-link">Back to the journal</a>.</p>
+        <p>No post matches "${slug || ""}". <a href="/musings" class="post-title-link">Back to Musings</a>.</p>
       </div>`;
     return;
   }
 
-  document.title = `${post.title} — Journal`;
+  document.title = `${post.title} — Musings`;
   const description = document.querySelector('meta[name="description"]');
   if (description) description.content = post.excerpt;
   const canonical = document.querySelector('link[rel="canonical"]');
@@ -296,7 +296,7 @@ async function initPostPage() {
     typeof marked !== "undefined" ? marked.parse(post.body) : `<pre>${post.body}</pre>`;
 
   contentEl.innerHTML = `
-    <p class="hero-eyebrow">Journal</p>
+    <p class="hero-eyebrow">Musings</p>
     <h1>${post.title}</h1>
     <p class="post-meta">${formatDate(post.date)} · ${post.readMinutes} min read</p>
     <div class="post-card-tags" style="margin: 1rem 0 2rem;">
@@ -342,6 +342,6 @@ async function initPostPage() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  initBlogIndex();
+  initMusingsIndex();
   initPostPage();
 });
