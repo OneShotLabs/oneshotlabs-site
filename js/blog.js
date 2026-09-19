@@ -20,7 +20,7 @@
 // file:// protocol (CORS). Serve this folder over http(s) to see it work —
 // e.g. `python3 -m http.server` from this directory, or any static host.
 
-const POSTS_DIR = "posts/";
+const POSTS_DIR = "/posts/";
 const MANIFEST_URL = POSTS_DIR + "manifest.json";
 const WORDS_PER_MINUTE = 200;
 
@@ -75,6 +75,10 @@ function formatDate(dateStr) {
   const d = new Date(dateStr + "T00:00:00");
   if (isNaN(d)) return dateStr;
   return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+
+function postHref(slug) {
+  return `/musings/${encodeURIComponent(slug)}`;
 }
 
 async function loadAllPosts() {
@@ -259,7 +263,8 @@ async function initPostPage() {
   if (!contentEl) return;
 
   const params = new URLSearchParams(window.location.search);
-  const slug = params.get("slug");
+  const cleanRoute = window.location.pathname.match(/^\/musings\/([^/]+)\/?$/);
+  const slug = params.get("slug") || (cleanRoute ? decodeURIComponent(cleanRoute[1]) : null);
 
   let allPosts = [];
   try {
@@ -282,6 +287,10 @@ async function initPostPage() {
   }
 
   document.title = `${post.title} — Journal`;
+  const description = document.querySelector('meta[name="description"]');
+  if (description) description.content = post.excerpt;
+  const canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical) canonical.href = new URL(postHref(post.slug), window.location.origin).href;
 
   const bodyHtml =
     typeof marked !== "undefined" ? marked.parse(post.body) : `<pre>${post.body}</pre>`;
@@ -320,11 +329,11 @@ async function initPostPage() {
   const navEl = document.getElementById("post-nav");
   if (navEl) {
     navEl.innerHTML = `
-      <a class="post-nav-link ${prev ? "" : "is-disabled"}" href="${prev ? `post.html?slug=${encodeURIComponent(prev.slug)}` : "#"}">
+      <a class="post-nav-link ${prev ? "" : "is-disabled"}" href="${prev ? postHref(prev.slug) : "#"}">
         <span class="post-nav-label">&larr; Previous</span>
         <span class="post-nav-title">${prev ? prev.title : "—"}</span>
       </a>
-      <a class="post-nav-link post-nav-link-next ${next ? "" : "is-disabled"}" href="${next ? `post.html?slug=${encodeURIComponent(next.slug)}` : "#"}">
+      <a class="post-nav-link post-nav-link-next ${next ? "" : "is-disabled"}" href="${next ? postHref(next.slug) : "#"}">
         <span class="post-nav-label">Next &rarr;</span>
         <span class="post-nav-title">${next ? next.title : "—"}</span>
       </a>

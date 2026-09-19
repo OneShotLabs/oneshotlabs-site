@@ -20,6 +20,11 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
 
 [[redirects]]
+  from = "/musings/:slug"
+  to = "/post.html?slug=:slug"
+  status = 200
+
+[[redirects]]
   from = "/ai/curve"
   to = "/ai-curve.html"
   status = 200
