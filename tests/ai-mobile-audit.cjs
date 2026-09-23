@@ -9,7 +9,7 @@ const assert = require('node:assert/strict');
   for (const width of [320, 375, 390, 430]) {
     const page = await browser.newPage({ viewport: { width, height: 844 }, deviceScaleFactor: 1,
       isMobile: true, hasTouch: true });
-    await page.goto('http://127.0.0.1:4182/ai-consulting.html?mobile-audit', { waitUntil: 'networkidle' });
+    await page.goto('http://127.0.0.1:4182/ai.html?mobile-audit', { waitUntil: 'networkidle' });
     await page.evaluate(() => {
       document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
       document.querySelector('.ai-ledger-frame')?.contentDocument?.querySelector('video')?.pause();

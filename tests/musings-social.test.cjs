@@ -1,0 +1,52 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+
+const root = path.resolve(__dirname, '..');
+const read = file => fs.readFileSync(path.join(root, file), 'utf8');
+
+const post = read('posts/ai-has-a-branding-problem.md');
+assert.match(post, /cover: \/assets\/editorial\/ai-has-a-branding-problem-hero\.png/);
+assert.match(post, /coverTreatment: editorial/);
+assert.match(post, /dropCap: false/);
+assert.match(post, /socialImage: \/assets\/editorial\/ai-has-a-branding-problem-social\.png/);
+
+const shell = read('musings/ai-has-a-branding-problem/index.html');
+assert.match(shell, /property="og:type" content="article"/);
+assert.match(shell, /property="og:image" content="https:\/\/oneshotlabsai\.com\/assets\/editorial\/ai-has-a-branding-problem-social\.png"/);
+assert.match(shell, /property="og:image:width" content="1200"/);
+assert.match(shell, /property="og:image:height" content="630"/);
+assert.match(shell, /name="twitter:card" content="summary_large_image"/);
+assert.match(shell, /rel="canonical" href="https:\/\/oneshotlabsai\.com\/musings\/ai-has-a-branding-problem"/);
+
+const social = fs.readFileSync(path.join(root, 'assets/editorial/ai-has-a-branding-problem-social.png'));
+assert.equal(social.toString('ascii', 1, 4), 'PNG');
+assert.equal(social.readUInt32BE(16), 1200);
+assert.equal(social.readUInt32BE(20), 630);
+
+const index = read('musings.html');
+assert.match(index, /assets\/editorial\/ai-has-a-branding-problem-hero\.png/);
+assert.doesNotMatch(index, /systems-thinkers-netflix/);
+assert.match(index, /All opinions expressed here are my own and do not reflect the views of my employer\./);
+
+const manifest = JSON.parse(read('posts/manifest.json'));
+assert.deepEqual(manifest.posts, ['ai-has-a-branding-problem']);
+const netlifyConfig = read('netlify.toml');
+assert.match(netlifyConfig, /from = "\/musings\/systems-thinkers-netflix"[\s\S]*?to = "\/musings"[\s\S]*?status = 302/);
+
+const articleTemplate = read('post.html');
+assert.match(articleTemplate, /class="musings-site-header"/);
+assert.match(articleTemplate, /css\/musings-header\.css/);
+assert.doesNotMatch(articleTemplate, /<header class="site-header">/);
+assert.match(shell, /class="musings-site-header"/);
+assert.match(shell, /css\/musings-header\.css/);
+
+const script = read('js/musings.js');
+assert.match(script, /post-body-content--no-drop-cap/);
+assert.match(script, /isEditorial \? "" : `<p class="post-monument-eyebrow"/);
+const styles = read('css/style.css');
+assert.match(styles, /\.post-monument-photo--editorial \.post-monument-meta::before \{ display: none; \}/);
+assert.match(styles, /\.post-monument-photo--editorial \.post-monument-tags \{ margin-left: 0; \}/);
+assert.match(styles, /\.post-article-copy \.post-body-content > p:last-child \{[\s\S]*?font-family: inherit;[\s\S]*?font-size: inherit;[\s\S]*?line-height: inherit;/);
+
+console.log('PASS: the AI branding post uses the selected hero and exposes a 1200x630 social card with static metadata.');

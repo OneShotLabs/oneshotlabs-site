@@ -32,10 +32,11 @@
 }
 .fabric-material-study.exploring-system .fabric{
   flex:1 1 auto;height:auto;min-height:0;padding:0;
+  transition:none;
   background:linear-gradient(#1d2f4e33,#1d2f4e55),url('../images/fabric-photoreal-study-v2.png') center/cover no-repeat
 }
 .fabric-material-study.exploring-system .fabric .copy{
-  display:block!important;opacity:0;transform:translate3d(-28px,-12px,0);filter:blur(7px);pointer-events:none
+  display:none!important
 }
 .fabric-material-study.exploring-system .fabric>img.art,
 .fabric-material-study.exploring-system #fabric-breath{
@@ -46,16 +47,13 @@
 .fabric-material-study.exploring-system .woven-network{width:100%;height:100%;left:0;right:0;mask-image:none;transform:none}
 .fabric-material-study.exploring-system .fabric>img.art{filter:brightness(.82) saturate(.82) contrast(1.06)}
 .fabric-material-study.exploring-system #fabric-breath{opacity:1!important;clip-path:inset(0 0 0 0)}
-.fabric-material-study.exploring-system .woven-network{mask-image:none;opacity:1;animation:study-network-settle 900ms ease-out 1150ms both}
+.fabric-material-study.exploring-system .woven-network{mask-image:none;opacity:1;animation:none}
 .fabric-material-study.exploring-system .woven-method{
   flex:0 0 auto;height:auto;max-height:min(46svh,390px);min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain
 }
 .fabric-material-study.exploring-system .method-expanded{max-height:none;overflow:visible;padding-right:0}
 .fabric-material-study.exploring-system .fabric::before{
-  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;
-  background:linear-gradient(90deg,transparent 0%,#e8d19b18 48%,transparent 62%);
-  transform:translateX(-100%);animation:material-light-pass 2200ms cubic-bezier(.2,.72,.18,1) 380ms both;
-  mix-blend-mode:screen
+  content:none
 }
 @keyframes material-light-pass{0%{opacity:0;transform:translateX(-100%)}18%{opacity:.5}70%{opacity:.26}100%{opacity:0;transform:translateX(100%)}}
 @keyframes study-network-settle{from{opacity:0;filter:blur(5px)}to{opacity:1;filter:blur(0)}}

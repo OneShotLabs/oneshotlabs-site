@@ -14,7 +14,7 @@ This is a local-only review build. Nothing in this folder has been deployed to N
 
 ## Suggested review order
 
-1. `ai-consulting.html` — watch the hierarchy from headline to constellation to AI Curve.
+1. `ai.html` (served at `/ai`) — watch the hierarchy from headline to constellation to AI Curve.
 2. `photography.html` — scroll through several prints and switch Home/Away.
 3. `contact.html` — watch the closing rule and field sequence, then test keyboard focus.
 4. Move between pages using the navigation to assess the transition.

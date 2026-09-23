@@ -58,6 +58,7 @@
   --font-body: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "Source Code Pro", ui-monospace, "SF Mono", Menlo, monospace; /* evidence and data */
   --font-header: "Bodoni Moda", "Didot", "Bodoni MT", Georgia, serif; /* protected wordmark voice */
+  --font-editorial-title: "Faculty Glyphic", "Trebuchet MS", sans-serif;
   /* Logo wordmark only. True ITC Avant Garde Gothic is not a licensed web
      font (not on Google Fonts) — this stack tries the real name first for
      any machine that has it installed/licensed, then falls back through
@@ -1932,43 +1933,111 @@ h1, h2, h3 {
 /* ---------- Prev/next post navigation ---------- */
 
 .post-nav {
-  display: flex;
-  justify-content: space-between;
-  gap: 1.5rem;
   margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: var(--border-thread);
+}
+
+.post-nav-ledger {
+  border-top: 1px solid var(--fg);
+  border-bottom: 1px solid var(--fg);
 }
 
 .post-nav-link {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  padding: 1rem;
-  border: var(--border-thread);
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr) 28px;
+  gap: 1.15rem;
+  min-height: 154px;
+  color: var(--fg);
   transition: var(--motion-signature);
 }
 
-.post-nav-link:hover,
-.post-nav-link:active { border-color: var(--trim); }
-.post-nav-link-next { text-align: right; align-items: flex-end; }
+.post-nav-link + .post-nav-link { border-top: var(--border-thread); }
+
+.post-nav-number {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 1.25rem;
+  border-right: 1px solid var(--trim);
+  color: var(--trim);
+  font-family: var(--font-label);
+  font-size: 1.9rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.post-nav-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: 1.25rem 0;
+}
 
 .post-nav-label {
   font-family: var(--font-label);
   font-size: 0.72rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.12em;
   color: var(--fg-dim);
 }
 
 .post-nav-title {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
+  margin-top: 0.45rem;
+  font-family: var(--font-editorial-title);
+  font-size: clamp(1.4rem, 3vw, 1.85rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
   color: var(--fg);
 }
 
-.post-nav-link.is-disabled { opacity: 0.35; pointer-events: none; }
+.post-nav-meta {
+  margin-top: 0.7rem;
+  color: var(--fg-dim);
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.post-nav-arrow {
+  align-self: center;
+  color: var(--fg);
+  font-family: var(--font-label);
+  font-size: 1.45rem;
+  transition: color var(--motion-state) var(--oneshot-ease), transform var(--motion-state) var(--oneshot-ease);
+}
+
+.post-nav-link:hover .post-nav-arrow,
+.post-nav-link:focus-visible .post-nav-arrow { color: var(--trim); }
+
+.post-nav-link--next:hover .post-nav-arrow,
+.post-nav-link--next:focus-visible .post-nav-arrow { transform: translateX(4px); }
+
+.post-nav-link--prev:hover .post-nav-arrow,
+.post-nav-link--prev:focus-visible .post-nav-arrow { transform: translateX(-4px); }
+
+.post-nav-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 1.1rem;
+  color: var(--fg-dim);
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.post-nav-index {
+  padding-bottom: 0.18rem;
+  border-bottom: 1px solid var(--trim);
+  color: var(--fg);
+}
 
 /* ---------- Musings list ---------- */
 
@@ -2024,39 +2093,282 @@ a.post-title-link:active {
 
 /* ---------- Single post ---------- */
 
-.post-hero {
-  padding: clamp(3rem, 8vw, 5rem) 0 2.5rem;
-  border-bottom: var(--border-thread);
+.post-template-root,
+.post-template { overflow-x: clip; }
+
+.post-page { min-height: 60vh; }
+
+.post-monument-shell {
+  padding: clamp(1.25rem, 3vw, 2rem) var(--gap) 0;
 }
 
-.post-hero h1 {
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
-  max-width: 20ch;
-  margin: 0 0 1rem;
+.post-monument-inner {
+  width: min(1280px, 100%);
+  margin: 0 auto;
 }
 
-.post-meta {
+.post-monument-back {
+  display: inline-block;
+  margin: 0 0 1.6rem;
+  color: var(--fg);
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.post-monument-back:hover,
+.post-monument-back:focus-visible { color: var(--trim); }
+
+.post-monument-photo {
+  position: relative;
+  height: clamp(500px, 52vw, 620px);
+  margin: 0;
+  overflow: hidden;
+  background: var(--fg);
+}
+
+.post-monument-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 25%, rgba(12, 28, 49, 0.8) 100%);
+  pointer-events: none;
+}
+
+.post-monument-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.78) contrast(1.05);
+}
+
+.post-monument-title {
+  position: absolute;
+  z-index: 1;
+  left: clamp(1.6rem, 6vw, 4.75rem);
+  right: clamp(1.6rem, 7vw, 5.5rem);
+  bottom: clamp(2rem, 4vw, 3.2rem);
+  color: var(--bg);
+}
+
+.post-monument-eyebrow,
+.post-monument-meta {
+  margin: 0;
+  color: inherit;
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.post-monument-title h1 {
+  max-width: 11ch;
+  margin: 0.55rem 0 1.55rem;
+  color: inherit;
+  font-family: var(--font-header);
+  font-size: clamp(4.2rem, 8vw, 7.25rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+}
+
+.post-monument-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.post-monument-meta::before {
+  content: "";
+  width: 3.25rem;
+  border-top: 1px solid var(--trim);
+}
+
+.post-monument-photo--editorial {
+  height: auto;
+  overflow: visible;
+  background: transparent;
+}
+
+.post-monument-photo--editorial::after { display: none; }
+
+.post-monument-photo--editorial img {
+  width: 70%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  margin-inline: auto;
+  padding: clamp(0.45rem, 0.8vw, 0.7rem);
+  border: 1px solid rgba(29, 47, 78, 0.22);
+  background: #f3efe5;
+  box-shadow: 0 1.1rem 2.8rem rgba(29, 47, 78, 0.1);
+  object-fit: cover;
+  object-position: center top;
+  filter: none;
+}
+
+.post-monument-photo--editorial .post-monument-title {
+  position: static;
+  width: min(835px, calc(100% - (2 * var(--gap))));
+  margin-inline: auto;
+  padding: clamp(1.8rem, 4vw, 3rem) 0 0;
+  color: var(--fg);
+}
+
+.post-monument-photo--editorial .post-monument-title h1 {
+  max-width: 15.5ch;
+  font-family: var(--font-editorial-title);
+  font-size: clamp(3.8rem, 7vw, 6.75rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.99;
+}
+
+.post-story-layout {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 4.5rem);
+  width: min(1040px, calc(100% - (2 * var(--gap))));
+  margin: clamp(3.5rem, 7vw, 5rem) auto;
+}
+
+.post-story-rail {
+  padding-top: 0.55rem;
   color: var(--fg-dim);
   font-family: var(--font-label);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  line-height: 1.55;
 }
 
-.post-body {
-  padding: clamp(3rem, 7vw, 4rem) 0;
-  max-width: 66ch;
-  width: calc(100% - (2 * var(--gap)));
+.post-story-rail strong {
+  display: block;
+  margin-bottom: 0.65rem;
+  color: var(--fg);
+  font-weight: 600;
 }
 
-.post-body p { margin: 0 0 1.4rem; color: var(--fg); font-size: clamp(1rem, 1.4vw, 1.1rem); }
-.post-body h2 { margin: 2.5rem 0 1.1rem; font-size: 1.5rem; }
-.post-body .cover {
-  aspect-ratio: 16/9;
-  margin: 0 0 2.5rem;
-  border-radius: 1px;
+.post-story-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1.3rem;
+}
+
+.post-story-tags span {
+  padding: 0.25rem 0.5rem;
   border: var(--border-thread);
-  background: transparent;
-  position: relative;
-  overflow: hidden;
+  font-size: 0.66rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.post-monument-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0.9rem 0 0 4.5rem;
+}
+
+.post-monument-photo--editorial .post-monument-meta { gap: 0; }
+
+.post-monument-photo--editorial .post-monument-meta::before { display: none; }
+
+.post-monument-photo--editorial .post-monument-tags { margin-left: 0; }
+
+.post-monument-tags span {
+  padding: 0.25rem 0.5rem;
+  border: var(--border-thread);
+  color: var(--fg-dim);
+  font-family: var(--font-label);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.post-story-layout--editorial {
+  display: block;
+  width: min(835px, calc(100% - (2 * var(--gap))));
+}
+
+.post-article-copy { min-width: 0; }
+
+.post-article-copy .post-body-content {
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: clamp(1.08rem, 1.5vw, 1.25rem);
+  line-height: 1.72;
+}
+
+.post-article-copy .post-body-content p { margin: 0 0 1.55em; }
+
+.post-article-copy .post-body-content > p:first-child::first-letter {
+  float: left;
+  padding: 0.12em 0.12em 0 0;
+  color: var(--fg);
+  font-family: var(--font-header);
+  font-size: 4.6em;
+  line-height: 0.76;
+}
+
+.post-article-copy .post-body-content.post-body-content--no-drop-cap > p:first-child::first-letter {
+  float: none;
+  padding: 0;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.post-article-copy .post-body-content > p:last-child {
+  margin-top: 2.3em;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.post-page > .post-nav {
+  width: min(1040px, calc(100% - (2 * var(--gap))));
+  margin: 0 auto clamp(3rem, 6vw, 5rem);
+}
+
+.post-page--editorial > .post-nav {
+  width: min(835px, calc(100% - (2 * var(--gap))));
+}
+
+@media (max-width: 760px) {
+  .post-monument-shell { padding-inline: 0; }
+  .post-monument-back { margin-left: var(--gap); }
+  .post-monument-photo { height: 500px; }
+  .post-monument-photo.post-monument-photo--editorial { height: auto; }
+  .post-monument-title { left: var(--gap); right: var(--gap); bottom: 2rem; }
+  .post-monument-photo--editorial img { width: 88%; }
+  .post-monument-photo--editorial .post-monument-title {
+    display: block;
+    width: 88%;
+    padding-inline: 0;
+  }
+  .post-monument-title h1 { max-width: 9ch; font-size: clamp(3.25rem, 15vw, 4.25rem); }
+  .post-monument-photo--editorial .post-monument-title h1 {
+    max-width: 10.5ch;
+    font-size: clamp(3rem, 13vw, 3.8rem);
+    line-height: 1.02;
+  }
+  .post-monument-meta { gap: 0.8rem; }
+  .post-monument-meta::before { width: 2.3rem; }
+  .post-monument-tags { margin-left: 3.1rem; }
+  .post-monument-photo--editorial .post-monument-tags { margin-left: 0; }
+  .post-story-layout { grid-template-columns: 1fr; gap: 1.5rem; margin-block: 3rem; }
+  .post-story-layout--editorial,
+  .post-page--editorial > .post-nav { width: 88%; }
+  .post-story-rail { display: none; }
+  .post-article-copy .post-body-content { font-size: 1.08rem; line-height: 1.68; }
+  .post-article-copy .post-body-content > p:first-child::first-letter { font-size: 4em; }
 }
 
 /* ---------- Accessibility utility ---------- */
@@ -2448,8 +2760,9 @@ a.post-title-link:active {
   .method-grid { grid-template-columns: 1fr; }
   .stat-grid { grid-template-columns: repeat(3, 1fr); }
   .musings-controls { flex-direction: column; align-items: stretch; }
-  .post-nav { flex-direction: column; }
-  .post-nav-link-next { text-align: left; align-items: flex-start; }
+  .post-nav-link { grid-template-columns: 58px minmax(0, 1fr) 24px; gap: 0.8rem; min-height: 138px; }
+  .post-nav-number { font-size: 1.55rem; }
+  .post-nav-title { font-size: 1.35rem; }
   .about-copy .tag-bar { gap: 0.5rem; }
 
   /* Home/Away toggle on the photography page: base .shutter-toggle-btn is
@@ -3903,4 +4216,31 @@ html.no-splash .splash { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .capability-mineral-body,
   .capability-curve-live { transition: none !important; }
+}
+
+/* Career — embedded Applied Intelligence Systems portfolio. */
+.career-intelligence-section {
+  position:relative;
+  width:100%;
+  overflow:hidden;
+  border-top:1px solid var(--line);
+  background:#f4f1e9;
+}
+.career-intelligence-section > .visually-hidden {
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+  white-space:nowrap;
+  border:0;
+}
+.career-intelligence-frame {
+  display:block;
+  width:100%;
+  height:900px;
+  border:0;
+  background:#f4f1e9;
 }

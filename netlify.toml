@@ -35,11 +35,46 @@
   status = 301
 
 [[redirects]]
+  from = "/musings/ai-has-a-branding-problem"
+  to = "/musings/ai-has-a-branding-problem/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/musings/systems-thinkers-netflix"
+  to = "/musings"
+  status = 302
+  force = true
+
+[[redirects]]
   from = "/musings/:slug"
   to = "/post.html?slug=:slug"
   status = 200
 
 [[redirects]]
-  from = "/ai/curve"
-  to = "/ai-curve.html"
-  status = 200
+from = "/ai/curve"
+to = "/ai-curve.html"
+status = 200
+
+[[redirects]]
+from = "/ai-consulting"
+to = "/ai"
+status = 301
+force = true
+
+[[redirects]]
+from = "/ai-consulting.html"
+to = "/ai"
+status = 301
+force = true
+
+[[redirects]]
+from = "/ai.html"
+to = "/ai"
+status = 301
+force = true
+
+[[redirects]]
+from = "/ai"
+to = "/ai.html"
+status = 200
+force = true

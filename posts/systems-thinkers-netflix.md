@@ -3,6 +3,8 @@ title: Why Netflix Is Betting on Systems Thinkers
 date: 2026-08-03
 tags: [ai, process]
 excerpt: Notes on Elizabeth Stone's (Netflix CPTO) conversation with Lenny's Podcast — why systems thinking, not narrow specialization, is becoming the defining skill of the AI era.
+cover: /assets/musings/bridge.jpg
+coverAlt: The interconnected steel structure beneath a Chicago bridge above the frozen river
 ---
 
 <div class="post-video-embed">

@@ -182,7 +182,7 @@ const PHOTOS = [
     // No people in frame — public, matching the site's landscape/cityscape
     // shots elsewhere in this array.
     visibility: "public",
-    location: "Chicago",
+    location: "Lakeview",
     iso: 1250,
     aperture: 2,
     shutter: 0.01,
@@ -290,7 +290,7 @@ const PHOTOS = [
     ratio: "1438 / 1099",
     // Landmark/crowd shot, no family — public.
     visibility: "public",
-    location: "Chicago",
+    location: "Millennium Park",
     iso: 320,
     aperture: 5.6,
     shutter: 0.001,
@@ -407,17 +407,6 @@ const PHOTOS = [
     shutter: 0.0125,
   },
   {
-    src: "images/photo-2024-10-halloween-witch.jpg",
-    month: "October",
-    year: 2024,
-    caption: "",
-    ratio: "1067 / 1600",
-    visibility: "private",
-    iso: 3200,
-    aperture: 2,
-    shutter: 0.01,
-  },
-  {
     src: "images/photo-2024-10-halloween-dino.jpg",
     month: "October",
     year: 2024,
@@ -516,7 +505,7 @@ const PHOTOS = [
     caption: "",
     ratio: "1122 / 965",
     visibility: "public",
-    location: "Chicago",
+    location: "Millennium Park",
     iso: 1250,
     aperture: 11,
     shutter: 0.002,
@@ -596,12 +585,6 @@ const PHOTOS = [
     month: "April", year: 2024, caption: "",
     ratio: "1186 / 791", visibility: "private",
     iso: 640, aperture: 2.5, shutter: 0.008,
-  },
-  {
-    src: "images/photo-2024-07-bulldog-toy-deck.jpg",
-    month: "July", year: 2024, caption: "",
-    ratio: "1776 / 1184", visibility: "private",
-    iso: 320, aperture: 5.6, shutter: 0.0011765,
   },
   {
     src: "images/photo-2024-12-bulldog-sleeping.jpg",
@@ -694,17 +677,23 @@ const MONTH_ORDER = [
 ];
 
 function sortChronological(photos, direction) {
-  // direction "asc" (default) = oldest first, feed reads top-to-bottom as
-  // forward-moving time. "desc" = newest first. A pinBefore reference is
-  // an editorial override that places one frame immediately before another
-  // while leaving both photos' real dates untouched.
+  // direction "asc" = oldest first, feed reads top-to-bottom as
+  // forward-moving time. "desc" = strictly newest first. A pinBefore
+  // reference is an editorial override used only for the ascending view;
+  // descending stays fully chronological so the newest frame is always first.
+  if (direction === "desc") {
+    return [...photos].sort((a, b) => {
+      if (a.year !== b.year) return b.year - a.year;
+      return MONTH_ORDER.indexOf(b.month) - MONTH_ORDER.indexOf(a.month);
+    });
+  }
+
   const pinned = photos.filter((p) => p.pinBefore);
   const rest = photos.filter((p) => !p.pinBefore);
   rest.sort((a, b) => {
     if (a.year !== b.year) return a.year - b.year;
     return MONTH_ORDER.indexOf(a.month) - MONTH_ORDER.indexOf(b.month);
   });
-  if (direction === "desc") rest.reverse();
   pinned.forEach((photo) => {
     const targetIndex = rest.findIndex((candidate) => candidate.src === photo.pinBefore);
     rest.splice(targetIndex < 0 ? rest.length : targetIndex, 0, photo);
@@ -789,8 +778,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const visibilityToggle = document.querySelector(".visibility-toggle-row .visibility-toggle");
   const visibilityButtons = visibilityToggle ? visibilityToggle.querySelectorAll(".shutter-toggle-btn") : [];
 
-  let currentDirection = "asc";
   let currentVisibility = "public";
+  const directionsByVisibility = {
+    public: "desc",
+    private: "asc",
+  };
+  let currentDirection = directionsByVisibility[currentVisibility];
   let io = null;
 
   function attachReveal() {
@@ -884,6 +877,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const next = btn.dataset.dir === "desc" ? "desc" : "asc";
       if (next === currentDirection) return;
       currentDirection = next;
+      directionsByVisibility[currentVisibility] = next;
 
       sortButtons.forEach((b) => {
         const active = b === btn;
@@ -900,6 +894,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const next = btn.dataset.visibility === "private" ? "private" : "public";
       if (next === currentVisibility) return;
       currentVisibility = next;
+      currentDirection = directionsByVisibility[currentVisibility];
 
       visibilityButtons.forEach((b) => {
         const active = b === btn;
@@ -909,6 +904,12 @@ document.addEventListener("DOMContentLoaded", () => {
       // Home now sits first in the markup, Away second — so the thumb's
       // "mode-b" (slide-right) state maps to Away, not Home.
       if (visibilityToggle) visibilityToggle.classList.toggle("mode-b", currentVisibility === "public");
+
+      sortButtons.forEach((b) => {
+        const active = b.dataset.dir === currentDirection;
+        b.classList.toggle("is-active", active);
+        b.setAttribute("aria-pressed", String(active));
+      });
 
       render();
     });

@@ -99,6 +99,13 @@ async function loadAllPosts() {
         date: meta.date || "",
         tags: Array.isArray(meta.tags) ? meta.tags : [],
         excerpt: meta.excerpt || "",
+        cover: meta.cover || "",
+        coverAlt: meta.coverAlt || "",
+        coverTreatment: meta.coverTreatment || "",
+        dropCap: meta.dropCap !== "false",
+        socialImage: meta.socialImage || "",
+        socialAlt: meta.socialAlt || "",
+        socialDescription: meta.socialDescription || "",
         body,
         readMinutes: estimateReadMinutes(body),
       };
@@ -120,6 +127,17 @@ function showFetchError(container, err) {
       server from this folder — <code>python3 -m http.server</code> — then
       open <code>http://localhost:8000</code>, or deploy it to any static host.</p>
     </div>`;
+}
+
+function setMeta(attribute, name, content) {
+  if (!content) return;
+  let meta = document.head.querySelector(`meta[${attribute}="${name}"]`);
+  if (!meta) {
+    meta = document.createElement("meta");
+    meta.setAttribute(attribute, name);
+    document.head.appendChild(meta);
+  }
+  meta.content = content;
 }
 
 // ---------- Musings index page ----------
@@ -290,20 +308,69 @@ async function initPostPage() {
   const description = document.querySelector('meta[name="description"]');
   if (description) description.content = post.excerpt;
   const canonical = document.querySelector('link[rel="canonical"]');
-  if (canonical) canonical.href = new URL(postHref(post.slug), window.location.origin).href;
+  const canonicalUrl = new URL(postHref(post.slug), window.location.origin).href;
+  if (canonical) canonical.href = canonicalUrl;
+
+  const socialImage = new URL(post.socialImage || post.cover || "/assets/editorial/architectural-hero-v1.png", window.location.origin).href;
+  const socialDescription = post.socialDescription || post.excerpt;
+  const socialAlt = post.socialAlt || post.coverAlt || post.title;
+  setMeta("property", "og:site_name", "OneShotLabs");
+  setMeta("property", "og:type", "article");
+  setMeta("property", "og:title", post.title);
+  setMeta("property", "og:description", socialDescription);
+  setMeta("property", "og:url", canonicalUrl);
+  setMeta("property", "og:image", socialImage);
+  setMeta("property", "og:image:alt", socialAlt);
+  setMeta("property", "article:published_time", post.date);
+  setMeta("name", "twitter:card", "summary_large_image");
+  setMeta("name", "twitter:title", post.title);
+  setMeta("name", "twitter:description", socialDescription);
+  setMeta("name", "twitter:image", socialImage);
+  setMeta("name", "twitter:image:alt", socialAlt);
 
   const bodyHtml =
     typeof marked !== "undefined" ? marked.parse(post.body) : `<pre>${post.body}</pre>`;
 
+  const cover = post.cover || "/assets/editorial/architectural-hero-v1.png";
+  const coverAlt = post.coverAlt || "Architectural planes in light and shadow";
+  const isEditorial = post.coverTreatment === "editorial";
+  const coverTreatment = isEditorial ? " post-monument-photo--editorial" : "";
+  const dropCapClass = post.dropCap ? "" : " post-body-content--no-drop-cap";
+  const tagLabel = post.tags.map((tag) => tag.charAt(0).toUpperCase() + tag.slice(1)).join(" & ");
+  const titleTags = isEditorial && post.tags.length
+    ? `<div class="post-monument-tags">${post.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>`
+    : "";
+
+  document.querySelector(".post-page")?.classList.toggle("post-page--editorial", isEditorial);
+
   contentEl.innerHTML = `
-    <p class="hero-eyebrow">Musings</p>
-    <h1>${post.title}</h1>
-    <p class="post-meta">${formatDate(post.date)} · ${post.readMinutes} min read</p>
-    <div class="post-card-tags" style="margin: 1rem 0 2rem;">
-      ${post.tags.map((t) => `<span class="tag-pill">${t}</span>`).join("")}
-    </div>
-    <div id="post-toc"></div>
-    <div id="post-body" class="post-body-content">${bodyHtml}</div>
+    <section class="post-monument-shell">
+      <div class="post-monument-inner">
+        <a href="/musings" class="post-monument-back">&larr; Musings</a>
+        <figure class="post-monument-photo${coverTreatment}">
+          <img src="${cover}" alt="${coverAlt}">
+          <figcaption class="post-monument-title">
+            ${isEditorial ? "" : `<p class="post-monument-eyebrow">Musings${tagLabel ? ` · ${tagLabel}` : ""}</p>`}
+            <h1>${post.title}</h1>
+            <p class="post-monument-meta">${formatDate(post.date)} · ${post.readMinutes} min read</p>
+            ${titleTags}
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="post-story-layout${isEditorial ? " post-story-layout--editorial" : ""}">
+      ${isEditorial ? "" : `<aside class="post-story-rail" aria-label="Article information">
+        <strong>OneShotLabs Musings</strong>
+        <span>Independent thinking.<br>Practical perspective.</span>
+        <div class="post-story-tags">
+          ${post.tags.map((t) => `<span>${t}</span>`).join("")}
+        </div>
+      </aside>`}
+      <article class="post-article-copy">
+        <div id="post-toc"></div>
+        <div id="post-body" class="post-body-content${dropCapClass}">${bodyHtml}</div>
+      </article>
+    </section>
   `;
 
   // Build a TOC from h2 headings if the post has enough of them to be worth it.
@@ -328,15 +395,34 @@ async function initPostPage() {
   const next = index < allPosts.length - 1 ? allPosts[index + 1] : null;
   const navEl = document.getElementById("post-nav");
   if (navEl) {
+    const navEntry = (target, direction, destinationNumber) => {
+      if (!target) return "";
+      const targetTags = target.tags
+        .map((tag) => tag.charAt(0).toUpperCase() + tag.slice(1))
+        .join(" & ");
+      const label = direction === "prev" ? "Earlier musing" : "Continue reading";
+      const arrow = direction === "prev" ? "&larr;" : "&rarr;";
+      return `
+        <a class="post-nav-link post-nav-link--${direction}" href="${postHref(target.slug)}">
+          <span class="post-nav-number">${String(destinationNumber).padStart(2, "0")}</span>
+          <span class="post-nav-copy">
+            <span class="post-nav-label">${label}${targetTags ? ` · ${targetTags}` : ""}</span>
+            <span class="post-nav-title">${target.title}</span>
+            <span class="post-nav-meta">${formatDate(target.date)} · ${target.readMinutes} min read</span>
+          </span>
+          <span class="post-nav-arrow" aria-hidden="true">${arrow}</span>
+        </a>`;
+    };
+
     navEl.innerHTML = `
-      <a class="post-nav-link ${prev ? "" : "is-disabled"}" href="${prev ? postHref(prev.slug) : "#"}">
-        <span class="post-nav-label">&larr; Previous</span>
-        <span class="post-nav-title">${prev ? prev.title : "—"}</span>
-      </a>
-      <a class="post-nav-link post-nav-link-next ${next ? "" : "is-disabled"}" href="${next ? postHref(next.slug) : "#"}">
-        <span class="post-nav-label">Next &rarr;</span>
-        <span class="post-nav-title">${next ? next.title : "—"}</span>
-      </a>
+      <div class="post-nav-ledger">
+        ${navEntry(prev, "prev", index)}
+        ${navEntry(next, "next", index + 2)}
+      </div>
+      <div class="post-nav-footer">
+        <a class="post-nav-index" href="/musings">Musings index</a>
+        <span>OneShotLabs · ${new Date(post.date + "T00:00:00").getFullYear()}</span>
+      </div>
     `;
   }
 }

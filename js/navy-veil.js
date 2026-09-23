@@ -5,7 +5,7 @@
   const NAVY = '#1d2f4e';
   const GOLD = '#c6a153';
   const reduced = matchMedia('(prefers-reduced-motion:reduce)').matches;
-  const isAI = /\/ai-consulting(?:\.html)?\/?$/.test(location.pathname);
+  const isAI = /^\/ai\/?$/.test(location.pathname);
   let busy = false;
 
   function freshHandoff() {
@@ -93,7 +93,7 @@
     const anchor = event.target.closest('a[href]');
     if (!anchor || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || anchor.hasAttribute('download') || (anchor.target && anchor.target !== '_self')) return;
     const url = new URL(anchor.href,location.href);
-    if (isAI || url.origin !== location.origin || !/^\/ai-consulting(?:\.html)?\/?$/.test(url.pathname)) return;
+    if (isAI || url.origin !== location.origin || !/^\/ai\/?$/.test(url.pathname)) return;
     event.preventDefault();
     if (busy) return;
     busy = true;
