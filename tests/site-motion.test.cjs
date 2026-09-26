@@ -19,6 +19,7 @@ assert.match(bio, /site-motion\.css\?v=20260919-signatures1/, 'bio loads the sig
 const contact = read('contact.html');
 assert.match(contact, /body class="contact-page"/, 'contact opts into the simple stagger signature');
 assert.match(contact, /site-motion\.css\?v=20260919-signatures1/, 'contact loads the signature motion stylesheet');
+assert.match(contact, /Bring me a consequential problem, an ambitious idea, or a project that deserves a thoughtful build\./, 'contact opens with the approved invitation');
 
 const musings = read('musings.html');
 assert.match(musings, /musings-page-turn/, 'Musings carries the storybook page-turn entry');
@@ -31,7 +32,7 @@ assert.match(photography, /js\/photography\.js/, 'photography retains its origin
 const ai = read('ai.html');
 assert.match(ai, /js\/navy-veil\.js\?v=20260920-ai-route/, 'AI page loads its approved Gold Seam entry motion');
 assert.match(ai, /css\/fabric-finish\.css\?v=20260914-merged1/, 'AI page loads the fabric motion system');
-assert.match(ai, /js\/fabric-results-globe\.js\?v=20260914-merged1/, 'AI page loads the interactive globe');
+assert.match(ai, /js\/fabric-results-globe\.js\?v=20260925-observer-guard/, 'AI page loads the hardened interactive globe');
 assert.match(ai, /js\/fabric-questionnaire\.js\?v=20260914-merged1/, 'AI page loads the assessment handoff');
 
 const css = read('css/site-motion.css');
@@ -47,5 +48,11 @@ const js = read('js/site-motion.js');
 assert.match(js, /const isHome/, 'homepage motion is protected from interior-page reveals');
 assert.doesNotMatch(js, /is-page-leaving|site-motion-curtain/, 'page navigation is immediate with no decorative wipe');
 assert.match(js, /IntersectionObserver/, 'offscreen work is event-driven');
+
+const sharedCss = read('css/style.css');
+assert.match(sharedCss, /@media \(max-width: 1024px\)[\s\S]*?\.nav \{[\s\S]*?background: var\(--oneshot-cream\)/, 'compact navigation uses the shared cream panel');
+assert.match(sharedCss, /\.nav-toggle\[aria-expanded="true"\] \.nav-toggle-bar \{ background: var\(--header-navy\)/, 'the compact close control stays visible on cream');
+const home = read('index.html');
+assert.match(home, /@media \(max-width: 1024px\)[\s\S]*?\.nav \{[\s\S]*?background: var\(--oneshot-cream\)/, 'homepage compact navigation matches the cream panel');
 
 console.log('PASS: dedicated AI motion and shared site motion cover the merged experience.');

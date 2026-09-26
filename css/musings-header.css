@@ -1,30 +1,60 @@
-/* Musings adopts the same editorial navigation treatment used by Photography. */
+/* Musings keeps its editorial treatment while using the exact same header
+   geometry and logo lockup as the rest of the site. */
+.shell {
+  max-width: var(--max-w-wide, 1400px);
+  padding-right: var(--gap, clamp(1.5rem, 4vw, 3.5rem));
+  padding-left: var(--gap, clamp(1.5rem, 4vw, 3.5rem));
+}
+
 .musings-site-header {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 1.1rem;
-  height: 96px;
+  /* The shared header's 96px inner row plus its 1px divider. */
+  height: 97px;
   border-bottom: 1px solid rgba(29, 47, 78, 0.13);
   background: var(--cream, var(--bg, #fffdf8));
   color: var(--navy, var(--fg, #1d2f4e));
 }
 
 .post-template > .musings-site-header {
-  width: min(var(--max-w-wide), calc(100% - (2 * var(--gap))));
+  width: min(100%, var(--max-w-wide, 1400px));
   margin: 0 auto;
+  padding-right: var(--gap, clamp(1.5rem, 4vw, 3.5rem));
+  padding-left: var(--gap, clamp(1.5rem, 4vw, 3.5rem));
 }
 
-.musings-site-header > a {
+.musings-site-header .logo {
   display: inline-flex;
   align-items: center;
+  color: var(--navy, var(--fg, #1d2f4e));
+  font-size: 1.35rem;
 }
 
-.musings-site-header img {
-  width: 220px;
-  height: 90px;
-  object-fit: contain;
-  object-position: left center;
+.musings-site-header .logo-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8em;
+  height: 1.8em;
+  margin-right: 0.4em;
+  color: var(--navy, var(--fg, #1d2f4e));
+}
+
+.musings-site-header .logo-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.musings-site-header .logo-text {
+  display: inline-block;
+  padding-bottom: calc(0.0504em + 3.65px);
+  color: var(--navy, var(--fg, #1d2f4e));
+  font: 600 1em/1.125 Bodoni, "Bodoni Moda", Didot, serif;
+  letter-spacing: -0.01em;
+  background: linear-gradient(90deg, #a77e36 0%, #c6a153 48%, #e0c276 72%, #b88c3d 100%) left calc(100% - 0.45px) / 100% 2.3px no-repeat;
 }
 
 .musings-site-header nav {
@@ -103,16 +133,11 @@
 @media (max-width: 900px) {
   .musings-site-header {
     position: relative;
-    height: 82px;
+    height: 77px;
   }
 
   .musings-site-header > nav {
     display: none;
-  }
-
-  .musings-site-header img {
-    width: 174px;
-    height: 72px;
   }
 
   .musings-site-header .mobile-menu {

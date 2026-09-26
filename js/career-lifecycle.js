@@ -1,4 +1,4 @@
-// Career page film — start promptly, hold the final mark, replay on request.
+// Career page film — play the complete master, then hold its true final frame.
 (() => {
   const film = document.getElementById("career-film");
   const replay = document.getElementById("career-film-replay");
@@ -6,9 +6,7 @@
   if (!film || !replay || !audioButton) return;
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  let finalHoldTime = 24.80;
   let locked = false;
-  let monitoring = false;
   let narrationEnabled = false;
 
   const setNarrationState = (enabled) => {
@@ -19,21 +17,17 @@
     audioButton.querySelector("span").textContent = enabled ? "Narration on" : "Play narration";
   };
 
-  const holdFinalMark = () => {
-    if (locked) return;
-    locked = true;
-    film.pause();
-    film.currentTime = Math.min(finalHoldTime, Math.max(0, film.duration - 0.08));
-    replay.classList.add("is-ready");
+  const seekToFinalFrame = () => {
+    if (!Number.isFinite(film.duration) || film.duration <= 0) return false;
+    film.currentTime = Math.max(0, film.duration - 0.08);
+    return true;
   };
 
-  const monitor = () => {
-    if (!locked && film.currentTime >= finalHoldTime) holdFinalMark();
-    if (!locked && "requestVideoFrameCallback" in HTMLVideoElement.prototype) {
-      film.requestVideoFrameCallback(monitor);
-    } else {
-      monitoring = false;
-    }
+  const holdFinalMark = () => {
+    if (locked || !seekToFinalFrame()) return;
+    locked = true;
+    film.pause();
+    replay.classList.add("is-ready");
   };
 
   const playPromptly = () => {
@@ -42,33 +36,17 @@
       holdFinalMark();
       return;
     }
-    film.play().then(() => {
-      if (!monitoring && "requestVideoFrameCallback" in HTMLVideoElement.prototype) {
-        monitoring = true;
-        film.requestVideoFrameCallback(monitor);
-      }
-    }).catch(() => {
-      replay.classList.add("is-ready");
-    });
+    film.play().catch(() => replay.classList.add("is-ready"));
   };
 
-  film.addEventListener("loadedmetadata", () => {
-    finalHoldTime = Math.max(0, film.duration - 0.15);
-    playPromptly();
-  }, { once: true });
-
+  film.addEventListener("loadedmetadata", playPromptly);
   film.addEventListener("ended", holdFinalMark);
 
   replay.addEventListener("click", () => {
     locked = false;
     replay.classList.remove("is-ready");
     film.currentTime = 0;
-    film.play().then(() => {
-      if (!monitoring && "requestVideoFrameCallback" in HTMLVideoElement.prototype) {
-        monitoring = true;
-        film.requestVideoFrameCallback(monitor);
-      }
-    }).catch(() => replay.classList.add("is-ready"));
+    film.play().catch(() => replay.classList.add("is-ready"));
   });
 
   audioButton.addEventListener("click", () => {
@@ -87,7 +65,8 @@
     });
   });
 
-  // Muted inline video is eligible for autoplay. This early attempt and the
-  // metadata retry keep startup comfortably inside the requested two seconds.
+  // Handle both metadata orderings: the video may be ready before this deferred
+  // controller executes, or it may become ready afterward.
+  if (film.readyState >= HTMLMediaElement.HAVE_METADATA) playPromptly();
   window.setTimeout(playPromptly, 180);
 })();

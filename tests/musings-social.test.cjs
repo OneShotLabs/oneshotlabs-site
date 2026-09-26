@@ -6,6 +6,10 @@ const root = path.resolve(__dirname, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 
 const post = read('posts/ai-has-a-branding-problem.md');
+assert.match(post, /title: A Technology for Human Ambition/);
+assert.match(post, /excerpt: The loudest story about AI is what it may take away\. The more interesting story is what it puts within reach\./);
+assert.match(post, /---\n\nAI has a branding problem\.\n\nWe have been handed the most transformational technology/);
+assert.match(post, /I am not going to sit back and watch the future arrive from the sidelines\.\n\nWill you\?\s*$/);
 assert.match(post, /cover: \/assets\/editorial\/ai-has-a-branding-problem-hero\.png/);
 assert.match(post, /coverTreatment: editorial/);
 assert.match(post, /dropCap: false/);
@@ -25,6 +29,8 @@ assert.equal(social.readUInt32BE(16), 1200);
 assert.equal(social.readUInt32BE(20), 630);
 
 const index = read('musings.html');
+assert.match(index, /A Technology for Human Ambition/);
+assert.match(index, /The loudest story about AI is what it may take away\. The more interesting story is what it puts within reach\./);
 assert.match(index, /assets\/editorial\/ai-has-a-branding-problem-hero\.png/);
 assert.doesNotMatch(index, /systems-thinkers-netflix/);
 assert.match(index, /All opinions expressed here are my own and do not reflect the views of my employer\./);

@@ -7,7 +7,9 @@ const cx=2041.21,cy=1874.08,r=1341.01;
 // Trace the photographed limb, from its left edge to its right crop.
 const start=cx-Math.sqrt(r*r-(1440-cy)**2),endY=cy-Math.sqrt(r*r-(2560-cx)**2);
 paths.forEach(p=>{p.setAttribute('d',`M ${start} 1440 A ${r} ${r} 0 0 1 2560 ${endY}`);p.setAttribute('pathLength','1')});
-function fit(){const w=stage.clientWidth,h=stage.clientHeight,s=Math.max(w/2560,h/1440);plane.style.cssText=`width:${2560*s}px;height:${1440*s}px;left:${(w-2560*s)*(innerWidth<=700?.64:.5)}px;top:${(h-1440*s)*.5}px`;}
+function fit(){const w=stage.clientWidth,h=stage.clientHeight,s=Math.max(w/2560,h/1440),left=(w-2560*s)*(innerWidth<=700?.64:.5),top=(h-1440*s)*.5;plane.style.cssText=`width:${2560*s}px;height:${1440*s}px;left:${left}px;top:${top}px`;
+// Keep the photographed planet fallback, but remove its baked-in blue sky.
+horizon.querySelector('img.art').style.clipPath=`circle(${r*s}px at ${cx*s+left}px ${cy*s+top}px)`;}
 new ResizeObserver(()=>{fit();if(gl){resizeSurface();wake()}}).observe(stage);fit();
 let active=false,fabricActive=true,userPaused=false,traceStarted=false,trace=0,clock=0,last=0,frame=0;
 let targetX=0,targetY=0,x=0,y=0,turn=0,targetTurn=0,turnVelocity=0,fabricClock=0,drag=false,dragX=0,dragStart=0,gl=null,program=null,uniforms={};
@@ -41,7 +43,7 @@ source.onload=()=>{try{
 gl=canvas.getContext('webgl',{alpha:false,antialias:false,powerPreference:'low-power'});if(!gl)return;
 const vertex=`attribute vec2 p;varying vec2 uv;void main(){uv=vec2((p.x+1.)*.5,(1.-p.y)*.5);gl_Position=vec4(p,0.,1.);}`;
 const fragment=`precision highp float;varying vec2 uv;uniform sampler2D image;uniform sampler2D earth;uniform sampler2D clouds;uniform float angle;uniform vec2 light;
-void main(){vec2 px=uv*vec2(2560.,1440.);vec2 q=(px-vec2(2041.21,1874.08))/1341.01;float d=dot(q,q);vec3 color=texture2D(image,uv).rgb;
+void main(){vec2 px=uv*vec2(2560.,1440.);vec2 q=(px-vec2(2041.21,1874.08))/1341.01;float d=dot(q,q);vec3 navy=vec3(29.,47.,78.)/255.;vec3 color=navy;
 if(d<1.){float z=sqrt(1.-d);vec3 normal=vec3(q.x,-q.y,z);
 float tilt=-.28;vec3 tilted=vec3(normal.x*cos(tilt)-normal.y*sin(tilt),normal.x*sin(tilt)+normal.y*cos(tilt),normal.z);
 float latitude=-.26;float ny=tilted.y*cos(latitude)+tilted.z*sin(latitude);float nz=tilted.z*cos(latitude)-tilted.y*sin(latitude);
@@ -50,7 +52,7 @@ vec3 land=texture2D(earth,geo).rgb;float lum=dot(land,vec3(.2126,.7152,.0722));l
 vec3 l=normalize(vec3(-.5+light.x,.8-light.y,1.1));float diffuse=max(dot(normal,l),0.);
 float fresnel=pow(1.-z,3.5);float ocean=1.-smoothstep(.015,.09,land.g-land.b);land=mix(land,land*vec3(.38,.59,.69),ocean*.65);color=land*(.24+.88*diffuse)*vec3(.72,.87,1.);vec4 cloud=texture2D(clouds,vec2(fract(geo.x+angle*.015),geo.y));float cloudAmount=cloud.r*cloud.a; color=mix(color,vec3(.73,.82,.88)*(.35+.7*diffuse),cloudAmount*.72);
 color+=vec3(.34,.52,.68)*fresnel*.38;float shine=pow(max(dot(normal,normalize(l+vec3(0.,0.,1.))),0.),40.);color+=vec3(.85,.91,1.)*shine*.08;
-color=mix(texture2D(image,uv).rgb,color,smoothstep(0.,.018,z));}
+color=mix(navy,color,smoothstep(0.,.018,z));}
 gl_FragColor=vec4(color,1.);}`;
 function shader(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s;}
 program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,vertex));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error('Globe shader link failed');gl.useProgram(program);

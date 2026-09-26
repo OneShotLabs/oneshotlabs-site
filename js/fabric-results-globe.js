@@ -26,5 +26,5 @@ const watch=new IntersectionObserver(e=>{visible=e[0].isIntersecting;if(!visible
 reduce.addEventListener('change',()=>{last=0;if(!frame&&visible)frame=requestAnimationFrame(tick)});document.addEventListener('visibilitychange',()=>{last=0;if(!frame&&visible&&!document.hidden)frame=requestAnimationFrame(tick)});
 draw();stage.dataset.cinematicGlobe='ready';
 }catch{stage.textContent='Globe preview unavailable. Participation information remains below.';stage.dataset.cinematicGlobe='unavailable';}}
-const scan=()=>document.querySelectorAll('[data-participation-globe]').forEach(init);new MutationObserver(scan).observe(document.querySelector('#ai-curve-app'),{childList:true,subtree:true});scan();
+const scan=()=>document.querySelectorAll('[data-participation-globe]').forEach(init),root=document.querySelector('#ai-curve-app');if(!root)return;new MutationObserver(scan).observe(root,{childList:true,subtree:true});scan();
 })();

@@ -1,0 +1,364 @@
+.career-credit-book {
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  border-top: var(--border-thread);
+  background: var(--oneshot-cream);
+}
+
+.credit-book-shell {
+  overflow: hidden;
+  color: var(--oneshot-navy);
+  background: var(--oneshot-cream);
+  box-shadow: 0 24px 70px rgba(20, 43, 71, 0.11);
+}
+
+.credit-book-mast {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 210px;
+  align-items: end;
+  gap: 2.5rem;
+  padding: clamp(2.8rem, 6vw, 4.8rem) clamp(1.7rem, 5vw, 4.6rem) 1.8rem;
+}
+
+.credit-book-eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--oneshot-gold-shadow);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.credit-book-mast h2 {
+  max-width: 790px;
+  margin: 0;
+  color: var(--oneshot-navy);
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5.5vw, 5rem);
+  font-weight: 500;
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+}
+
+.credit-book-descriptor {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--fg-dim);
+  border-left: 1px solid rgba(29, 47, 78, 0.18);
+  font-family: var(--font-mono);
+  font-size: 0.69rem;
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.credit-book-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid rgba(29, 47, 78, 0.18);
+  border-bottom: 3px solid var(--oneshot-navy);
+}
+
+.credit-book-metric {
+  padding: 1.45rem clamp(1.7rem, 5vw, 4.6rem) 1.65rem;
+}
+
+.credit-book-metric + .credit-book-metric {
+  border-left: 1px solid rgba(29, 47, 78, 0.18);
+}
+
+.credit-book-metric small {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--fg-dim);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.credit-book-metric strong {
+  display: block;
+  color: var(--oneshot-navy);
+  font-family: var(--font-display);
+  font-size: clamp(2.7rem, 5.2vw, 4.6rem);
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.credit-book-register {
+  padding: 1.8rem clamp(1.7rem, 5vw, 4.6rem) 2.4rem;
+}
+
+.credit-book-register-intro {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-bottom: 0.65rem;
+  color: var(--fg-dim);
+  font-family: var(--font-mono);
+  font-size: 0.61rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.credit-book-section {
+  margin-bottom: 0.55rem;
+}
+
+.credit-book-button {
+  position: relative;
+  display: grid;
+  grid-template-columns: 50px 245px minmax(0, 1fr) 36px;
+  align-items: center;
+  width: 100%;
+  min-height: 68px;
+  padding: 0;
+  color: var(--oneshot-cream);
+  border: 0;
+  background: var(--oneshot-navy);
+  text-align: left;
+  cursor: pointer;
+}
+
+.credit-book-button::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--oneshot-president-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 300ms var(--oneshot-ease);
+}
+
+.credit-book-button:hover,
+.credit-book-button:focus-visible {
+  background: #173250;
+}
+
+.credit-book-button:focus-visible {
+  outline: 2px solid var(--oneshot-president-gold);
+  outline-offset: 3px;
+}
+
+.credit-book-button[aria-expanded="true"]::after {
+  transform: scaleX(1);
+}
+
+.credit-book-number {
+  padding-left: 1.2rem;
+  color: var(--oneshot-president-gold);
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  font-weight: 500;
+}
+
+.credit-book-button h3 {
+  margin: 0;
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.08;
+}
+
+.credit-book-summary {
+  padding: 0 1.1rem;
+  color: rgba(255, 253, 248, 0.74);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.credit-book-toggle {
+  color: var(--oneshot-president-gold);
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  transition: transform 300ms var(--oneshot-ease);
+}
+
+.credit-book-button[aria-expanded="true"] .credit-book-toggle {
+  transform: rotate(45deg);
+}
+
+.credit-book-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms var(--oneshot-ease);
+}
+
+.credit-book-section.is-open .credit-book-panel {
+  grid-template-rows: 1fr;
+}
+
+.credit-book-panel-clip {
+  overflow: hidden;
+}
+
+.credit-book-panel-inner {
+  padding: 1.25rem 1.5rem 1.4rem;
+  border: 1px solid rgba(29, 47, 78, 0.18);
+  border-top: 0;
+  background: var(--oneshot-cream);
+}
+
+.credit-book-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.credit-book-list li {
+  padding: 0.3rem 0;
+  font-size: 0.82rem;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.credit-book-list li:not(:last-child)::after {
+  content: "·";
+  padding: 0 0.55rem;
+  color: var(--oneshot-gold-shadow);
+}
+
+.credit-book-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1.9rem;
+}
+
+.credit-book-detail {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(29, 47, 78, 0.18);
+}
+
+.credit-book-detail h4 {
+  margin: 0 0 0.45rem;
+  color: var(--oneshot-navy);
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.credit-book-detail .credit-book-list li {
+  padding: 0.12rem 0;
+  font-size: 0.76rem;
+}
+
+.credit-book-foot {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.35rem;
+  padding-top: 1rem;
+  color: var(--fg-dim);
+  border-top: 1px solid rgba(29, 47, 78, 0.18);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.credit-book-foot::before {
+  content: "";
+  width: 44px;
+  height: 2px;
+  flex: 0 0 auto;
+  background: var(--oneshot-president-gold);
+}
+
+.credit-book-shell.is-preparing .credit-book-section {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.credit-book-shell.is-visible .credit-book-section {
+  opacity: 1;
+  transform: none;
+  transition: opacity 480ms ease, transform 480ms var(--oneshot-ease);
+}
+
+.credit-book-shell.is-visible .credit-book-section:nth-of-type(2) { transition-delay: 70ms; }
+.credit-book-shell.is-visible .credit-book-section:nth-of-type(3) { transition-delay: 140ms; }
+.credit-book-shell.is-visible .credit-book-section:nth-of-type(4) { transition-delay: 210ms; }
+.credit-book-shell.is-visible .credit-book-section:nth-of-type(5) { transition-delay: 280ms; }
+
+@media (max-width: 760px) {
+  .credit-book-mast {
+    grid-template-columns: 1fr;
+    gap: 1.35rem;
+  }
+
+  .credit-book-descriptor {
+    max-width: 46ch;
+  }
+
+  .credit-book-button {
+    grid-template-columns: 42px minmax(0, 1fr) 34px;
+    min-height: 72px;
+  }
+
+  .credit-book-summary {
+    display: none;
+  }
+
+  .credit-book-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .credit-book-detail:last-child {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .career-credit-book {
+    padding: 3rem 0;
+  }
+
+  .credit-book-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .credit-book-metric + .credit-book-metric {
+    border-top: 1px solid rgba(29, 47, 78, 0.18);
+    border-left: 0;
+  }
+
+  .credit-book-register-intro span:last-child {
+    display: none;
+  }
+
+  .credit-book-button h3 {
+    font-size: 1.08rem;
+  }
+
+  .credit-book-panel-inner {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .credit-book-list li {
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .credit-book-button::after,
+  .credit-book-toggle,
+  .credit-book-panel,
+  .credit-book-shell.is-visible .credit-book-section {
+    transition: none;
+  }
+}

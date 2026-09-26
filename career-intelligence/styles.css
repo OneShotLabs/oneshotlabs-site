@@ -960,6 +960,7 @@ body { max-width:100%; overflow-x:clip; }
   text-transform:uppercase;
 }
 .capability-group-label span { color:var(--copper); font-size:.58rem; }
+.capability-group-label strong { min-width:0; font:inherit; }
 .capability-group .capability-card {
   grid-column:auto;
   width:100%;
@@ -1081,6 +1082,23 @@ body { max-width:100%; overflow-x:clip; }
 }
 
 @media (max-width:1040px) {
+  .capability-group-label {
+    min-width:0;
+    max-width:100%;
+    overflow:hidden;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    gap:.18rem;
+    padding-right:.4rem;
+    font-size:.58rem;
+    letter-spacing:.09em;
+  }
+  .capability-group-label strong {
+    display:block;
+    max-width:100%;
+    overflow-wrap:anywhere;
+  }
   .input-rail { grid-template-columns:145px repeat(4,minmax(0,1fr)); }
   .output-rail { grid-template-columns:145px repeat(3,minmax(0,1fr)); }
   .input-rail .rail-heading,.output-rail .rail-heading { grid-column:1; grid-row:1 / span 2; }
