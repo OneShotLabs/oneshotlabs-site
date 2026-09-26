@@ -21,4 +21,4 @@ It goes live, the team gets handed off with what they need to run it, and the en
 
 ## Why this instead of a retainer
 
-Retainers optimize for the relationship continuing. This optimizes for the problem getting solved. Both have a place — this is just which one "One Shot" is built around.
+Retainers optimize for the relationship continuing. This optimizes for the problem getting solved. Both have a place — this is just which one "OneShotLens" is built around.

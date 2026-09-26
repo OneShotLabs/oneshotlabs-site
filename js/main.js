@@ -1,4 +1,4 @@
-// One Shot — shared behaviors, no dependencies.
+// OneShotLens — shared behaviors, no dependencies.
 
 document.addEventListener("DOMContentLoaded", () => {
   // Brand lockup: wrap the wordmark's text in its own span so the wordmark

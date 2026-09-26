@@ -13,11 +13,11 @@ assert.match(post, /socialImage: \/assets\/editorial\/ai-has-a-branding-problem-
 
 const shell = read('musings/ai-has-a-branding-problem/index.html');
 assert.match(shell, /property="og:type" content="article"/);
-assert.match(shell, /property="og:image" content="https:\/\/oneshotlabsai\.com\/assets\/editorial\/ai-has-a-branding-problem-social\.png"/);
+assert.match(shell, /property="og:image" content="https:\/\/oneshotlens\.com\/assets\/editorial\/ai-has-a-branding-problem-social\.png"/);
 assert.match(shell, /property="og:image:width" content="1200"/);
 assert.match(shell, /property="og:image:height" content="630"/);
 assert.match(shell, /name="twitter:card" content="summary_large_image"/);
-assert.match(shell, /rel="canonical" href="https:\/\/oneshotlabsai\.com\/musings\/ai-has-a-branding-problem"/);
+assert.match(shell, /rel="canonical" href="https:\/\/oneshotlens\.com\/musings\/ai-has-a-branding-problem"/);
 
 const social = fs.readFileSync(path.join(root, 'assets/editorial/ai-has-a-branding-problem-social.png'));
 assert.equal(social.toString('ascii', 1, 4), 'PNG');

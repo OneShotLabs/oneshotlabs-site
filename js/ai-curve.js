@@ -1,5 +1,5 @@
 /* js/ai-curve.js
-   OneShotLabs AI Curve — assessment flow, result reveal, curve visualization.
+   OneShotLens AI Curve — assessment flow, result reveal, curve visualization.
    No point values or dimension mappings live in this file; those stay
    server-side in netlify/functions/score-curve.js. This file only knows
    question/option text and the answer IDs the user picked. */
@@ -15,7 +15,7 @@
   const root = document.getElementById('ai-curve-app');
   if (!root) return;
   const storageNamespace = root.dataset.storageNamespace || 'live';
-  const SHARE_URL = root.dataset.shareUrl || 'https://oneshotlabs.com/ai-curve.html';
+  const SHARE_URL = root.dataset.shareUrl || 'https://oneshotlens.com/ai-curve.html';
   const STORAGE_KEY = `oneshot-ai-curve-session-v2-${storageNamespace}`;
   const RESULT_KEY = `oneshot-ai-curve-last-result-v2-${storageNamespace}`;
   const HISTORY_KEY = `oneshot-ai-curve-history-v1-${storageNamespace}`;
@@ -317,7 +317,7 @@
   // ---------- Intro ----------
   function renderIntro() {
     const wrap = el('div', { class: 'curve-panel curve-intro reveal is-visible' }, [
-      el('p', { class: 'hero-eyebrow' }, ['OneShotLabs / AI Curve']),
+      el('p', { class: 'hero-eyebrow' }, ['OneShotLens / AI Curve']),
       el('h2', {}, ['Find your place on the frontier']),
       el('p', { class: 'curve-lede' }, ['Ten questions. Five minutes. See where your habits place you on the AI curve.']),
       el('ul', { class: 'curve-intro-facts' }, [
@@ -428,7 +428,7 @@
   function buildAssessmentBrand() {
     return el('div', { class: 'curve-brand-mark' }, [
       el('span', {}, [
-        el('img', { src: 'favicon.svg', alt: 'OneShotLabs' }, []),
+        el('img', { src: 'favicon.svg', alt: 'OneShotLens' }, []),
       ]),
     ]);
   }
@@ -616,7 +616,7 @@
     const { scoring, interpretation, assessment_version } = state.result;
     const panel = el('div', { class: 'curve-panel curve-result reveal is-visible', tabindex: '-1' }, []);
 
-    panel.appendChild(el('p', { class: 'hero-eyebrow' }, ['OneShotLabs / AI Curve']));
+    panel.appendChild(el('p', { class: 'hero-eyebrow' }, ['OneShotLens / AI Curve']));
     panel.appendChild(el('h2', {}, ['Your position']));
 
     panel.appendChild(el('p', { class: 'curve-result-lede' }, [levelSummary(scoring.level)]));
@@ -703,7 +703,7 @@
       el('details', { class: 'curve-disclosure curve-reveal-stage', style: '--curve-stage-delay:2260ms' }, [
         el('summary', {}, ['Methodology & privacy']),
         el('p', {}, [
-          'Your position is measured against OneShotLabs\u2019 own framework for what current AI makes possible for sophisticated professional users \u2014 not against other respondents. Comparisons to other people will only appear once there\u2019s a large enough, real sample to support them.',
+          'Your position is measured against OneShotLens\u2019 own framework for what current AI makes possible for sophisticated professional users \u2014 not against other respondents. Comparisons to other people will only appear once there\u2019s a large enough, real sample to support them.',
         ]),
         el('p', {}, [
           'Scoring happens on the server; this page never sees the point values behind your answers. Your response may be included in aggregate, non-identifying research about how professionals use AI. No employer name, salary, or unnecessary personal data is collected, and results don\u2019t require an email address.',
@@ -727,7 +727,7 @@
     }
 
     document.getElementById('curve-copy-result').addEventListener('click', async (event) => {
-      const summary = `OneShotLabs AI Curve: ${Math.round(scoring.overall)}/100 — ${scoring.level}. Strongest: ${DIMENSION_LABELS[interpretation.ahead.dimension]}. Priority: ${DIMENSION_LABELS[interpretation.gap.dimension]}.`;
+      const summary = `OneShotLens AI Curve: ${Math.round(scoring.overall)}/100 — ${scoring.level}. Strongest: ${DIMENSION_LABELS[interpretation.ahead.dimension]}. Priority: ${DIMENSION_LABELS[interpretation.gap.dimension]}.`;
       try {
         await navigator.clipboard.writeText(summary);
         event.currentTarget.textContent = 'Copied';
@@ -736,7 +736,7 @@
       }
     });
     document.getElementById('curve-share-linkedin').addEventListener('click', async (event) => {
-      const summary = `I scored ${Math.round(scoring.overall)}/100 — ${scoring.level} — on the OneShotLabs AI Curve. My strongest area is ${DIMENSION_LABELS[interpretation.ahead.dimension]}, and my next priority is ${DIMENSION_LABELS[interpretation.gap.dimension]}.`;
+      const summary = `I scored ${Math.round(scoring.overall)}/100 — ${scoring.level} — on the OneShotLens AI Curve. My strongest area is ${DIMENSION_LABELS[interpretation.ahead.dimension]}, and my next priority is ${DIMENSION_LABELS[interpretation.gap.dimension]}.`;
       const shareWindow = window.open(
         `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(SHARE_URL)}`,
         'linkedin-share',
@@ -802,7 +802,7 @@
 
   function buildFrictionClinic(scoring, interpretation, assessmentVersion) {
     const clinic = el('section', { class: 'curve-friction-clinic', id: 'curve-friction-clinic', hidden: 'hidden' }, [
-      el('p', { class: 'hero-eyebrow' }, ['OneShotLabs / Friction Clinic']),
+      el('p', { class: 'hero-eyebrow' }, ['OneShotLens / Friction Clinic']),
       el('h3', {}, ['What is one point of friction in your work?']),
       el('p', { class: 'muted' }, ['Describe a recurring problem, bottleneck, or task that takes more effort than it should.']),
     ]);
