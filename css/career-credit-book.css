@@ -70,11 +70,13 @@
 
 .credit-book-metric small {
   display: block;
+  min-height: 3.1em;
   margin-bottom: 0.25rem;
   color: var(--fg-dim);
   font-family: var(--font-mono);
   font-size: 0.65rem;
   font-weight: 500;
+  line-height: 1.55;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -334,6 +336,10 @@
   .credit-book-metric + .credit-book-metric {
     border-top: 1px solid rgba(29, 47, 78, 0.18);
     border-left: 0;
+  }
+
+  .credit-book-metric small {
+    min-height: 0;
   }
 
   .credit-book-register-intro span:last-child {
