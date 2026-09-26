@@ -58,9 +58,9 @@ There is a monumental opportunity to become much better at using the profound te
 
 I have lost count of the number of “holy shit!” moments that I have experienced since fully investing myself in learning the technology. When an idea works, a barrier disappears, and the technology reaches beyond the boundaries of what I thought I could execute. Success compounds. Each bit of progress moves the edge of what feels possible a little farther out.
 
-I started OneShotLabs because I believe that there is an extraordinary opportunity to learn and grow alongside this rapidly advancing technology. The technology is too powerful to be a fad, too useful to remain a novelty, and too important to be understood only by the people building the models. I want to understand the technology, participate in it, and help others discover what becomes possible when they approach the learning curve with curiosity instead of fear.
+I started OneShotLens because I believe that there is an extraordinary opportunity to learn and grow alongside this rapidly advancing technology. The technology is too powerful to be a fad, too useful to remain a novelty, and too important to be understood only by the people building the models. I want to understand the technology, participate in it, and help others discover what becomes possible when they approach the learning curve with curiosity instead of fear.
 
-OneShotLabs is a living experiment in testing what is real, ignoring the noise, and sharing what I learn in a thoughtful way. I believe that the future is proof of work. You no longer need to tell someone what you can do. You can show them.
+OneShotLens is a living experiment in testing what is real, ignoring the noise, and sharing what I learn in a thoughtful way. I believe that the future is proof of work. You no longer need to tell someone what you can do. You can show them.
 
 Beneath all the noise is a simple and optimistic idea:
 

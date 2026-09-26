@@ -1,4 +1,4 @@
-// One Shot — musings engine.
+// OneShotLens — musings engine.
 //
 // Content model: /posts/manifest.json lists post filenames (no extension).
 // Each /posts/<slug>.md is a plain markdown file with a frontmatter block:
@@ -314,7 +314,7 @@ async function initPostPage() {
   const socialImage = new URL(post.socialImage || post.cover || "/assets/editorial/architectural-hero-v1.png", window.location.origin).href;
   const socialDescription = post.socialDescription || post.excerpt;
   const socialAlt = post.socialAlt || post.coverAlt || post.title;
-  setMeta("property", "og:site_name", "OneShotLabs");
+  setMeta("property", "og:site_name", "OneShotLens");
   setMeta("property", "og:type", "article");
   setMeta("property", "og:title", post.title);
   setMeta("property", "og:description", socialDescription);
@@ -360,7 +360,7 @@ async function initPostPage() {
     </section>
     <section class="post-story-layout${isEditorial ? " post-story-layout--editorial" : ""}">
       ${isEditorial ? "" : `<aside class="post-story-rail" aria-label="Article information">
-        <strong>OneShotLabs Musings</strong>
+        <strong>OneShotLens Musings</strong>
         <span>Independent thinking.<br>Practical perspective.</span>
         <div class="post-story-tags">
           ${post.tags.map((t) => `<span>${t}</span>`).join("")}
@@ -421,7 +421,7 @@ async function initPostPage() {
       </div>
       <div class="post-nav-footer">
         <a class="post-nav-index" href="/musings">Musings index</a>
-        <span>OneShotLabs · ${new Date(post.date + "T00:00:00").getFullYear()}</span>
+        <span>OneShotLens · ${new Date(post.date + "T00:00:00").getFullYear()}</span>
       </div>
     `;
   }

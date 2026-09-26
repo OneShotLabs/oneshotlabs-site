@@ -1,4 +1,4 @@
-/* OneShotLabs interior motion system — editorial, restrained, responsive. */
+/* OneShotLens interior motion system — editorial, restrained, responsive. */
 
 .site-motion-ready body:not(.is-site-settled):not(.site-motion-home) > :where(main, section, footer) {
   opacity: 0;

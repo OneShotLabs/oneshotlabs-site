@@ -11,7 +11,7 @@ assert(!html.includes('oneshot:header-brand-'));
 assert(!html.includes('classList.add("brand-shimmer-play")'));
 assert(css.includes('animation: none !important'));
 assert(css.includes('background-size: 100% 2.3px'));
-assert(html.includes('class="logo-icon"') && html.includes('class="logo-text">OneShotLabs'));
+assert(html.includes('class="logo-icon"') && html.includes('class="logo-text">OneShotLens'));
 assert(!/AudioContext|createOscillator|play\w+Sfx|getAudioCtx/.test(html));
 const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(m => m[1]);
 scripts.forEach(s => new vm.Script(s));

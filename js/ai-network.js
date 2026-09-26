@@ -1,4 +1,4 @@
-/* OneShotLabs spatial instrument. Dependency-free, scoped, event-driven Canvas + semantic DOM. */
+/* OneShotLens spatial instrument. Dependency-free, scoped, event-driven Canvas + semantic DOM. */
 (()=>{'use strict';
 const root=document.querySelector('.osl-experiment'),stage=root.querySelector('.stage'),canvas=stage.querySelector('canvas'),ctx=canvas.getContext('2d'),layer=stage.querySelector('.node-layer');
 const raw=[

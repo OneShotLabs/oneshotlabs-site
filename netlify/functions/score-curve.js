@@ -1,6 +1,6 @@
 // netlify/functions/score-curve.js
 //
-// OneShotLabs AI Curve — server-side scoring.
+// OneShotLens AI Curve — server-side scoring.
 //
 // Why this exists: OSL_AI_CURVE_MASTER_SPEC.md requires "Never trust
 // client-supplied scores. Validate inputs server-side." and "No public
