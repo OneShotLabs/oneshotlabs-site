@@ -1,13 +1,13 @@
-functionsDirectory = "/Users/davidjergovic/Documents/Codex/2026-09-20/this/work/oneshotlabs-site/netlify/functions"
+functionsDirectory = "netlify/functions"
 functionsDirectoryOrigin = "config-v1"
 headersOrigin = "config"
 redirectsOrigin = "config"
 plugins = []
 
 [build]
-publish = "/Users/davidjergovic/Documents/Codex/2026-09-20/this/work/oneshotlabs-site"
+publish = "."
 publishOrigin = "config"
-functions = "/Users/davidjergovic/Documents/Codex/2026-09-20/this/work/oneshotlabs-site/netlify/functions"
+functions = "netlify/functions"
 
   [build.environment]
 

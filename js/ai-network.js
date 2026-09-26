@@ -27,7 +27,7 @@ const nodes=raw.map((a,i)=>({i,name:a[0],territory:a[1],type:a[2],desc:a[3],p:{x
 const links=[[3,0],[0,1],[0,2],[0,5],[2,7],[4,5],[5,6],[1,11],[11,12],[12,13],[14,11],[7,8],[8,9],[9,10],[18,10],[12,19],[6,17],[10,17],[13,17],[0,17],[1,17],[2,17],[15,8],[16,6]];
 const origin={x:-4.6,y:-.25,z:.1},center={x:0,y:0,z:0};
 let width=0,height=0,scale=1,mobile=false,rotation={x:-.13,y:-.13,z:-.025},velocity={x:0,y:0,z:0},drag=null,selected=null,hover=null,territory='all',raf=0,timer=0,visible=false,reduced=matchMedia('(prefers-reduced-motion:reduce)').matches,paused=false,time=0,last=0,introDone=false,settling=false;
-const rest={...rotation},motionQuery=matchMedia('(prefers-reduced-motion:reduce)'),logo=new Image();logo.src='assets/ai-network/oneshotlabs-mark.svg';logo.onload=()=>{prepareLogo();wake()};
+const rest={...rotation},motionQuery=matchMedia('(prefers-reduced-motion:reduce)'),logo=new Image();logo.src='assets/ai-network/oneshotlens-mark.svg';logo.onload=()=>{prepareLogo();wake()};
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const signalSpeed=1.3;
 function world(p){if(!mobile)return p;return {x:p.x*.52,y:p.y*1.1,z:p.z*.8}}
