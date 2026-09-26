@@ -1,4 +1,4 @@
-# OneShotLabs — complete motion review
+# OneShotLens — complete motion review
 
 This is a local-only review build. Nothing in this folder has been deployed to Netlify.
 

@@ -1,6 +1,6 @@
 {
   "assessment_version": "2026.08-10q-v1",
-  "title": "OneShotLabs AI Curve",
+  "title": "OneShotLens AI Curve",
   "active_question_ids": ["q01", "q02", "q03", "q05", "q06", "q08", "q09", "q10", "q12", "q15"],
   "questions": [
     {

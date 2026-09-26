@@ -19,7 +19,7 @@ const metrics = [
 ];
 
 document.querySelector('#app').innerHTML = `
-  <section class="hero" aria-label="OneShotLabs transforms investment evidence into judgment">
+  <section class="hero" aria-label="OneShotLens transforms investment evidence into judgment">
     <canvas id="depth" aria-hidden="true"></canvas>
     <div class="studio-light key" aria-hidden="true"></div><div class="studio-light rim" aria-hidden="true"></div>
     <header class="brand"><span class="prototype">AI / PROTOTYPE</span></header>

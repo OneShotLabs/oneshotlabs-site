@@ -14,8 +14,8 @@ for (const page of publicPages) {
 }
 
 const ai = read('ai.html');
-assert.match(ai, /rel="canonical" href="https:\/\/oneshotlabsai\.com\/ai"/, 'AI canonical URL must be /ai');
-assert.match(ai, /data-share-url="https:\/\/oneshotlabsai\.com\/ai#ai-curve"/, 'AI share URL must use /ai');
+assert.match(ai, /rel="canonical" href="https:\/\/oneshotlens\.com\/ai"/, 'AI canonical URL must be /ai');
+assert.match(ai, /data-share-url="https:\/\/oneshotlens\.com\/ai#ai-curve"/, 'AI share URL must use /ai');
 
 const config = read('netlify.toml');
 assert.match(config, /from = "\/ai-consulting"\s+to = "\/ai"\s+status = 301/s, 'old clean route redirects to /ai');

@@ -1,4 +1,4 @@
-/* OneShotLabs AI entrance — Gold Seam. */
+/* OneShotLens AI entrance — Gold Seam. */
 (() => {
   'use strict';
   const HANDOFF_KEY = 'osl-ai-entrance';

@@ -1,11 +1,11 @@
 ---
-title: Starting One Shot
+title: Starting OneShotLens
 date: 2026-05-10
 tags: [photography, process]
 excerpt: Why this project exists, and what "one shot" means as a way of shooting — no do-overs, no spray-and-pray.
 ---
 
-This is placeholder body copy. Replace it with the real story behind One Shot — why you started it, what "one shot" means to you as a way of shooting, and what people should expect from the work here.
+This is placeholder body copy. Replace it with the real story behind OneShotLens — why you started it, what "one shot" means to you as a way of shooting, and what people should expect from the work here.
 
 ## A subheading
 

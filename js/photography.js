@@ -1,4 +1,4 @@
-// One Shot — photography timeline.
+// OneShotLens — photography timeline.
 // A 2014-tumblr-dashboard-style vertical scroll feed. Always chronological;
 // a small pair of arrows flips the sort direction (oldest-first / newest-first).
 //
