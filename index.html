@@ -3,12 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>David Jergovic — AI Leadership for Commercial Real Estate Finance</title>
-  <meta name="description" content="AI leadership for commercial real estate finance teams, from a 20-year PGIM Real Estate underwriter. Scoped engagements, built once, shipped in one shot." />
-  <meta property="og:title" content="David Jergovic — AI Leadership for Commercial Real Estate Finance" />
-  <meta property="og:description" content="AI leadership for commercial real estate finance teams, from a 20-year PGIM Real Estate underwriter. Scoped engagements, built once, shipped in one shot." />
+  <title>Applied AI for Commercial Real Estate | OneShotLens</title>
+  <meta name="description" content="OneShotLens explores applied AI, commercial real estate finance, photography and the ideas shaping what comes next." />
+  <meta property="og:title" content="Intelligence for What’s Next" />
+  <meta property="og:description" content="OneShotLens explores applied AI, commercial real estate finance, photography and the ideas shaping what comes next." />
   <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary" />
+  <meta property="og:site_name" content="OneShotLens" />
+  <meta property="og:url" content="https://oneshotlens.com/" />
+  <meta property="og:image" content="https://oneshotlens.com/assets/brand/oneshotlens-social-card.png" />
+  <meta property="og:image:secure_url" content="https://oneshotlens.com/assets/brand/oneshotlens-social-card.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="OneShotLens wordmark and star-and-corners logo on a cream background" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Intelligence for What’s Next" />
+  <meta name="twitter:description" content="OneShotLens explores applied AI, commercial real estate finance, photography and the ideas shaping what comes next." />
+  <meta name="twitter:image" content="https://oneshotlens.com/assets/brand/oneshotlens-social-card.png" />
+  <meta name="twitter:image:alt" content="OneShotLens wordmark and star-and-corners logo on a cream background" />
+  <meta name="theme-color" content="#1d2f4e" />
+  <link rel="canonical" href="https://oneshotlens.com/" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://oneshotlens.com/#organization",
+        "name": "OneShotLens",
+        "url": "https://oneshotlens.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://oneshotlens.com/apple-touch-icon.png",
+          "width": 180,
+          "height": 180
+        },
+        "founder": { "@id": "https://oneshotlens.com/#david-jergovic" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://oneshotlens.com/#david-jergovic",
+        "name": "David Jergovic",
+        "url": "https://oneshotlens.com/bio",
+        "image": "https://oneshotlens.com/images/about-me.jpg",
+        "jobTitle": "Founder",
+        "worksFor": { "@id": "https://oneshotlens.com/#organization" },
+        "knowsAbout": ["Commercial real estate finance", "Applied artificial intelligence", "Photography"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://oneshotlens.com/#website",
+        "url": "https://oneshotlens.com/",
+        "name": "OneShotLens",
+        "publisher": { "@id": "https://oneshotlens.com/#organization" }
+      }
+    ]
+  }
+  </script>
+  <script src="js/analytics.js?v=20260928" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet" />
@@ -2700,9 +2757,10 @@ a.post-title-link:active {
     margin: 0;
     padding: 6.5rem 1.75rem 2rem;
     gap: 0;
-    background: var(--oneshot-cream);
-    border-left: 1px solid rgba(29, 47, 78, 0.14);
-    color: var(--header-navy);
+    /* Keep the compact drawer continuous with the navy masthead. */
+    background: var(--header-navy);
+    border-left: 1px solid rgba(253, 251, 246, 0.15);
+    color: var(--oneshot-warm-white);
     transform: translateX(100%);
     transition: var(--motion-signature);
     overflow-y: auto;
@@ -2711,16 +2769,16 @@ a.post-title-link:active {
   .nav.open { transform: translateX(0); }
 
   .nav-toggle { position: relative; z-index: 61; }
-  .nav-toggle[aria-expanded="true"] { border-color: rgba(29, 47, 78, 0.28); }
-  .nav-toggle[aria-expanded="true"] .nav-toggle-bar { background: var(--header-navy); }
+  .nav-toggle[aria-expanded="true"] { border-color: rgba(253, 251, 246, 0.4); }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bar { background: var(--oneshot-warm-white); }
 
   .nav a {
     display: flex;
     align-items: center;
     min-height: 44px;
     padding: 0.9rem 0;
-    border-bottom: 1px solid rgba(29, 47, 78, 0.13);
-    color: var(--header-navy);
+    border-bottom: 1px solid rgba(253, 251, 246, 0.15);
+    color: var(--oneshot-warm-white);
     font-size: 1.3rem;
   }
 
@@ -3587,7 +3645,7 @@ html.no-splash .splash { display: none; }
     }
   </script>
   <link rel="stylesheet" href="css/header-static.css?v=20260903-1" />
-  <link rel="stylesheet" href="css/decision-cube.css?v=20260914-merged1">
+  <link rel="stylesheet" href="css/launch-film.css?v=20260928-popout" />
   <link rel="stylesheet" href="css/home-motion.css?v=20260914-merged1">
   <link rel="stylesheet" href="css/site-motion.css?v=20260913-review2">
   <script src="js/navy-veil.js?v=20260920-ai-route" defer></script>
@@ -3638,11 +3696,46 @@ html.no-splash .splash { display: none; }
   <div id="smooth-wrapper">
   <div style="height: 96px;" aria-hidden="true"></div>
 
-  <section class="decision-cube-hero" aria-labelledby="decision-cube-heading">
-    <h1 class="decision-cube-heading" id="decision-cube-heading">Complexity, organized for <em>judgment.</em></h1>
-    <iframe class="decision-cube-frame" id="decision-cube-frame" src="decision-cube/index.html?v=20260914-merged1" title="OneShotLens decision cube: transaction information organized for judgment" sandbox="allow-scripts" referrerpolicy="no-referrer" scrolling="no" loading="eager"></iframe>
-    <button class="decision-cube-toggle" id="decision-cube-toggle" type="button" disabled>Pause animation</button>
+  <section class="launch-film-hero" id="launch-film-hero" aria-labelledby="launch-film-heading">
+    <h1 class="launch-film-heading" id="launch-film-heading">Intelligence for What&rsquo;s <em>Next.</em></h1>
+    <figure class="launch-film-stage">
+      <video
+        class="launch-film-loop"
+        id="launch-film-loop"
+        playsinline
+        preload="auto"
+        poster="assets/video/oneshotlens-poster-open.jpg?v=20260928b"
+        aria-hidden="true"
+      >
+        <source src="assets/video/oneshotlens-hero-final-1080p.mp4?v=20260928c" type="video/mp4" media="(min-width: 900px)" />
+        <source src="assets/video/oneshotlens-hero-final-720p.mp4?v=20260928c" type="video/mp4" />
+      </video>
+      <button class="launch-film-replay" id="launch-film-replay" type="button" aria-label="Replay film">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.34 5.66M20 4v7h-7" /></svg>
+        <span>Replay</span>
+      </button>
+      <button class="launch-film-watch" id="launch-film-watch" type="button" aria-haspopup="dialog" aria-controls="launch-film-dialog">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+        <span>Play</span>
+      </button>
+    </figure>
   </section>
+
+  <dialog class="launch-film-dialog" id="launch-film-dialog" aria-label="OneShotLens launch film">
+    <button class="launch-film-dialog-close" id="launch-film-dialog-close" type="button" aria-label="Close film">&times;</button>
+    <video
+      class="launch-film-full"
+      id="launch-film-full"
+      controls
+      playsinline
+      preload="none"
+      poster="assets/video/oneshotlens-poster-endcard-final.jpg?v=20260928c"
+    >
+      <source src="assets/video/oneshotlens-launch-final-1080p30.mp4?v=20260928c" type="video/mp4" media="(min-width: 900px)" />
+      <source src="assets/video/oneshotlens-launch-final-720p30.mp4?v=20260928c" type="video/mp4" />
+      <track kind="captions" src="assets/video/oneshotlens-launch-captions.vtt?v=20260928b" srclang="en" label="English" />
+    </video>
+  </dialog>
 
   <!-- Archived in place for a future restoration. Content inside a template is
        inert, so the original dial timeline CSS and JavaScript remain available
@@ -3666,20 +3759,6 @@ html.no-splash .splash { display: none; }
       </div>
     </section>
   </template>
-
-  <section class="section editorial-quote" aria-label="OneShotLens standard" data-quote-step="0">
-    <div class="container-wide">
-      <div class="editorial-quote-inner">
-        <div class="editorial-quote-mark" aria-hidden="true">
-          <span class="logo-icon"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><polygon id="quote-blade" points="53.5,2 55.8,20 50,46 41.5,20.6" /></defs><g fill="currentColor"><use href="#quote-blade" transform="rotate(0 50 50)" /><use href="#quote-blade" transform="rotate(45 50 50)" /><use href="#quote-blade" transform="rotate(90 50 50)" /><use href="#quote-blade" transform="rotate(135 50 50)" /><use href="#quote-blade" transform="rotate(180 50 50)" /><use href="#quote-blade" transform="rotate(225 50 50)" /><use href="#quote-blade" transform="rotate(270 50 50)" /><use href="#quote-blade" transform="rotate(315 50 50)" /></g></svg></span>
-        </div>
-        <blockquote>
-          <span class="editorial-quote-line">The standard remains high.</span>
-          <span class="editorial-quote-line">The path from idea to execution compresses every day.</span>
-        </blockquote>
-      </div>
-    </div>
-  </section>
 
   <section class="section editorial-section founder-note" id="origin">
     <div class="container-wide">
@@ -4569,7 +4648,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="control-row"><label for="corner-slider">Corners</label><input type="range" id="corner-slider" min="3" max="20" step="1" value="8" /></div>
     <div class="control-row"><label for="flag-slider">Flag</label><input type="range" id="flag-slider" min="0" max="1" step="0.05" value="0.85" /></div>
   </div>
-  <script src="js/decision-cube.js?v=20260914-merged1"></script>
+  <script src="js/launch-film.js?v=20260928-popout" defer></script>
   <script src="js/home-motion.js?v=20260914-merged1"></script>
   <script src="js/site-motion.js?v=20260913-review2"></script>
 </body>

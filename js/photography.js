@@ -67,9 +67,9 @@ const PHOTOS = [
     shutter: 0.01,
   },
   {
-    // Foreground concrete corrected to match the surrounding road while
-    // preserving the original subject, framing, and sunset color grade.
-    src: "images/photo-2025-08-girl-pink-dress-road-edited.jpg",
+    // Only the lower foreground concrete is repaired; the subject and the
+    // remainder of the original photograph are preserved pixel-for-pixel.
+    src: "images/photo-2025-08-girl-pink-dress-road-concrete-fixed.png",
     month: "August",
     year: 2025,
     caption: "",
@@ -594,7 +594,7 @@ const PHOTOS = [
     location: "Soldier Field",
     iso: 6400, aperture: 2, shutter: 0.0263158,
   },
-  // Synced from the current Google Drive Photos folder on 2026-09-25.
+  // Synced from the current Google Drive Photos folder through 2026-09-27.
   // Exact duplicate uploads and photos already represented by an optimized
   // local copy are intentionally shown once in the timeline.
   {
@@ -602,6 +602,12 @@ const PHOTOS = [
     month: "August", year: 2024, caption: "",
     ratio: "1776 / 1184", visibility: "private",
     iso: 1600, aperture: 2, shutter: 0.01,
+  },
+  {
+    src: "images/photo-2024-08-mother-baby-beach.jpg",
+    month: "August", year: 2024, caption: "",
+    ratio: "1184 / 1776", visibility: "private",
+    iso: 640, aperture: 5, shutter: 0.0013333,
   },
   {
     src: "images/photo-2025-10-girl-bulldog-mural.jpg",
@@ -653,6 +659,20 @@ const PHOTOS = [
     ratio: "1086 / 724", visibility: "public",
     location: "Soldier Field",
     iso: 6400, aperture: 2, shutter: 0.0166667,
+  },
+  {
+    src: "images/photo-2025-09-wrigley-field-game.jpg",
+    month: "September", year: 2025, caption: "",
+    ratio: "768 / 1024", visibility: "public",
+    location: "Wrigley Field",
+    iso: 1600, aperture: 2, shutter: 0.01,
+  },
+  {
+    // Date and exposure settings come from the Drive original's EXIF.
+    src: "images/photo-2025-10-halloween-family.jpg",
+    month: "October", year: 2025, caption: "",
+    ratio: "724 / 1086", visibility: "private",
+    iso: 4000, aperture: 2, shutter: 0.01,
   },
 ];
 

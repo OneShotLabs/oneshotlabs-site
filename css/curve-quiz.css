@@ -1,0 +1,159 @@
+/* The Curve questionnaire, in the language of the Fabric.
+   Presentation only: the question bank, scoring and flow are unchanged.
+   Questions live in the night sky beside the planet; results return to ivory paper. */
+
+/* ── Questions: a full-viewport night, no box ───────────────────────── */
+body.questionnaire-open:not(.assessment-result){background:linear-gradient(#1d2f4e 0%,#15264a 16%,#0e1b37 40%,#0c1834 58%,#13234a 82%,#1d2f4e 100%) fixed}
+#questionnaire:not(.has-result){background:transparent;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(28px,6vh,72px);padding-bottom:clamp(40px,8vh,96px);box-sizing:border-box}
+#questionnaire:not(.has-result) .questionnaire-paper{border-top:1px solid #c6a15340;padding-top:clamp(26px,4vh,44px)}
+#questionnaire .questionnaire-header{font:500 10px/1.5 "Barlow Condensed",Arial,sans-serif;letter-spacing:.24em;color:#d9bf86}
+#questionnaire .questionnaire-header button{font:400 14px/1.4 "Source Sans 3",Inter,sans-serif;letter-spacing:.01em;border-bottom-color:#c6a15399;padding:6px 0;transition:border-color .4s,color .4s}
+#questionnaire .questionnaire-header button:hover{border-bottom-color:#c6a153;color:#f2e8d3}
+#questionnaire:not(.has-result) .curve-brand-mark{display:none}
+
+/* Intro */
+#questionnaire:not(.has-result) .hero-eyebrow{font:500 10px/1.5 "Barlow Condensed",Arial,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#d9bf86;margin:0 0 22px}
+#questionnaire:not(.has-result) .curve-intro h2{font:400 clamp(44px,4.6vw,74px)/1.04 "Bodoni Moda",Georgia,serif;font-variation-settings:"opsz" 48;letter-spacing:-.02em;color:#fffdf8;margin:0 0 22px;max-width:14ch;text-shadow:0 2px 24px #0b162ecc}
+#questionnaire:not(.has-result) .curve-lede{font:400 clamp(17px,1.35vw,20px)/1.6 "Source Sans 3",Inter,sans-serif;color:#dbe2ec;max-width:46ch}
+#questionnaire:not(.has-result) .curve-intro-facts{gap:10px 12px;margin:26px 0 30px}
+#questionnaire:not(.has-result) .curve-intro-facts li{font:500 10px/1 "Barlow Condensed",Arial,sans-serif;letter-spacing:.22em;color:#e5d8b9;padding:9px 13px;border:1px solid #c6a15355;background:#14244166}
+#questionnaire:not(.has-result) .curve-intro-facts li::before{content:"";display:inline-block;width:4px;height:4px;margin:0 9px 2px 0;background:#c6a153;transform:rotate(45deg)}
+
+/* Buttons share the fabric's gold-edged language */
+#questionnaire:not(.has-result) .btn-accent{font:500 11px/1 "Barlow Condensed",Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#1d2f4e;background:linear-gradient(120deg,#e7cf98,#c6a153 60%,#e2c88e);border:1px solid #e2c88e;padding:16px 30px;box-shadow:0 10px 30px #0b162e66;transition:transform .5s cubic-bezier(.16,.76,.18,1),box-shadow .5s,filter .5s}
+#questionnaire:not(.has-result) .btn-accent:hover{transform:translateY(-2px);box-shadow:0 16px 40px #0b162e88,0 0 0 1px #f3e2b8;filter:brightness(1.05)}
+#questionnaire:not(.has-result) .btn-accent:disabled{opacity:.42;transform:none;box-shadow:none;cursor:not-allowed}
+#questionnaire:not(.has-result) .curve-back{font:400 14px/1.4 "Source Sans 3",Inter,sans-serif;color:#cfd8e4;background:none;transition:color .4s}
+#questionnaire:not(.has-result) .curve-back:hover{color:#f2e8d3}
+
+/* Progress: a constellation of eight stars (drawn by the wrapper) above a hairline */
+#questionnaire:not(.has-result) .curve-progress{height:1px;background:#ffffff1c;margin-bottom:14px}
+#questionnaire:not(.has-result) .curve-progress-fill{background:linear-gradient(90deg,#c6a15300,#c6a153 40%,#f3e2b8);box-shadow:0 0 10px #c6a153aa}
+#questionnaire:not(.has-result) .curve-progress-label{font:500 10px/1.5 "Barlow Condensed",Arial,sans-serif;letter-spacing:.24em;color:#d9bf86;margin-bottom:26px}
+.curve-constellation{display:flex;align-items:center;gap:0;margin:0 0 18px;height:14px}
+.curve-constellation i{position:relative;flex:0 0 auto;width:5px;height:5px;border-radius:50%;background:#ffffff33;transition:background .8s,box-shadow .8s,transform .8s cubic-bezier(.16,.76,.18,1)}
+.curve-constellation b{flex:0 0 clamp(22px,3.4vw,44px);height:1px;background:#ffffff1f;transition:background .8s}
+.curve-constellation i.done{background:#c6a153;box-shadow:0 0 6px #c6a153aa}
+.curve-constellation b.done{background:linear-gradient(90deg,#c6a153aa,#c6a15366)}
+.curve-constellation i.now{background:#fff6dd;transform:scale(1.5);box-shadow:0 0 0 3px #c6a15333,0 0 14px #f3e2b8}
+.curve-constellation i.now::after{content:"";position:absolute;inset:-7px;border-radius:50%;border:1px solid #c6a15366;animation:curve-star 3.2s ease-out infinite}
+@keyframes curve-star{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.8);opacity:0}}
+
+/* The question */
+#questionnaire:not(.has-result) .curve-question{font:400 clamp(30px,2.9vw,46px)/1.16 "Bodoni Moda",Georgia,serif;font-variation-settings:"opsz" 34;letter-spacing:-.012em;color:#fffdf8;max-width:24ch;margin-bottom:30px;text-shadow:0 2px 20px #0b162ecc}
+
+/* Options: lettered A–D in gold italic, with a light that follows the hand */
+#questionnaire:not(.has-result) .curve-options{counter-reset:curve-option;gap:0;border:0;padding:0;margin:0}
+#questionnaire:not(.has-result) .curve-question+.curve-option,#questionnaire:not(.has-result) .curve-option:first-of-type{border-top:1px solid #ffffff14}
+#questionnaire:not(.has-result) .curve-option{counter-increment:curve-option;position:relative;display:flex;align-items:center;gap:20px;min-height:64px;padding:16px 18px 16px 8px;background:transparent;border:0;border-bottom:1px solid #ffffff14;color:#dfe6ef;cursor:pointer;overflow:hidden;transition:color .45s,background .6s}
+#questionnaire:not(.has-result) .curve-option::before{content:counter(curve-option,upper-alpha);flex:0 0 30px;height:30px;display:grid;place-items:center;font:italic 400 18px/1 "Bodoni Moda",Georgia,serif;color:#d9bf86;border:1px solid #c6a15355;border-radius:50%;transition:background .45s,color .45s,border-color .45s,box-shadow .45s}
+#questionnaire:not(.has-result) .curve-option::after{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(#f3e2b8,#c6a153);transform:scaleY(0);transform-origin:50% 50%;transition:transform .55s cubic-bezier(.16,.76,.18,1)}
+#questionnaire:not(.has-result) .curve-option:hover{background:linear-gradient(90deg,#c6a15316,#c6a15305 55%,transparent);color:#fffdf8}
+#questionnaire:not(.has-result) .curve-option:hover::before{border-color:#c6a153;box-shadow:0 0 14px #c6a15344}
+#questionnaire:not(.has-result) .curve-option:has(input:checked){background:linear-gradient(90deg,#c6a15326,#c6a1530a 60%,transparent);color:#fffdf8}
+#questionnaire:not(.has-result) .curve-option:has(input:checked)::before{background:#c6a153;color:#1d2f4e;border-color:#e7cf98;box-shadow:0 0 18px #c6a15377}
+#questionnaire:not(.has-result) .curve-option:has(input:checked)::after{transform:scaleY(1)}
+#questionnaire:not(.has-result) .curve-option:has(input:focus-visible){outline:1px solid #c6a153;outline-offset:-1px}
+#questionnaire:not(.has-result) .curve-option input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+#questionnaire:not(.has-result) .curve-option span{font:400 clamp(15px,1.15vw,17px)/1.5 "Source Sans 3",Inter,sans-serif}
+#questionnaire:not(.has-result) .curve-nav{margin-top:30px;align-items:center}
+#questionnaire:not(.has-result) .questionnaire-note{font:400 12px/1.6 "Source Sans 3",Inter,sans-serif;color:#aebbcc;margin-top:22px}
+
+/* Each panel arrives softly */
+#questionnaire .curve-panel.reveal.is-visible{animation:curve-arrive .9s cubic-bezier(.16,.76,.18,1) both}
+@keyframes curve-arrive{from{opacity:0;transform:translate3d(0,14px,0);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+
+/* Scoring moment */
+#questionnaire .curve-scoring-mark{filter:drop-shadow(0 0 18px #c6a15366)}
+
+/* ── Results: ivory paper, editorial ─────────────────────────────── */
+#questionnaire.has-result{background:#f7f3eb}
+#questionnaire.has-result .questionnaire-header{color:#8a6a2e}
+#questionnaire.has-result .hero-eyebrow,#questionnaire.has-result .curve-participation-head .muted{font:500 10px/1.5 "Barlow Condensed",Arial,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#a07a34}
+#questionnaire.has-result .curve-result h2{font:400 clamp(46px,5vw,80px)/1.02 "Bodoni Moda",Georgia,serif;font-variation-settings:"opsz" 48;letter-spacing:-.025em;color:#1d2f4e;margin:6px 0 16px}
+#questionnaire.has-result .curve-result-lede{font:400 clamp(17px,1.35vw,20px)/1.6 "Source Sans 3",Inter,sans-serif;color:#3c4a60;max-width:52ch}
+#questionnaire.has-result .curve-line{stroke:#b89048;stroke-width:2.2;filter:drop-shadow(0 0 3px #c6a15366)}
+#questionnaire.has-result .curve-svg-label{font-family:"Barlow Condensed",Arial,sans-serif;letter-spacing:.18em;fill:#6b5a3a}
+#questionnaire.has-result .curve-svg-label-user{fill:#1d2f4e}
+#questionnaire.has-result .curve-user-marker{fill:#c6a153;filter:drop-shadow(0 0 6px #c6a153aa)}
+/* The score in the lockup's condensed display cut */
+#questionnaire.has-result .curve-score-row{align-items:flex-end;gap:28px;margin:30px 0 34px;padding-bottom:28px;border-bottom:1px solid #c6a15355}
+#questionnaire.has-result .curve-score-num{font:400 clamp(120px,12vw,176px)/.82 "Bodoni Moda",Georgia,serif;font-variation-settings:"opsz" 96;letter-spacing:-.03em;color:#1d2f4e;transform:scaleX(.62);transform-origin:0 100%;margin-right:-.42em}
+#questionnaire.has-result .curve-level{font:italic 400 clamp(30px,2.6vw,42px)/1.1 "Bodoni Moda",Georgia,serif;color:#1d2f4e;margin-bottom:8px}
+#questionnaire.has-result .curve-score-meta .muted{font:500 10px/1.5 "Barlow Condensed",Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#7d6b4b}
+/* Dimensions: hairline tracks, gold light, elegant numerals */
+#questionnaire.has-result .curve-dimensions{gap:16px;margin-bottom:44px}
+#questionnaire.has-result .curve-dim-row{grid-template-columns:10rem 1fr 3rem;gap:18px}
+#questionnaire.has-result .curve-dim-label{font:500 10px/1.4 "Barlow Condensed",Arial,sans-serif;letter-spacing:.24em;color:#5c5240}
+#questionnaire.has-result .curve-dim-track{height:2px;background:#1d2f4e14;overflow:visible;position:relative}
+#questionnaire.has-result .curve-dim-fill{position:relative;background:linear-gradient(90deg,#c6a15355,#b89048);box-shadow:0 0 8px #c6a15355}
+#questionnaire.has-result .curve-dim-fill::after{content:"";position:absolute;right:-3px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:#c6a153;box-shadow:0 0 0 3px #c6a15333}
+#questionnaire.has-result .curve-dim-val{font:400 20px/1 "Bodoni Moda",Georgia,serif;font-variant-numeric:lining-nums;color:#1d2f4e}
+/* Interpretation */
+#questionnaire.has-result .curve-interp{border-top:1px solid #c6a15355;padding-top:34px}
+#questionnaire.has-result .curve-interp h3,#questionnaire.has-result .curve-retest strong{font:500 10px/1.5 "Barlow Condensed",Arial,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#a07a34}
+#questionnaire.has-result .curve-interp p,#questionnaire.has-result .curve-next-steps li,#questionnaire.has-result .curve-retest{font:400 17px/1.65 "Source Sans 3",Inter,sans-serif;color:#3c4a60}
+#questionnaire.has-result .curve-interp .curve-challenge-title{font:400 clamp(24px,2vw,32px)/1.25 "Bodoni Moda",Georgia,serif;font-variation-settings:"opsz" 30;color:#1d2f4e;max-width:30ch}
+#questionnaire.has-result .curve-next-steps{counter-reset:step;list-style:none;padding:0}
+#questionnaire.has-result .curve-next-steps li{counter-increment:step;position:relative;padding:10px 0 10px 44px;border-bottom:1px solid #1d2f4e12}
+#questionnaire.has-result .curve-next-steps li::before{content:counter(step,upper-roman);position:absolute;left:0;top:9px;font:italic 400 18px/1.4 "Bodoni Moda",Georgia,serif;color:#a07a34}
+/* Calls to action */
+#questionnaire.has-result .curve-cta .btn{font:500 10px/1 "Barlow Condensed",Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;padding:15px 22px;border:1px solid #1d2f4e55;color:#1d2f4e;background:transparent;transition:background .4s,color .4s,border-color .4s}
+#questionnaire.has-result .curve-cta .btn:hover{border-color:#1d2f4e;background:#1d2f4e0d}
+#questionnaire.has-result .curve-cta .btn-accent{background:#1d2f4e;color:#f7f3eb;border-color:#1d2f4e}
+#questionnaire.has-result .curve-cta .btn-accent:hover{background:#26395c}
+/* Participation */
+#questionnaire.has-result .curve-participation h3{font:400 clamp(30px,2.8vw,44px)/1.1 "Bodoni Moda",Georgia,serif;letter-spacing:-.015em}
+#questionnaire.has-result .curve-participation-lede,#questionnaire.has-result .results-globe-hint{font-family:"Source Sans 3",Inter,sans-serif}
+#questionnaire .curve-participation-stage{border-radius:50%;box-shadow:0 30px 80px #1d2f4e33,0 0 0 1px #c6a15333}
+#questionnaire.has-result .curve-disclosure summary{font:500 10px/1.5 "Barlow Condensed",Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#a07a34}
+#questionnaire .curve-reveal-stage{transition-timing-function:cubic-bezier(.16,.76,.18,1)!important}
+
+@media(max-width:700px){
+  #questionnaire:not(.has-result){min-height:100svh;padding-top:18px}
+  #questionnaire:not(.has-result) .curve-intro h2{font-size:clamp(36px,10vw,48px)}
+  #questionnaire:not(.has-result) .curve-question{font-size:clamp(25px,7vw,32px);margin-bottom:18px}
+  #questionnaire:not(.has-result) .curve-option{min-height:56px;gap:14px;padding:12px 10px 12px 4px}
+  #questionnaire:not(.has-result) .curve-option::before{flex-basis:26px;height:26px;font-size:16px}
+  .curve-constellation b{flex-basis:clamp(14px,6vw,30px)}
+  #questionnaire.has-result .curve-dim-row{grid-template-columns:6.8rem 1fr 2.4rem;gap:10px}
+  #questionnaire.has-result .curve-score-num{font-size:110px}
+}
+@media(prefers-reduced-motion:reduce){
+  #questionnaire .curve-panel.reveal.is-visible,.curve-constellation i.now::after{animation:none}
+  #questionnaire:not(.has-result) .btn-accent{transition:none}
+}
+
+/* Auto-advance: the chosen answer glows for a beat before the next question. */
+#questionnaire .curve-question-panel.is-advancing .curve-option:has(input:checked){background:linear-gradient(90deg,#c6a15340,#c6a15312 70%,transparent)}
+#questionnaire .curve-question-panel.is-advancing .curve-option:has(input:checked)::before{box-shadow:0 0 0 6px #c6a15322,0 0 26px #c6a153aa}
+
+/* The curve as light */
+#questionnaire .curve-svg.curve-lit{overflow:visible;margin:24px 0 8px}
+#questionnaire .curve-svg.curve-lit .curve-line{stroke:#1d2f4e1c;stroke-width:1.4;filter:none;animation:none;stroke-dashoffset:0}
+#questionnaire .curve-reached{fill:none;stroke-width:2.6;stroke-linecap:round}
+#questionnaire .curve-reached-glow{fill:none;stroke-width:6;stroke-linecap:round;opacity:.45}
+#questionnaire .curve-ahead{fill:none;stroke:#b89048;stroke-width:1.6;stroke-dasharray:.5 7;stroke-linecap:round;opacity:0;transition:opacity 1.2s ease .2s}
+#questionnaire .curve-lit.is-arrived .curve-ahead{opacity:.75}
+#questionnaire .curve-drop line{stroke:#b89048;stroke-width:1;stroke-dasharray:2 4;opacity:.55}
+#questionnaire .curve-drop-label{font:400 13px "Bodoni Moda",Georgia,serif;fill:#1d2f4e}
+#questionnaire .curve-drop{opacity:0;transition:opacity 1s ease .3s}
+#questionnaire .curve-lit.is-arrived .curve-drop{opacity:1}
+#questionnaire .curve-lit .curve-user-marker{fill:#c6a153;stroke:#fffaf0;stroke-width:2;opacity:0;transition:opacity .6s,r .6s}
+#questionnaire .curve-lit.is-arrived .curve-user-marker{opacity:1}
+#questionnaire .curve-lit .curve-svg-label-user{opacity:0;transition:opacity .8s .2s}
+#questionnaire .curve-lit.is-arrived .curve-svg-label-user{opacity:1}
+#questionnaire .curve-ring{fill:none;stroke:#c6a153;stroke-width:1;opacity:0;transform-box:fill-box;transform-origin:center}
+#questionnaire .curve-lit.is-arrived .curve-ring{animation:curve-ring 2.4s ease-out infinite}
+@keyframes curve-ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(3.6);opacity:0}}
+#questionnaire .curve-wander{fill:#e2c88e;filter:drop-shadow(0 0 4px #c6a153)}
+#questionnaire .curve-lit .curve-frontier-brand .os-blades{transform-box:fill-box;transform-origin:center;animation:curve-mark-turn 18s linear infinite}
+@keyframes curve-mark-turn{to{transform:rotate(360deg)}}
+
+/* The interpretation opens into two columns across the paper */
+#questionnaire.has-result .curve-interp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:0 clamp(40px,6vw,96px)}
+#questionnaire.has-result .curve-interp-col>h3:first-child{margin-top:0}
+#questionnaire.has-result .curve-interp p,#questionnaire.has-result .curve-next-steps{max-width:none}
+#questionnaire.has-result .curve-interp-challenge{padding-left:clamp(24px,3vw,44px);border-left:1px solid #c6a15340}
+@media(max-width:860px){#questionnaire.has-result .curve-interp{grid-template-columns:1fr}#questionnaire.has-result .curve-interp-challenge{padding-left:0;border-left:0;margin-top:26px}}
+@media(prefers-reduced-motion:reduce){#questionnaire .curve-lit.is-arrived .curve-ring,#questionnaire .curve-lit .curve-frontier-brand .os-blades{animation:none}}

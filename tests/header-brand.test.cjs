@@ -20,7 +20,9 @@ assert.equal(logoContents(musings), logoContents(career), 'Musings uses the exac
 assert.match(musingsCss, /max-width:\s*var\(--max-w-wide, 1400px\)/, 'Musings uses the shared wide container');
 assert.match(musingsCss, /height:\s*97px/, 'Musings accounts for the shared 96px header row and divider');
 assert(!/AudioContext|createOscillator|play\w+Sfx|getAudioCtx/.test(html));
-const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(m => m[1]);
+const scripts = [...html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)]
+  .filter(([, attributes]) => !/type=["']application\/ld\+json["']/.test(attributes))
+  .map(([, , source]) => source);
 scripts.forEach(s => new vm.Script(s));
 const timeline = scripts.find(s => s.includes('var STAGES ='));
 let now = 0, cycles = 0;

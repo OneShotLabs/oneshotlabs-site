@@ -1,0 +1,222 @@
+/* OneShotLens launch film — homepage hero. index.html carries its own
+   self-contained <style> block and does not include css/style.css, so this
+   stays a separate file rather than colliding with either. */
+
+.launch-film-hero {
+  position: relative;
+  background: var(--oneshot-cream, #fffdf8);
+  padding: clamp(24px, 4vw, 56px) 0 clamp(48px, 6vw, 80px);
+  text-align: center;
+}
+
+.launch-film-heading {
+  color: var(--oneshot-navy, #1d2f4e);
+  font: 500 clamp(32px, 4.3vw, 64px)/1.08 "Cormorant Garamond", "EB Garamond", Georgia, serif;
+  letter-spacing: -0.035em;
+  margin: 0 auto clamp(20px, 3vw, 32px);
+  max-width: 1100px;
+  padding: 0 24px;
+  text-wrap: balance;
+}
+
+.launch-film-heading em {
+  color: var(--oneshot-gold-shadow, #a77e36);
+  font-weight: 400;
+  font-style: italic;
+}
+
+.launch-film-stage {
+  position: relative;
+  width: min(66vw, 770px);
+  aspect-ratio: 16 / 9;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--oneshot-navy, #1d2f4e);
+  border: 1px solid rgba(29, 47, 78, 0.14);
+  isolation: isolate;
+}
+
+.launch-film-loop {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--oneshot-navy, #1d2f4e);
+}
+
+/* After the film is popped out, the homepage player rests on a blank cream frame. */
+.launch-film-stage.is-popped-out {
+  background: var(--oneshot-cream, #fffdf8);
+}
+
+.launch-film-stage.is-popped-out .launch-film-loop {
+  visibility: hidden;
+}
+
+.launch-film-stage.is-popped-out .launch-film-replay {
+  display: none;
+}
+
+.launch-film-replay {
+  position: absolute;
+  left: clamp(0.75rem, 2.2vw, 1.6rem);
+  bottom: clamp(1rem, 3vw, 1.75rem);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 44px;
+  padding: 0.7rem 1.25rem;
+  border: 1px solid rgba(255, 253, 248, 0.55);
+  border-radius: 999px;
+  color: var(--oneshot-cream, #fffdf8);
+  background: rgba(29, 47, 78, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font: 600 0.72rem/1 var(--font-label, "Barlow Condensed", sans-serif);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(3px);
+  transition: opacity 180ms ease, transform 180ms ease, border-color 120ms ease, background 120ms ease, visibility 0s linear 180ms;
+}
+
+.launch-film-replay.is-ready {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  transition-delay: 0s;
+}
+
+.launch-film-replay:hover,
+.launch-film-replay:focus-visible {
+  border-color: var(--oneshot-gold-body, #c6a153);
+  background: rgba(29, 47, 78, 0.75);
+}
+
+.launch-film-replay:focus-visible {
+  outline: 2px solid var(--oneshot-gold-body, #c6a153);
+  outline-offset: 3px;
+}
+
+.launch-film-replay svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.launch-film-watch {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1rem, 3vw, 1.75rem);
+  transform: translateX(-50%);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 44px;
+  padding: 0.7rem 1.25rem;
+  border: 1px solid rgba(255, 253, 248, 0.55);
+  border-radius: 999px;
+  color: var(--oneshot-cream, #fffdf8);
+  background: rgba(29, 47, 78, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font: 600 0.72rem/1 var(--font-label, "Barlow Condensed", sans-serif);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 120ms ease, transform 120ms ease, background 120ms ease;
+}
+
+.launch-film-watch:hover,
+.launch-film-watch:focus-visible {
+  border-color: var(--oneshot-gold-body, #c6a153);
+  background: rgba(29, 47, 78, 0.75);
+  transform: translateX(-50%) translateY(-1px);
+}
+
+.launch-film-watch:focus-visible {
+  outline: 2px solid var(--oneshot-gold-body, #c6a153);
+  outline-offset: 3px;
+}
+
+.launch-film-watch svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.launch-film-dialog {
+  padding: 0;
+  border: 0;
+  max-width: min(94vw, 1100px);
+  width: 100%;
+  background: var(--oneshot-navy, #1d2f4e);
+}
+
+.launch-film-dialog::backdrop {
+  background: rgba(29, 47, 78, 0.82);
+}
+
+.launch-film-full {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.launch-film-dialog-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 3;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 253, 248, 0.5);
+  border-radius: 999px;
+  background: rgba(29, 47, 78, 0.7);
+  color: var(--oneshot-cream, #fffdf8);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.launch-film-dialog-close:hover,
+.launch-film-dialog-close:focus-visible {
+  border-color: var(--oneshot-gold-body, #c6a153);
+}
+
+.launch-film-dialog-close:focus-visible {
+  outline: 2px solid var(--oneshot-gold-body, #c6a153);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .launch-film-watch,
+  .launch-film-replay { transition: none; }
+}
+
+@media (max-width: 600px) {
+  .launch-film-watch span,
+  .launch-film-replay span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .launch-film-watch,
+  .launch-film-replay { min-width: 44px; justify-content: center; padding: 0; }
+}

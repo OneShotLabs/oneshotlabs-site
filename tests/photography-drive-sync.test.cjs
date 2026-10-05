@@ -7,8 +7,11 @@ const timeline = fs.readFileSync(path.join(root, 'js/photography.js'), 'utf8');
 
 const imported = [
   'photo-2024-08-baby-pink.jpg',
+  'photo-2024-08-mother-baby-beach.jpg',
   'photo-2025-10-girl-bulldog-mural.jpg',
   'photo-2025-10-upside-down-costume.jpg',
+  'photo-2025-09-wrigley-field-game.jpg',
+  'photo-2025-10-halloween-family.jpg',
   'photo-2026-02-winter-mountains.jpg',
   'photo-2026-03-child-profile.jpg',
   'photo-2026-08-beach-girl.jpg',
@@ -46,7 +49,10 @@ for (const file of removedByReview) {
 }
 
 assert.match(timeline, /photo-2025-10-upside-down-costume\.jpg[\s\S]*?ratio:\s*"1184 \/ 1776"/, 'the window-light portrait must render vertically');
+assert.match(timeline, /photo-2024-08-mother-baby-beach\.jpg[\s\S]*?ratio:\s*"1184 \/ 1776"[\s\S]*?visibility:\s*"private"/, 'the mother-and-baby beach portrait must render vertically on Home');
 assert.match(timeline, /photo-2026-02-winter-mountains\.jpg[\s\S]*?location:\s*"Aspen"/, 'the winter mountain photo must be labeled Aspen');
+assert.match(timeline, /photo-2025-09-wrigley-field-game\.jpg[\s\S]*?location:\s*"Wrigley Field"/, 'the baseball game must be labeled Wrigley Field');
+assert.match(timeline, /photo-2025-10-halloween-family\.jpg[\s\S]*?month:\s*"October"[\s\S]*?year:\s*2025[\s\S]*?visibility:\s*"private"/, 'the street-family photo must use its EXIF month and year on Home');
 assert.doesNotMatch(timeline, /pinBefore/, 'timeline order must never contain editorial jumps');
 
 const sources = [...timeline.matchAll(/src:\s*["'](images\/[^"']+)["']/g)].map(match => match[1]);

@@ -50,9 +50,17 @@ assert.doesNotMatch(js, /is-page-leaving|site-motion-curtain/, 'page navigation 
 assert.match(js, /IntersectionObserver/, 'offscreen work is event-driven');
 
 const sharedCss = read('css/style.css');
-assert.match(sharedCss, /@media \(max-width: 1024px\)[\s\S]*?\.nav \{[\s\S]*?background: var\(--oneshot-cream\)/, 'compact navigation uses the shared cream panel');
-assert.match(sharedCss, /\.nav-toggle\[aria-expanded="true"\] \.nav-toggle-bar \{ background: var\(--header-navy\)/, 'the compact close control stays visible on cream');
+assert.match(sharedCss, /@media \(max-width: 1024px\)[\s\S]*?\.nav \{[\s\S]*?background: var\(--header-navy\)/, 'compact navigation matches the shared navy masthead');
+assert.match(sharedCss, /\.nav-toggle\[aria-expanded="true"\] \.nav-toggle-bar \{ background: var\(--oneshot-warm-white\)/, 'the compact close control stays visible on navy');
 const home = read('index.html');
-assert.match(home, /@media \(max-width: 1024px\)[\s\S]*?\.nav \{[\s\S]*?background: var\(--oneshot-cream\)/, 'homepage compact navigation matches the cream panel');
+assert.match(home, /@media \(max-width: 1024px\)[\s\S]*?\.nav \{[\s\S]*?background: var\(--header-navy\)/, 'homepage compact navigation matches its navy masthead');
+const photographyCss = read('css/photography-editorial.css');
+assert.match(photographyCss, /@media \(max-width: 1024px\)[\s\S]*?\.photo-page \.site-header \.nav \{[\s\S]*?background: var\(--oneshot-cream\)/, 'Photography compact navigation matches its cream masthead');
+const musingsCss = read('css/musings-header.css');
+assert.match(musingsCss, /\.musings-site-header \.mobile-menu > div \{[\s\S]*?background: var\(--cream, var\(--bg, #fffdf8\)\)/, 'Musings compact navigation matches its cream masthead');
+
+const contactPage = read('contact.html');
+assert.match(contactPage, /id="contact-form-submit"/, 'contact submit button is wired to the controller');
+assert.doesNotMatch(contactPage, /newsletter-form|buttondown/i, 'the retired newsletter account is not shipped');
 
 console.log('PASS: dedicated AI motion and shared site motion cover the merged experience.');

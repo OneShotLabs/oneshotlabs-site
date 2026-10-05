@@ -27,7 +27,29 @@
 .questionnaire:not(.has-result) .curve-panel h3,.questionnaire:not(.has-result) .curve-panel legend{color:#fffdf8}
 .questionnaire:not(.has-result) .curve-option span{font:14px/1.5 Inter,sans-serif}
 .questionnaire:not(.has-result) .curve-panel::after{display:none}.questionnaire.has-result{width:100%}
-.questionnaire.has-result .questionnaire-paper{background:#f7f3eb}
-.questionnaire.has-result .curve-participation{background:#1d2f4e;color:#fffdf8;padding:32px;border-top:1px solid #c6a153}
-.questionnaire.has-result .curve-participation h3,.questionnaire.has-result .curve-participation h4,.questionnaire.has-result .curve-participation p,.questionnaire.has-result .curve-participation .muted{color:#d9e2eb}
-@media(max-width:700px){.questionnaire:not(.has-result){width:100%;padding:0 24px 40px;background:#1d2f4ef5}.questionnaire:not(.has-result) .curve-question{font-size:28px}.questionnaire-open:not(.assessment-result) .horizon{width:100%;opacity:.22;pointer-events:none}.questionnaire:not(.has-result) .questionnaire-header{padding-top:24px}.questionnaire.has-result .curve-participation{padding:20px}}
+.questionnaire.has-result{width:100%;padding:0;background:#f7f3eb}
+.questionnaire.has-result .questionnaire-header{padding:20px 5vw;color:#1d2f4e}
+.questionnaire.has-result .questionnaire-header button{color:#1d2f4e}
+.questionnaire.has-result .questionnaire-paper{background:#f7f3eb;border-top:1px solid #c6a153;padding-left:5vw;padding-right:5vw}
+.questionnaire.has-result .questionnaire-note{margin:0;padding:16px 5vw 30px;color:#536176}
+.questionnaire.has-result .curve-participation{background:#f7f3eb;color:#1d2f4e;padding:32px 0;border-top:1px solid #c6a153}
+.questionnaire.has-result .curve-participation h3,.questionnaire.has-result .curve-participation h4,.questionnaire.has-result .curve-participation p,.questionnaire.has-result .curve-participation .muted{color:#1d2f4e}
+@media(max-width:700px){
+ .questionnaire:not(.has-result){width:100%;padding:0 24px 24px;background:#1d2f4ef5}
+ .questionnaire:not(.has-result) .questionnaire-header{padding:12px 0 16px}
+ .questionnaire:not(.has-result) .questionnaire-paper{padding-top:14px}
+ .questionnaire:not(.has-result) .curve-progress-label{margin-bottom:12px}
+ .questionnaire:not(.has-result) .curve-question{font-size:24px;line-height:1.12;margin-bottom:12px}
+ .questionnaire:not(.has-result) .curve-options{gap:0}
+ .questionnaire:not(.has-result) .curve-option{min-height:52px;padding:10px 4px}
+ .questionnaire:not(.has-result) .curve-nav{margin-top:14px}
+ .questionnaire-open:not(.assessment-result) .horizon{width:100%;opacity:.22;pointer-events:none}
+ .questionnaire.has-result .questionnaire-paper{padding:24px 0}
+ .questionnaire.has-result #ai-curve-app{padding:0 24px}
+ .questionnaire.has-result .curve-participation{padding:20px 0}
+}
+
+/* 2026-09-28: during the quiz the live globe is shifted (top:18%) while the photographed-planet fallback
+   stays put, which reads as a dim second "atmosphere" shell around the globe. Hide the photo whenever the
+   live WebGL globe is ready; the photo remains as the fallback if WebGL is unavailable. */
+.questionnaire-open:not(.assessment-result) .horizon:has(#globe-surface.ready) > img.art{opacity:0 !important;visibility:hidden}

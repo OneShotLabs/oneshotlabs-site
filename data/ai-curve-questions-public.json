@@ -1,7 +1,7 @@
 {
-  "assessment_version": "2026.08-10q-v1",
+  "assessment_version": "2026.09-8q-v1",
   "title": "OneShotLens AI Curve",
-  "active_question_ids": ["q01", "q02", "q03", "q05", "q06", "q08", "q09", "q10", "q12", "q15"],
+  "active_question_ids": ["q01", "q02", "q03", "q05", "q08", "q09", "q10", "q15"],
   "questions": [
     {
       "id": "q01",
@@ -21,11 +21,7 @@
         },
         {
           "id": "d",
-          "text": "Daily across several types of work."
-        },
-        {
-          "id": "e",
-          "text": "It is embedded across research, analysis, communication, or execution."
+          "text": "Daily or embedded across research, analysis, communication, or execution."
         }
       ]
     },
@@ -48,10 +44,6 @@
         {
           "id": "d",
           "text": "Use a repeatable workflow with context, sources, instructions, and validation."
-        },
-        {
-          "id": "e",
-          "text": "I generally would not use AI for this type of work."
         }
       ]
     },
@@ -74,10 +66,6 @@
         {
           "id": "d",
           "text": "AI can access approved data or tools through integrations."
-        },
-        {
-          "id": "e",
-          "text": "I rarely use AI with professional information."
         }
       ]
     },
@@ -126,10 +114,6 @@
         {
           "id": "d",
           "text": "An agent is any AI that remembers a previous conversation."
-        },
-        {
-          "id": "e",
-          "text": "An agent is mainly a chatbot customized with company branding and instructions."
         }
       ]
     },
@@ -204,10 +188,6 @@
         {
           "id": "d",
           "text": "It is a method for compressing prompts to reduce token usage."
-        },
-        {
-          "id": "e",
-          "text": "It permanently stores all user conversations in a shared database."
         }
       ]
     },
@@ -229,11 +209,7 @@
         },
         {
           "id": "d",
-          "text": "A defined workflow handles most steps with review points."
-        },
-        {
-          "id": "e",
-          "text": "A triggered workflow uses approved tools, completes steps, and surfaces exceptions."
+          "text": "A defined or triggered workflow uses approved tools, handles most steps, and surfaces review points or exceptions."
         }
       ]
     },
@@ -256,10 +232,6 @@
         {
           "id": "d",
           "text": "Connected tools eliminate the need for source verification because the data is direct."
-        },
-        {
-          "id": "e",
-          "text": "The main risk is that answers will always become shorter."
         }
       ]
     },
@@ -385,11 +357,7 @@
         },
         {
           "id": "d",
-          "text": "I follow applicable policies, data rules, and approved environments."
-        },
-        {
-          "id": "e",
-          "text": "I combine approved environments, least-necessary access, permissions, and human review."
+          "text": "I combine approved environments, applicable policies, least-necessary access, permissions, and human review."
         }
       ]
     }

@@ -81,6 +81,13 @@ function postHref(slug) {
   return `/musings/${encodeURIComponent(slug)}`;
 }
 
+function formatDisplayTitle(title) {
+  if (title.startsWith("Q4 ")) {
+    return `<span class="post-title-quarter" aria-label="Q4"><span class="post-title-q-glyph" aria-hidden="true">O</span><span aria-hidden="true">4</span></span>${title.slice(2)}`;
+  }
+  return title;
+}
+
 async function loadAllPosts() {
   const manifestRes = await fetch(MANIFEST_URL);
   if (!manifestRes.ok) throw new Error("Could not load posts/manifest.json");
@@ -98,9 +105,14 @@ async function loadAllPosts() {
         title: meta.title || slug,
         date: meta.date || "",
         tags: Array.isArray(meta.tags) ? meta.tags : [],
+        collection: meta.collection || "",
+        edition: meta.edition || "",
         excerpt: meta.excerpt || "",
         cover: meta.cover || "",
         coverAlt: meta.coverAlt || "",
+        video: meta.video || "",
+        youtube: meta.youtube || "",
+        videoCover: meta.videoCover || "",
         coverTreatment: meta.coverTreatment || "",
         dropCap: meta.dropCap !== "false",
         socialImage: meta.socialImage || "",
@@ -304,7 +316,7 @@ async function initPostPage() {
     return;
   }
 
-  document.title = `${post.title} — Musings`;
+  document.title = `${post.title} — OneShotLens Musings`;
   const description = document.querySelector('meta[name="description"]');
   if (description) description.content = post.excerpt;
   const canonical = document.querySelector('link[rel="canonical"]');
@@ -328,11 +340,63 @@ async function initPostPage() {
   setMeta("name", "twitter:image", socialImage);
   setMeta("name", "twitter:image:alt", socialAlt);
 
+  let structuredData = document.getElementById("post-structured-data");
+  if (!structuredData) {
+    structuredData = document.createElement("script");
+    structuredData.type = "application/ld+json";
+    structuredData.id = "post-structured-data";
+    document.head.appendChild(structuredData);
+  }
+  structuredData.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": `${canonicalUrl}#article`,
+        mainEntityOfPage: canonicalUrl,
+        headline: post.title,
+        description: socialDescription,
+        image: socialImage,
+        datePublished: post.date,
+        dateModified: post.date,
+        author: { "@id": "https://oneshotlens.com/#david-jergovic" },
+        publisher: { "@id": "https://oneshotlens.com/#organization" },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "OneShotLens", item: "https://oneshotlens.com/" },
+          { "@type": "ListItem", position: 2, name: "Musings", item: "https://oneshotlens.com/musings" },
+          { "@type": "ListItem", position: 3, name: post.title, item: canonicalUrl },
+        ],
+      },
+    ],
+  });
+
   const bodyHtml =
     typeof marked !== "undefined" ? marked.parse(post.body) : `<pre>${post.body}</pre>`;
 
   const cover = post.cover || "/assets/editorial/architectural-hero-v1.png";
   const coverAlt = post.coverAlt || "Architectural planes in light and shadow";
+  const heroMedia = post.youtube && post.videoCover
+    ? `<button class="post-monument-video-cover" type="button" data-youtube-src="${post.youtube}" aria-label="Play the clip here from the beginning">
+        <span class="video-cover-art"><img src="${post.videoCover}" alt="${coverAlt}"></span>
+        <span class="video-cover-copy" aria-hidden="true">
+          <span class="video-cover-wordmark"><img src="/assets/brand/view-finder-original-wordmark.png" alt="View Finder"></span>
+          <span class="video-cover-edition">Edition ${post.edition || "001"}</span>
+          <span class="video-cover-selection">
+            <span class="video-cover-subtitle">${post.title}</span>
+            <span class="video-cover-topic">Systems thinking in the AI era</span>
+            <span class="video-cover-source">Elizabeth Stone × Lenny’s Podcast</span>
+          </span>
+        </span>
+        <span class="video-cover-play" aria-hidden="true"><span class="video-cover-play-icon"></span>Watch the clip</span>
+      </button>`
+    : post.youtube
+      ? `<iframe class="post-monument-youtube" src="${post.youtube}" title="Why Netflix is betting on systems thinkers, with Elizabeth Stone on Lenny’s Podcast" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`
+    : post.video
+      ? `<video class="post-monument-video" controls playsinline preload="metadata" poster="${cover}" aria-label="${coverAlt}"><source src="${post.video}" type="video/mp4">Your browser does not support embedded video.</video>`
+      : `<img src="${cover}" alt="${coverAlt}">`;
   const isEditorial = post.coverTreatment === "editorial";
   const coverTreatment = isEditorial ? " post-monument-photo--editorial" : "";
   const dropCapClass = post.dropCap ? "" : " post-body-content--no-drop-cap";
@@ -348,17 +412,17 @@ async function initPostPage() {
       <div class="post-monument-inner">
         <a href="/musings" class="post-monument-back">&larr; Musings</a>
         <figure class="post-monument-photo${coverTreatment}">
-          <img src="${cover}" alt="${coverAlt}">
+          ${heroMedia}
           <figcaption class="post-monument-title">
             ${isEditorial ? "" : `<p class="post-monument-eyebrow">Musings${tagLabel ? ` · ${tagLabel}` : ""}</p>`}
-            <h1>${post.title}</h1>
+            <h1${post.youtube && post.videoCover ? ' class="sr-only"' : ''}>${formatDisplayTitle(post.title)}</h1>
             <p class="post-monument-meta">${formatDate(post.date)} · ${post.readMinutes} min read</p>
             ${titleTags}
           </figcaption>
         </figure>
       </div>
     </section>
-    <section class="post-story-layout${isEditorial ? " post-story-layout--editorial" : ""}">
+    <section class="post-story-layout${isEditorial ? " post-story-layout--editorial" : ""}${post.collection === 'View Finder' ? ' post-story-layout--viewfinder' : ''}">
       ${isEditorial ? "" : `<aside class="post-story-rail" aria-label="Article information">
         <strong>OneShotLens Musings</strong>
         <span>Independent thinking.<br>Practical perspective.</span>
@@ -372,6 +436,23 @@ async function initPostPage() {
       </article>
     </section>
   `;
+
+  const videoCover = contentEl.querySelector('.post-monument-video-cover');
+  videoCover?.addEventListener('click', () => {
+    const iframe = document.createElement('iframe');
+    const src = new URL(videoCover.dataset.youtubeSrc);
+    src.searchParams.delete('t');
+    src.searchParams.set('start', '0');
+    src.searchParams.set('autoplay', '1');
+    iframe.className = 'post-monument-youtube';
+    iframe.src = src.href;
+    iframe.title = 'Elizabeth Stone in conversation with Lenny Rachitsky';
+    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.allowFullscreen = true;
+    videoCover.replaceWith(iframe);
+    iframe.focus();
+  });
 
   // Build a TOC from h2 headings if the post has enough of them to be worth it.
   const bodyContainer = document.getElementById("post-body");

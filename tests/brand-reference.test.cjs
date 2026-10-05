@@ -25,7 +25,8 @@ function walk(directory) {
     const lines = bytes.toString('utf8').split(/\r?\n/);
     lines.forEach((line, index) => {
       oldBrand.lastIndex = 0;
-      if (oldBrand.test(line)) findings.push({ relative, line: index + 1, text: line.trim() });
+      const isLegacyDomainRedirect = relative === 'netlify.toml' && /^from = "https:\/\/(?:www\.)?oneshotlabsai\.com\/\*"$|^from = "https:\/\/oneshotlabs-david-jergovic\.netlify\.app\/\*"$/.test(line.trim());
+      if (oldBrand.test(line) && !isLegacyDomainRedirect) findings.push({ relative, line: index + 1, text: line.trim() });
     });
   }
 }
@@ -33,10 +34,6 @@ function walk(directory) {
 walk(root);
 
 assert.deepEqual(legacyNames, [], 'No website asset or source filename should retain the former brand');
-assert.equal(findings.length, 2, `Unexpected former-brand references:\n${JSON.stringify(findings, null, 2)}`);
-for (const finding of findings) {
-  assert.equal(finding.relative, 'contact.html');
-  assert.match(finding.text, /buttondown\.com/);
-}
+assert.deepEqual(findings, [], `Former-brand references remain:\n${JSON.stringify(findings, null, 2)}`);
 
-console.log('PASS: OneShotLens is used throughout the website; only the verified working Buttondown account slug remains as an external dependency.');
+console.log('PASS: OneShotLens is used throughout the website with no former-brand references.');

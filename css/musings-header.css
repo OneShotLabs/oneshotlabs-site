@@ -33,6 +33,7 @@
 }
 
 .musings-site-header .logo-icon {
+  --trim: var(--gold, #c6a153);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -155,3 +156,7 @@
     left: 45px !important;
   }
 }
+
+
+/* 2026-09-28: three-line menu icon replaces the "Menu" label (same navy); becomes an X when open. */
+.musings-site-header .mobile-menu summary{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:10px;list-style:none}.musings-site-header .mobile-menu summary::-webkit-details-marker{display:none}.musings-site-header .menu-bars{display:flex;flex-direction:column;gap:5px}.musings-site-header .menu-bars i{display:block;width:22px;height:2px;border-radius:1px;background:#1d2f4e;transition:transform .25s ease,opacity .2s ease}.musings-site-header .mobile-menu[open] .menu-bars i:nth-child(1){transform:translateY(7px) rotate(45deg)}.musings-site-header .mobile-menu[open] .menu-bars i:nth-child(2){opacity:0}.musings-site-header .mobile-menu[open] .menu-bars i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}@media(prefers-reduced-motion:reduce){.musings-site-header .menu-bars i{transition:none}}

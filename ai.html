@@ -1,15 +1,110 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI — OneShotLens</title><meta name="description" content="An independent practice in applied AI. Explore the tools, ideas, and human judgment changing the scope of work."><link rel="canonical" href="https://oneshotlens.com/ai"><link rel="icon" href="favicon.svg" type="image/svg+xml"><script>/* Hold the first AI paint behind navy so navigation can never flash. */(()=>{try{const t=Number(sessionStorage.getItem('osl-ai-entrance'));if(Date.now()-t<15000)document.documentElement.classList.add('ai-prepaint')}catch{}})();</script><style>html.ai-prepaint,html.ai-prepaint body{background:#1d2f4e!important}html.ai-prepaint body>*{visibility:hidden}</style><script src="js/navy-veil.js?v=20260920-ai-route" defer></script>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,450;9..144,500;9..144,600&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;family=Space+Mono:wght@400;700&amp;family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&amp;family=Poppins:ital,wght@0,400;1,400&amp;family=Barlow+Condensed:wght@500;600;700&amp;display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/style.css?v=20260925-cream-menu">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Applied AI Systems for Commercial Real Estate | OneShotLens</title><meta name="description" content="Explore how OneShotLens connects AI tools, workflows, controls and human judgment for commercial real estate finance teams."><link rel="canonical" href="https://oneshotlens.com/ai"><meta property="og:site_name" content="OneShotLens"><meta property="og:title" content="Applied AI Systems. Built Around Judgment."><meta property="og:description" content="Tools, workflows and controls for commercial real estate finance — directed by human judgment."><meta property="og:type" content="website"><meta property="og:url" content="https://oneshotlens.com/ai"><meta property="og:image" content="https://oneshotlens.com/assets/brand/oneshotlens-social-card.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="OneShotLens wordmark and star-and-corners logo on a cream background"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Applied AI Systems. Built Around Judgment."><meta name="twitter:description" content="Tools, workflows and controls for commercial real estate finance — directed by human judgment."><meta name="twitter:image" content="https://oneshotlens.com/assets/brand/oneshotlens-social-card.png"><meta name="theme-color" content="#1d2f4e"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32"><link rel="shortcut icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180"><script>/* Hold the first AI paint behind navy so navigation can never flash. */(()=>{try{const t=Number(sessionStorage.getItem('osl-ai-entrance'));if(Date.now()-t<15000)document.documentElement.classList.add('ai-prepaint')}catch{}})();
+/* A reload always begins at the top with the system closed; the browser must not restore a mid-page position. */(()=>{try{if('scrollRestoration' in history)history.scrollRestoration='manual';if(!location.hash)scrollTo(0,0);addEventListener('DOMContentLoaded',()=>{const x=document.querySelector('.method-expansion');if(x)x.open=false;if(!location.hash)scrollTo(0,0);});}catch{}})();
+/* First visit in a session opens on the galaxy arrival; ?galaxy replays it. Deep links skip it. */(()=>{try{if(matchMedia('(prefers-reduced-motion: reduce)').matches||location.hash)return;if(/[?&]galaxy\b/.test(location.search))sessionStorage.removeItem('osl-ai-galaxy');if(!sessionStorage.getItem('osl-ai-galaxy'))document.documentElement.classList.add('ai-intro')}catch{}})();</script><style>html.ai-prepaint,html.ai-prepaint body{background:#1d2f4e!important}html.ai-prepaint body>*{visibility:hidden}
+html.ai-intro .fabric{background:#0c1834!important}html.ai-intro .fabric .copy,html.ai-intro .site-header,html.ai-intro .fabric .motion-toggle{visibility:hidden;animation:osl-intro-failsafe 0s 14s forwards}html.ai-intro .fabric .copy .fabric-title{visibility:visible;opacity:0;animation:osl-title-failsafe 0s 14s forwards}@keyframes osl-intro-failsafe{to{visibility:visible}}@keyframes osl-title-failsafe{to{opacity:1}}</style><script src="js/analytics.js?v=20260928" defer></script><script src="js/navy-veil.js?v=20260920-ai-route" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,450;9..144,500;9..144,600&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;family=Space+Mono:wght@400;700&amp;family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400&amp;family=Poppins:ital,wght@0,400;1,400&amp;family=Barlow+Condensed:wght@500;600;700&amp;display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css?v=20260927-themed-menu">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
-<link rel="stylesheet" href="css/lumen.css?v=20260925-scroll-release">
+<link rel="stylesheet" href="css/lumen.css?v=20261004-galaxy">
 <style>
-:root{--study-navy:#1d2f4e}html{scroll-behavior:smooth}body.study{margin:0;background:var(--study-navy);color:#fffdf8;overflow-x:clip}.study .site-header{position:absolute;inset:0 0 auto;z-index:10;background:linear-gradient(#1d2f4eee,#1d2f4e00);border:0}.study main{overflow:clip}.study-section{min-height:100svh;position:relative;isolation:isolate;display:flex;align-items:flex-end;padding:clamp(28px,5vw,88px);padding-top:130px}.art{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none}.fabric .art{mask-image:linear-gradient(#000 0%,#000 65%,transparent 100%)}.fabric video{opacity:0;transition:opacity 1.1s}.fabric video.ready{opacity:1}.copy{max-width:650px;position:relative;z-index:1}.copy .eyebrow{font:500 11px/1.5 "Barlow Condensed",Arial,sans-serif;letter-spacing:.22em;color:#c6a153;margin:0 0 22px}.copy h1,.copy h2{font:400 clamp(40px,5.7vw,86px)/1.03 Fraunces,Georgia,serif;letter-spacing:-.045em;color:#fffdf8;margin:0 0 28px}.copy p{font:400 clamp(16px,1.3vw,21px)/1.7 Inter,Arial,sans-serif;color:#fffdf8}.copy a{font:400 15px/1.5 Inter,Arial,sans-serif;color:#fffdf8;text-decoration:none;border-bottom:1px solid #c6a153;padding-bottom:9px;display:inline-block}.navy-interval{height:65svh;background:var(--study-navy)}.horizon{align-items:flex-start;min-height:110svh;padding-top:10svh}.horizon .art{mask-image:linear-gradient(transparent 0%,#000 23%,#000 84%,transparent 100%)}.horizon .copy{max-width:560px}.horizon h2{font-size:clamp(42px,5.8vw,90px)}.horizon .copy a{margin-top:24px}.study-footer{padding:28px 5vw 48px;display:flex;justify-content:space-between;gap:20px;color:#c9c2b0;font:12px/1.5 Inter,Arial,sans-serif}.motion-toggle{position:absolute;right:5vw;bottom:5vw;z-index:2;background:#1d2f4ecc;color:#fffdf8;border:1px solid #ffffff55;border-radius:0;padding:10px 15px;font:12px Inter,Arial,sans-serif;cursor:pointer}.motion-toggle:focus-visible,a:focus-visible{outline:2px solid #c6a153;outline-offset:6px}.study-note{color:#c9c2b0;font-size:12px}@media(max-width:700px){.study-section{min-height:90svh}.fabric .art{object-position:65% top;height:75%;mask-image:linear-gradient(#000 0%,#000 55%,transparent 100%)}.copy{max-width:90%}.copy h1{font-size:clamp(40px,10vw,64px)}.navy-interval{height:50svh}.horizon{min-height:100svh;padding-top:4vh}.horizon .art{object-position:64% center;top:14%;height:86%;mask-image:linear-gradient(transparent 0%,#000 30%,#000 85%,transparent 100%)}.horizon .copy{max-width:94%}.motion-toggle{bottom:18px;right:22px}.study-footer{flex-direction:column}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.fabric video{display:none}.motion-toggle{display:none}}
+:root{--study-navy:#1d2f4e}html{scroll-behavior:smooth}body.study{margin:0;background:var(--study-navy);color:#fffdf8;overflow-x:clip}.study .site-header{position:absolute;inset:0 0 auto;z-index:10;background:linear-gradient(#0c1630d9,#0c163000);border:0}.study main{overflow:clip}.study-section{min-height:100svh;position:relative;isolation:isolate;display:flex;align-items:flex-end;padding:clamp(28px,5vw,88px);padding-top:130px}.art{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none}.fabric .art{mask-image:linear-gradient(#000 0%,#000 65%,transparent 100%)}.fabric video{opacity:0;transition:opacity 1.1s}.fabric video.ready{opacity:1}.copy{max-width:650px;position:relative;z-index:1}.copy .eyebrow{font:500 11px/1.5 "Barlow Condensed",Arial,sans-serif;letter-spacing:.22em;color:#c6a153;margin:0 0 22px}.copy h1,.copy h2{font:400 clamp(40px,5.7vw,86px)/1.03 Fraunces,Georgia,serif;letter-spacing:-.045em;color:#fffdf8;margin:0 0 28px}.copy p{font:400 clamp(16px,1.3vw,21px)/1.7 Inter,Arial,sans-serif;color:#fffdf8}.copy a{font:400 15px/1.5 Inter,Arial,sans-serif;color:#fffdf8;text-decoration:none;border-bottom:1px solid #c6a153;padding-bottom:9px;display:inline-block}.navy-interval{height:65svh;background:var(--study-navy)}.horizon{align-items:flex-start;min-height:110svh;padding-top:10svh}.horizon .art{mask-image:linear-gradient(transparent 0%,#000 23%,#000 84%,transparent 100%)}.horizon .copy{max-width:560px}.horizon h2{font-size:clamp(42px,5.8vw,90px)}.horizon .copy a{margin-top:24px}.study-footer{padding:28px 5vw 48px;display:flex;justify-content:space-between;gap:20px;color:#c9c2b0;font:12px/1.5 Inter,Arial,sans-serif}.motion-toggle{position:absolute;right:5vw;bottom:5vw;z-index:2;background:#1d2f4ecc;color:#fffdf8;border:1px solid #ffffff55;border-radius:0;padding:10px 15px;font:12px Inter,Arial,sans-serif;cursor:pointer}.motion-toggle:focus-visible,a:focus-visible{outline:2px solid #c6a153;outline-offset:6px}.study-note{color:#c9c2b0;font-size:12px}@media(max-width:700px){.study-section{min-height:90svh}.fabric .art{object-position:65% top;height:75%;mask-image:linear-gradient(#000 0%,#000 55%,transparent 100%)}.copy{max-width:90%}.copy h1{font-size:clamp(40px,10vw,64px)}.navy-interval{height:50svh}.horizon{min-height:100svh;padding-top:4vh}.horizon .art{object-position:64% center;top:14%;height:86%;mask-image:linear-gradient(transparent 0%,#000 30%,#000 85%,transparent 100%)}.horizon .copy{max-width:94%}.motion-toggle{bottom:18px;right:22px}.study-footer{flex-direction:column}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.fabric video{display:none}.motion-toggle{display:none}}
 .fabric .copy h1{font-size:clamp(40px,5vw,72px)}
 .fabric::after{content:"";position:absolute;inset:auto auto 0 0;width:55%;height:65%;z-index:-1;pointer-events:none;background:linear-gradient(90deg,#1d2f4eb8,transparent);mask-image:linear-gradient(transparent,#000 40%)}
 @media(max-width:700px){.fabric::after{display:none}.fabric .copy h1{font-size:clamp(40px,10vw,64px)}}
 html{overflow-x:clip}
+/* The Fabric lockup, shared with the Musings feature: italic "The", a gold
+   diamond rule, and a tall condensed Bodoni Moda display word. */
+.fabric .copy h1.fabric-title{display:grid;justify-items:center;width:max-content;font:400 16px/1 "Bodoni Moda",Georgia,serif;letter-spacing:normal;margin:0 0 22px;color:#fffdf8;text-shadow:0 2px 22px #0b162ecc;will-change:transform,opacity}
+/* "THE" shares the display cut and condensing of FABRIC, at a smaller size, centred above it. */
+.fabric-title .title-the{display:block;font:400 clamp(30px,3.2vw,48px)/1 "Bodoni Moda",Georgia,serif;font-variation-settings:"opsz" 96;text-transform:uppercase;letter-spacing:.14em;margin-right:-.14em;transform:scaleX(.57);transform-origin:50% 50%}
+.fabric-title .title-ornament{display:block;width:64px;height:1px;background:#c5a05960;margin:14px auto 16px;position:relative}
+.fabric-title .title-ornament::after{content:"";width:3px;height:3px;position:absolute;left:31px;top:-1px;background:#c5a059;transform:rotate(45deg)}
+.fabric-title .title-fabric{display:inline-block;font:400 clamp(118px,13.4vw,206px)/.92 "Bodoni Moda",Georgia,serif;font-variation-settings:"opsz" 96;letter-spacing:-.035em;transform:scaleX(.57);transform-origin:0 50%;margin-right:-1.429em}
+.fabric .copy p.standfirst{font:400 clamp(16px,1.3vw,19px)/1.6 "Source Sans 3",Inter,Arial,sans-serif;color:#e3e7ec;margin:0 0 26px;text-shadow:0 2px 16px #13243b88}
+.fabric .copy p.standfirst span{display:inline-block}
+/* The lockup sits low, in the open navy beneath the silk's hem; the subtext
+   follows close beneath it with a tighter rhythm. */
+body.fabric-material-study .fabric:not(.x){padding-bottom:clamp(62px,7.5vh,86px)}
+.fabric .copy h1.fabric-title{margin-bottom:16px}
+.fabric-title .title-fabric{font-size:clamp(104px,11.2vw,178px)}
+.fabric-title .title-the{font-size:clamp(28px,2.8vw,42px)}
+.fabric .copy p.standfirst{margin-bottom:18px}
+.fabric .copy>a{padding-bottom:7px}
+@media(max-width:700px){body.fabric-material-study .fabric:not(.x){padding-bottom:64px}}
+/* The sky is no longer flat navy, so the copy's opaque safe area becomes a
+   feathered scrim that holds legibility without drawing a box. */
+.fabric .copy{background:none!important;box-shadow:none!important;max-width:520px}
+.fabric .copy::before{content:"";position:absolute;inset:-110px -170px -70px -150px;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,#152745d9,#152745a6 42%,#15274540 72%,transparent)}
+/* A founder's note: a quiet card in the fabric's upper-left corner once the
+   system opens. It folds to a small tab and never covers the method panel. */
+.founder-note{position:absolute;top:92px;left:3vw;z-index:4;width:min(320px,calc(100% - 32px));background:#12224099;border:1px solid #c6a15355;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 18px 50px #050b1866;color:#e9eef5;opacity:0;transform:translate3d(0,8px,0);transition:opacity 1s cubic-bezier(.2,.65,.2,1),transform 1.1s cubic-bezier(.16,.76,.18,1)}
+.founder-note.is-visible{opacity:1;transform:none}
+.founder-note[hidden]{display:none}
+body:not(.exploring-system) .founder-note{display:none}
+.founder-note-tab{display:flex;width:100%;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:none;border:0;color:#d9bf86;font:500 10px/1.4 "Barlow Condensed",Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;text-align:left}
+.founder-note-sign{font:400 14px/1 Inter,Arial,sans-serif;color:#c6a153;transform:rotate(45deg);transition:transform .5s cubic-bezier(.16,.76,.18,1)}
+.founder-note.is-folded .founder-note-sign{transform:none}
+.founder-note-body{padding:0 16px 16px;display:grid;grid-template-rows:1fr;transition:grid-template-rows .6s cubic-bezier(.16,.76,.18,1),padding .6s}
+.founder-note-body>*{overflow:hidden}
+.founder-note.is-folded{width:auto}
+.founder-note.is-folded .founder-note-body{display:none}
+.founder-note p{margin:0;font:400 14px/1.6 "Source Sans 3",Inter,Arial,sans-serif;color:#e3e8ef}
+.founder-note p.founder-note-by{margin-top:10px;font:italic 400 16px/1.2 "Bodoni Moda",Georgia,serif;color:#f2e8d3}
+.founder-note-tab:focus-visible{outline:1px solid #c6a153;outline-offset:-1px}
+@media(max-width:700px){.founder-note{top:76px;left:12px;width:calc(100% - 24px)}.founder-note p{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.founder-note{transition:none}}
+/* The overture: a single italic word between gold hairlines. */
+.lumen-overture{position:absolute;left:50%;top:36%;transform:translate(-50%,-50%);margin:0;z-index:3;display:flex;align-items:center;gap:22px;white-space:nowrap;
+  font:italic 400 clamp(26px,2.5vw,42px)/1 "Bodoni Moda",Georgia,serif;font-variation-settings:"opsz" 28;color:#f2e8d3;letter-spacing:.1em;opacity:0;pointer-events:none;text-shadow:0 0 34px #0c1834}
+.lumen-overture::before,.lumen-overture::after{content:"";width:44px;height:1px;background:linear-gradient(90deg,transparent,#c5a059aa)}
+.lumen-overture::after{background:linear-gradient(90deg,#c5a059aa,transparent)}
+html:not(.ai-intro) .lumen-overture{display:none}
+/* The unveiling: each letter of the name rises out of a soft, warm light. */
+.fabric-title .title-fabric>span{display:inline-block}
+.fabric-title.is-unveiling .title-fabric>span{animation:fabric-rise 2.8s cubic-bezier(.19,.72,.14,1) both;animation-delay:calc(var(--i)*150ms + 350ms)}
+.fabric-title.is-unveiling .title-the{animation:fabric-the 2.6s cubic-bezier(.19,.72,.14,1) 1.5s both}
+.fabric-title.is-unveiling .title-ornament{animation:fabric-rule 2s cubic-bezier(.65,0,.25,1) 1.2s both}
+.fabric-title.is-unveiling .title-ornament::after{animation:fabric-fade 1.2s ease 2.6s both}
+@keyframes fabric-rise{from{opacity:0;filter:blur(16px);transform:translate3d(0,.09em,0);text-shadow:0 0 .4em #ffefcf}55%{opacity:.9}to{opacity:1;filter:blur(0);transform:none;text-shadow:0 2px 22px #0b162ecc}}
+@keyframes fabric-the{from{opacity:0;letter-spacing:.7em;filter:blur(6px)}to{opacity:1;letter-spacing:.14em;filter:blur(0)}}
+@keyframes fabric-rule{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}}
+@keyframes fabric-fade{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.fabric-title.is-unveiling *{animation:none!important}}
+/* The AI Curve shares the night: midnight above the planet, navy at the
+   seams, a sparse star field with depth, and the same lockup. */
+.horizon{background:linear-gradient(#1d2f4e 0%,#15264a 16%,#0e1b37 40%,#0c1834 58%,#13234a 82%,#1d2f4e 100%)}
+.horizon .curve-sky{position:absolute;inset:0;width:100%;height:100%;z-index:-3;pointer-events:none}
+.horizon .copy h2.fabric-title{display:grid;justify-items:center;width:max-content;font:400 16px/1 "Bodoni Moda",Georgia,serif;letter-spacing:normal;margin:4px 0 26px;color:#fffdf8;text-shadow:0 2px 22px #0b162ecc}
+.curve-title .title-fabric{font-size:clamp(104px,12vw,184px);margin-right:-1.367em}
+.curve-title .title-the{font-size:clamp(26px,2.6vw,40px)}
+@media(max-width:700px){.curve-title .title-fabric{font-size:clamp(84px,25vw,120px)}.curve-title .title-the{font-size:clamp(22px,6vw,28px)}}
+/* The Curve's copy and controls speak the same language as the fabric:
+   Source Sans 3 standfirst, champagne-and-gold controls, a Bodoni caption. */
+.horizon .copy p.standfirst{font:400 clamp(16px,1.3vw,19px)/1.6 "Source Sans 3",Inter,Arial,sans-serif;color:#e3e7ec;margin:0 0 26px;text-shadow:0 2px 16px #0b162e99}
+.globe-stage.gl-rim .rim{display:none}
+.horizon .scene-controls{font:400 13px/1.4 "Source Sans 3",Inter,Arial,sans-serif;color:#e5d8b9}
+.horizon .scene-controls button,.horizon .scene-controls summary,body.fabric-material-study .fabric .motion-toggle{background:#14244199;border:1px solid #c6a15366;color:#e5d8b9;backdrop-filter:blur(8px);transition:border-color .4s,background .4s}
+.horizon .scene-controls button:hover,.horizon .scene-controls summary:hover,body.fabric-material-study .fabric .motion-toggle:hover{border-color:#c6a153;background:#1a2d4fcc}
+.horizon .direction-hint{font:500 10px/1.4 "Barlow Condensed",Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#d9bf86}
+.horizon .direction-panel{background:#14244ff2;border:1px solid #c6a15377;box-shadow:0 18px 50px #050b1888;backdrop-filter:blur(10px)}
+.horizon .direction-panel .panel-caption{font:italic 400 19px/1.3 "Bodoni Moda",Georgia,serif;color:#f2e8d3;letter-spacing:.02em}
+.horizon .direction-panel label{font:500 10px/1.6 "Barlow Condensed",Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#d9bf86}
+.horizon .direction-panel input[type=range]{accent-color:#c6a153}
+.horizon .direction-panel button{padding:10px 15px;font:400 13px/1.3 "Source Sans 3",Inter,Arial,sans-serif;color:#e5d8b9;background:#14244199;border:1px solid #c6a15366;cursor:pointer}
+.horizon .direction-panel button:hover{border-color:#c6a153}
+/* Sound: an opt-in control that only appears when a score is present. */
+.lumen-sound{position:fixed;right:5vw;top:92px;z-index:40;display:flex;align-items:center;gap:10px;padding:9px 13px;background:#14244199;border:1px solid #c6a15355;color:#e7dcc2;font:500 10px/1 "Barlow Condensed",Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;backdrop-filter:blur(8px);transition:opacity .8s}
+.lumen-sound[hidden]{display:none}
+.lumen-sound i{display:inline-flex;gap:2px;align-items:flex-end;height:10px}
+.lumen-sound i b{width:2px;height:3px;background:#c6a153;transition:height .3s}
+.lumen-sound[aria-pressed="true"] i b{animation:lumen-eq 1.6s ease-in-out infinite}
+.lumen-sound[aria-pressed="true"] i b:nth-child(2){animation-delay:.3s}.lumen-sound[aria-pressed="true"] i b:nth-child(3){animation-delay:.7s}
+@keyframes lumen-eq{0%,100%{height:3px}50%{height:10px}}
+html.ai-intro .lumen-sound{opacity:0;pointer-events:none}
+@media(max-width:700px){.lumen-sound{right:16px;top:80px;padding:8px 11px}}
+@media(prefers-reduced-motion:reduce){.lumen-sound i b{animation:none!important}}
+@media(max-width:700px){.lumen-overture{top:40%;gap:14px}.lumen-overture::before,.lumen-overture::after{width:26px}.fabric .copy::before{inset:-60px -40px -40px -40px}.fabric-title .title-fabric{font-size:clamp(92px,27vw,132px)}.fabric-title .title-the{font-size:clamp(24px,7vw,32px)}.fabric .copy h1.fabric-title{margin-bottom:16px}.fabric .copy p.standfirst{font-size:16px;margin-bottom:20px}}
 </style><link rel="stylesheet" href="css/fabric-finish.css?v=20260914-merged1"><link rel="stylesheet" href="css/ai-fabric-study.css?v=20260925-scroll-release"></head><body class="study fabric-material-study">
   <header class="site-header">
     <div class="container-wide">
@@ -37,8 +132,12 @@ html{overflow-x:clip}
 <canvas class="art" id="fabric-breath" aria-hidden="true"></canvas>
 <div class="fabric-light" aria-hidden="true"></div><div class="light-veil" aria-hidden="true"></div>
 <div class="woven-network" aria-label="Tools woven into the practice"><svg aria-hidden="true"><g></g></svg><div class="woven-nodes"></div></div>
-<div class="copy"><h1 id="fabric-title">The scope of<br>possibility<br>is changing.</h1><a href="#woven-method">Explore the system</a></div>
+<div class="copy"><h1 id="fabric-title" class="fabric-title" aria-label="The Fabric"><span class="title-the">The</span><span class="title-ornament" aria-hidden="true"></span><span class="title-fabric"><span style="--i:0">F</span><span style="--i:1">A</span><span style="--i:2">B</span><span style="--i:3">R</span><span style="--i:4">I</span><span style="--i:5">C</span></span></h1><p class="standfirst"><span>An evolving experiment</span> <span>in frontier technology</span></p><a href="#woven-method">Explore the system</a></div>
 <button class="motion-toggle" type="button" id="motion-toggle" hidden>Pause motion</button>
+<aside class="founder-note" id="founder-note" aria-labelledby="founder-note-title" hidden>
+<button class="founder-note-tab" type="button" aria-expanded="true" aria-controls="founder-note-body"><span id="founder-note-title">A note from David</span><span class="founder-note-sign" aria-hidden="true">＋</span></button>
+<div class="founder-note-body" id="founder-note-body"><p>The Fabric reflects my understanding of how AI comes together: models, tools and connectors, guided by human judgment. Light traces a request through the process. Choose a category or tool below to follow its path. Drag to turn the fabric, or explore Motion settings to adjust the wind, light and orbit. As my understanding of the technology grows, this experience will evolve with it.</p><p class="founder-note-by">— David</p></div>
+</aside>
 </section>
 <section class="woven-method" id="woven-method" aria-labelledby="method-heading">
 <div class="method-heading"><p class="eyebrow">Woven into the work</p><h2 id="method-heading">An independent practice <br>in applied AI</h2></div>
@@ -54,7 +153,8 @@ html{overflow-x:clip}
 <section class="study-section horizon" id="horizon" aria-labelledby="curve-title">
 <img class="art" alt="" loading="lazy" src="https://d2ol7oe51mr4n9.cloudfront.net/user_3HaSz64vHIH2j2azYAPHNj7MQpb/58ffed4f-339f-4650-9f46-9422d9883f99.jpg">
 <div class="globe-stage" aria-hidden="true"><div class="globe-plane"><canvas id="globe-surface" width="2560" height="1440"></canvas><svg viewBox="0 0 2560 1440" class="rim"><defs><filter id="rim-bloom" x="-20%" y="-100%" width="140%" height="300%"><feGaussianBlur stdDeviation="5"/></filter><linearGradient id="rim-metal"><stop stop-color="#b9914c"/><stop offset=".45" stop-color="#fffdf3"/><stop offset=".72" stop-color="#eed8a4"/><stop offset="1" stop-color="#fffdf8"/></linearGradient></defs><g fill="none"><path class="rim-halo"/><path class="rim-gold"/><path class="rim-white"/></g></svg></div></div>
-<div class="copy"><p class="eyebrow">An instrument for reflection</p><h2 id="curve-title">The AI Curve.</h2><p>Access is a beginning.<br>What you do with it changes the work.</p><a href="/ai#ai-curve">Find your place ↗</a></div>
+<canvas class="curve-sky" aria-hidden="true"></canvas>
+<div class="copy"><p class="eyebrow">An instrument for reflection</p><h2 id="curve-title" class="fabric-title curve-title" aria-label="The Curve"><span class="title-the">The</span><span class="title-ornament" aria-hidden="true"></span><span class="title-fabric">CURVE</span></h2><p class="standfirst">Access is a beginning.<br>What you do with it changes the work.</p><a href="/ai#ai-curve">Find your place ↗</a></div>
 <div class="scene-controls"><span class="direction-hint">Move to guide light · Drag to turn</span><details><summary>Direct the scene <span aria-hidden="true">＋</span></summary><div class="direction-panel"><p class="panel-caption">A quieter kind of control.</p><label>Light direction<input id="light-direction" type="range" min="-1" max="1" step=".01" value="0"></label><label>Globe orientation<input id="globe-direction" type="range" min="-1" max="1" step=".01" value="0"></label><button id="replay-rim" type="button">Replay the light ↗</button><button id="reset-scene" type="button">Return to stillness</button></div></details><button id="globe-motion" type="button" aria-pressed="false">Pause motion</button></div>
 </section>
 <section class="questionnaire" id="questionnaire" aria-label="AI Curve questionnaire" hidden>
@@ -62,7 +162,7 @@ html{overflow-x:clip}
 <div class="questionnaire-paper"><div id="ai-curve-app" data-embedded="true" data-storage-namespace="live" data-share-url="https://oneshotlens.com/ai#ai-curve" aria-live="polite"><p>Preparing the questionnaire…</p></div></div>
 <p class="questionnaire-note">An instrument for reflection, not a professional certification.</p>
 </section>
-<link rel="stylesheet" href="css/fabric-questionnaire.css?v=20260914-merged1"><link rel="stylesheet" href="css/fabric-assessment-navy.css?v=20260914-merged1"><script src="js/fabric-questionnaire.js?v=20260914-merged1"></script><script src="js/fabric-results-globe.js?v=20260925-observer-guard"></script><script src="js/fabric-frontier-mark.js?v=20260925-observer-guard"></script>
+<link rel="stylesheet" href="css/fabric-questionnaire.css?v=20260914-merged1"><link rel="stylesheet" href="css/fabric-assessment-navy.css?v=20260928-no-double-globe"><link rel="stylesheet" href="css/curve-quiz.css?v=20261005"><script src="js/fabric-questionnaire.js?v=20260928-li-share2"></script><script src="js/curve-results-art.js?v=20261005"></script><script src="js/fabric-results-globe.js?v=20260925-observer-guard"></script><script src="js/fabric-frontier-mark.js?v=20260925-observer-guard"></script>
 </main><footer class="study-footer"><span>OneShotLens / Applied experiments</span><a href="contact.html">Start a conversation ↗</a></footer>
 <script>
 const toggle=document.querySelector('.nav-toggle'),nav=document.querySelector('#site-nav');
@@ -70,4 +170,4 @@ const backdrop=document.querySelector('.nav-backdrop');
 function setNav(open){toggle.setAttribute('aria-expanded',String(open));nav.classList.toggle('open',open);backdrop.classList.toggle('is-visible',open);document.body.style.overflow=open?'hidden':'';}
 toggle?.addEventListener('click',()=>setNav(toggle.getAttribute('aria-expanded')!=='true'));
 backdrop.addEventListener('click',()=>setNav(false));document.addEventListener('keydown',e=>{if(e.key==='Escape')setNav(false)});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setNav(false)));
-</script><script src="js/fabric-finish.js?v=20260924-unified-navy"></script><script src="js/fabric-cloth-3d.js?v=20260925-approved-pose"></script><script src="js/fabric-method-data.js?v=20260923-descriptions7"></script><script src="js/fabric-method.js?v=20260921-electric-preview8"></script><script src="js/fabric-scroll.js?v=20260914-merged1"></script><script src="js/fabric-explorer.js?v=20260921-hard-hide1"></script><link rel="stylesheet" href="css/fabric-method.css?v=20260916-layout15"></body></html>
+</script><script src="js/fabric-finish.js?v=20260924-unified-navy"></script><script src="js/fabric-cloth-3d.js?v=20260925-approved-pose"></script><script src="js/fabric-method-data.js?v=20260923-descriptions7"></script><script src="js/fabric-method.js?v=20260921-electric-preview8"></script><script src="js/fabric-scroll.js?v=20260914-merged1"></script><script src="js/curve-sky.js?v=20261004"></script><script src="js/fabric-sound.js?v=20261004"></script><script src="js/fabric-explorer.js?v=20260921-hard-hide1"></script><link rel="stylesheet" href="css/fabric-method.css?v=20260916-layout15"></body></html>

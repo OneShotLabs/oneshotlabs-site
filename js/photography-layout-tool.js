@@ -9,10 +9,22 @@
   const copyInput = document.querySelector("[data-copy-y]");
   const dividerInput = document.querySelector("[data-divider-y]");
   const buttonsInput = document.querySelector("[data-buttons-size]");
+  const photoSizeInput = document.querySelector("[data-photo-size]");
+  const photoXInput = document.querySelector("[data-photo-x]");
+  const photoYInput = document.querySelector("[data-photo-y]");
+  const photoFrameInput = document.querySelector("[data-photo-frame]");
+  const photoTextureInput = document.querySelector("[data-photo-texture]");
+  const photoBlueWashInput = document.querySelector("[data-photo-blue-wash]");
   const titleOutput = document.querySelector("[data-title-y-output]");
   const copyOutput = document.querySelector("[data-copy-y-output]");
   const dividerOutput = document.querySelector("[data-divider-y-output]");
   const buttonsOutput = document.querySelector("[data-buttons-size-output]");
+  const photoSizeOutput = document.querySelector("[data-photo-size-output]");
+  const photoXOutput = document.querySelector("[data-photo-x-output]");
+  const photoYOutput = document.querySelector("[data-photo-y-output]");
+  const photoFrameOutput = document.querySelector("[data-photo-frame-output]");
+  const photoTextureOutput = document.querySelector("[data-photo-texture-output]");
+  const photoBlueWashOutput = document.querySelector("[data-photo-blue-wash-output]");
   const headerChoices = Array.from(document.querySelectorAll("[data-header-choice]"));
   const deviceChoices = Array.from(document.querySelectorAll("[data-device-choice]"));
   const targetNote = document.querySelector("[data-layout-target-note]");
@@ -20,23 +32,37 @@
 
   const required = [
     titleInput, copyInput, dividerInput, buttonsInput,
+    photoSizeInput, photoXInput, photoYInput, photoFrameInput, photoTextureInput, photoBlueWashInput,
     titleOutput, copyOutput, dividerOutput, buttonsOutput,
+    photoSizeOutput, photoXOutput, photoYOutput, photoFrameOutput, photoTextureOutput, photoBlueWashOutput,
     targetNote, resetButton,
   ];
   if (required.some((element) => !element) || headerChoices.length !== 2 || deviceChoices.length !== 2) return;
 
   const settings = {
     web: {
-      title: { parameter: "titleY", property: "--photo-title-y-web", fallback: 49 },
+      title: { parameter: "titleY", property: "--photo-title-y-web", fallback: 50 },
       copy: { parameter: "copyY", property: "--photo-copy-y-web", fallback: 45 },
       divider: { parameter: "lineY", property: "--photo-divider-y-web", fallback: 62 },
       buttons: { parameter: "buttons", fallback: 79 },
+      photoSize: { parameter: "photoSize", property: "--photo-image-width-web", fallback: 49, unit: "%" },
+      photoX: { parameter: "photoX", property: "--photo-image-x-web", fallback: 0, unit: "px" },
+      photoY: { parameter: "photoY", property: "--photo-image-y-web", fallback: 60, unit: "px" },
+      photoFrame: { parameter: "photoFrame", property: "--photo-frame-width-web", fallback: 10, unit: "px" },
+      photoTexture: { parameter: "photoTexture", property: "--photo-texture-web", fallback: 25, unit: "%", normalized: true },
+      photoBlueWash: { parameter: "photoBlueWash", property: "--photo-blue-wash-web", fallback: 0, unit: "%", normalized: true },
     },
     mobile: {
       title: { parameter: "mTitleY", property: "--photo-title-y-mobile", fallback: 0 },
       copy: { parameter: "mCopyY", property: "--photo-copy-y-mobile", fallback: 0 },
       divider: { parameter: "mLineY", property: "--photo-divider-y-mobile", fallback: 0 },
       buttons: { parameter: "mButtons", fallback: 120 },
+      photoSize: { parameter: "mPhotoSize", property: "--photo-image-width-mobile", fallback: 53, unit: "%" },
+      photoX: { parameter: "mPhotoX", property: "--photo-image-x-mobile", fallback: 0, unit: "px" },
+      photoY: { parameter: "mPhotoY", property: "--photo-image-y-mobile", fallback: 0, unit: "px" },
+      photoFrame: { parameter: "mPhotoFrame", property: "--photo-frame-width-mobile", fallback: 10, unit: "px" },
+      photoTexture: { parameter: "mPhotoTexture", property: "--photo-texture-mobile", fallback: 18, unit: "%", normalized: true },
+      photoBlueWash: { parameter: "mPhotoBlueWash", property: "--photo-blue-wash-mobile", fallback: 0, unit: "%", normalized: true },
     },
   };
 
@@ -45,6 +71,12 @@
     copy: { input: copyInput, output: copyOutput, unit: "px" },
     divider: { input: dividerInput, output: dividerOutput, unit: "px" },
     buttons: { input: buttonsInput, output: buttonsOutput, unit: "%" },
+    photoSize: { input: photoSizeInput, output: photoSizeOutput, unit: "%" },
+    photoX: { input: photoXInput, output: photoXOutput, unit: "px" },
+    photoY: { input: photoYInput, output: photoYOutput, unit: "px" },
+    photoFrame: { input: photoFrameInput, output: photoFrameOutput, unit: "px" },
+    photoTexture: { input: photoTextureInput, output: photoTextureOutput, unit: "%" },
+    photoBlueWash: { input: photoBlueWashInput, output: photoBlueWashOutput, unit: "%" },
   };
 
   const buttonBaselines = {
@@ -85,7 +117,8 @@
     const value = clamp(rawValue, control.input, definition.fallback);
 
     if (key === "buttons") setButtonVariables(device, value);
-    else root.style.setProperty(definition.property, `${value}px`);
+    else if (definition.normalized) root.style.setProperty(definition.property, String(value / 100));
+    else root.style.setProperty(definition.property, `${value}${definition.unit || "px"}`);
 
     if (device === activeDevice) {
       control.input.value = String(value);

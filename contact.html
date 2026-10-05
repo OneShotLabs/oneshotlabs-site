@@ -3,16 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact — OneShotLens</title>
-  <meta name="description" content="Start a conversation with OneShotLens about a consequential problem, an ambitious idea, or a thoughtful build." />
+  <title>Contact OneShotLens | Start a Conversation</title>
+  <meta name="description" content="Contact OneShotLens about a consequential commercial real estate finance problem, an applied AI system, or a thoughtful build." />
+  <link rel="canonical" href="https://oneshotlens.com/contact" />
+  <meta property="og:site_name" content="OneShotLens" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Start a Conversation with OneShotLens" />
+  <meta property="og:description" content="Bring a consequential problem, an ambitious idea, or a project that deserves a thoughtful build." />
+  <meta property="og:url" content="https://oneshotlens.com/contact" />
+  <meta property="og:image" content="https://oneshotlens.com/assets/brand/oneshotlens-social-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="OneShotLens wordmark and star-and-corners logo on a cream background" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Start a Conversation with OneShotLens" />
+  <meta name="twitter:description" content="Bring a consequential problem, an ambitious idea, or a thoughtful build." />
+  <meta name="twitter:image" content="https://oneshotlens.com/assets/brand/oneshotlens-social-card.png" />
+  <meta name="theme-color" content="#1d2f4e" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,450;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=Poppins:ital,wght@0,400;1,400&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=20260925-cream-menu" />
+  <link rel="stylesheet" href="css/style.css?v=20260927-themed-menu" />
   <link rel="stylesheet" href="css/site-motion.css?v=20260919-signatures1" />
+  <script src="js/analytics.js?v=20260928" defer></script>
   <script src="js/navy-veil.js?v=20260920-ai-route" defer></script>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
 </head>
 <body class="contact-page">
   <div class="grain-overlay" aria-hidden="true"></div>
@@ -47,7 +66,16 @@
         </p>
 
         <div class="contact-block" id="contact">
-          <form class="contact-form" id="contact-form" novalidate>
+          <form class="contact-form" id="contact-form" name="contact" method="POST" action="/contact?sent=1" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+            <input type="hidden" name="form-name" value="contact" />
+            <input type="hidden" name="subject" value="New OneShotLens inquiry" />
+            <input type="hidden" name="utm_source" value="" />
+            <input type="hidden" name="utm_medium" value="" />
+            <input type="hidden" name="utm_campaign" value="" />
+            <input type="hidden" name="utm_content" value="" />
+            <p hidden>
+              <label>Leave this field empty: <input name="bot-field" autocomplete="off" tabindex="-1" /></label>
+            </p>
             <div class="form-row">
               <label for="cf-name">Name</label>
               <input type="text" id="cf-name" name="name" required autocomplete="name" />
@@ -60,31 +88,12 @@
               <label for="cf-message">Message</label>
               <textarea id="cf-message" name="message" rows="5" required></textarea>
             </div>
-            <button type="submit" class="btn btn-accent">Send message</button>
+            <button type="submit" class="btn btn-accent" id="contact-form-submit">Send message</button>
             <p class="form-status" id="contact-form-status" role="status" aria-live="polite"></p>
           </form>
+          <p class="contact-direct">Prefer email? <a href="mailto:david@oneshotlens.com">david@oneshotlens.com</a></p>
         </div>
 
-        <div class="newsletter-block" id="newsletter">
-          <h2>Newsletter</h2>
-          <p class="newsletter-copy">Occasional notes on AI in commercial real estate and photography. No spam.</p>
-          <form
-            class="contact-form newsletter-form"
-            id="newsletter-form"
-            action="https://buttondown.com/api/emails/embed-subscribe/oneshotlabs"
-            method="post"
-            target="popupwindow"
-            onsubmit="window.open('https://buttondown.com/oneshotlabs', 'popupwindow')"
-          >
-            <div class="form-row">
-              <label for="nl-email">Email</label>
-              <input type="email" id="nl-email" name="email" required autocomplete="email" />
-            </div>
-            <input type="hidden" name="embed" value="1" />
-            <button type="submit" class="btn btn-accent">Subscribe</button>
-            <p class="form-status" id="newsletter-form-status" role="status" aria-live="polite"></p>
-          </form>
-        </div>
       </div>
     </div>
   </section>

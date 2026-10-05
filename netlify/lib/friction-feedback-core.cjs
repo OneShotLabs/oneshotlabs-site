@@ -1,5 +1,11 @@
 const crypto = require('node:crypto');
 
+let OpenAIClient;
+
+exports.configureOpenAI = (client) => {
+  OpenAIClient = client;
+};
+
 const PROMPT_VERSION = '2026.08-friction-v1';
 const DEFAULT_MODEL = 'gpt-5.6-luna';
 const LEVELS = new Set(['Exploring', 'Adopting', 'Integrating', 'Advanced', 'Frontier']);
@@ -72,15 +78,37 @@ async function persist(record) {
   }
 }
 
-exports.handler = async (event) => {
+exports.handler = async (event, handlerContext = {}) => {
+  const startedAt = Date.now();
+  const requestId = handlerContext.awsRequestId || crypto.randomUUID();
+  const logConnectivity = (outcome, detail = {}) => {
+    const record = {
+      event: 'oneshot_ai_connectivity',
+      request_id: requestId,
+      outcome,
+      prompt_version: PROMPT_VERSION,
+      duration_ms: Date.now() - startedAt,
+      ...detail,
+    };
+    (outcome === 'success' ? console.info : console.error)(JSON.stringify(record));
+  };
   if (event.httpMethod !== 'POST') return json(405, { error: 'method_not_allowed' });
-  if ((event.body || '').length > 12000) return json(413, { error: 'payload_too_large' });
+  if ((event.body || '').length > 12000) {
+    logConnectivity('rejected', { reason: 'payload_too_large', status: 413 });
+    return json(413, { error: 'payload_too_large' });
+  }
 
   let payload;
-  try { payload = JSON.parse(event.body || '{}'); } catch { return json(400, { error: 'invalid_json' }); }
+  try { payload = JSON.parse(event.body || '{}'); } catch {
+    logConnectivity('rejected', { reason: 'invalid_json', status: 400 });
+    return json(400, { error: 'invalid_json' });
+  }
   const problem = clean(payload.problem, 1200);
   const context = payload.context || {};
-  if (problem.length < 20 || !validContext(context)) return json(400, { error: 'invalid_submission' });
+  if (problem.length < 20 || !validContext(context)) {
+    logConnectivity('rejected', { reason: 'invalid_submission', status: 400, message_length: problem.length });
+    return json(400, { error: 'invalid_submission' });
+  }
 
   const visitorId = clean(payload.visitor_id, 100);
   const visitorHash = visitorId
@@ -89,25 +117,44 @@ exports.handler = async (event) => {
 
   let feedback;
   let model = process.env.OPENAI_MODEL || DEFAULT_MODEL;
+  const gatewayKey = process.env.OPENAI_API_KEY || process.env.NETLIFY_AI_GATEWAY_KEY;
+  const gatewayBaseUrl = (
+    process.env.OPENAI_BASE_URL
+    || process.env.NETLIFY_AI_GATEWAY_URL
+    || 'https://api.openai.com'
+  ).replace(/\/+$/, '');
+  const connection = process.env.NETLIFY_AI_GATEWAY_URL || process.env.OPENAI_BASE_URL
+    ? 'netlify_ai_gateway'
+    : 'direct_openai';
   if (process.env.AI_CURVE_DEMO_FEEDBACK === 'true') {
     feedback = demoFeedback(problem, context);
     model = 'local-demonstration';
   } else {
-    if (!process.env.OPENAI_API_KEY) return json(503, { error: 'feedback_not_configured' });
+    if (!gatewayKey) {
+      logConnectivity('not_configured', { status: 503, model, connection, message_length: problem.length });
+      return json(503, { error: 'feedback_not_configured' });
+    }
 
-    const moderation = await fetch('https://api.openai.com/v1/moderations', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'omni-moderation-latest', input: problem }),
-    });
-    if (!moderation.ok) return json(502, { error: 'moderation_unavailable' });
-    const moderationBody = await moderation.json();
-    if (moderationBody.results?.[0]?.flagged) return json(400, { error: 'submission_not_supported' });
+    if (!OpenAIClient) {
+      logConnectivity('not_configured', { status: 503, model, connection, reason: 'client_unavailable', message_length: problem.length });
+      return json(503, { error: 'feedback_not_configured' });
+    }
+    const client = new OpenAIClient({ apiKey: gatewayKey, baseURL: gatewayBaseUrl });
+    let moderationBody;
+    try {
+      moderationBody = await client.moderations.create({ model: 'omni-moderation-latest', input: problem });
+    } catch (error) {
+      logConnectivity('moderation_error', { status: error.status || 502, model, connection, message_length: problem.length });
+      return json(502, { error: 'moderation_unavailable' });
+    }
+    if (moderationBody.results?.[0]?.flagged) {
+      logConnectivity('moderation_rejected', { status: 400, model, connection, message_length: problem.length });
+      return json(400, { error: 'submission_not_supported' });
+    }
 
-    const response = await fetch('https://api.openai.com/v1/responses', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+    let responseBody;
+    try {
+      responseBody = await client.responses.create({
         model,
         store: false,
         safety_identifier: visitorHash || undefined,
@@ -140,14 +187,16 @@ exports.handler = async (event) => {
           },
         },
         max_output_tokens: 1200,
-      }),
-    });
-    if (!response.ok) {
-      console.error('OpenAI feedback request failed', response.status, await response.text());
+      });
+    } catch (error) {
+      console.error('OpenAI feedback request failed', error.status || 502, error.message || 'unknown_error');
+      logConnectivity('provider_error', { status: error.status || 502, model, connection, message_length: problem.length });
       return json(502, { error: 'feedback_unavailable' });
     }
-    const responseBody = await response.json();
-    try { feedback = JSON.parse(extractOutputText(responseBody)); } catch { return json(502, { error: 'invalid_feedback' }); }
+    try { feedback = JSON.parse(extractOutputText(responseBody)); } catch {
+      logConnectivity('invalid_feedback', { status: 502, model, connection, message_length: problem.length });
+      return json(502, { error: 'invalid_feedback' });
+    }
     feedback.sources = extractSources(responseBody);
   }
 
@@ -165,5 +214,13 @@ exports.handler = async (event) => {
     feedback,
   };
   const storage = await persist(record);
+  logConnectivity('success', {
+    status: 200,
+    model,
+    connection: model === 'local-demonstration' ? 'demo' : connection,
+    message_length: problem.length,
+    storage,
+    sources: feedback.sources?.length || 0,
+  });
   return json(200, { id: record.id, feedback, storage, prompt_version: PROMPT_VERSION, model });
 };

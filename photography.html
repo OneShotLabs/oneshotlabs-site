@@ -3,14 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Photography — OneShotLens</title>
-  <meta name="description" content="OneShotLens — photography portfolio and musings." />
+  <title>Photography — Chicago, Travel and Family | OneShotLens</title>
+  <meta name="description" content="A personal photography portfolio by David Jergovic: Chicago, travel, family, landscape and the moments worth holding onto." />
+  <link rel="canonical" href="https://oneshotlens.com/photography" />
+  <meta property="og:site_name" content="OneShotLens" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Photography — OneShotLens" />
+  <meta property="og:description" content="Chicago, travel and the moments worth holding onto." />
+  <meta property="og:url" content="https://oneshotlens.com/photography" />
+  <meta property="og:image" content="https://oneshotlens.com/assets/brand/oneshotlens-social-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="OneShotLens wordmark and star-and-corners logo on a cream background" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Photography — OneShotLens" />
+  <meta name="twitter:description" content="Chicago, travel and the moments worth holding onto." />
+  <meta name="twitter:image" content="https://oneshotlens.com/assets/brand/oneshotlens-social-card.png" />
+  <meta name="theme-color" content="#1d2f4e" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=Source+Code+Pro:wght@400;500;600&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,450;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=Poppins:ital,wght@0,400;1,400&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=20260925-cream-menu" />
-  <link rel="stylesheet" href="css/photography-editorial.css?v=20260916-mobile-buttons-120" />
+  <link rel="stylesheet" href="css/style.css?v=20260927-themed-menu" />
+  <link rel="stylesheet" href="css/photography-editorial.css?v=20260927-responsive-hero" />
   <script>
     const photographyPreviewParams = new URLSearchParams(window.location.search);
     if (photographyPreviewParams.get("header") === "navy") {
@@ -20,8 +35,12 @@
       document.documentElement.dataset.layoutTool = "true";
     }
   </script>
+  <script src="js/analytics.js?v=20260928" defer></script>
   <script src="js/navy-veil.js?v=20260920-ai-route" defer></script>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
 </head>
 <body class="photo-page">
   <div class="grain-overlay" aria-hidden="true"></div>
@@ -69,6 +88,42 @@
       </label>
       <input id="photo-buttons-size" type="range" min="65" max="150" step="1" value="100" data-buttons-size />
 
+      <label for="photo-image-size">
+        <span>Photo size</span>
+        <output for="photo-image-size" data-photo-size-output>40%</output>
+      </label>
+      <input id="photo-image-size" type="range" min="20" max="100" step="1" value="40" data-photo-size />
+
+      <label for="photo-image-x">
+        <span>Photo horizontal</span>
+        <output for="photo-image-x" data-photo-x-output>0 px</output>
+      </label>
+      <input id="photo-image-x" type="range" min="-320" max="320" step="1" value="0" data-photo-x />
+
+      <label for="photo-image-y">
+        <span>Photo vertical</span>
+        <output for="photo-image-y" data-photo-y-output>0 px</output>
+      </label>
+      <input id="photo-image-y" type="range" min="-180" max="180" step="1" value="0" data-photo-y />
+
+      <label for="photo-frame-width">
+        <span>White frame</span>
+        <output for="photo-frame-width" data-photo-frame-output>0 px</output>
+      </label>
+      <input id="photo-frame-width" type="range" min="0" max="32" step="1" value="0" data-photo-frame />
+
+      <label for="photo-texture">
+        <span>Blue grain texture</span>
+        <output for="photo-texture" data-photo-texture-output>18%</output>
+      </label>
+      <input id="photo-texture" type="range" min="0" max="100" step="1" value="18" data-photo-texture />
+
+      <label for="photo-blue-wash">
+        <span>Blue wash</span>
+        <output for="photo-blue-wash" data-photo-blue-wash-output>0%</output>
+      </label>
+      <input id="photo-blue-wash" type="range" min="0" max="100" step="1" value="0" data-photo-blue-wash />
+
       <p class="photo-layout-tool-note" data-layout-target-note>Editing Web values. Negative positions move up.</p>
       <button type="button" data-layout-reset>Reset selected layout</button>
     </div>
@@ -99,9 +154,22 @@
       <h1 id="photo-title" class="photo-editorial-title" data-photo-title data-word="photo">PHOTO</h1>
     </div>
 
+    <figure class="photo-editorial-portrait photo-framed">
+      <img
+        src="images/photo-hero-cool-blue-retouched.png"
+        alt="Photographer making a self-portrait with a compact camera in soft blue window light"
+        width="1536"
+        height="1024"
+        decoding="async"
+        fetchpriority="high"
+      />
+      <span class="photo-blue-wash" aria-hidden="true"></span>
+    </figure>
+
     <div class="photo-editorial-copy">
-      <p class="photo-editorial-intro">I shoot with a Fujifilm X100V because it lets me decide how a photograph should feel before I take it. Custom film recipes that determine the color, texture, and character of an image can be programmed directly into the camera. The work happens up front; then, with one click, the camera produces a distinctive photograph that is print-ready. As a professional and a parent of young children, I don’t have hours to spend adjusting photos in Lightroom. The ability to produce a high quality image straight out of camera is a game changer. In a world of a trillion cell phone photos, I value the distinctive character that the X100V gives each photograph.</p>
-      <p class="photo-editorial-intro">The same philosophy shapes OneShotLens. Think carefully, build the right system, and make the decisive action simple. Whether it’s a camera setting, a creative prompt, or a production workflow, the goal remains the same. Results ready for production with intention already built in.</p>
+      <p class="photo-editorial-intro">This site began as an attempt to build a 2010s-era Tumblr blog to share photos in a now less conventional way. Instagram began to feel tired, and I was looking for an outlet to set these photos out into the universe and expect nothing back. Posted for posterity.</p>
+      <p class="photo-editorial-intro">I shoot with a Fujifilm X100V because it lets me decide how a photograph should feel before I take it. Custom film recipes that determine the color, texture, and character of an image can be programmed directly into the camera. The work happens up front; then, with one click, the camera produces a distinctive photograph that is print-ready. OneShot.</p>
+      <p class="photo-editorial-intro">As a professional and a parent of young children, I don’t have hours to spend adjusting photos in Lightroom. The ability to produce a high quality image straight out of camera is a game changer. In a world of a trillion cell phone photos, I value the distinctive character that the X100V gives each photo.</p>
     </div>
   </section>
 
@@ -151,7 +219,7 @@
   <script src="https://cdn.jsdelivr.net/npm/exifr@7.1.3/dist/full.umd.js" async></script>
   <script src="js/main.js" defer></script>
   <script src="js/photography.js?v=20260925-curation2" defer></script>
-  <script src="js/photography-layout-tool.js?v=20260916-mobile-buttons-120" defer></script>
+  <script src="js/photography-layout-tool.js?v=20260927-responsive-hero" defer></script>
   <script src="js/lightbox.js" defer></script>
 </body>
 </html>

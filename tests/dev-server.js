@@ -26,6 +26,7 @@ const routes = new Map([
   ['/musings', 'musings.html'],
   ['/photography', 'photography.html'],
   ['/musings/ai-has-a-branding-problem', 'musings/ai-has-a-branding-problem/index.html'],
+  ['/musings/systems-thinkers-netflix', 'musings/systems-thinkers-netflix/index.html'],
 ]);
 
 http.createServer((request, response) => {

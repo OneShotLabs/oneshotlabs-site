@@ -12,12 +12,12 @@ const edges=links.filter(([a,b])=>a<nodes.length&&b<nodes.length).map(([a,b])=>{
 const neighbors=i=>edges.filter(e=>e.a===i||e.b===i).map(e=>e.a===i?e.b:e.a);
 
 // Short editorial routes show a clear operating model, not a literal execution log.
-const routes=[[0,17,1,11,12],[0,17,1,11,12],[0,2,17],[0,3,17],[0,4,17],[0,5,17],[0,6,17],[0,7,17],[0,8,17,12],[0,9,17],[0,10,17],[0,17,1,11,12],[0,17,1,11,12],[0,17,1,11,12,13],[0,14,17],[15],[16],[0,17],[0,18,17],[0,19,17]];
+const routes=[[0,17,1,11,12],[0,17,1,11,12],[0,2,17],[0,3,17],[0,4,17],[1,5,17],[0,6,17],[0,7,17],[0,8,17,12],[0,9,17],[0,10,17],[0,17,1,11,12],[0,17,1,11,12],[0,17,1,11,12,13],[0,14,17],[15],[16],[0,17],[0,18,17],[0,19,17]];
 const ns='http://www.w3.org/2000/svg',traceLayer=document.createElementNS(ns,'g');traceLayer.classList.add('tool-traces');svg.append(traceLayer);
 const traceHead=document.createElementNS(ns,'circle');traceHead.setAttribute('r','3.5');traceHead.classList.add('tool-trace-head');svg.append(traceHead);traceHead.style.display='none';
 const routeCaption=document.createElement('p');routeCaption.className='method-route';routeCaption.textContent='CORE PATH · Plan → Decide → Make → Publish';detail.append(routeCaption);
 function startTrace(i){route=routes[i];document.dispatchEvent(new CustomEvent('lumen-journey',{detail:{route:[...route],nodeId:i}}));traceTime=0;traceLast=0;traceRunning=true;traceLayer.replaceChildren();tracePaths=route.slice(1).map(()=>{const p=document.createElementNS(ns,'path');p.setAttribute('pathLength','1');traceLayer.append(p);return p});
-routeCaption.textContent=nodes[i].dormant?'Explored, then set aside — not part of the deployed system.':i===8?'PATH · Plan in ChatGPT → Call Higgsfield through the connector → Review with Human Judgment → Publish':i===0?'CORE PATH · Plan in ChatGPT → Apply Human Judgment → Build → Preserve → Publish':'PATH · ChatGPT sets direction → '+nodes[i].name+' is called → Human Judgment decides what moves forward';
+routeCaption.textContent=nodes[i].dormant?'Explored, then set aside — not part of the deployed system.':i===8?'PATH · Plan in ChatGPT → Call Higgsfield through the connector → Review with Human Judgment → Publish':i===0?'CORE PATH · Plan in ChatGPT → Apply Human Judgment → Build → Preserve → Publish':i===5?'PATH · Claude sets direction → Claude Design is called → Human Judgment decides what moves forward':'PATH · ChatGPT sets direction → '+nodes[i].name+' is called → Human Judgment decides what moves forward';
 svg.dataset.traceSelection=String(i);drawTrace(performance.now());}
 function drawTrace(now){const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
 if(traceRunning){const dt=traceLast?Math.min((now-traceLast)/1000,.05):0;traceLast=now;if(section.dataset.motion!=='paused')traceTime+=dt;if(reduced)traceTime=route.length;}

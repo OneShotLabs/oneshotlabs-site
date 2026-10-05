@@ -3,11 +3,11 @@ title: A Technology for Human Ambition
 date: 2026-09-18
 tags: [ai, work]
 excerpt: The loudest story about AI is what it may take away. The more interesting story is what it puts within reach.
-cover: /assets/editorial/ai-has-a-branding-problem-hero.png
+cover: /assets/editorial/ai-has-a-branding-problem-hero-v2.png
 coverAlt: Editorial illustration of a person pushing back an oversized warning tag labeled Threat to reveal a multipurpose tool
 coverTreatment: editorial
 dropCap: false
-socialImage: /assets/editorial/ai-has-a-branding-problem-social.png
+socialImage: /assets/editorial/ai-has-a-branding-problem-social-v2.png
 socialAlt: Editorial illustration of a person pushing back an oversized warning tag labeled Threat to reveal a multipurpose tool
 socialDescription: The loudest story about AI is what it may take away. The more interesting story is what it puts within reach.
 ---

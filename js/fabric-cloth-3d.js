@@ -7,12 +7,13 @@ const section=document.querySelector('.fabric'),canvas=document.querySelector('#
 if(!section||!canvas)return;
 Promise.all([import('three'),import('three/addons/controls/OrbitControls.js')])
   .then(([THREE,{OrbitControls}])=>mount(THREE,OrbitControls)).catch(fallback);
-function fallback(error){section.dataset.clothReady='false';section.dataset.lumen='fallback';console.warn('LUMEN: still image fallback',error);}
+function fallback(error){document.documentElement.classList.remove('ai-intro');section.dataset.clothReady='false';section.dataset.lumen='fallback';console.warn('LUMEN: still image fallback',error);}
 
 function mount(T,OrbitControls){
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const renderer=new T.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
-  renderer.setClearColor('#1d2f4e');renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));
+  const clearColor=new T.Color('#1d2f4e');
+  renderer.setClearColor(clearColor);renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));
   renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;
   const scene=new T.Scene(),camera=new T.PerspectiveCamera(36,1,.025,60),rig=new T.Group();scene.add(rig);
   const controls=new OrbitControls(camera,canvas);
@@ -26,9 +27,21 @@ function mount(T,OrbitControls){
   controls.mouseButtons={LEFT:T.MOUSE.ROTATE,MIDDLE:T.MOUSE.ROTATE,RIGHT:T.MOUSE.ROTATE};
   controls.touches={ONE:T.TOUCH.ROTATE,TWO:T.TOUCH.DOLLY_ROTATE};
   // Normal mobile browsing stays scrollable until Explore is explicitly open.
+  const clothTouches=new Set();
   canvas.addEventListener('pointerdown',event=>{
-    if(event.pointerType==='touch'&&!document.body.classList.contains('exploring-system'))event.stopImmediatePropagation();
+    if(event.pointerType!=='touch')return;
+    clothTouches.add(event.pointerId);
+    // Two fingers zoom the textile while one finger remains native page scroll.
+    controls.enableZoom=clothTouches.size>=2;
+    if(!document.body.classList.contains('exploring-system'))event.stopImmediatePropagation();
   },{capture:true});
+  const releaseClothTouch=event=>{
+    if(event.pointerType!=='touch')return;
+    clothTouches.delete(event.pointerId);
+    if(clothTouches.size<2)controls.enableZoom=false;
+  };
+  canvas.addEventListener('pointerup',releaseClothTouch,{capture:true});
+  canvas.addEventListener('pointercancel',releaseClothTouch,{capture:true});
   // A denser presentation mesh resolves gathered creases without faceted rims.
   // Bounded, coherent displacement preserves this authored drape while the
   // free fabric breathes. No pointer forces or accumulated simulation drift.
@@ -67,6 +80,9 @@ function mount(T,OrbitControls){
   rest.set(positions);
   const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.BufferAttribute(positions,3).setUsage(T.DynamicDrawUsage));geometry.setAttribute('uv',new T.BufferAttribute(uv,2));
   geometry.setAttribute('thickness',new T.BufferAttribute(thickness,1));
+  // Rest coordinates give the visitor's light a material-space metric, so it
+  // travels along the silk and folds with it rather than across the screen.
+  geometry.setAttribute('restPosition',new T.BufferAttribute(rest,3));
   const indices=[];for(let y=0;y<NY;y++)for(let x=0;x<NX;x++){const a=index(x,y),b=a+1,c=a+NX+1,d=c+1;indices.push(a,c,b,b,c,d);}geometry.setIndex(indices);geometry.computeVertexNormals();
   const nodeUniforms=Array.from({length:20},()=>new T.Vector4(.5,.5,0,0));
   // Sample fine fibre detail from a textile-only patch of the existing site
@@ -88,13 +104,22 @@ function mount(T,OrbitControls){
     vertexShader:`varying vec3 world;void main(){vec4 p=modelMatrix*vec4(position,1.);world=p.xyz;gl_Position=projectionMatrix*viewMatrix*p;}`,
     fragmentShader:`uniform vec3 uOrigin;varying vec3 world;void main(){gl_FragColor=vec4(vec3(length(world-uOrigin)/20.),1.);}`});
   const material=new T.ShaderMaterial({side:T.DoubleSide,transparent:true,forceSinglePass:false,depthWrite:true,uniforms:{uTime:{value:0},uNodes:{value:nodeUniforms},uFabric:{value:fibreTexture},uFabricReady:{value:0},uLightDepth:{value:lightTarget.texture},uLightOrigin:{value:lightOrigin},uDepthBias:{value:floatLight?.04:.12}},
-    vertexShader:`attribute float thickness;varying float vThickness;varying vec2 vUv;varying vec3 vWorld;varying vec3 vNormal;
-      void main(){vThickness=thickness;vUv=uv;vec4 w=modelMatrix*vec4(position,1.);vWorld=w.xyz;vNormal=normalize((vec4(normalMatrix*normal,0.)*viewMatrix).xyz);gl_Position=projectionMatrix*viewMatrix*w;}`,
+    vertexShader:`attribute float thickness;attribute vec3 restPosition;varying float vThickness;varying vec2 vUv;varying vec3 vWorld;varying vec3 vNormal;varying vec3 vRest;
+      void main(){vThickness=thickness;vUv=uv;vRest=restPosition;vec4 w=modelMatrix*vec4(position,1.);vWorld=w.xyz;vNormal=normalize((vec4(normalMatrix*normal,0.)*viewMatrix).xyz);gl_Position=projectionMatrix*viewMatrix*w;}`,
     fragmentShader:`precision highp float;
       uniform float uTime;uniform float uNodeStyle;uniform float uNodeMaxPx;uniform float uViewportHeight;uniform float uProjectionY;uniform vec4 uNodes[20];uniform sampler2D uFabric;uniform float uFabricReady;
       uniform samplerCube uLightDepth;uniform vec3 uLightOrigin;uniform float uDepthBias;
       uniform vec4 uNodeClip[20];uniform mat4 uViewProjection;uniform vec2 uViewportSize;
-      varying float vThickness;varying vec2 vUv;varying vec3 vWorld;varying vec3 vNormal;
+      varying float vThickness;varying vec2 vUv;varying vec3 vWorld;varying vec3 vNormal;varying vec3 vRest;
+      uniform vec4 uHover;uniform vec4 uRipples[4];uniform float uRippleSpeed;uniform float uTouch;uniform float uReveal;
+      uniform vec3 uBeamPos;uniform vec3 uBeamDir;uniform vec3 uBeamColor;uniform float uBeamStrength;uniform vec3 uLightTint;
+      float caustic(vec2 p,float t){
+        // Light through moving water: a few folded sine fields sharpen into bright filaments.
+        vec2 i=p;float c=0.;
+        for(int n=0;n<4;n++){float tt=t*(1.-3.5/float(n+1));i=p+vec2(cos(tt-i.x)+sin(tt+i.y),sin(tt-i.y)+cos(tt+i.x));
+          c+=1./length(vec2(p.x/(sin(i.x+tt)/.005),p.y/(cos(i.y+tt)/.005)));}
+        c/=4.;c=1.17-pow(c,1.4);return clamp(pow(abs(c),8.),0.,1.);
+      }
       float transmitted(vec3 direction,float distance){
         float depth=textureCube(uLightDepth,direction).r*20.;
         float separation=max(0.,distance-depth-uDepthBias);
@@ -286,6 +311,52 @@ function mount(T,OrbitControls){
           }
         }
         color+=paths*(.65+.35*transmission);
+        // The visitor's light. A lantern pool rests beneath the hand, and each
+        // touch sends one soft crest of transmitted light outward through the
+        // weave. Both are evaluated on textile fragments in rest space, so
+        // folds occlude them and they never cross the cloth silhouette.
+        // The key light: one narrow beam the visitor aims. It rakes across the
+        // folds at a low angle, revealing their relief, with a silk sheen along
+        // the yarn. Outside its cone the textile settles slightly darker, so
+        // the beam carves the form rather than flooding it.
+        vec3 toBeam=uBeamPos-vWorld;float beamDistance=max(length(toBeam),.001);vec3 Lb=toBeam/beamDistance;
+        float cone=smoothstep(.962,.986,dot(-Lb,uBeamDir));
+        float rake=pow(max(dot(N,Lb),0.),1.5);
+        vec3 Hb=normalize(Lb+V);float nhb=max(.08,dot(N,Hb));
+        float beamSheen=exp(-(pow(dot(Hb,tangent)/.55,2.)+pow(dot(Hb,bitangent)/.24,2.))/(nhb*nhb));
+        float beamThrough=pow(max(0.,dot(V,-Lb)),2.)*transmission;
+        // Barely at rest; when the visitor guides it, the unlit silk falls back.
+        color*=1.-.24*uBeamStrength*uBeamStrength*(1.-cone)*(.55+.45*smoothstep(.0,.6,1.-dot(-Lb,uBeamDir)));
+        color+=uBeamColor*(rake*.62+beamSheen*.38+beamThrough*.60)*cone*uBeamStrength;
+        // Normalised so thin and dense yarn both carry the light, while dense
+        // gathers still hold back more of it than open silk.
+        float touchResponse=clamp(textileResponse*2.4,.38,1.15);
+        // Near-white silk cannot get much brighter, so the visitor's light
+        // reads as warmth: a champagne cast through the weave, with a small
+        // luminous core. It shares the gold of the system's node pools.
+        float hoverDistance=length(vRest-uHover.xyz);
+        float lanternCore=exp(-pow(hoverDistance/.20,2.));
+        float lantern=lanternCore*.55+exp(-pow(hoverDistance/.42,2.))*.46+exp(-pow(hoverDistance/.95,2.))*.18;
+        float warmth=lantern*uHover.w*uTouch*touchResponse,water=0.;
+        for(int r=0;r<4;r++){
+          vec4 ripple=uRipples[r];
+          if(ripple.w<0.)continue;
+          float rippleDistance=length(vRest-ripple.xyz),front=rippleDistance-uRippleSpeed*ripple.w;
+          float envelope=smoothstep(0.,.35,ripple.w)*exp(-ripple.w/2.2);
+          // Broad enough that foreshortened folds never compress it into a line:
+          // thin gold lines belong to the system's journeys, broad warmth to the visitor.
+          float crest=exp(-front*front/.62)*envelope;
+          float kindle=exp(-pow(rippleDistance/.30,2.))*smoothstep(0.,.18,ripple.w)*exp(-ripple.w*1.2);
+          // Contact stays warm; the travelling ring becomes faint water light.
+          float ripplesOfLight=caustic(vRest.xz*2.1+vec2(vRest.y*.8,0.),ripple.w*1.1+uTime*.12);
+          water+=crest*(.12+ripplesOfLight*.95)*uTouch*touchResponse;
+          warmth+=kindle*1.1*uTouch*touchResponse;
+          lanternCore=max(lanternCore,kindle);
+        }
+        warmth=min(warmth,1.6);
+        color=mix(color,color*vec3(1.03,.88,.64),min(warmth*.75,.78));
+        color+=mix(vec3(1.,.74,.38),vec3(1.,.94,.82),lanternCore)*warmth*.62;
+        color+=vec3(.86,.93,1.)*min(water,1.2)*.72;
         float edge=min(min(vUv.x,1.-vUv.x),min(vUv.y,1.-vUv.y));
         float hem=1.-smoothstep(.001,.004,edge);color+=vec3(.28,.27,.25)*hem;
         // These luminous cores are evaluated ONLY on textile fragments.
@@ -358,7 +429,11 @@ function mount(T,OrbitControls){
         }
         float opacity=clamp(1.-exp(-(density+hem*.08)/(facing*.60+.12)),.30,.95);
         opacity=mix(opacity,.99,smoothstep(.08,.65,nodeCoverage));
-        gl_FragColor=vec4(color,opacity);
+        // Arrival: the silk condenses out of the navy as its light warms.
+        // The hour's light colours the silk, as white fabric takes on its light.
+        color*=uLightTint;
+        color*=mix(.55,1.,uReveal);
+        gl_FragColor=vec4(color,opacity*uReveal);
         #include <tonemapping_fragment>
         #include <colorspace_fragment>
       }`
@@ -378,6 +453,24 @@ function mount(T,OrbitControls){
   material.uniforms.uNodeClip={value:Array.from({length:20},()=>new T.Vector4())};
   material.uniforms.uViewProjection={value:new T.Matrix4()};
   material.uniforms.uViewportSize={value:new T.Vector2(1,1)};
+  material.uniforms.uHover={value:new T.Vector4(0,0,0,0)};
+  material.uniforms.uRipples={value:Array.from({length:4},()=>new T.Vector4(0,0,0,-1))};
+  material.uniforms.uRippleSpeed={value:.82};
+  material.uniforms.uTouch={value:1};
+  material.uniforms.uReveal={value:reduced.matches?1:0};
+  // ── Time-of-day light ─────────────────────────────────────────────────
+  // One palette per visit, from the visitor's local hour: champagne dawn,
+  // clean ivory day, amber dusk, moonlit silver night. ?light=dawn|day|dusk|night previews.
+  const lightKeys=[[0,'night'],[5,'night'],[6.5,'dawn'],[8.5,'day'],[16,'day'],[18.5,'dusk'],[20.5,'night'],[24,'night']];
+  const lightLooks={night:{tint:[.88,.93,1.06],beam:[.76,.85,1.]},dawn:{tint:[1.03,.96,.93],beam:[1.,.86,.80]},day:{tint:[1,1,1],beam:[1.,.96,.90]},dusk:{tint:[1.05,.94,.81],beam:[1.,.80,.56]}};
+  const lightOverride=new URLSearchParams(location.search).get('light'),now=new Date();
+  const hour=lightOverride&&lightLooks[lightOverride]?{dawn:6.5,day:12,dusk:18.5,night:23}[lightOverride]:now.getHours()+now.getMinutes()/60;
+  const lightTint=new T.Vector3(),beamColor=new T.Vector3();
+  for(let i=0;i<lightKeys.length-1;i++){const [h0,a]=lightKeys[i],[h1,b]=lightKeys[i+1];if(hour>=h0&&hour<=h1){const t=h1>h0?(hour-h0)/(h1-h0):0,e=t*t*(3-2*t);
+    lightTint.fromArray(lightLooks[a].tint).lerp(new T.Vector3().fromArray(lightLooks[b].tint),e);beamColor.fromArray(lightLooks[a].beam).lerp(new T.Vector3().fromArray(lightLooks[b].beam),e);
+    section.dataset.lumenLight=e<.5?a:b;break;}}
+  material.uniforms.uLightTint={value:lightTint};material.uniforms.uBeamColor={value:beamColor};
+  material.uniforms.uBeamPos={value:new T.Vector3(4,6,4)};material.uniforms.uBeamDir={value:new T.Vector3(0,-1,0)};material.uniforms.uBeamStrength={value:0};
   const cloth=new T.Mesh(geometry,material);cloth.frustumCulled=false;rig.add(cloth);
   cloth.layers.enable(1);lightCamera.layers.set(1);for(const c of lightCamera.children)c.layers.set(1);
   let lastLightUpdate=-Infinity;
@@ -400,7 +493,7 @@ function mount(T,OrbitControls){
     if(now-lastLightUpdate<80)return;
     trackInternalLight();
     scene.overrideMaterial=distanceMaterial;renderer.setClearColor(0xffffff);
-    try{lightCamera.update(renderer,scene);}finally{scene.overrideMaterial=null;renderer.setClearColor('#1d2f4e');}
+    try{lightCamera.update(renderer,scene);}finally{scene.overrideMaterial=null;renderer.setClearColor(clearColor);}
     lastLightUpdate=now;
   }
   // Static cables and attachment ferrules share the world-space pins.
@@ -408,13 +501,13 @@ function mount(T,OrbitControls){
   // Gold hardware has its own restrained metallic gradient. Share the
   // textile clock so Pause and reduced motion also stop the shimmer.
   const ferruleGeometry=new T.SphereGeometry(.031,20,14);
-  const ferruleMaterial=new T.ShaderMaterial({
-    uniforms:{uTime:material.uniforms.uTime},
+  const ferruleMaterial=new T.ShaderMaterial({transparent:true,
+    uniforms:{uTime:material.uniforms.uTime,uReveal:material.uniforms.uReveal},
     vertexShader:`varying vec3 goldNormal;varying vec3 goldWorld;
       void main(){vec4 w=modelMatrix*vec4(position,1.);goldWorld=w.xyz;
         goldNormal=normalize((vec4(normalMatrix*normal,0.)*viewMatrix).xyz);
         gl_Position=projectionMatrix*viewMatrix*w;}`,
-    fragmentShader:`uniform float uTime;varying vec3 goldNormal;varying vec3 goldWorld;
+    fragmentShader:`uniform float uTime;uniform float uReveal;varying vec3 goldNormal;varying vec3 goldWorld;
       void main(){vec3 N=normalize(goldNormal),V=normalize(cameraPosition-goldWorld);
         vec3 L=normalize(vec3(-.4,.85,1.));
         float gradient=smoothstep(-.65,.85,dot(N,L));
@@ -422,7 +515,7 @@ function mount(T,OrbitControls){
         float highlight=pow(max(0.,dot(N,normalize(L+V))),26.);
         float shimmer=.92+.08*sin(uTime*.32+goldWorld.y*1.7);
         gold+=vec3(1.,.87,.57)*highlight*.48*shimmer;
-        gl_FragColor=vec4(gold,1.);
+        gl_FragColor=vec4(gold,smoothstep(.25,.85,uReveal));
         #include <tonemapping_fragment>
         #include <colorspace_fragment>
       }`
@@ -441,7 +534,7 @@ function mount(T,OrbitControls){
     material.uniforms.uManualSignal.value=0;
     idleSince=performance.now();journeyHoldUntil=idleSince+12000;activeUntil=idleSince+16000;wake();
   });
-  const motionDefaults={orbit:100,strength:130,speed:155},motionSettings={...motionDefaults};
+  const motionDefaults={orbit:100,strength:130,speed:155,touch:100,key:100},motionSettings={...motionDefaults};
   let liveStrength=motionDefaults.strength/100,liveSpeed=motionDefaults.speed/100,idleSince=performance.now(),interacting=false;
   const settings=document.createElement('details');settings.className='lumen-settings';
   const settingsSummary=document.createElement('summary');settingsSummary.textContent='Motion settings';settings.append(settingsSummary);
@@ -451,7 +544,7 @@ function mount(T,OrbitControls){
   beamName.textContent='Beam brightness';beamInput.type='range';beamInput.min='0';beamInput.max='300';beamInput.step='5';beamInput.value='250';beamInput.id='lumen-beam';beamInput.setAttribute('aria-label','Beam brightness');beamOutput.htmlFor=beamInput.id;beamOutput.textContent='250%';
   beamRow.append(beamName,beamOutput,beamInput);settingsPanel.append(beamRow);
   beamInput.addEventListener('input',()=>{material.uniforms.uBeamBrightness.value=Number(beamInput.value)/100;beamOutput.textContent=beamInput.value+'%';wake();});
-  for(const [key,title,max] of [['orbit','Automatic orbit',200],['strength','Billow strength',150],['speed','Wave speed',180]]){
+  for(const [key,title,max] of [['orbit','Automatic orbit',200],['strength','Billow strength',150],['speed','Wave speed',180],['touch','Responsiveness',150],['key','Key light',150]]){
     const row=document.createElement('label'),name=document.createElement('span'),output=document.createElement('output'),input=document.createElement('input');
     name.textContent=title;input.type='range';input.min='0';input.max=String(max);input.step='5';input.value=String(motionSettings[key]);input.id='lumen-'+key;
     input.setAttribute('aria-label',title);output.htmlFor=input.id;output.textContent=input.value+'%';row.append(name,output,input);settingsPanel.append(row);
@@ -467,9 +560,18 @@ function mount(T,OrbitControls){
   reset.addEventListener('click',holdOrbit);
   controls.addEventListener('start',()=>{interacting=true;holdOrbit();});
   controls.addEventListener('end',()=>{interacting=false;holdOrbit();});
-  canvas.tabIndex=0;canvas.removeAttribute('aria-hidden');canvas.setAttribute('role','img');canvas.setAttribute('aria-label','LUMEN suspended silk sculpture. Drag to orbit. Scroll down to continue to the AI Curve. Arrow keys rotate, plus and minus zoom, and Home resets the view.');
+  canvas.tabIndex=0;canvas.removeAttribute('aria-hidden');canvas.setAttribute('role','img');canvas.setAttribute('aria-label','LUMEN suspended silk sculpture. Drag to orbit and pinch with two fingers to zoom. The fabric responds to your direction: move across it to guide its light, and click or press Enter to send a swell through it. Scroll down to continue to the AI Curve. Arrow keys rotate, plus and minus zoom, and Home resets the view.');
   controls.enableDamping=!reduced.matches;
   const pause=document.querySelector('#motion-toggle');let paused=reduced.matches,visible=true,contextLost=false,pageHidden=false,frameId=0,last=0,time=0,activeUntil=0,frameCount=0,measureStart=0;
+  // Keep all fabric controls in one aligned row on phones, matching the
+  // previously approved mobile composition.
+  const mobileControls=matchMedia('(max-width:700px)'),pauseHome=pause?.parentNode,pauseNext=pause?.nextSibling;
+  const curveLink=document.createElement('a');curveLink.className='lumen-curve-link';curveLink.href='#horizon';curveLink.textContent='Continue to the AI Curve ↓';section.append(curveLink);
+  function fitMobileControls(){
+    if(mobileControls.matches){if(pause)toolbar.append(pause);hint.textContent='Drag to orbit · Pinch to zoom';}
+    else {if(pause&&pauseHome)pauseHome.insertBefore(pause,pauseNext);hint.textContent='Drag to orbit · Scroll down to continue';}
+  }
+  mobileControls.addEventListener('change',fitMobileControls);fitMobileControls();
   function label(){if(pause){pause.hidden=false;pause.textContent=paused?'Play motion':'Pause motion';pause.setAttribute('aria-pressed',String(paused));}section.dataset.motion=paused?'paused':'playing';}
   pause?.addEventListener('click',()=>{paused=!paused;last=0;label();wake();});
   // Long, overlapping waves (roughly 19–37 seconds) travel through the
@@ -478,11 +580,30 @@ function mount(T,OrbitControls){
   function step(dt){
     // Begin in an established breeze; rendered time prevents return-to-tab jumps.
     const easing=1-Math.exp(-dt*2);
-    liveStrength+=(motionSettings.strength/100-liveStrength)*easing;
+    // An optional score lifts the breeze a little with its own energy.
+    liveStrength+=(motionSettings.strength/100*(1+.16*(window.oslMusicLevel||0))-liveStrength)*easing;
     liveSpeed+=(motionSettings.speed/100-liveSpeed)*easing;
     time+=dt*liveSpeed;
+    // The visitor's touch: a few millimetres of lift beneath the hand and one
+    // travelling swell per click. Like the breeze, both are evaluated from
+    // rest, scaled by pin freedom, and return to exactly zero; nothing
+    // accumulates and the anchors never move.
+    const response=motionSettings.touch/100,lift=touch.strength*.042*response*touch.sign;
+    const swells=ripples.filter(r=>r.age<RIPPLE_LIFE);
     for(let n=0;n<N;n++){
       const k=n*3,u=uv[n*2],v=uv[n*2+1],weight=freedom[n];
+      let rise=0;
+      if(weight>0&&(lift||swells.length)){
+        if(lift){const dx=rest[k]-touch.x,dy=rest[k+1]-touch.y,dz=rest[k+2]-touch.z;rise+=lift*Math.exp(-(dx*dx+dy*dy+dz*dz)/.42);}
+        for(const r of swells){
+          const front=Math.hypot(rest[k]-r.x,rest[k+1]-r.y,rest[k+2]-r.z)-RIPPLE_SPEED*r.age;
+          const envelope=T.MathUtils.smoothstep(r.age,0,.35)*Math.exp(-r.age/2.2);
+          // A soft crest with a shallow trailing trough reads as air
+          // passing beneath silk, not as a rubber-sheet oscillation.
+          rise+=r.sign*.12*response*envelope*(Math.exp(-front*front/.24)-.38*Math.exp(-(front+.85)*(front+.85)/.30));
+        }
+        rise*=weight;
+      }
       const swell=Math.sin(time*.23-u*3.8+v*2.2),undertow=Math.sin(time*.17+u*5.1-v*3.4);
       // A quiet counter-wave keeps the hem alive as the broad canopy turns.
       const ripple=.75*Math.sin(time*.33-u*8.0+v*4.2)+.25*Math.sin(time*.41+u*10.2-v*5.3+1.1),hem=.55+.45*v*v;
@@ -490,10 +611,55 @@ function mount(T,OrbitControls){
       // Depth-led airflow lifts the folds; restrained lateral travel preserves
       // the silhouette. Keep the slow timing and exact anchor falloff unchanged.
       const breeze=weight*1.728*liveStrength;
-      positions[k]=rest[k]+breeze*(.024*swell+.012*undertow);
-      positions[k+1]=rest[k+1]+breeze*hem*(.075*swell+.025*ripple);
-      positions[k+2]=rest[k+2]+breeze*(.13*swell+.055*undertow+.018*ripple);
+      // Touch travels along the breeze's own depth-led airflow. Following
+      // surface normals would push the rolled, overlapping lip against itself.
+      positions[k]=rest[k]+breeze*(.024*swell+.012*undertow)+.18*rise;
+      positions[k+1]=rest[k+1]+breeze*hem*(.075*swell+.025*ripple)+.58*hem*rise;
+      positions[k+2]=rest[k+2]+breeze*(.13*swell+.055*undertow+.018*ripple)+rise;
     }
+  }
+  const RIPPLE_SPEED=material.uniforms.uRippleSpeed.value,RIPPLE_LIFE=7;
+  const touch={x:0,y:0,z:0,target:null,strength:0,sign:1},ripples=[];
+  let hoverEvent=null;
+  const restSample=new T.Vector3(),airflow=new T.Vector3(),cameraLocal=new T.Vector3(),rigInverse=new T.Matrix4();
+  // Barycentric sampling of the rest surface, matching the a,c,b / b,c,d index order.
+  function sampleRest(u,v){
+    const x=T.MathUtils.clamp(u,0,.999999)*NX,y=T.MathUtils.clamp(v,0,.999999)*NY;
+    const col=Math.floor(x),row=Math.floor(y),s=x-col,t=y-row,a=row*(NX+1)+col,b=a+1,c=a+NX+1,d=c+1;
+    const ids=s+t<=1?[a,c,b]:[b,c,d],weights=s+t<=1?[1-s-t,t,s]:[1-t,1-s,s+t-1];
+    restSample.set(0,0,0);
+    for(let j=0;j<3;j++){restSample.x+=rest[ids[j]*3]*weights[j];restSample.y+=rest[ids[j]*3+1]*weights[j];restSample.z+=rest[ids[j]*3+2]*weights[j];}
+    // Lift toward the viewer along the airflow direction used in step().
+    rig.updateWorldMatrix(true,false);rigInverse.copy(rig.matrixWorld).invert();
+    cameraLocal.copy(camera.position).applyMatrix4(rigInverse).sub(restSample);
+    airflow.set(.18,.58*(.55+.45*v*v),1);
+    return {x:restSample.x,y:restSample.y,z:restSample.z,sign:airflow.dot(cameraLocal)>=0?1:-1};
+  }
+  function surfaceAt(clientX,clientY){
+    const r=canvas.getBoundingClientRect();
+    pointer.set((clientX-r.left)/r.width*2-1,1-(clientY-r.top)/r.height*2);
+    raycaster.setFromCamera(pointer,camera);
+    const hit=raycaster.intersectObject(cloth)[0];
+    return hit?.uv?sampleRest(hit.uv.x,hit.uv.y):null;
+  }
+  function sendLight(point){
+    if(point)lastAim={x:point.x,y:point.y,z:point.z};
+    if(!point||paused||!motionSettings.touch)return;
+    if(ripples.length>=4)ripples.shift();
+    ripples.push({...point,age:0});
+    activeUntil=performance.now()+RIPPLE_LIFE*1000;wake();
+  }
+  function updateTouch(dt){
+    if(hoverEvent){touch.target=hoverEvent.clear?null:surfaceAt(hoverEvent.x,hoverEvent.y);if(touch.target&&touch.strength<.02)Object.assign(touch,{x:touch.target.x,y:touch.target.y,z:touch.target.z});hoverEvent=null;}
+    const want=touch.target&&motionSettings.touch?1:0;
+    // The lantern follows with a slight, graceful lag; it fades more slowly than it appears.
+    touch.strength+=(want-touch.strength)*(reduced.matches?1:1-Math.exp(-dt*(want?2.6:1.2)));
+    if(touch.target){const glide=reduced.matches?1:1-Math.exp(-dt*5.5);touch.x+=(touch.target.x-touch.x)*glide;touch.y+=(touch.target.y-touch.y)*glide;touch.z+=(touch.target.z-touch.z)*glide;touch.sign=touch.target.sign;}
+    if(!paused)for(const r of ripples)r.age+=dt;
+    while(ripples.length&&ripples[0].age>=RIPPLE_LIFE)ripples.shift();
+    material.uniforms.uHover.value.set(touch.x,touch.y,touch.z,touch.strength);
+    material.uniforms.uTouch.value=motionSettings.touch/100;
+    material.uniforms.uRipples.value.forEach((slot,i)=>{const r=ripples[i];if(r)slot.set(r.x,r.y,r.z,r.age);else slot.w=-1;});
   }
   let width=0,height=0,initial=true,homeDistance=9;
   // Present the reverse three-quarter view on first load: two distinct peaks,
@@ -511,6 +677,7 @@ function mount(T,OrbitControls){
     rig.scale.x=Math.min(1,Math.max(.37,camera.aspect/1.7));rig.scale.y=1;
     const vertical=3.5,horizontal=7.2*rig.scale.x;
     homeDistance=Math.max(vertical/.88,horizontal/(camera.aspect*.92))/(2*Math.tan(T.MathUtils.degToRad(camera.fov/2)))+1.55;
+    controls.minDistance=homeDistance*.5;
     controls.maxDistance=homeDistance*1.35;
     controls.target.set(0,.10,0);
     const view=initial?direction:camera.position.clone().sub(controls.target).normalize();
@@ -532,6 +699,58 @@ function mount(T,OrbitControls){
   controls.addEventListener('change',()=>{activeUntil=performance.now()+1800;wake();});
   controls.addEventListener('end',()=>{section.dataset.clothDragging='false';activeUntil=performance.now()+2400;wake();});
 
+  // ── Sky ───────────────────────────────────────────────────────────────
+  // A deep-blue dome and a sparse field of distant stars give the installation
+  // depth. Midnight overhead eases to the site navy at the horizon and below,
+  // so the hero still meets the navy page. The stars sit in real 3D space and
+  // drift with parallax as the view orbits. They are deliberately few and dim.
+  const sky={dusk:{value:reduced.matches||!document.documentElement.classList.contains('ai-intro')?1:0}};
+  {
+    const dome=new T.Mesh(new T.SphereGeometry(30,48,24),new T.ShaderMaterial({side:T.BackSide,depthWrite:false,depthTest:false,toneMapped:false,
+      uniforms:{uDusk:sky.dusk,uViewport:material.uniforms.uViewportSize},
+      vertexShader:`varying vec3 vDir;void main(){vDir=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+      fragmentShader:`uniform float uDusk;uniform vec2 uViewport;varying vec3 vDir;
+        void main(){
+          vec3 midnight=vec3(.030,.056,.122),deep=vec3(.062,.104,.196),navy=vec3(29.,47.,78.)/255.;
+          float h=vDir.y;
+          vec3 c=mix(navy,deep,smoothstep(-.04,.24,h));c=mix(c,midnight,smoothstep(.22,.80,h));
+          // A soft vignette deepens the upper corners; the lower edge stays navy for the page.
+          vec2 s=gl_FragCoord.xy/max(uViewport,vec2(1.))-vec2(.5,.38);
+          c*=1.-.20*smoothstep(.25,.85,length(s*vec2(1.,1.25)))*smoothstep(.25,.6,gl_FragCoord.y/max(uViewport.y,1.));
+          // During the arrival the whole dome holds at midnight before warming.
+          c=mix(vec3(.047,.094,.204),c,uDusk);
+          float n=fract(sin(dot(gl_FragCoord.xy,vec2(12.9898,78.233)))*43758.5453);
+          // Display-referred navy values, written directly.
+          gl_FragColor=vec4(c+(n-.5)/255.,1.);
+        }`}));
+    dome.renderOrder=-3;dome.frustumCulled=false;scene.add(dome);sky.dome=dome;
+    let seed=1704;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647;};
+    const COUNT=420,pos=new Float32Array(COUNT*3),star=new Float32Array(COUNT*3);
+    for(let i=0;i<COUNT;i++){
+      // A few nearer, softer stars in front of a deeper field.
+      const near=i<46,r=near?9+5*rnd():15+19*Math.pow(rnd(),.7),th=rnd()*6.2832,y=-.15+1.15*rnd(),rr=Math.sqrt(1-y*y);
+      pos[i*3]=Math.cos(th)*rr*r;pos[i*3+1]=y*r*.8+1;pos[i*3+2]=Math.sin(th)*rr*r;
+      star[i*3]=near?.16+.10*rnd():.07+.12*Math.pow(rnd(),2.5);star[i*3+1]=rnd();star[i*3+2]=rnd()<.08?1:0;
+    }
+    const g=new T.BufferGeometry();g.setAttribute('position',new T.BufferAttribute(pos,3));g.setAttribute('aStar',new T.BufferAttribute(star,3));
+    const field=new T.Points(g,new T.ShaderMaterial({transparent:true,depthWrite:false,blending:T.AdditiveBlending,toneMapped:false,
+      uniforms:{uTime:material.uniforms.uTime,uPixel:{value:1},uDusk:sky.dusk},
+      vertexShader:`attribute vec3 aStar;uniform float uTime;uniform float uPixel;varying float vAlpha;varying float vGold;varying float vSoft;
+        void main(){vec4 mv=modelViewMatrix*vec4(position,1.);gl_Position=projectionMatrix*mv;
+          float depth=-mv.z;gl_PointSize=clamp(aStar.x*uPixel/max(1.,depth),1.4,9.);
+          // Farther stars are dimmer; low stars fade so the page edge stays clean navy.
+          float far=smoothstep(14.,36.,depth),low=smoothstep(-2.5,2.5,position.y);
+          float twinkle=.78+.22*sin(uTime*(.35+aStar.y*.6)+aStar.y*40.);
+          vAlpha=mix(.95,.40,far)*low*twinkle;vGold=aStar.z;vSoft=smoothstep(.15,.2,aStar.x);}`,
+      fragmentShader:`varying float vAlpha;varying float vGold;varying float vSoft;
+        void main(){vec2 q=gl_PointCoord*2.-1.;float d=dot(q,q);if(d>1.)discard;
+          vec3 c=mix(vec3(.80,.87,1.),vec3(1.,.84,.55),vGold);
+          // Near stars are slightly out of focus, like a lens resolving the silk.
+          float glow=mix(exp(-d*4.)+exp(-d*22.)*.6,exp(-d*2.2)*.42,vSoft);
+          gl_FragColor=vec4(c*glow*vAlpha,1.);}`}));
+    field.renderOrder=-2;field.frustumCulled=false;scene.add(field);
+    sky.field=field;
+  }
   const raycaster=new T.Raycaster(),pointer=new T.Vector2();let down=null,nodeButtons=[];
   // One temporary label, attached to the actual deformed surface projection.
   let highlightedNode=-1;
@@ -614,11 +833,29 @@ function mount(T,OrbitControls){
     material.uniforms.uElectricSegment.value=reduced.matches||ids.length<2?-1:Math.max(1,selectedIndex);
     setJourney(ids);section.dataset.lumenChapter='Selected tool';material.uniforms.uManualSignal.value=0;journeyHoldUntil=performance.now()+12000;activeUntil=performance.now()+16000;wake();
   });
-  canvas.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY};});
+  // Record taps on the section's capture phase so a hero-page touch, whose
+  // canvas pointerdown is withheld from the orbit controls, can still light the silk.
+  section.addEventListener('pointerdown',e=>{if(e.target===canvas)down={x:e.clientX,y:e.clientY};},{capture:true});
   canvas.addEventListener('pointerup',e=>{
     const origin=down;down=null;if(!origin||Math.hypot(e.clientX-origin.x,e.clientY-origin.y)>7)return;
     const nearest=pickNode(e);
     if(nearest>=0)nodeButtons[nearest]?.click();
+    else sendLight(surfaceAt(e.clientX,e.clientY));
+  });
+  // A mouse or pen carries a lantern across the silk. Touch has no hover,
+  // so on phones the light arrives only with a deliberate tap.
+  canvas.addEventListener('pointermove',e=>{
+    if(e.pointerType==='touch')return;
+    hoverEvent=e.buttons?{clear:true}:{x:e.clientX,y:e.clientY};
+    activeUntil=Math.max(activeUntil,performance.now()+2600);wake();
+  });
+  canvas.addEventListener('pointerleave',()=>{hoverEvent={clear:true};activeUntil=Math.max(activeUntil,performance.now()+2600);wake();});
+  // A click keeps its lantern; only an actual orbit drag sets it down.
+  controls.addEventListener('change',()=>{if(interacting)hoverEvent={clear:true};});
+  // Keyboard parity: Enter or Space sends light outward from the input suspension.
+  canvas.addEventListener('keydown',e=>{
+    if(e.key!=='Enter'&&e.key!==' ')return;e.preventDefault();
+    sendLight(sampleRest(nodeUniforms[0].x,nodeUniforms[0].y));
   });
   // Existing method buttons remain the semantic source of truth. Their visible
   // decoration is replaced with material-space lights, including selection.
@@ -695,12 +932,295 @@ function mount(T,OrbitControls){
       const offset=camera.position.clone().sub(controls.target);
       offset.applyAxisAngle(camera.up,orbitAngle);camera.position.copy(controls.target).add(offset);
     }
+    if(galaxy)advanceGalaxy(dt);
+    else{
+      // Return visits: the silk condenses out of the navy while the camera
+      // settles into the approved pose. Any interaction hands control over.
+      if(!reduced.matches&&material.uniforms.uReveal.value<1){
+        const t=T.MathUtils.clamp((now-mountedAt-250)/2600,0,1);
+        material.uniforms.uReveal.value=t*t*(3-2*t);
+        if(t>=1)showInvite();
+      }else if(material.uniforms.uReveal.value<1){material.uniforms.uReveal.value=1;showInvite();}
+      if(arrival){
+        if(interacting||reduced.matches)arrival=null;
+        else{
+          const t=T.MathUtils.clamp((now-mountedAt)/3600,0,1),e=1-Math.pow(1-t,3);
+          const home=new T.Spherical().setFromVector3(direction.clone().multiplyScalar(homeDistance));
+          home.theta+=(1-e)*.16;home.phi-=(1-e)*.05;home.radius*=1+(1-e)*.085;
+          camera.position.copy(controls.target).add(new T.Vector3().setFromSpherical(home));
+          if(t>=1)arrival=null;
+        }
+      }
+    }
+    cableMaterial.opacity=.38*T.MathUtils.smoothstep(material.uniforms.uReveal.value,.25,.85);
+    // Unrevealed silk must not write depth and silhouette the stars behind it.
+    cloth.visible=material.uniforms.uReveal.value>.002;
+    // The dome is a pure direction gradient: it travels with the camera.
+    sky.dome.position.copy(camera.position);
+    sky.field.material.uniforms.uPixel.value=height*renderer.getPixelRatio()*.5*camera.projectionMatrix.elements[5];
+    updateTouch(dt);updateBeam(dt);
     controls.update();syncNodes();updateNodeArrivals();projectNodeLights();updateNodeLabel();material.uniforms.uTime.value=time;updateInternalLight(now);renderer.render(scene,camera);
     canvas.dataset.time=time.toFixed(3);canvas.dataset.drop='1';
     if(!measureStart)measureStart=now;frameCount++;
     if(now-measureStart>2000){section.dataset.lumenFps=(frameCount*1000/(now-measureStart)).toFixed(0);section.dataset.lumenAzimuth=controls.getAzimuthalAngle().toFixed(3);frameCount=0;measureStart=now;}
-    if(!paused||now<activeUntil)wake();
+    if(!paused||now<activeUntil||galaxy||material.uniforms.uReveal.value<1)wake();
   }
+  // ── Key light ─────────────────────────────────────────────────────────
+  // A stage light rigged high to the right of the approved view. The visitor
+  // aims it: the pointer, or a tap, sets where it lands. Left alone it rests
+  // on the main peak at a lower level. It never wanders on its own.
+  const beamRig={aim:new T.Vector3(),goal:new T.Vector3(),source:new T.Vector3(),level:0,ready:false};
+  const shaftMaterial=new T.ShaderMaterial({transparent:true,depthWrite:false,blending:T.AdditiveBlending,side:T.DoubleSide,toneMapped:false,
+    uniforms:{uStrength:{value:0},uColor:{value:beamColor}},
+    vertexShader:`varying float vAlong;varying vec3 vN;varying vec3 vView;
+      void main(){vAlong=.5-position.y;vec4 w=modelMatrix*vec4(position,1.);vN=normalize(mat3(modelMatrix)*normal);vView=normalize(cameraPosition-w.xyz);gl_Position=projectionMatrix*viewMatrix*w;}`,
+    fragmentShader:`uniform float uStrength;uniform vec3 uColor;varying float vAlong;varying vec3 vN;varying vec3 vView;
+      void main(){float face=pow(abs(dot(normalize(vN),normalize(vView))),2.);
+        float a=face*smoothstep(0.,.25,vAlong)*(1.-.55*vAlong)*uStrength*uStrength*.085;
+        gl_FragColor=vec4(uColor*a,1.);}`});
+  const shaft=new T.Mesh(new T.ConeGeometry(1,1,40,1,true),shaftMaterial);shaft.frustumCulled=false;shaft.renderOrder=2;scene.add(shaft);
+  const beamUp=new T.Vector3(0,1,0),beamTmp=new T.Vector3(),beamQuat=new T.Quaternion();
+  function restToWorld(p){return beamTmp.set(p.x,p.y,p.z).applyMatrix4(rig.matrixWorld);}
+  function updateBeam(dt){
+    rig.updateWorldMatrix(true,false);
+    const homeOffset=direction.clone().multiplyScalar(homeDistance),forward=homeOffset.clone().negate().normalize();
+    const right=new T.Vector3().crossVectors(forward,beamUp).normalize();
+    beamRig.source.set(0,.1,0).addScaledVector(right,5.2).addScaledVector(beamUp,5.4).addScaledVector(homeOffset.clone().normalize(),2.4);
+    const guided=touch.target&&touch.strength>.05;
+    if(guided)beamRig.goal.copy(restToWorld(touch.target));
+    else if(lastAim)beamRig.goal.copy(restToWorld(lastAim));
+    else{const p=sampleRest(.53,.42);beamRig.goal.copy(restToWorld(p));}
+    if(!beamRig.ready){beamRig.aim.copy(beamRig.goal);beamRig.ready=true;}
+    const glide=reduced.matches?1:1-Math.exp(-dt*1.6);beamRig.aim.lerp(beamRig.goal,glide);
+    const want=(guided?1:.55)*motionSettings.key/100*material.uniforms.uReveal.value*(galaxy?0:1);
+    beamRig.level+=(want-beamRig.level)*(reduced.matches?1:1-Math.exp(-dt*1.4));
+    const dir=beamRig.aim.clone().sub(beamRig.source),length=dir.length();dir.normalize();
+    material.uniforms.uBeamPos.value.copy(beamRig.source);material.uniforms.uBeamDir.value.copy(dir);material.uniforms.uBeamStrength.value=beamRig.level;
+    // The visible shaft: apex at the lamp, opening toward the silk.
+    const spread=Math.tan(Math.acos(.962))*length;
+    shaft.scale.set(spread,length,spread);shaft.position.copy(beamRig.source).addScaledVector(dir,length*.5);
+    beamQuat.setFromUnitVectors(beamUp,dir.clone().negate());shaft.quaternion.copy(beamQuat);
+    shaftMaterial.uniforms.uStrength.value=beamRig.level;shaft.visible=beamRig.level>.01;
+  }
+  let lastAim=null;
+  const mountedAt=performance.now();let arrival=!reduced.matches;
+  // ── Galaxy arrival ────────────────────────────────────────────────────
+  // First visit in a session (html.ai-intro, set before first paint): the
+  // silk's own fibres begin as a slow spiral of ivory and gold stars in deep
+  // space. They stream inward and settle onto the textile, suspension points
+  // first and the hem last, and the silk condenses where they land. The
+  // headline and navigation arrive after it. Any input completes the passage
+  // quickly; reduced motion never plays it.
+  const html=document.documentElement;
+  let galaxy=null;
+  const anchorIds=[...pins];
+  // ── Arrival ───────────────────────────────────────────────────────────
+  // A slow ballet. One gold node glows in midnight while stars bloom at many
+  // depths around it and turn together, unhurried, as the camera glides
+  // through them. A single italic word, "introducing", surfaces and
+  // dissolves. Then the stars flow down in long, curving phrases into the
+  // silk; the second node kindles like a far star; the fabric condenses;
+  // and only then does its name rise out of the background.
+  function buildGalaxy(){
+    let seed=20261004;const rnd=()=>{seed=(seed+0x6D2B79F5)|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};
+    const gauss=()=>Math.sqrt(-2*Math.log(rnd()+1e-9))*Math.cos(6.2831853*rnd());
+    const fibres=[];for(let y=0;y<=NY;y+=2)for(let x=0;x<=NX;x+=2)fibres.push(index(x,y));
+    const F=fibres.length,FIELD=260,HAZE=46,COUNT=F+FIELD+HAZE;
+    const start=new Float32Array(COUNT*3),target=new Float32Array(COUNT*3),seedData=new Float32Array(COUNT*4),arm=new Float32Array(COUNT);
+    const anchors=anchorIds.map(n=>new T.Vector3().fromArray(rest,n*3));
+    const lead=anchors[0].y>=anchors[1].y?0:1;
+    for(let i=0;i<COUNT;i++){
+      let q;
+      if(i<F){
+        const n=fibres[i],d0=Math.hypot(rest[n*3]-anchors[0].x,rest[n*3+2]-anchors[0].z),d1=Math.hypot(rest[n*3]-anchors[1].x,rest[n*3+2]-anchors[1].z);
+        arm[i]=d0<=d1*1.15?0:1;
+        // A loose, softly flattened swirl of stars at many depths around the node.
+        const r=2.2+11*Math.pow(rnd(),.75),th=rnd()*6.2832+r*.18,y=gauss()*(1.1+r*.16);
+        q=[Math.cos(th)*r,y,Math.sin(th)*r];
+        // Anchors first, hem last; a gentle wave rather than a cue.
+        seedData[i*4]=.36+.15*freedom[n]+.10*uv[n*2+1]+.06*rnd();
+      }else if(i<F+FIELD){
+        const r=15+13*rnd(),th=rnd()*6.2832,ph=Math.acos(2*rnd()-1);
+        q=[r*Math.sin(ph)*Math.cos(th),r*Math.cos(ph)*.6,r*Math.sin(ph)*Math.sin(th)];
+        seedData[i*4]=9;arm[i]=0;
+      }else{
+        const r=3+9*rnd(),th=rnd()*6.2832;q=[Math.cos(th)*r,gauss()*1.5,Math.sin(th)*r];
+        seedData[i*4]=9;arm[i]=0;
+      }
+      start[i*3]=q[0];start[i*3+1]=q[1];start[i*3+2]=q[2];
+      seedData[i*4+1]=i<F?.034+.05*Math.pow(rnd(),3):i<F+FIELD?.05+.08*rnd():.9+1.2*rnd();
+      seedData[i*4+2]=i>=F+FIELD?2:rnd()<.14?1:0;
+      seedData[i*4+3]=rnd();
+    }
+    const geometry=new T.BufferGeometry();
+    geometry.setAttribute('position',new T.BufferAttribute(target,3).setUsage(T.DynamicDrawUsage));
+    geometry.setAttribute('aStart',new T.BufferAttribute(start,3));
+    geometry.setAttribute('aSeed',new T.BufferAttribute(seedData,4));
+    geometry.setAttribute('aArm',new T.BufferAttribute(arm,1));
+    const uniforms={uIntro:{value:0},uSpin:{value:0},uPixel:{value:1},uTime:{value:0},uRatio:{value:renderer.getPixelRatio()},
+      uNode:{value:new T.Vector3()},uAnchorA:{value:new T.Vector3()},uAnchorB:{value:new T.Vector3()},uBeaconA:{value:0},uBeaconB:{value:0},uFlare:{value:0}};
+    const starMaterial=new T.ShaderMaterial({uniforms,transparent:true,depthWrite:false,blending:T.AdditiveBlending,toneMapped:false,
+      vertexShader:`attribute vec3 aStart;attribute vec4 aSeed;attribute float aArm;
+        uniform float uIntro;uniform float uSpin;uniform float uPixel;uniform float uTime;uniform vec3 uNode;uniform vec3 uAnchorA;uniform vec3 uAnchorB;
+        varying float vAlpha;varying float vKind;varying float vSoft;
+        vec3 swirl(vec3 p,vec3 c,float a){vec3 q=p-c;float cs=cos(a),sn=sin(a);return c+vec3(cs*q.x+sn*q.z,q.y,-sn*q.x+cs*q.z);}
+        void main(){
+          bool fibre=aSeed.x<5.,haze=aSeed.z>1.5;
+          // Long phrases: each star travels for a third of the arrival, eased at both ends.
+          float t=fibre?clamp((uIntro-aSeed.x)/.34,0.,1.):0.;
+          float e=t*t*t*(t*(t*6.-15.)+10.);
+          // Each star breathes in place with its own slow orbit, so nothing is ever still.
+          vec3 drift=vec3(sin(uTime*.21+aSeed.w*40.),cos(uTime*.17+aSeed.w*31.)*.6,cos(uTime*.19+aSeed.w*27.))*.18;
+          vec3 s=uNode+swirl(aStart,vec3(0.),uSpin*(.8+.4*aSeed.w))+drift;
+          vec3 pivot=aArm<.5?uAnchorA:uAnchorB;
+          vec3 goal=fibre?position:s;
+          vec3 p=mix(s,goal,e);
+          // A rising arc and a spiral about the anchor: a leap, then a soft landing.
+          p.y+=sin(3.14159*e)*(.6+.9*aSeed.w)*(fibre?1.:0.);
+          p=swirl(p,pivot,(1.-e)*(1.4+.6*aSeed.w)*(fibre?1.:0.));
+          vec4 mv=modelViewMatrix*vec4(p,1.);gl_Position=projectionMatrix*mv;
+          float px=aSeed.y*(fibre?mix(1.,.72,e):1.)*uPixel/max(.1,-mv.z);
+          // Near stars swell and soften, like a lens focused beyond them.
+          vSoft=haze?0.:smoothstep(4.,10.,px);
+          gl_PointSize=haze?clamp(px,4.,170.):clamp(px,1.2,fibre?14.:6.);
+          float twinkle=.76+.24*sin(uTime*(.9+aSeed.w*1.4)+aSeed.w*43.);
+          float bloom=smoothstep(.02+aSeed.w*.06,.12+aSeed.w*.06,uIntro);
+          vAlpha=haze?.040*smoothstep(.02,.14,uIntro)*(1.-smoothstep(.36,.62,uIntro))
+            :fibre?twinkle*bloom*(1.-smoothstep(.86,1.,uIntro))*mix(1.,.38,vSoft)
+            :.45*twinkle*bloom*(1.-smoothstep(.62,.95,uIntro));
+          vKind=aSeed.z;
+        }`,
+      fragmentShader:`varying float vAlpha;varying float vKind;varying float vSoft;
+        void main(){vec2 q=gl_PointCoord*2.-1.;float d=dot(q,q);if(d>1.)discard;
+          float sharp=exp(-d*5.)+exp(-d*28.)*.8,soft=exp(-d*1.8)*(1.-d*.6);
+          float glow=vKind>1.5?exp(-d*2.4)*(1.-d):mix(sharp,soft,vSoft);
+          vec3 c=vKind>1.5?vec3(.26,.36,.62):mix(vec3(.88,.92,1.),vec3(1.,.80,.44),vKind);
+          gl_FragColor=vec4(c*glow*vAlpha,1.);}`});
+    const stars=new T.Points(geometry,starMaterial);stars.frustumCulled=false;scene.add(stars);
+    // Beacons: 0 the lead node, 1 the distant second node, 2–3 their nebulae.
+    const beaconGeometry=new T.BufferGeometry();
+    beaconGeometry.setAttribute('position',new T.BufferAttribute(new Float32Array(12),3));
+    beaconGeometry.setAttribute('aKind',new T.BufferAttribute(new Float32Array([0,1,2,3]),1));
+    const beaconMaterial=new T.ShaderMaterial({uniforms,transparent:true,depthWrite:false,depthTest:false,blending:T.AdditiveBlending,toneMapped:false,
+      vertexShader:`attribute float aKind;uniform float uRatio;uniform float uTime;uniform float uBeaconA;uniform float uBeaconB;uniform float uFlare;uniform float uIntro;uniform vec3 uAnchorA;uniform vec3 uAnchorB;
+        varying float vKind;varying float vAlpha;varying float vFlare;
+        void main(){bool b=aKind==1.||aKind==3.;vec3 p=b?uAnchorB:uAnchorA;
+          vec4 mv=modelViewMatrix*vec4(p,1.);gl_Position=projectionMatrix*mv;vKind=aKind;vFlare=b?uFlare:0.;
+          float pulse=.86+.14*sin(uTime*1.1+aKind*2.);
+          gl_PointSize=(aKind<1.5?(aKind<.5?52.:42.+40.*uFlare):560.)*uRatio;
+          vAlpha=aKind<.5?uBeaconA*pulse:aKind<1.5?uBeaconB*pulse*(1.+.9*uFlare)
+            :(aKind<2.5?.22*smoothstep(0.,.10,uIntro)*(1.-smoothstep(.5,.9,uIntro)):.16*uBeaconB*(1.-smoothstep(.75,.95,uIntro)));}`,
+      fragmentShader:`varying float vKind;varying float vAlpha;varying float vFlare;
+        void main(){vec2 q=gl_PointCoord*2.-1.;float d=dot(q,q);if(d>1.)discard;
+          vec3 c;
+          if(vKind<1.5){float core=exp(-d*110.),halo=exp(-d*10.)*.34+exp(-d*3.)*.08;c=vec3(1.,.95,.82)*core*1.3+vec3(1.,.76,.36)*halo;
+            float glint=(exp(-abs(q.y)*60.)*exp(-abs(q.x)*3.5)+exp(-abs(q.x)*60.)*exp(-abs(q.y)*3.5))*vFlare*.55;c+=vec3(1.,.90,.70)*glint;}
+          else c=vec3(.20,.32,.60)*exp(-d*3.2)*(1.-d);
+          float n=fract(sin(dot(gl_FragCoord.xy,vec2(12.9898,78.233)))*43758.5453);
+          gl_FragColor=vec4(c*vAlpha+(n-.5)/255.,1.);}`});
+    const beacons=new T.Points(beaconGeometry,beaconMaterial);beacons.frustumCulled=false;beacons.renderOrder=-1;scene.add(beacons);
+    return {stars,beacons,geometry,beaconGeometry,material:starMaterial,beaconMaterial,uniforms,fibres,anchors,lead,t:0,rate:1,revealed:false,unveiled:false};
+  }
+  const voidColor=new T.Color('#0c1834'),navyColor=new T.Color('#1d2f4e'),homeTarget=new T.Vector3(0,.10,0);
+  const GALAXY_SECONDS=13;
+  function hurryGalaxy(){if(galaxy&&galaxy.t<.97)galaxy.rate=Math.max(galaxy.rate,(1-galaxy.t)*GALAXY_SECONDS/1.4);}
+  // "introducing": one italic word, surfacing and dissolving mid-drift.
+  const overture=document.createElement('p');overture.className='lumen-overture';overture.textContent='introducing';overture.setAttribute('aria-hidden','true');section.append(overture);
+  const titleCard=section.querySelector('.fabric-title');
+  function advanceGalaxy(dt){
+    const g=galaxy;g.t=Math.min(1,g.t+dt*g.rate/GALAXY_SECONDS);
+    const u=g.t,ease=x=>x*x*x*(x*(x*6-15)+10),U=g.uniforms;
+    U.uIntro.value=u;U.uSpin.value+=dt*.05*(1-u*.8);U.uTime.value+=dt;
+    U.uPixel.value=height*renderer.getPixelRatio()*.5*camera.projectionMatrix.elements[5];
+    rig.updateWorldMatrix(true,false);
+    const node=g.anchors[g.lead].clone().applyMatrix4(rig.matrixWorld);
+    U.uNode.value.copy(node);
+    U.uAnchorA.value.copy(g.anchors[g.lead]).applyMatrix4(rig.matrixWorld);U.uAnchorB.value.copy(g.anchors[1-g.lead]).applyMatrix4(rig.matrixWorld);
+    const target=g.geometry.attributes.position.array,m=rig.matrixWorld.elements;
+    for(let i=0;i<g.fibres.length;i++){const n=g.fibres[i]*3,x=positions[n],y=positions[n+1],z=positions[n+2];
+      target[i*3]=m[0]*x+m[4]*y+m[8]*z+m[12];target[i*3+1]=m[1]*x+m[5]*y+m[9]*z+m[13];target[i*3+2]=m[2]*x+m[6]*y+m[10]*z+m[14];}
+    g.geometry.attributes.position.needsUpdate=true;
+    U.uBeaconA.value=T.MathUtils.smoothstep(u,0,.05)*(1-T.MathUtils.smoothstep(u,.86,.98));
+    const kindle=T.MathUtils.smoothstep(u,.60,.66);
+    U.uBeaconB.value=kindle*(1-T.MathUtils.smoothstep(u,.88,.98));
+    U.uFlare.value=kindle*(1-T.MathUtils.smoothstep(u,.66,.80));
+    material.uniforms.uReveal.value=ease(T.MathUtils.clamp((u-.66)/.26,0,1));
+    sky.dusk.value=ease(T.MathUtils.clamp((u-.50)/.44,0,1));
+    clearColor.copy(voidColor).lerp(navyColor,sky.dusk.value);renderer.setClearColor(clearColor);
+    // One continuous glide: from far above and to the side, through the field,
+    // into the approved pose. No holds, no cuts.
+    controls.maxDistance=Infinity;
+    const k=ease(T.MathUtils.clamp(u/.96,0,1));
+    controls.target.copy(node).lerp(homeTarget,ease(T.MathUtils.clamp((u-.25)/.70,0,1)));
+    const home=new T.Spherical().setFromVector3(direction.clone().multiplyScalar(homeDistance));
+    home.theta+=(1-k)*1.05;home.phi=T.MathUtils.clamp(home.phi-(1-k)*.55,.2,Math.PI-.22);home.radius*=1+(1-k)*1.5;
+    camera.position.copy(controls.target).add(new T.Vector3().setFromSpherical(home));
+    // The overture word: in with the bloom, out before the stars descend.
+    const word=T.MathUtils.smoothstep(u,.10,.21)*(1-T.MathUtils.smoothstep(u,.34,.45));
+    overture.style.opacity=word.toFixed(3);
+    overture.style.filter=`blur(${((1-word)*7).toFixed(2)}px)`;
+    overture.style.letterSpacing=`${(.10+(1-T.MathUtils.smoothstep(u,.10,.30))*.10).toFixed(3)}em`;
+    // The name rises once the fabric is mostly formed.
+    if(u>=.84&&!g.unveiled){g.unveiled=true;unveilTitle();}
+    if(u>=.93&&!g.revealed){g.revealed=true;revealPage();}
+    if(u>=1)finishGalaxy();
+  }
+  function unveilTitle(){
+    if(!titleCard)return;
+    titleCard.classList.add('is-unveiling');
+    titleCard.style.opacity='1';
+  }
+  function revealPage(){
+    const enter=[{opacity:0,transform:'translate3d(0,12px,0)'},{opacity:1,transform:'translate3d(0,0,0)'}];
+    const header=document.querySelector('.site-header');
+    [...section.querySelectorAll('.copy > :not(.fabric-title)')].forEach((el,i)=>el.animate(enter,{duration:1600,delay:900+i*260,easing:'cubic-bezier(.16,.76,.18,1)',fill:'both'}));
+    header?.animate([{opacity:0},{opacity:1}],{duration:1600,delay:1400,easing:'ease-out',fill:'both'});
+    pause?.animate([{opacity:0},{opacity:1}],{duration:1200,delay:1700,easing:'ease-out',fill:'both'});
+    html.classList.remove('ai-intro');
+  }
+  function finishGalaxy(){
+    const g=galaxy;galaxy=null;
+    if(!g.unveiled)unveilTitle();
+    if(!g.revealed)revealPage();
+    scene.remove(g.stars,g.beacons);g.geometry.dispose();g.beaconGeometry.dispose();g.material.dispose();g.beaconMaterial.dispose();
+    overture.remove();
+    material.uniforms.uReveal.value=1;clearColor.copy(navyColor);renderer.setClearColor(clearColor);sky.dusk.value=1;
+    controls.target.copy(homeTarget);controls.maxDistance=homeDistance*1.35;
+    arrival=null;showInvite(2600);
+  }
+  if(html.classList.contains('ai-intro')){
+    if(reduced.matches)html.classList.remove('ai-intro');
+    else{
+      galaxy=buildGalaxy();arrival=null;
+      try{sessionStorage.setItem('osl-ai-galaxy','1');}catch{}
+      clearColor.copy(voidColor);renderer.setClearColor(clearColor);
+      for(const type of ['pointerdown','wheel','keydown','touchstart'])addEventListener(type,hurryGalaxy,{passive:true});
+    }
+  }
+  // ── Invitation ────────────────────────────────────────────────────────
+  // One quiet line once the silk has arrived. It leaves after the first
+  // gesture and stays away for the rest of the session.
+  const invite=document.createElement('p');invite.className='lumen-invite';invite.textContent='The fabric responds to your direction';section.append(invite);
+  let inviteShown=false,hoverHold=0;
+  function inviteSeen(){try{return sessionStorage.getItem('osl-fabric-invite')==='1';}catch{return false;}}
+  function showInvite(delay=600){
+    if(inviteShown||inviteSeen())return;inviteShown=true;
+    setTimeout(()=>{if(!invite.classList.contains('is-leaving'))invite.classList.add('is-visible');},delay);
+  }
+  function dismissInvite(){
+    if(invite.classList.contains('is-leaving'))return;
+    try{sessionStorage.setItem('osl-fabric-invite','1');}catch{}
+    if(!invite.classList.contains('is-visible')){inviteShown=true;invite.classList.add('is-leaving');return;}
+    invite.classList.add('is-leaving');
+  }
+  canvas.addEventListener('pointerup',()=>{if(invite.classList.contains('is-visible'))dismissInvite();});
+  controls.addEventListener('start',()=>{if(invite.classList.contains('is-visible'))dismissInvite();});
+  canvas.addEventListener('pointermove',e=>{
+    // A few seconds of guiding the light counts as having understood it.
+    if(e.pointerType==='touch'||!invite.classList.contains('is-visible'))return;
+    hoverHold+=Math.min(50,e.timeStamp-(canvas._lastMove||e.timeStamp));canvas._lastMove=e.timeStamp;
+    if(hoverHold>2600)dismissInvite();
+  });
   new ResizeObserver(resize).observe(section);
   // Even a sliver of visible textile keeps moving; pause remains intentional.
   new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;if(visible)wake();else suspend();},{threshold:0}).observe(canvas);
