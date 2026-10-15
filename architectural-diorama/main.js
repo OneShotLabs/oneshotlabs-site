@@ -6,7 +6,7 @@ const CHAPTERS = Object.freeze([
 ]);
 
 document.querySelector('#app').innerHTML = `
-  <section class="hero" data-phase="inputs" aria-label="OneShotLabs real estate intelligence">
+  <section class="hero" data-phase="inputs" aria-label="OneShotLens real estate intelligence">
     <div class="ambient" aria-hidden="true"></div>
     <div class="composition">
       <div class="editorial">
@@ -19,7 +19,7 @@ document.querySelector('#app').innerHTML = `
         <figure class="diorama-figure">
           <div class="hero-diorama">
             <video class="diorama-film" muted playsinline preload="auto" aria-label="Architectural investment intelligence diorama">
-              <source src="OneShotLabs_AI_hero_Web_Final.mp4" type="video/mp4">
+              <source src="OneShotLens_AI_hero_Web_Final.mp4" type="video/mp4">
             </video>
           </div>
         </figure>

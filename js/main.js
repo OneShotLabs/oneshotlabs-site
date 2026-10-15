@@ -1,4 +1,4 @@
-// One Shot — shared behaviors, no dependencies.
+// OneShotLens — shared behaviors, no dependencies.
 
 document.addEventListener("DOMContentLoaded", () => {
   // Brand lockup: wrap the wordmark's text in its own span so the wordmark
@@ -167,12 +167,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Contact form: posts to a real backend if data-endpoint is set (e.g. a
-  // Formspree/serverless URL), otherwise falls back to a mailto handoff.
+  // Contact form: Netlify detects the static form at build time. Submitting
+  // URL-encoded form data to the site root records the inquiry in Forms.
   const contactForm = document.getElementById("contact-form");
   if (contactForm) {
     const status = document.getElementById("contact-form-status");
     const submitBtn = document.getElementById("contact-form-submit");
+    if (new URLSearchParams(window.location.search).get("sent") === "1") {
+      status.textContent = "Message sent — I'll get back to you soon.";
+    }
     contactForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const name = contactForm.name.value.trim();
@@ -184,54 +187,34 @@ document.addEventListener("DOMContentLoaded", () => {
         status.classList.add("is-error");
         return;
       }
+      if (!contactForm.email.checkValidity()) {
+        status.textContent = "Enter a valid email address.";
+        status.classList.add("is-error");
+        contactForm.email.focus();
+        return;
+      }
       status.classList.remove("is-error");
 
-      const endpoint = contactForm.dataset.endpoint;
-      if (endpoint) {
-        if (submitBtn) submitBtn.disabled = true;
-        status.textContent = "Sending…";
-        try {
-          const res = await fetch(endpoint, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", Accept: "application/json" },
-            body: JSON.stringify({ name, email, message }),
-          });
-          if (!res.ok) throw new Error("Request failed");
-          status.textContent = "Message sent — I'll get back to you soon.";
-          contactForm.reset();
-        } catch (err) {
-          status.classList.add("is-error");
-          status.textContent = "Something went wrong sending that. Try again, or email directly.";
-        } finally {
-          if (submitBtn) submitBtn.disabled = false;
-        }
-        return;
+      if (submitBtn) submitBtn.disabled = true;
+      status.textContent = "Sending…";
+      try {
+        const formData = new FormData(contactForm);
+        const res = await fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formData).toString(),
+        });
+        if (!res.ok) throw new Error("Request failed");
+        status.textContent = "Message sent — I'll get back to you soon.";
+        window.oslTrack?.("contact_submitted");
+        contactForm.reset();
+      } catch (err) {
+        status.classList.add("is-error");
+        status.textContent = "Something went wrong sending that. Email david@oneshotlens.com directly.";
+        window.oslTrack?.("contact_failed");
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
       }
-
-      const subject = encodeURIComponent(`New inquiry from ${name}`);
-      const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
-      window.location.href = `mailto:oneshotlabsdj@gmail.com?subject=${subject}&body=${body}`;
-      status.textContent = "Opening your email client to send this.";
-      contactForm.reset();
-    });
-  }
-
-  // Newsletter signup: standard Buttondown embed (plain POST + popup
-  // confirmation), so it works with JS disabled. This just adds inline
-  // status text to match the contact form's feedback pattern.
-  const newsletterForm = document.getElementById("newsletter-form");
-  if (newsletterForm) {
-    const nlStatus = document.getElementById("newsletter-form-status");
-    newsletterForm.addEventListener("submit", (e) => {
-      const email = newsletterForm.email.value.trim();
-      if (!email) {
-        e.preventDefault();
-        nlStatus.textContent = "Enter an email to subscribe.";
-        nlStatus.classList.add("is-error");
-        return;
-      }
-      nlStatus.classList.remove("is-error");
-      nlStatus.textContent = "Check the new tab to confirm your subscription.";
     });
   }
 

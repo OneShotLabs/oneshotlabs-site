@@ -1,4 +1,4 @@
-/* ===== One Shot — continuous-canvas editorial system =====
+/* ===== OneShotLens — continuous-canvas editorial system =====
    One unifying visual thread, sitewide:
    1. Structural framing — every content block is separated by a razor-thin,
       low-opacity hairline (--border-thread), never a shadow or a filled
@@ -10,7 +10,7 @@
   --bg: #fffdf8;                      /* matches the logo wordmark's paper-cream color */
   --fg: #1d2f4e;                      /* canonical navy ink */
   --fg-dim: #52627a;                  /* canonical secondary slate */
-  /* ---- OneShot Labs locked brand system (Brand Kit v1) ---- */
+  /* ---- OneShotLens locked brand system (Brand Kit v1) ---- */
   --oneshot-navy: #1d2f4e;
   --oneshot-cream: #fffdf8;
   --oneshot-warm-white: #fdfbf6;       /* card/panel surfaces — a whisper warmer than the page's cream */
@@ -2196,7 +2196,10 @@ a.post-title-link:active {
 
 .post-monument-photo--editorial::after { display: none; }
 
-.post-monument-photo--editorial img {
+.post-monument-photo--editorial img,
+.post-monument-photo--editorial .post-monument-video,
+.post-monument-photo--editorial .post-monument-youtube,
+.post-monument-photo--editorial .post-monument-video-cover {
   width: 70%;
   height: auto;
   aspect-ratio: 16 / 9;
@@ -2208,6 +2211,277 @@ a.post-title-link:active {
   object-fit: cover;
   object-position: center top;
   filter: none;
+}
+
+.post-monument-video {
+  display: block;
+}
+
+.post-monument-youtube {
+  display: block;
+  border: 0;
+}
+
+.post-monument-video-cover {
+  position: relative;
+  container-type: inline-size;
+  display: block;
+  overflow: hidden;
+  border: 0;
+  color: var(--fg);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.post-monument-photo--editorial .post-monument-video-cover {
+  padding: 0;
+  border: 0;
+  background: #fffdf8;
+}
+
+.post-monument-video-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid #1d2f4e;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.post-monument-photo--editorial .post-monument-video-cover > img {
+  position: absolute;
+  inset: clamp(0.45rem, 0.8vw, 0.7rem);
+  width: calc(100% - (2 * clamp(0.45rem, 0.8vw, 0.7rem)));
+  height: calc(100% - (2 * clamp(0.45rem, 0.8vw, 0.7rem)));
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  object-fit: cover;
+}
+
+.video-cover-art {
+  position: absolute;
+  inset: 0 0 0 52%;
+  overflow: hidden;
+  background: #1d2f4e;
+}
+.post-monument-photo--editorial .video-cover-art > img {
+  position: absolute;
+  width: 196%;
+  max-width: none;
+  height: 100%;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  object-fit: cover;
+  object-position: right center;
+  transform: translateX(17.5%) scale(1.19);
+  transform-origin: right center;
+}
+.post-monument-video-cover .video-cover-copy { display: contents; }
+.post-monument-video-cover .video-cover-wordmark {
+  position: absolute;
+  left: 2.5%;
+  top: 14.5%;
+  width: 45.5%;
+}
+.post-monument-video-cover .video-cover-edition {
+  position: absolute;
+  left: auto;
+  top: auto;
+  right: 53%;
+  bottom: 6%;
+  text-align: right;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: #c6a153;
+  font-size: 1.45cqw;
+}
+.post-monument-video-cover .video-cover-selection {
+  position: absolute;
+  left: 5%;
+  top: 62%;
+  width: 39.5%;
+  margin: 0;
+}
+.post-monument-video-cover .video-cover-subtitle { font-size: 2.9cqw; line-height: 1.12; }
+.post-monument-video-cover .video-cover-topic { font-size: 1.25cqw; margin-top: 1cqw; }
+.post-monument-video-cover .video-cover-source { display: block; font-size: 1.25cqw; margin-top: .6cqw; }
+.post-monument-video-cover .video-cover-play { left: 5%; bottom: 7%; }
+.video-cover-copy {
+  position: absolute;
+  z-index: 1;
+  top: 7.5%;
+  bottom: 8%;
+  left: 5.5%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 36%;
+}
+
+.video-cover-overline,
+.video-cover-edition,
+.video-cover-format,
+.video-cover-topic,
+.video-cover-subtitle,
+.video-cover-source,
+.video-cover-play {
+  font-family: var(--font-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.video-cover-overline {
+  color: #8b6a28;
+  font-size: 0.85cqw;
+}
+
+.video-cover-wordmark {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  width: 41cqw;
+  aspect-ratio: 1455 / 600;
+  overflow: hidden;
+}
+.post-monument-photo--editorial .video-cover-wordmark > img {
+  position: absolute;
+  width: 105.6%;
+  max-width: none;
+  height: auto;
+  aspect-ratio: auto;
+  left: -3.1%;
+  top: -37%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+.video-cover-title {
+  margin-top: 4.2cqw;
+  color: var(--fg);
+  font-family: "Cormorant Garamond", "EB Garamond", Georgia, serif;
+  font-size: 8.2cqw;
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 0.84;
+  text-transform: none;
+}
+
+.video-cover-edition {
+  margin-top: 1.2cqw;
+  padding-top: 0.8cqw;
+  border-top: 1px solid #8b6a28;
+  font-size: 1.25cqw;
+}
+
+.video-cover-selection {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  margin-bottom: 5.2cqw;
+}
+
+.video-cover-format {
+  margin-bottom: 0.45cqw;
+  color: #8b6a28;
+  font-size: 0.78cqw;
+}
+
+.video-cover-subtitle {
+  color: var(--fg);
+  font-family: "Faculty Glyphic", "Trebuchet MS", sans-serif;
+  font-size: 2.25cqw;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  text-transform: none;
+}
+
+.video-cover-topic {
+  margin-top: 0.85cqw;
+  color: var(--fg);
+  font-size: 0.95cqw;
+}
+
+.video-cover-source {
+  margin-top: 0.45cqw;
+  color: var(--fg-dim);
+  font-size: 0.8cqw;
+  letter-spacing: 0.09em;
+}
+
+.video-cover-play {
+  position: absolute;
+  z-index: 1;
+  left: 5.5%;
+  bottom: 7.5%;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--fg);
+  font-size: 0.82cqw;
+}
+
+.video-cover-play-icon {
+  position: relative;
+  width: 3.35cqw;
+  aspect-ratio: 1;
+  border: 1px solid var(--fg);
+  border-radius: 50%;
+  background: var(--fg);
+  transition: transform 180ms ease, background-color 180ms ease;
+}
+
+.video-cover-play-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 52%;
+  width: 0;
+  height: 0;
+  border-top: 0.28rem solid transparent;
+  border-bottom: 0.28rem solid transparent;
+  border-left: 0.45rem solid var(--paper);
+  transform: translate(-40%, -50%);
+}
+
+.post-monument-video-cover:hover .video-cover-play-icon,
+.post-monument-video-cover:focus-visible .video-cover-play-icon {
+  transform: scale(1.08);
+  background: var(--trim);
+}
+
+.post-monument-video-cover:focus-visible {
+  outline: 3px solid var(--trim);
+  outline-offset: 4px;
+}
+
+/* Approved outlined play control, 150% of its original studio size. */
+.post-monument-video-cover .video-cover-play { font-size: 1.275cqw; gap: 1.35cqw; }
+.post-monument-video-cover .video-cover-play-icon {
+  width: 5.1cqw;
+  height: 5.1cqw;
+  border: .15cqw solid #1d2f4e;
+  background: transparent;
+}
+.post-monument-video-cover .video-cover-play-icon::after {
+  left: 50%;
+  top: 50%;
+  width: 1.35cqw;
+  height: 1.5cqw;
+  border: 0;
+  background: #1d2f4e;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  transform: translate(-33.333%, -50%);
 }
 
 .post-monument-photo--editorial .post-monument-title {
@@ -2225,6 +2499,33 @@ a.post-title-link:active {
   font-weight: 400;
   letter-spacing: -0.03em;
   line-height: 0.99;
+}
+
+.post-title-quarter {
+  display: inline-flex;
+  align-items: baseline;
+  margin-right: 0.08em;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+}
+
+.post-title-q-glyph {
+  position: relative;
+  display: inline-block;
+}
+
+.post-title-q-glyph::after {
+  content: "";
+  position: absolute;
+  right: -0.03em;
+  bottom: 0.07em;
+  width: 0.34em;
+  height: 0.055em;
+  border-radius: 999px;
+  background: currentColor;
+  transform: rotate(48deg);
+  transform-origin: center;
 }
 
 .post-story-layout {
@@ -2296,6 +2597,13 @@ a.post-title-link:active {
   width: min(835px, calc(100% - (2 * var(--gap))));
 }
 
+.post-story-layout.post-story-layout--viewfinder {
+  margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+@media (max-width: 768px) {
+  .post-story-layout.post-story-layout--viewfinder { margin-top: 1.5rem; }
+}
+
 .post-article-copy { min-width: 0; }
 
 .post-article-copy .post-body-content {
@@ -2347,7 +2655,19 @@ a.post-title-link:active {
   .post-monument-photo { height: 500px; }
   .post-monument-photo.post-monument-photo--editorial { height: auto; }
   .post-monument-title { left: var(--gap); right: var(--gap); bottom: 2rem; }
-  .post-monument-photo--editorial img { width: 88%; }
+  .post-monument-photo--editorial img,
+  .post-monument-photo--editorial .post-monument-video,
+  .post-monument-photo--editorial .post-monument-youtube,
+  .post-monument-photo--editorial .post-monument-video-cover { width: 88%; }
+  .video-cover-copy {
+    top: 7%;
+    left: 5.5%;
+    width: 36%;
+  }
+  .video-cover-title { margin-top: 4.2cqw; }
+  .video-cover-selection { margin-bottom: 5.2cqw; }
+  .video-cover-source { display: none; }
+  .video-cover-play { left: 5.5%; bottom: 7%; }
   .post-monument-photo--editorial .post-monument-title {
     display: block;
     width: 88%;
@@ -2700,7 +3020,7 @@ a.post-title-link:active {
 
 /* ----- Tablet and below (<=1024px): nav becomes an off-canvas drawer ----- */
 @media (max-width: 1024px) {
-  body { overflow-x: hidden; }
+  html, body { overflow-x: clip; }
   .nav-toggle { display: flex; }
 
   .nav {
@@ -2716,8 +3036,10 @@ a.post-title-link:active {
     margin: 0;
     padding: 6.5rem 1.75rem 2rem;
     gap: 0;
+    /* The drawer is an extension of the page masthead, not a detached card. */
     background: var(--header-navy);
-    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    border-left: 1px solid rgba(253, 251, 246, 0.15);
+    color: var(--oneshot-warm-white);
     transform: translateX(100%);
     transition: var(--motion-signature);
     overflow-y: auto;
@@ -2725,14 +3047,21 @@ a.post-title-link:active {
 
   .nav.open { transform: translateX(0); }
 
+  .nav-toggle { position: relative; z-index: 61; }
+  .nav-toggle[aria-expanded="true"] { border-color: rgba(253, 251, 246, 0.4); }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bar { background: var(--oneshot-warm-white); }
+
   .nav a {
     display: flex;
     align-items: center;
     min-height: 44px;
     padding: 0.9rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    border-bottom: 1px solid rgba(253, 251, 246, 0.15);
+    color: var(--oneshot-warm-white);
     font-size: 1.3rem;
   }
+
+  .nav a[aria-current="page"] { color: var(--trim); }
 
   .nav a::after { display: none; }
 
@@ -3483,10 +3812,21 @@ html.no-splash .splash { display: none; }
 .dl-heading {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  font-size: clamp(1.75rem, 4.5vw, 3.4rem);
   line-height: 1.05;
   font-weight: 500;
   text-align: center;
+  white-space: nowrap;
+}
+
+.dl-subheading {
+  max-width: 620px;
+  margin: 1rem auto 0;
+  color: var(--fg-dim);
+  font-size: clamp(0.95rem, 1.6vw, 1.08rem);
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
 }
 
 .dl-divider {
@@ -4224,7 +4564,7 @@ html.no-splash .splash { display: none; }
   width:100%;
   overflow:hidden;
   border-top:1px solid var(--line);
-  background:#f4f1e9;
+  background:var(--bg);
 }
 .career-intelligence-section > .visually-hidden {
   position:absolute;
@@ -4242,5 +4582,5 @@ html.no-splash .splash { display: none; }
   width:100%;
   height:900px;
   border:0;
-  background:#f4f1e9;
+  background:var(--bg);
 }

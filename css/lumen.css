@@ -1,0 +1,67 @@
+/* The live textile owns its silhouette. No photograph or overlay behind it. */
+body.fabric-material-study .fabric[data-cloth-ready="true"]{background:#1d2f4e;overflow:hidden}
+body.fabric-material-study .fabric[data-cloth-ready="true"]>img.art,
+body.fabric-material-study .fabric[data-cloth-ready="true"] .woven-network{visibility:hidden;pointer-events:none}
+body.fabric-material-study .fabric[data-cloth-ready="true"] #fabric-breath{
+  visibility:visible;opacity:1!important;position:absolute;inset:0;width:100%;height:100%;
+  clip-path:none;transform:none;mask-image:none;-webkit-mask-image:none;
+  z-index:0;pointer-events:auto;touch-action:pan-y!important;transition:none;cursor:grab
+}
+body.fabric-material-study .fabric[data-cloth-dragging="true"] #fabric-breath{cursor:grabbing}
+body.fabric-material-study:not(.exploring-system) .fabric[data-cloth-ready="true"] #fabric-breath{touch-action:pan-y!important}
+.lumen-controls{position:absolute;left:3vw;bottom:18px;z-index:3;display:flex;align-items:center;gap:18px;color:#c4cbd3;font:10px/1.4 Inter,Arial,sans-serif}
+.lumen-controls button{color:#e5d8b9;background:#1d2f4ecc;border:1px solid #c6a15366;padding:9px 12px;font:inherit;cursor:pointer}
+.lumen-controls button:focus-visible,#fabric-breath:focus-visible{outline:2px solid #c6a153;outline-offset:-3px}
+.lumen-settings summary{cursor:pointer;color:#e5d8b9;padding:9px 10px;border:1px solid #c6a15366;list-style:none}
+.lumen-settings summary:focus-visible{outline:2px solid #c6a153}
+.lumen-settings-panel{position:absolute;left:0;bottom:calc(100% + 8px);width:min(270px,calc(100vw - 40px));box-sizing:border-box;background:#192a43f5;border:1px solid #c6a15388;padding:14px;max-height:min(270px,45svh);overflow:auto;box-shadow:0 8px 30px #0005}
+.lumen-settings-panel label{display:grid;grid-template-columns:1fr auto;gap:4px;margin-bottom:10px;font-size:12px}
+.lumen-settings-panel label span{max-width:none!important;font-size:12px!important}
+.lumen-settings-panel input{grid-column:1 / -1;width:100%;margin:0;min-height:28px;accent-color:#c6a153}
+.lumen-settings-panel output{color:#e5d8b9;font-variant-numeric:tabular-nums}
+.lumen-settings-panel p{margin:10px 0 0;font-size:10px;line-height:1.5}
+.lumen-settings-panel{position:fixed;left:16px;bottom:80px;z-index:100;max-height:min(300px,calc(100svh - 176px));color:#c4cbd3;font:12px/1.4 Inter,Arial,sans-serif}
+.lumen-settings-panel button{color:#e5d8b9;background:#1d2f4e;border:1px solid #c6a15366;padding:9px 12px;min-height:44px;cursor:pointer}
+.lumen-node-options{border:0;padding:0;margin:0 0 14px;display:grid;gap:5px}
+.lumen-node-options legend{margin-bottom:8px}
+.lumen-node-options button[aria-pressed="true"]{background:#c6a15330;border-color:#c6a153}
+body.fabric-material-study .fabric .motion-toggle{z-index:3;bottom:18px}
+body.fabric-material-study:not(.exploring-system) .lumen-controls{display:none}
+@media(max-width:700px){.lumen-controls{left:16px;bottom:16px;gap:10px}.lumen-controls span{max-width:110px;font-size:9px}.lumen-controls button{padding:8px}.lumen-controls{right:135px;flex-wrap:wrap;gap:5px}.lumen-controls span{max-width:160px}}
+@media(pointer:coarse){
+  .lumen-controls button,.lumen-settings summary,body.fabric-material-study .fabric .motion-toggle{min-height:44px;min-width:44px;box-sizing:border-box}
+}
+.lumen-node-label{position:absolute;z-index:2;pointer-events:none;max-width:190px;padding:6px 10px;background:#192a43ed;border-left:1px solid #c6a153;color:#f4ead5;font:12px/1.4 Inter,Arial,sans-serif;box-shadow:0 4px 18px #0002}
+.lumen-node-label[hidden]{display:none}
+.method-entry.lumen-node-highlight{color:#c6a153!important;box-shadow:inset 0 -1px #c6a153}
+.method-entry.lumen-arriving{box-shadow:inset 0 -1px rgba(198,161,83,var(--lumen-arrival,0))}
+.method-entry.lumen-arriving:not([aria-pressed="true"]):not(.lumen-node-highlight){color:color-mix(in srgb,#c6a153 var(--lumen-arrival-percent,0%),#fffdf8)}
+@media(max-width:700px){body.exploring-system .method-directory .method-entry{min-height:44px}}
+.lumen-curve-link{display:none}
+/* Let scrolling continue after the tool list reaches its edge. */
+body.fabric-material-study.exploring-system .woven-method{overscroll-behavior-y:auto}
+@media(max-width:700px){
+ body.fabric-material-study .fabric[data-cloth-ready="true"] #fabric-breath{touch-action:pan-y!important}
+ body.fabric-material-study .lumen-controls{left:12px;right:12px;bottom:52px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;align-items:stretch}
+ body.fabric-material-study .lumen-controls>span{grid-column:1/-1;max-width:none;font-size:11px;margin-bottom:5px;text-align:center}
+ body.fabric-material-study .lumen-controls>button,body.fabric-material-study .lumen-settings summary,body.fabric-material-study .fabric .lumen-controls .motion-toggle{position:static;inset:auto;width:100%;height:54px;min-width:0;box-sizing:border-box;margin:0;padding:6px 4px;font:11px/1.3 Inter,sans-serif;text-align:center;white-space:normal;display:flex;align-items:center;justify-content:center}
+ body.fabric-material-study .lumen-settings{min-width:0}
+ body.fabric-material-study .lumen-settings summary::marker{content:''}
+ body.fabric-material-study.exploring-system .lumen-curve-link{display:block;position:absolute;bottom:10px;left:12px;right:12px;z-index:3;text-align:center;color:#e7cd91;font:12px/1.4 Inter,sans-serif;padding:8px}
+}
+
+/* Never show the photographic fallback or its labelled nodes while the live
+   textile is loading. They appear only if WebGL fails, or after 6 s as a
+   last resort if the 3D module never arrives. */
+body.fabric-material-study .fabric:not([data-cloth-ready])>img.art,
+body.fabric-material-study .fabric:not([data-cloth-ready]) .woven-network{visibility:hidden;animation:lumen-fallback-reveal 0s 6s forwards}
+@keyframes lumen-fallback-reveal{to{visibility:visible}}
+/* One quiet invitation once the silk has arrived. */
+.lumen-invite{position:absolute;left:clamp(28px,5vw,88px);bottom:30px;z-index:3;margin:0;display:flex;align-items:center;gap:12px;color:#d9bf86;font:500 11px/1.4 "Barlow Condensed",Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;pointer-events:none;opacity:0;transform:translate3d(0,6px,0);transition:opacity 1.6s cubic-bezier(.2,.65,.2,1),transform 1.6s cubic-bezier(.16,.76,.18,1)}
+.lumen-invite::after{content:"";width:30px;height:1px;background:linear-gradient(90deg,#c6a153,transparent);transform-origin:left;animation:lumen-invite-breath 5.2s ease-in-out infinite}
+.lumen-invite.is-visible{opacity:.92;transform:translate3d(0,0,0)}
+.lumen-invite.is-leaving{opacity:0;transition-duration:1.2s}
+@keyframes lumen-invite-breath{0%,100%{transform:scaleX(.5);opacity:.55}50%{transform:scaleX(1);opacity:1}}
+body.exploring-system .lumen-invite{display:none}
+@media(max-width:700px){.lumen-invite{right:auto;left:50%;bottom:24px;transform:translate3d(-50%,6px,0);white-space:nowrap;font-size:10px;letter-spacing:.2em;gap:10px}.lumen-invite.is-visible{transform:translate3d(-50%,0,0)}}
+@media(prefers-reduced-motion:reduce){.lumen-invite::after{animation:none}.lumen-invite{transition:opacity .4s}}

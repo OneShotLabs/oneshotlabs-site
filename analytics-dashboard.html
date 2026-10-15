@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Operator Dashboard | OneShotLens</title>
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="theme-color" content="#1d2f4e">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&family=Source+Code+Pro:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/analytics-dashboard.css?v=20260929">
+  <script src="/js/analytics-dashboard.js?v=20260929" defer></script>
+</head>
+<body>
+  <a class="skip" href="#dashboard">Skip to dashboard</a>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="OneShotLens home">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 100 100"><defs><polygon id="dash-blade" points="53.5,2 55.8,20 50,46 41.5,20.6"/><path id="dash-corner" d="M6,15 A9,9 0 0 1 15,6"/></defs><g class="corners"><use href="#dash-corner"/><use href="#dash-corner" transform="rotate(90 50 50)"/><use href="#dash-corner" transform="rotate(180 50 50)"/><use href="#dash-corner" transform="rotate(270 50 50)"/></g><g class="blades"><use href="#dash-blade"/><use href="#dash-blade" transform="rotate(45 50 50)"/><use href="#dash-blade" transform="rotate(90 50 50)"/><use href="#dash-blade" transform="rotate(135 50 50)"/><use href="#dash-blade" transform="rotate(180 50 50)"/><use href="#dash-blade" transform="rotate(225 50 50)"/><use href="#dash-blade" transform="rotate(270 50 50)"/><use href="#dash-blade" transform="rotate(315 50 50)"/></g></svg></span>
+      <span class="brand-name">OneShotLens</span>
+    </a>
+    <div class="topbar-context"><span>Operator Console</span><b id="connection-status">Locked</b></div>
+  </header>
+
+  <main id="dashboard" class="dashboard" aria-live="polite">
+    <section class="command-row" aria-labelledby="dashboard-title">
+      <div>
+        <p class="eyebrow">Growth intelligence / first-party evidence</p>
+        <h1 id="dashboard-title">What deserves attention now.</h1>
+        <p class="dek">Traffic, intent and campaign evidence translated into the next useful move.</p>
+      </div>
+      <div class="command-controls">
+        <div class="range-control" role="group" aria-label="Reporting period">
+          <button type="button" data-days="7">7D</button>
+          <button type="button" data-days="30" class="active">30D</button>
+          <button type="button" data-days="90">90D</button>
+        </div>
+        <button class="button secondary" id="refresh-button" type="button">Refresh</button>
+        <button class="button secondary" id="export-button" type="button">Export CSV</button>
+      </div>
+    </section>
+
+    <div class="status-strip">
+      <span><i id="live-dot"></i><b id="reporting-label">Waiting for access</b></span>
+      <span id="updated-at">No report loaded</span>
+      <span>Cookie-free · first-party · no visitor profiles</span>
+    </div>
+
+    <section class="metric-grid" aria-label="Performance summary">
+      <article class="metric"><span>Page views</span><strong id="metric-views">—</strong><small id="change-views">Selected period</small></article>
+      <article class="metric"><span>Lead signals</span><strong id="metric-intent">—</strong><small id="change-intent">CTA, form starts and contacts</small></article>
+      <article class="metric"><span>Contacts</span><strong id="metric-contacts">—</strong><small id="change-contacts">Completed inquiries</small></article>
+      <article class="metric"><span>Deep engagement</span><strong id="metric-engagement">—</strong><small id="change-engagement">Reads, video and AI completions</small></article>
+    </section>
+
+    <section class="decision-grid">
+      <article class="panel trend-panel">
+        <div class="panel-heading"><div><p class="eyebrow">Demand pulse</p><h2>Attention over time</h2></div><div class="legend"><span><i class="navy"></i>Page views</span><span><i class="gold"></i>Lead signals</span></div></div>
+        <div id="trend-chart" class="trend-chart" role="img" aria-label="Page views and lead signals over time"></div>
+      </article>
+      <article class="panel recommendation-panel">
+        <div class="panel-heading"><div><p class="eyebrow">Editorial judgment</p><h2>Recommended moves</h2></div><span class="issue-number">01—03</span></div>
+        <ol id="recommendations" class="recommendations"><li class="placeholder">Unlock the dashboard to generate recommendations from live evidence.</li></ol>
+      </article>
+    </section>
+
+    <section class="section-block" aria-labelledby="acquisition-title">
+      <div class="section-heading"><div><p class="eyebrow">Acquisition</p><h2 id="acquisition-title">Where attention originates.</h2></div><p>UTM-tagged campaigns take priority; referrers fill the gaps.</p></div>
+      <div class="three-column">
+        <article class="panel"><div class="panel-heading"><h3>Channels</h3><span>Views / intent</span></div><div class="table-wrap"><table><thead><tr><th>Channel</th><th>Views</th><th>Signals</th><th>Rate</th></tr></thead><tbody id="channels-body"></tbody></table></div></article>
+        <article class="panel"><div class="panel-heading"><h3>Campaigns</h3><span>UTM evidence</span></div><div class="table-wrap"><table><thead><tr><th>Campaign</th><th>Source</th><th>Views</th><th>Signals</th></tr></thead><tbody id="campaigns-body"></tbody></table></div></article>
+        <article class="panel"><div class="panel-heading"><h3>Geography</h3><span>Country / region</span></div><div id="geography-list" class="rank-list"></div></article>
+      </div>
+    </section>
+
+    <section class="section-block" aria-labelledby="content-title">
+      <div class="section-heading"><div><p class="eyebrow">Content & conversion</p><h2 id="content-title">What earns the next click.</h2></div><p>Page-level attention paired with observable intent.</p></div>
+      <div class="content-grid">
+        <article class="panel"><div class="panel-heading"><h3>Page performance</h3><span>Ranked by views</span></div><div class="table-wrap"><table><thead><tr><th>Page</th><th>Views</th><th>Engaged</th><th>Lead signals</th></tr></thead><tbody id="pages-body"></tbody></table></div></article>
+        <article class="panel funnel-panel"><div class="panel-heading"><h3>Contact funnel</h3><span>Observable steps</span></div><div id="funnel" class="funnel"></div><p class="method-note">Because analytics is cookie-free, this is event progression—not person-level tracking.</p></article>
+      </div>
+    </section>
+
+    <section class="section-block utility-grid" aria-labelledby="campaign-builder-title">
+      <article class="panel campaign-builder">
+        <div class="panel-heading"><div><p class="eyebrow">Campaign discipline</p><h2 id="campaign-builder-title">Build a trackable link.</h2></div><button class="button secondary" id="copy-campaign" type="button">Copy URL</button></div>
+        <div class="builder-fields">
+          <label>Destination <input id="utm-url" type="url" value="https://oneshotlens.com/" inputmode="url"></label>
+          <label>Source <input id="utm-source" placeholder="linkedin"></label>
+          <label>Medium <input id="utm-medium" placeholder="social"></label>
+          <label>Campaign <input id="utm-campaign" placeholder="fall-launch"></label>
+          <label>Content <input id="utm-content" placeholder="founder-post-a"></label>
+        </div>
+        <output id="campaign-output">https://oneshotlens.com/</output>
+      </article>
+      <article class="panel activity-panel"><div class="panel-heading"><div><p class="eyebrow">Latest evidence</p><h2>Recent activity</h2></div><span>Event stream</span></div><div id="activity-list" class="activity-list"></div></article>
+    </section>
+  </main>
+
+  <dialog id="access-dialog" class="access-dialog">
+    <form id="access-form" method="dialog">
+      <span class="access-mark" aria-hidden="true">✦</span>
+      <p class="eyebrow">Private operator access</p>
+      <h2>Open the intelligence desk.</h2>
+      <p>Enter the analytics reporting token. It stays in this browser tab and is never written into the page or URL.</p>
+      <label>Reporting token<input id="token-input" name="token" type="password" autocomplete="off" required></label>
+      <p id="access-error" class="access-error" role="alert"></p>
+      <button class="button primary" type="submit">Open dashboard</button>
+      <button class="preview-link" id="preview-button" type="button">Preview with representative data</button>
+    </form>
+  </dialog>
+</body>
+</html>

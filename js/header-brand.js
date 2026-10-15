@@ -18,7 +18,7 @@
   art.className = 'header-brand-art';
   art.alt = '';
   art.setAttribute('aria-hidden', 'true');
-  link.setAttribute('aria-label', 'OneShotLabs home');
+  link.setAttribute('aria-label', 'OneShotLens home');
   link.classList.add('header-brand');
   art.addEventListener('load', () => link.classList.add('is-brand-ready'));
   art.src = reduced.matches ? stillUrl : startUrl;

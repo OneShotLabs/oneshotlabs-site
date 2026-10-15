@@ -29,6 +29,46 @@
   const stage = overlay.querySelector(".lightbox-stage");
   let current = -1;
 
+  // Fit every source image to the same available viewing area. Previously,
+  // the popup used width:auto/height:auto, so files with smaller intrinsic
+  // dimensions stayed close to their timeline-card size while larger files
+  // expanded. This only changes the rendered CSS dimensions: the original
+  // source file is still loaded directly, with no thumbnail swap, crop, or
+  // recompression.
+  function fitCurrentPhoto() {
+    const frame = stage.querySelector(".lightbox-framed");
+    const image = frame && frame.querySelector("img");
+    if (!frame || !image || !image.naturalWidth || !image.naturalHeight) return;
+
+    const frameStyle = window.getComputedStyle(frame);
+    const horizontalChrome =
+      parseFloat(frameStyle.paddingLeft) +
+      parseFloat(frameStyle.paddingRight) +
+      parseFloat(frameStyle.borderLeftWidth) +
+      parseFloat(frameStyle.borderRightWidth);
+    const verticalChrome =
+      parseFloat(frameStyle.paddingTop) +
+      parseFloat(frameStyle.paddingBottom) +
+      parseFloat(frameStyle.borderTopWidth) +
+      parseFloat(frameStyle.borderBottomWidth);
+
+    const availableWidth = Math.max(1, window.innerWidth * 0.94 - horizontalChrome);
+    const availableHeight = Math.max(1, window.innerHeight * 0.9 - verticalChrome);
+    const aspectRatio = image.naturalWidth / image.naturalHeight;
+
+    let width = availableWidth;
+    let height = width / aspectRatio;
+    if (height > availableHeight) {
+      height = availableHeight;
+      width = height * aspectRatio;
+    }
+
+    image.style.width = `${Math.round(width)}px`;
+    image.style.height = `${Math.round(height)}px`;
+    image.style.maxWidth = "none";
+    image.style.maxHeight = "none";
+  }
+
   function frames() {
     return Array.from(mount.querySelectorAll(".timeline-photo-frame")).filter((f) =>
       f.querySelector("img.timeline-photo")
@@ -59,6 +99,10 @@
         <img src="${img.getAttribute("src")}" alt="${img.getAttribute("alt") || ""}" />
         ${detailsHTML}
       </div>`;
+
+    const lightboxImage = stage.querySelector(".lightbox-framed > img");
+    if (lightboxImage.complete) fitCurrentPhoto();
+    else lightboxImage.addEventListener("load", fitCurrentPhoto, { once: true });
 
     const captionEl = frame.parentElement && frame.parentElement.querySelector(".timeline-caption");
     const captionText = captionEl ? captionEl.textContent.replace(/\s+/g, " ").trim() : "";
@@ -102,5 +146,8 @@
     if (e.key === "Escape") close();
     if (e.key === "ArrowLeft") render(current - 1);
     if (e.key === "ArrowRight") render(current + 1);
+  });
+  window.addEventListener("resize", () => {
+    if (overlay.classList.contains("open")) fitCurrentPhoto();
   });
 })();

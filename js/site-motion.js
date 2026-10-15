@@ -3,7 +3,7 @@
   const body = document.body;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 
-  const isHome = Boolean(document.querySelector('.decision-cube-hero'));
+  const isHome = Boolean(document.querySelector('.launch-film-hero'));
   body.classList.toggle('site-motion-home', isHome);
   root.classList.add('site-motion-ready');
   requestAnimationFrame(() => requestAnimationFrame(() => body.classList.add('is-site-settled')));
@@ -21,7 +21,7 @@
   });
 
   const targets = isHome ? [] : [...new Set(
-    document.querySelectorAll('.instrument, .capability-horizon, body > section:not(.hero):not(.decision-cube-hero), .site-footer')
+    document.querySelectorAll('.instrument, .capability-horizon, body > section:not(.hero):not(.launch-film-hero), .site-footer')
   )];
   targets.forEach(target => target.classList.add('site-motion-target'));
 

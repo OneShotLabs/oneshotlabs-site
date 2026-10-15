@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <rect width="800" height="800" fill="#1D2F4E"/>
+  <polygon points="407,404 383,325 418,270 424,329" fill="#FFFDF8"/>
+  <polygon points="413,407 452,333 516,319 484,361" fill="#FFFDF8"/>
+  <polygon points="414,411 496,388 550,423 496,429" fill="#FFFDF8"/>
+  <polygon points="412,417 488,457 501,520 460,488" fill="#FFFDF8"/>
+  <polygon points="407,420 432,499 398,555 392,502" fill="#FFFDF8"/>
+  <polygon points="402,417 364,493 300,506 334,463" fill="#FFFDF8"/>
+  <polygon points="399,412 321,438 266,402 321,397" fill="#FFFDF8"/>
+  <polygon points="401,407 328,368 315,305 357,337" fill="#FFFDF8"/>
+  <g fill="none" stroke="#A98038" stroke-width="12" stroke-linecap="round">
+  <path d="M 302 282 A 24 24 0 0 0 278 306"/>
+  <path d="M 515 282 A 24 24 0 0 1 539 306"/>
+  <path d="M 278 520 A 24 24 0 0 0 302 544"/>
+  <path d="M 539 520 A 24 24 0 0 1 515 544"/>
+  </g>
+</svg>
+

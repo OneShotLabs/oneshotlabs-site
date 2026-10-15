@@ -1,5 +1,5 @@
 /* js/ai-curve.js
-   OneShotLabs AI Curve — assessment flow, result reveal, curve visualization.
+   OneShotLens AI Curve — assessment flow, result reveal, curve visualization.
    No point values or dimension mappings live in this file; those stay
    server-side in netlify/functions/score-curve.js. This file only knows
    question/option text and the answer IDs the user picked. */
@@ -15,9 +15,9 @@
   const root = document.getElementById('ai-curve-app');
   if (!root) return;
   const storageNamespace = root.dataset.storageNamespace || 'live';
-  const SHARE_URL = root.dataset.shareUrl || 'https://oneshotlabs.com/ai-curve.html';
-  const STORAGE_KEY = `oneshot-ai-curve-session-v2-${storageNamespace}`;
-  const RESULT_KEY = `oneshot-ai-curve-last-result-v2-${storageNamespace}`;
+  const SHARE_URL = root.dataset.shareUrl || 'https://oneshotlens.com/ai-curve.html';
+  const STORAGE_KEY = `oneshot-ai-curve-session-v3-${storageNamespace}`;
+  const RESULT_KEY = `oneshot-ai-curve-last-result-v3-${storageNamespace}`;
   const HISTORY_KEY = `oneshot-ai-curve-history-v1-${storageNamespace}`;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -165,9 +165,12 @@
   }
 
   function track(eventName, detail) {
-    // Funnel analytics stub — wire to the site's real analytics provider
-    // when one exists. Kept separate from scoring payloads on purpose.
+    // Keep assessment telemetry separate from scoring payloads. Only the
+    // start and completion milestones are sent to the privacy-first site
+    // analytics endpoint; question responses are never included.
     try {
+      if (eventName === 'start') window.oslTrack?.('ai_curve_started');
+      if (eventName === 'complete') window.oslTrack?.('ai_curve_completed');
       if (window.dataLayer) {
         window.dataLayer.push({ event: 'ai_curve_' + eventName, ...detail });
       }
@@ -314,12 +317,29 @@
     return node;
   }
 
+  async function copyText(text) {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+    const fallback = document.createElement('textarea');
+    fallback.value = text;
+    fallback.setAttribute('readonly', 'readonly');
+    fallback.style.position = 'fixed';
+    fallback.style.opacity = '0';
+    document.body.appendChild(fallback);
+    fallback.select();
+    const copied = document.execCommand('copy');
+    fallback.remove();
+    if (!copied) throw new Error('copy_unavailable');
+  }
+
   // ---------- Intro ----------
   function renderIntro() {
     const wrap = el('div', { class: 'curve-panel curve-intro reveal is-visible' }, [
-      el('p', { class: 'hero-eyebrow' }, ['OneShotLabs / AI Curve']),
+      el('p', { class: 'hero-eyebrow' }, ['OneShotLens / AI Curve']),
       el('h2', {}, ['Find your place on the frontier']),
-      el('p', { class: 'curve-lede' }, ['Ten questions. Five minutes. See where your habits place you on the AI curve.']),
+      el('p', { class: 'curve-lede' }, ['Eight questions. About three minutes. See where your habits place you on the AI curve.']),
       el('ul', { class: 'curve-intro-facts' }, [
         el('li', {}, ['Private']),
         el('li', {}, ['No email required']),
@@ -396,7 +416,7 @@
         { class: 'btn curve-back', type: 'button', ...(state.index === 0 ? { disabled: 'disabled' } : {}) },
         ['\u2190 Back']
       ),
-      el('button', { class: 'btn btn-accent curve-next', type: 'button', ...(answered ? {} : { disabled: 'disabled' }) }, [state.index === total - 1 ? 'Continue \u2192' : 'Next \u2192']),
+      el('button', { class: 'btn btn-accent curve-next', type: 'button', ...(answered ? {} : { disabled: 'disabled' }) }, [state.index === total - 1 ? 'See my results \u2192' : 'Next \u2192']),
     ]);
     nav.querySelector('.curve-back').addEventListener('click', goBack);
     nav.querySelector('.curve-next').addEventListener('click', goNext);
@@ -418,17 +438,14 @@
       render();
       focusPanel();
     } else {
-      state.step = 'segmentation';
-      state.index = 0;
-      render();
-      focusPanel();
+      submit();
     }
   }
 
   function buildAssessmentBrand() {
     return el('div', { class: 'curve-brand-mark' }, [
       el('span', {}, [
-        el('img', { src: 'favicon.svg', alt: 'OneShotLabs' }, []),
+        el('img', { src: 'favicon.svg', alt: 'OneShotLens' }, []),
       ]),
     ]);
   }
@@ -616,7 +633,7 @@
     const { scoring, interpretation, assessment_version } = state.result;
     const panel = el('div', { class: 'curve-panel curve-result reveal is-visible', tabindex: '-1' }, []);
 
-    panel.appendChild(el('p', { class: 'hero-eyebrow' }, ['OneShotLabs / AI Curve']));
+    panel.appendChild(el('p', { class: 'hero-eyebrow' }, ['OneShotLens / AI Curve']));
     panel.appendChild(el('h2', {}, ['Your position']));
 
     panel.appendChild(el('p', { class: 'curve-result-lede' }, [levelSummary(scoring.level)]));
@@ -687,11 +704,14 @@
       ])
     );
 
+    // LinkedIn's share-offsite endpoint ignores prefilled text, so open the post composer with this
+    // call to action (which carries the link) already written in.
+    const linkedinMessage = `Access to AI is a beginning. What you do with it changes the work. I found my place on the AI Curve.\n\nFind yours: ${SHARE_URL}`;
     panel.appendChild(
       el('div', { class: 'curve-cta curve-reveal-stage', style: '--curve-stage-delay:2180ms' }, [
         el('button', { class: 'btn btn-accent', type: 'button', id: 'curve-open-friction' }, ['Turn the gap into a plan \u2192']),
         el('button', { class: 'btn', type: 'button', id: 'curve-copy-result' }, ['Copy result summary']),
-        el('button', { class: 'btn curve-linkedin-share', type: 'button', id: 'curve-share-linkedin', 'aria-label': 'Share your AI Curve result on LinkedIn' }, ['Share on LinkedIn \u2197']),
+        el('a', { class: 'btn curve-linkedin-share', id: 'curve-share-linkedin', href: `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(linkedinMessage)}`, target: '_blank', rel: 'noopener noreferrer', 'aria-label': 'Publish your AI Curve result on LinkedIn' }, ['Publish to LinkedIn \u2197']),
       ])
     );
 
@@ -703,7 +723,7 @@
       el('details', { class: 'curve-disclosure curve-reveal-stage', style: '--curve-stage-delay:2260ms' }, [
         el('summary', {}, ['Methodology & privacy']),
         el('p', {}, [
-          'Your position is measured against OneShotLabs\u2019 own framework for what current AI makes possible for sophisticated professional users \u2014 not against other respondents. Comparisons to other people will only appear once there\u2019s a large enough, real sample to support them.',
+          'Your position is measured against OneShotLens\u2019 own framework for what current AI makes possible for sophisticated professional users \u2014 not against other respondents. Comparisons to other people will only appear once there\u2019s a large enough, real sample to support them.',
         ]),
         el('p', {}, [
           'Scoring happens on the server; this page never sees the point values behind your answers. Your response may be included in aggregate, non-identifying research about how professionals use AI. No employer name, salary, or unnecessary personal data is collected, and results don\u2019t require an email address.',
@@ -727,26 +747,22 @@
     }
 
     document.getElementById('curve-copy-result').addEventListener('click', async (event) => {
-      const summary = `OneShotLabs AI Curve: ${Math.round(scoring.overall)}/100 — ${scoring.level}. Strongest: ${DIMENSION_LABELS[interpretation.ahead.dimension]}. Priority: ${DIMENSION_LABELS[interpretation.gap.dimension]}.`;
+      const summary = `OneShotLens AI Curve: ${Math.round(scoring.overall)}/100 — ${scoring.level}. Strongest: ${DIMENSION_LABELS[interpretation.ahead.dimension]}. Priority: ${DIMENSION_LABELS[interpretation.gap.dimension]}.`;
       try {
-        await navigator.clipboard.writeText(summary);
+        await copyText(summary);
         event.currentTarget.textContent = 'Copied';
       } catch {
         event.currentTarget.textContent = 'Copy unavailable';
       }
     });
     document.getElementById('curve-share-linkedin').addEventListener('click', async (event) => {
-      const summary = `I scored ${Math.round(scoring.overall)}/100 — ${scoring.level} — on the OneShotLabs AI Curve. My strongest area is ${DIMENSION_LABELS[interpretation.ahead.dimension]}, and my next priority is ${DIMENSION_LABELS[interpretation.gap.dimension]}.`;
-      const shareWindow = window.open(
-        `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(SHARE_URL)}`,
-        'linkedin-share',
-        'width=720,height=720,noopener,noreferrer'
-      );
+      // Also copy the message: the LinkedIn phone app can drop prefilled text, so it's ready to paste.
+      const button = event.currentTarget;
       try {
-        await navigator.clipboard.writeText(`${summary}\n\n${SHARE_URL}`);
-        event.currentTarget.textContent = 'Summary copied — paste on LinkedIn';
+        await copyText(linkedinMessage);
+        button.textContent = 'LinkedIn opened — message ready (also copied)';
       } catch {
-        event.currentTarget.textContent = shareWindow ? 'LinkedIn opened' : 'Open LinkedIn to share';
+        button.textContent = 'LinkedIn opened — message ready';
       }
       track('linkedin_share', { level: scoring.level });
     });
@@ -802,7 +818,7 @@
 
   function buildFrictionClinic(scoring, interpretation, assessmentVersion) {
     const clinic = el('section', { class: 'curve-friction-clinic', id: 'curve-friction-clinic', hidden: 'hidden' }, [
-      el('p', { class: 'hero-eyebrow' }, ['OneShotLabs / Friction Clinic']),
+      el('p', { class: 'hero-eyebrow' }, ['OneShotLens / Friction Clinic']),
       el('h3', {}, ['What is one point of friction in your work?']),
       el('p', { class: 'muted' }, ['Describe a recurring problem, bottleneck, or task that takes more effort than it should.']),
     ]);

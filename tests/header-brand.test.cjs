@@ -5,15 +5,24 @@ const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'css/header-static.css'), 'utf8');
+const career = fs.readFileSync(path.join(root, 'career.html'), 'utf8');
+const musings = fs.readFileSync(path.join(root, 'musings.html'), 'utf8');
+const musingsCss = fs.readFileSync(path.join(root, 'css/musings-header.css'), 'utf8');
 assert(html.includes('css/header-static.css?v='));
 assert(!html.includes('js/header-brand.js'));
 assert(!html.includes('oneshot:header-brand-'));
 assert(!html.includes('classList.add("brand-shimmer-play")'));
 assert(css.includes('animation: none !important'));
 assert(css.includes('background-size: 100% 2.3px'));
-assert(html.includes('class="logo-icon"') && html.includes('class="logo-text">OneShotLabs'));
+assert(html.includes('class="logo-icon"') && html.includes('class="logo-text">OneShotLens'));
+const logoContents = source => source.match(/<a[^>]+class=["']logo["'][^>]*>([\s\S]*?)<\/a>/)?.[1];
+assert.equal(logoContents(musings), logoContents(career), 'Musings uses the exact shared OneShotLens logo markup');
+assert.match(musingsCss, /max-width:\s*var\(--max-w-wide, 1400px\)/, 'Musings uses the shared wide container');
+assert.match(musingsCss, /height:\s*97px/, 'Musings accounts for the shared 96px header row and divider');
 assert(!/AudioContext|createOscillator|play\w+Sfx|getAudioCtx/.test(html));
-const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(m => m[1]);
+const scripts = [...html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)]
+  .filter(([, attributes]) => !/type=["']application\/ld\+json["']/.test(attributes))
+  .map(([, , source]) => source);
 scripts.forEach(s => new vm.Script(s));
 const timeline = scripts.find(s => s.includes('var STAGES ='));
 let now = 0, cycles = 0;

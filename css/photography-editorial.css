@@ -1,14 +1,20 @@
 /* Photography opening — cream-paper typographic study inspired by classic
-   fashion advertising. No hero photograph: the collection begins below. */
+   fashion advertising, anchored by David's blue self-portrait. */
 
 .photo-page {
-  --photo-title-y: var(--photo-title-y-web, 49px);
+  --photo-title-y: var(--photo-title-y-web, 50px);
   --photo-copy-y: var(--photo-copy-y-web, 45px);
   --photo-divider-y: var(--photo-divider-y-web, 62px);
   --visibility-shell-padding: var(--visibility-shell-padding-web, 3.95px);
   --visibility-button-pad-y: var(--visibility-button-pad-y-web, 0.873rem);
   --visibility-button-pad-x: var(--visibility-button-pad-x-web, 1.4773rem);
   --visibility-button-font: var(--visibility-button-font-web, 0.967rem);
+  --photo-image-width: var(--photo-image-width-web, 49%);
+  --photo-image-x: var(--photo-image-x-web, 0px);
+  --photo-image-y: var(--photo-image-y-web, 60px);
+  --photo-frame-width: var(--photo-frame-width-web, 10px);
+  --photo-texture: var(--photo-texture-web, 0.25);
+  --photo-blue-wash: var(--photo-blue-wash-web, 0);
   background: var(--oneshot-cream);
   overflow-x: clip;
 }
@@ -80,6 +86,43 @@ html[data-header-preview="navy"] .photo-page .nav-toggle-bar {
   background: var(--oneshot-warm-white);
 }
 
+@media (max-width: 1024px) {
+  /* Photography's masthead sits on cream paper, so its drawer stays cream too. */
+  .photo-page .site-header .nav {
+    background: var(--oneshot-cream);
+    border-left-color: rgba(29, 47, 78, 0.14);
+    color: var(--oneshot-navy);
+  }
+
+  .photo-page .site-header .nav a {
+    border-bottom-color: rgba(29, 47, 78, 0.13);
+    color: var(--oneshot-navy);
+  }
+
+  .photo-page .nav-toggle[aria-expanded="true"] {
+    border-color: rgba(29, 47, 78, 0.38);
+  }
+
+  .photo-page .nav-toggle[aria-expanded="true"] .nav-toggle-bar {
+    background: var(--oneshot-navy);
+  }
+
+  html[data-header-preview="navy"] .photo-page .site-header .nav {
+    background: var(--header-navy);
+    border-left-color: rgba(253, 251, 246, 0.15);
+    color: var(--oneshot-warm-white);
+  }
+
+  html[data-header-preview="navy"] .photo-page .site-header .nav a {
+    border-bottom-color: rgba(253, 251, 246, 0.15);
+    color: var(--oneshot-warm-white);
+  }
+
+  html[data-header-preview="navy"] .photo-page .nav-toggle[aria-expanded="true"] .nav-toggle-bar {
+    background: var(--oneshot-warm-white);
+  }
+}
+
 .photo-editorial-hero {
   position: relative;
   isolation: isolate;
@@ -111,6 +154,47 @@ html[data-header-preview="navy"] .photo-page .nav-toggle-bar {
   letter-spacing: -0.062em;
   text-align: center;
   white-space: nowrap;
+}
+
+.photo-editorial-portrait {
+  position: relative;
+  z-index: 2;
+  width: min(var(--photo-image-width), 1180px, calc(100% - (2 * var(--gap))));
+  margin: clamp(3rem, 5.5vw, 5.5rem) auto 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: var(--photo-frame-width);
+  background: var(--oneshot-warm-white);
+  border: var(--border-thread);
+  transform: translate(var(--photo-image-x), var(--photo-image-y));
+}
+
+.photo-editorial-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.photo-editorial-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-radial-gradient(circle at 20% 30%, rgba(170, 210, 238, 0.42) 0 0.45px, transparent 0.65px 2.4px);
+  background-size: 3px 3px;
+  mix-blend-mode: soft-light;
+  opacity: var(--photo-texture);
+  z-index: 3;
+}
+
+.photo-blue-wash {
+  position: absolute;
+  inset: var(--photo-frame-width);
+  z-index: 2;
+  pointer-events: none;
+  background: rgb(55, 126, 190);
+  mix-blend-mode: soft-light;
+  opacity: var(--photo-blue-wash);
 }
 
 .photo-editorial-copy {
@@ -278,6 +362,12 @@ html[data-layout-tool="true"] .photo-layout-tool {
     --visibility-button-pad-y: var(--visibility-button-pad-y-mobile, 0.82875rem);
     --visibility-button-pad-x: var(--visibility-button-pad-x-mobile, 1.4025rem);
     --visibility-button-font: var(--visibility-button-font-mobile, 0.918rem);
+    --photo-image-width: var(--photo-image-width-mobile, var(--photo-image-width-web, 53%));
+    --photo-image-x: var(--photo-image-x-mobile, 0px);
+    --photo-image-y: var(--photo-image-y-mobile, 0px);
+    --photo-frame-width: var(--photo-frame-width-mobile, 10px);
+    --photo-texture: var(--photo-texture-mobile, 0.18);
+    --photo-blue-wash: var(--photo-blue-wash-mobile, 0);
   }
 
   html[data-layout-tool="true"] .photo-layout-tool {
@@ -344,8 +434,13 @@ html[data-layout-tool="true"] .photo-layout-tool {
   }
 
   .photo-editorial-title {
-    font-size: clamp(6.9rem, 29vw, 9rem);
-    letter-spacing: -0.068em;
+    font-size: clamp(5.4rem, 28.8vw, 9rem);
+    letter-spacing: -0.062em;
+  }
+
+  .photo-editorial-portrait {
+    max-width: calc(100% - 1.25rem);
+    margin-top: 2.25rem;
   }
 
   .photo-editorial-copy {

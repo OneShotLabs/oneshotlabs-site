@@ -1,5 +1,5 @@
 /* Branded frontier metaphor; the participant score and score marker are untouched. */
-(()=>{'use strict';const root=document.querySelector('#ai-curve-app'),ns='http://www.w3.org/2000/svg';
+(()=>{'use strict';const root=document.querySelector('#ai-curve-app'),ns='http://www.w3.org/2000/svg';if(!root)return;
 function scan(){root.querySelectorAll('.curve-frontier-marker').forEach(dot=>{const svg=dot.closest('svg'),curve=svg.querySelector('.curve-line'),mark=document.createElementNS(ns,'g'),logo=document.querySelector('.logo-icon svg').cloneNode(true);
 logo.setAttribute('x','-11');logo.setAttribute('y','-11');logo.setAttribute('width','22');logo.setAttribute('height','22');logo.style.color='#1d2f4e';logo.style.setProperty('--trim','#c6a153');
 logo.querySelectorAll('[id]').forEach(el=>el.id='frontier-'+el.id);logo.querySelectorAll('use').forEach(el=>{for(const attr of ['href','xlink:href']){const value=el.getAttribute(attr);if(value)el.setAttribute(attr,value.replace('#','#frontier-'));}});mark.append(logo);mark.classList.add('curve-frontier-brand');dot.replaceWith(mark);

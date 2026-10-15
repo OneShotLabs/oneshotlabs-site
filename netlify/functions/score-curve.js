@@ -1,6 +1,6 @@
 // netlify/functions/score-curve.js
 //
-// OneShotLabs AI Curve — server-side scoring.
+// OneShotLens AI Curve — server-side scoring.
 //
 // Why this exists: OSL_AI_CURVE_MASTER_SPEC.md requires "Never trust
 // client-supplied scores. Validate inputs server-side." and "No public
@@ -18,30 +18,29 @@
 // Response: JSON matching OSL_AI_CURVE_DATA_SCHEMA.json's "scoring" block
 //   plus a full submission envelope, ready to persist once storage exists.
 
-const ASSESSMENT_VERSION = '2026.08-10q-v1';
-const SCORING_VERSION = '2026.08-10q-v1';
+const ASSESSMENT_VERSION = '2026.09-8q-v1';
+const SCORING_VERSION = '2026.09-8q-v1';
 const crypto = require('node:crypto');
 
 // ---- Full question bank (private — points + dimension live only here) ----
 // Kept inline rather than imported from the public JSON so a client can
 // never reach this data by requesting the wrong file.
 const QUESTIONS = {
-  q01: { dimension: 'adoption', type: 'applied', points: { a: 0, b: 1, c: 2, d: 3, e: 4 } },
-  q02: { dimension: 'sophistication', type: 'applied', points: { a: 1, b: 2, c: 3, d: 4, e: 0 } },
-  q03: { dimension: 'integration', type: 'applied', points: { a: 1, b: 2, c: 3, d: 4, e: 0 } },
-  q05: { dimension: 'automation', type: 'frontier', points: { a: 0, b: 4, c: 0, d: 1, e: 0 } },
-  q06: { dimension: 'adoption', type: 'frontier', points: { a: 1, b: 4, c: 0, d: 0, e: 1 } },
-  q08: { dimension: 'integration', type: 'frontier', points: { a: 0, b: 4, c: 0, d: 1, e: 0 } },
-  q09: { dimension: 'automation', type: 'applied', points: { a: 0, b: 1, c: 2, d: 3, e: 4 } },
-  q10: { dimension: 'control', type: 'frontier', points: { a: 0, b: 4, c: 0, d: 0, e: 0 } },
-  q12: { dimension: 'sophistication', type: 'frontier', points: { a: 0, b: 4, c: 0, d: 1, e: 0 } },
-  q15: { dimension: 'control', type: 'applied', points: { a: 0, b: 1, c: 2, d: 3, e: 4 } },
+  q01: { dimension: 'adoption', type: 'applied', points: { a: 0, b: 1, c: 2, d: 3 } },
+  q02: { dimension: 'sophistication', type: 'applied', points: { a: 0, b: 1, c: 2, d: 3 } },
+  q03: { dimension: 'integration', type: 'applied', points: { a: 0, b: 1, c: 2, d: 3 } },
+  q05: { dimension: 'automation', type: 'frontier', points: { a: 0, b: 3, c: 0, d: 1 } },
+  q08: { dimension: 'integration', type: 'frontier', points: { a: 0, b: 3, c: 0, d: 1 } },
+  q09: { dimension: 'automation', type: 'applied', points: { a: 0, b: 1, c: 2, d: 3 } },
+  q10: { dimension: 'control', type: 'frontier', points: { a: 0, b: 3, c: 0, d: 0 } },
+  q15: { dimension: 'control', type: 'applied', points: { a: 0, b: 1, c: 2, d: 3 } },
 };
 
 const DIMENSIONS = ['adoption', 'sophistication', 'integration', 'automation', 'control'];
 const QUESTION_IDS = Object.keys(QUESTIONS);
-const MAX_APPLIED_POINTS = 20; // 5 applied questions * 4
-const MAX_FRONTIER_POINTS = 20; // 5 frontier questions * 4
+const MAX_APPLIED_POINTS = 15; // 5 applied questions * 3
+const MAX_FRONTIER_POINTS = 9; // 3 frontier questions * 3
+const DIMENSION_MAX_POINTS = { adoption: 3, sophistication: 3, integration: 6, automation: 6, control: 6 };
 
 const RECOMMENDATIONS = {
   integration: "Look for one recurring workflow where information is still manually copied between AI and another approved system. Explore whether that handoff can be connected safely.",
@@ -199,7 +198,7 @@ function score(answers) {
   }
 
   const dimensions = Object.fromEntries(
-    DIMENSIONS.map((d) => [d, (dimensionRaw[d] / 8) * 100])
+    DIMENSIONS.map((d) => [d, (dimensionRaw[d] / DIMENSION_MAX_POINTS[d]) * 100])
   );
 
   const appliedPractice = (appliedPoints / MAX_APPLIED_POINTS) * 100;
@@ -231,17 +230,17 @@ function responseConfidenceFor(answers, completionSeconds) {
   const pts = (id) => QUESTIONS[id].points[answers[id]];
 
   // Integration: Q3 vs Q8
-  if (pts('q03') === 4 && pts('q08') <= 1) {
+  if (pts('q03') === 3 && pts('q08') <= 1) {
     confidence -= 0.15;
     flags.push('integration_consistency');
   }
   // Automation: applied workflow practice vs agent fluency
-  if (pts('q09') >= 3 && pts('q05') <= 1) {
+  if (pts('q09') >= 2 && pts('q05') <= 1) {
     confidence -= 0.15;
     flags.push('automation_consistency');
   }
   // Control: data-handling practice vs connected-system risk fluency
-  if (pts('q15') === 4 && pts('q10') === 0) {
+  if (pts('q15') === 3 && pts('q10') === 0) {
     confidence -= 0.10;
     flags.push('control_consistency');
   }

@@ -1,59 +1,350 @@
+headersOrigin = "config"
+redirectsOrigin = "config"
+plugins = []
+
 [build]
-  publish = "."
-  functions = "netlify/functions"
+command = "node --test tests/published-musings-catalog.test.cjs"
+publish = "."
+publishOrigin = "config"
+functions = "netlify/functions"
+
+  [build.environment]
+
+  [build.processing]
+
+    [build.processing.css]
+
+    [build.processing.html]
+
+    [build.processing.images]
+
+    [build.processing.js]
+
+  [build.services]
+
+[functions]
+
+  [functions."*"]
 
 [[headers]]
-  for = "/data/*"
+for = "/data/*"
+
   [headers.values]
-    Cache-Control = "public, max-age=300"
+  Cache-Control = "public, max-age=300"
 
 [[headers]]
-  for = "/assets/video/*"
+for = "/assets/video/*"
+
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+  Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/ai-curve.html"
+for = "/assets/brand/*"
+
   [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+  Cache-Control = "public, max-age=604800"
+
+[[headers]]
+for = "/sitemap.xml"
+
+  [headers.values]
+  Cache-Control = "public, max-age=3600"
+
+[[headers]]
+for = "/robots.txt"
+
+  [headers.values]
+  Cache-Control = "public, max-age=3600"
+
+[[headers]]
+for = "/analytics-dashboard.html"
+
+  [headers.values]
+  Cache-Control = "private, no-store"
+  X-Robots-Tag = "noindex, nofollow, noarchive"
+  X-Frame-Options = "DENY"
+  Referrer-Policy = "no-referrer"
+
+[[headers]]
+for = "/dashboard"
+
+  [headers.values]
+  Cache-Control = "private, no-store"
+  X-Robots-Tag = "noindex, nofollow, noarchive"
+  X-Frame-Options = "DENY"
+  Referrer-Policy = "no-referrer"
+
+[[headers]]
+for = "/ai-curve.html"
+
+  [headers.values]
+  X-Frame-Options = "SAMEORIGIN"
+  X-Content-Type-Options = "nosniff"
+  Referrer-Policy = "strict-origin-when-cross-origin"
 
 [[redirects]]
-  from = "/blog"
-  to = "/musings"
-  status = 301
+from = "https://oneshotlabsai.com/*"
+to = "https://oneshotlens.com/:splat"
+status = 301
+force = true
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
 
 [[redirects]]
-  from = "/blog.html"
-  to = "/musings"
-  status = 301
+from = "https://www.oneshotlabsai.com/*"
+to = "https://oneshotlens.com/:splat"
+status = 301
+force = true
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
 
 [[redirects]]
-  from = "/musings.html"
-  to = "/musings"
-  status = 301
+from = "https://oneshotlabs-david-jergovic.netlify.app/*"
+to = "https://oneshotlens.com/:splat"
+status = 301
+force = true
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
 
 [[redirects]]
-  from = "/musings/ai-has-a-branding-problem"
-  to = "/musings/ai-has-a-branding-problem/index.html"
-  status = 200
+from = "https://oneshotlens.netlify.app/*"
+to = "https://oneshotlens.com/:splat"
+status = 301
+force = true
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
 
 [[redirects]]
-  from = "/musings/systems-thinkers-netflix"
-  to = "/musings"
-  status = 302
-  force = true
+from = "/career.html"
+to = "/career"
+status = 301
+force = true
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
 
 [[redirects]]
-  from = "/musings/:slug"
-  to = "/post.html?slug=:slug"
-  status = 200
+from = "/dashboard"
+to = "/analytics-dashboard.html"
+status = 200
+force = true
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
+[[redirects]]
+from = "/career"
+to = "/career.html"
+status = 200
+force = true
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
+[[redirects]]
+from = "/photography.html"
+to = "/photography"
+status = 301
+force = true
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
+[[redirects]]
+from = "/photography"
+to = "/photography.html"
+status = 200
+force = true
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
+[[redirects]]
+from = "/bio.html"
+to = "/bio"
+status = 301
+force = true
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
+[[redirects]]
+from = "/bio"
+to = "/bio.html"
+status = 200
+force = true
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
+[[redirects]]
+from = "/contact.html"
+to = "/contact"
+status = 301
+force = true
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
+[[redirects]]
+from = "/contact"
+to = "/contact.html"
+status = 200
+force = true
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
+[[redirects]]
+from = "/blog"
+to = "/musings"
+status = 301
+force = false
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
+[[redirects]]
+from = "/blog.html"
+to = "/musings"
+status = 301
+force = false
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
+[[redirects]]
+from = "/musings.html"
+to = "/musings"
+status = 301
+force = false
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
+[[redirects]]
+from = "/musings/luck-by-design"
+to = "/musings/luck-by-design/index.html"
+status = 200
+force = false
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
+[[redirects]]
+from = "/musings/ai-has-a-branding-problem"
+to = "/musings/ai-has-a-branding-problem/index.html"
+status = 200
+force = false
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
+[[redirects]]
+from = "/musings/q4-is-here-lets-finish-strong"
+to = "/musings/q4-is-here-lets-finish-strong/index.html"
+status = 200
+force = false
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
+[[redirects]]
+from = "/musings/systems-thinkers-netflix"
+to = "/musings/systems-thinkers-netflix/index.html"
+status = 200
+force = false
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
+[[redirects]]
+from = "/musings/:slug"
+to = "/post.html?slug=:slug"
+status = 200
+force = false
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
 
 [[redirects]]
 from = "/ai/curve"
 to = "/ai-curve.html"
 status = 200
+force = false
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
 
 [[redirects]]
 from = "/ai-consulting"
@@ -61,11 +352,23 @@ to = "/ai"
 status = 301
 force = true
 
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
 [[redirects]]
 from = "/ai-consulting.html"
 to = "/ai"
 status = 301
 force = true
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
 
 [[redirects]]
 from = "/ai.html"
@@ -73,8 +376,20 @@ to = "/ai"
 status = 301
 force = true
 
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
 [[redirects]]
 from = "/ai"
 to = "/ai.html"
 status = 200
 force = true
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]

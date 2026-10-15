@@ -12,6 +12,9 @@
   display:block!important;transition:opacity 760ms cubic-bezier(.2,.65,.2,1),transform 980ms cubic-bezier(.16,.76,.18,1),filter 760ms ease;
   will-change:opacity,transform,filter
 }
+.fabric-material-study .fabric .copy[hidden]{display:none!important}
+.fabric-material-study .fabric[data-cloth-dragging="true"]{cursor:grabbing}
+.fabric-material-study .fabric[data-cloth-ready="true"]:not([data-cloth-dragging="true"]){cursor:grab}
 .fabric-material-study .fabric>img.art{
   transform:scale(1.015) translate3d(0,0,0);transform-origin:63% 8%;
   transition:transform 1850ms cubic-bezier(.12,.72,.14,1),filter 1400ms ease,opacity 900ms ease;
@@ -49,7 +52,7 @@
 .fabric-material-study.exploring-system #fabric-breath{opacity:1!important;clip-path:inset(0 0 0 0)}
 .fabric-material-study.exploring-system .woven-network{mask-image:none;opacity:1;animation:none}
 .fabric-material-study.exploring-system .woven-method{
-  flex:0 0 auto;height:auto;max-height:min(46svh,390px);min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain
+  flex:0 0 auto;height:auto;max-height:min(46svh,390px);min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:auto
 }
 .fabric-material-study.exploring-system .method-expanded{max-height:none;overflow:visible;padding-right:0}
 .fabric-material-study.exploring-system .fabric::before{

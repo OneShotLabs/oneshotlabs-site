@@ -1,4 +1,4 @@
-// One Shot — photography timeline.
+// OneShotLens — photography timeline.
 // A 2014-tumblr-dashboard-style vertical scroll feed. Always chronological;
 // a small pair of arrows flips the sort direction (oldest-first / newest-first).
 //
@@ -67,9 +67,9 @@ const PHOTOS = [
     shutter: 0.01,
   },
   {
-    // Foreground concrete corrected to match the surrounding road while
-    // preserving the original subject, framing, and sunset color grade.
-    src: "images/photo-2025-08-girl-pink-dress-road-edited.jpg",
+    // Only the lower foreground concrete is repaired; the subject and the
+    // remainder of the original photograph are preserved pixel-for-pixel.
+    src: "images/photo-2025-08-girl-pink-dress-road-concrete-fixed.png",
     month: "August",
     year: 2025,
     caption: "",
@@ -92,17 +92,6 @@ const PHOTOS = [
     shutter: 0.0238095,
   },
   {
-    src: "images/photo-2026-08-beach-shell.jpg",
-    month: "August",
-    year: 2026,
-    caption: "",
-    ratio: "1184 / 1776",
-    visibility: "private",
-    iso: 640,
-    aperture: 2.8,
-    shutter: 0.0001111,
-  },
-  {
     src: "images/photo-2024-03-couch-dog.jpg",
     month: "March",
     year: 2024,
@@ -112,21 +101,6 @@ const PHOTOS = [
     iso: 160,
     aperture: 3.2,
     shutter: 0.0041667,
-  },
-  {
-    src: "images/photo-2024-08-crawl-bw.jpg",
-    month: "August",
-    year: 2024,
-    caption: "",
-    ratio: "3 / 2",
-    visibility: "private",
-    iso: 320,
-    aperture: 2.5,
-    shutter: 0.008,
-    // Shot in-camera on the X100V's monochrome film simulation (confirmed
-    // truly grayscale in the file itself, not just desaturated) — exact
-    // recipe name wasn't in the readable EXIF, so left unset rather than
-    // guessed.
   },
   {
     // v2: other swimmers airbrushed out of the water, background otherwise untouched.
@@ -247,17 +221,6 @@ const PHOTOS = [
     shutter: 0.0035714,
   },
   {
-    src: "images/photo-2026-04-beach-bucket-v2.jpg",
-    month: "April",
-    year: 2026,
-    caption: "",
-    ratio: "724 / 1086",
-    visibility: "private",
-    iso: 640,
-    aperture: 2.8,
-    shutter: 0.0003704,
-  },
-  {
     src: "images/photo-2025-09-mountain-pebbles.jpg",
     month: "September",
     year: 2025,
@@ -320,17 +283,6 @@ const PHOTOS = [
     iso: 640,
     aperture: 5.6,
     shutter: 0.0009091,
-  },
-  {
-    src: "images/photo-2025-03-siblings-closeup.jpg",
-    month: "March",
-    year: 2025,
-    caption: "",
-    ratio: "1099 / 1057",
-    visibility: "private",
-    iso: 640,
-    aperture: 2.8,
-    shutter: 0.002,
   },
   {
     src: "images/photo-2025-05-rainbow-mural-dog.jpg",
@@ -399,9 +351,6 @@ const PHOTOS = [
     // Casino/craps-table shot — not family, public per instruction.
     visibility: "public",
     location: "Las Vegas",
-    // Deliberate editorial placement: keep this immediately before the
-    // September 2026 train frame (see sortChronological below).
-    pinBefore: "images/photo-2026-09-train-sunset.webp",
     iso: 6400,
     aperture: 2,
     shutter: 0.0125,
@@ -474,17 +423,6 @@ const PHOTOS = [
     iso: 640,
     aperture: 4,
     shutter: 0.003125,
-  },
-  {
-    src: "images/photo-2024-07-watering-flowers.jpg",
-    month: "July",
-    year: 2024,
-    caption: "",
-    ratio: "1095 / 1643",
-    visibility: "private",
-    iso: 800,
-    aperture: 2,
-    shutter: 0.01,
   },
   {
     src: "images/photo-2025-01-chicago-river-ice-underbridge.jpg",
@@ -581,12 +519,6 @@ const PHOTOS = [
     iso: 320, aperture: 2, shutter: 0.01,
   },
   {
-    src: "images/photo-2024-04-boat-deck-girl.jpg",
-    month: "April", year: 2024, caption: "",
-    ratio: "1186 / 791", visibility: "private",
-    iso: 640, aperture: 2.5, shutter: 0.008,
-  },
-  {
     src: "images/photo-2024-12-bulldog-sleeping.jpg",
     month: "December", year: 2024, caption: "",
     ratio: "1776 / 1184", visibility: "private",
@@ -642,13 +574,6 @@ const PHOTOS = [
     iso: 160, aperture: 2.2, shutter: 0.0090909,
   },
   {
-    src: "images/photo-2026-09-fishing-boats.webp",
-    month: "September", year: 2026, caption: "",
-    ratio: "1067 / 1600", visibility: "public",
-    location: "Hyannis Port",
-    iso: 320, aperture: 5.6, shutter: 0.00125,
-  },
-  {
     src: "images/photo-2026-09-concert-globe-close.webp",
     month: "September", year: 2026, caption: "",
     ratio: "901 / 1600", visibility: "public",
@@ -669,6 +594,154 @@ const PHOTOS = [
     location: "Soldier Field",
     iso: 6400, aperture: 2, shutter: 0.0263158,
   },
+  // Synced from the current Google Drive Photos folder through 2026-10-12.
+  // Exact duplicate uploads and photos already represented by an optimized
+  // local copy are intentionally shown once in the timeline.
+  {
+    src: "images/photo-2024-08-baby-pink.jpg",
+    month: "August", year: 2024, caption: "",
+    ratio: "1776 / 1184", visibility: "private",
+    iso: 1600, aperture: 2, shutter: 0.01,
+  },
+  {
+    src: "images/photo-2024-08-mother-baby-beach.jpg",
+    month: "August", year: 2024, caption: "",
+    ratio: "1184 / 1776", visibility: "private",
+    iso: 640, aperture: 5, shutter: 0.0013333,
+  },
+  {
+    src: "images/photo-2025-10-girl-bulldog-mural.jpg",
+    month: "October", year: 2025, caption: "",
+    ratio: "1019 / 1177", visibility: "private",
+    iso: 320, aperture: 2, shutter: 0.01,
+  },
+  {
+    src: "images/photo-2025-10-upside-down-costume.jpg",
+    month: "October", year: 2025, caption: "",
+    ratio: "1184 / 1776", visibility: "private",
+    iso: 6400, aperture: 2, shutter: 0.05,
+  },
+  {
+    src: "images/photo-2026-02-winter-mountains.jpg",
+    month: "February", year: 2026, caption: "",
+    ratio: "724 / 1086", visibility: "public",
+    location: "Aspen",
+    iso: 640, aperture: 4, shutter: 0.003125,
+  },
+  {
+    src: "images/photo-2026-03-child-profile.jpg",
+    month: "March", year: 2026, caption: "",
+    ratio: "700 / 1122", visibility: "private",
+    iso: 320, aperture: 2.8, shutter: 0.01,
+  },
+  {
+    src: "images/photo-2026-08-beach-girl.jpg",
+    month: "August", year: 2026, caption: "",
+    ratio: "1776 / 1184", visibility: "private",
+    iso: 160, aperture: 2.8, shutter: 0.0025,
+  },
+  {
+    src: "images/photo-2026-08-birthday-card.jpg",
+    month: "August", year: 2026, caption: "",
+    ratio: "724 / 1086", visibility: "private",
+    iso: 500, aperture: 2.8, shutter: 0.01,
+  },
+  {
+    src: "images/photo-2026-09-concert-smoke.jpg",
+    month: "September", year: 2026, caption: "",
+    ratio: "1148 / 918", visibility: "public",
+    location: "Soldier Field",
+    iso: 2500, aperture: 2, shutter: 0.01,
+  },
+  {
+    src: "images/photo-2026-09-concert-laser-silhouette.jpg",
+    month: "September", year: 2026, caption: "",
+    ratio: "1086 / 724", visibility: "public",
+    location: "Soldier Field",
+    iso: 6400, aperture: 2, shutter: 0.0166667,
+  },
+  {
+    src: "images/photo-2025-09-wrigley-field-game.jpg",
+    month: "September", year: 2025, caption: "",
+    ratio: "768 / 1024", visibility: "public",
+    location: "Wrigley Field",
+    iso: 1600, aperture: 2, shutter: 0.01,
+  },
+  {
+    // Date and exposure settings come from the Drive original's EXIF.
+    src: "images/photo-2025-10-halloween-family.jpg",
+    month: "October", year: 2025, caption: "",
+    ratio: "724 / 1086", visibility: "private",
+    iso: 4000, aperture: 2, shutter: 0.01,
+  },
+  {
+    src: "images/photo-2026-10-sphere-concert.jpg",
+    month: "October", year: 2026, caption: "",
+    ratio: "3783 / 5674", visibility: "public",
+    location: "The Sphere",
+    iso: 6400, aperture: 2, shutter: 0.0333333,
+  },
+  {
+    src: "images/photo-2026-10-sphere-concert-vocalist.jpg",
+    month: "October", year: 2026, caption: "",
+    ratio: "3745 / 5617", visibility: "public",
+    location: "The Sphere",
+    iso: 4000, aperture: 2, shutter: 0.01,
+  },
+  {
+    src: "images/photo-2026-10-sphere-concert-red-stage.jpg",
+    month: "October", year: 2026, caption: "",
+    ratio: "6240 / 4160", visibility: "public",
+    location: "The Sphere",
+    iso: 6400, aperture: 2, shutter: 0.0125,
+  },
+  {
+    src: "images/photo-2026-10-las-vegas-sphere.jpg",
+    month: "October", year: 2026, caption: "",
+    ratio: "4160 / 6240", visibility: "public",
+    location: "Las Vegas",
+    iso: 1600, aperture: 2, shutter: 0.01,
+  },
+  {
+    src: "images/photo-2026-10-playground-flower-bw.jpg",
+    month: "October", year: 2026, caption: "",
+    ratio: "1144 / 686", visibility: "private",
+    iso: 5000, aperture: 2, shutter: 0.01,
+  },
+  {
+    src: "images/photo-2026-10-playground-spinner-bw.jpg",
+    month: "October", year: 2026, caption: "",
+    ratio: "724 / 1086", visibility: "private",
+    iso: 250, aperture: 2, shutter: 0.0384615,
+  },
+  {
+    src: "images/photo-2026-10-upper-east-side-facade.jpg",
+    month: "October", year: 2026, caption: "",
+    ratio: "1086 / 724", visibility: "public",
+    location: "Upper East Side",
+    iso: 640, aperture: 3.6, shutter: 0.0033333,
+  },
+  {
+    src: "images/photo-2026-10-central-park-lake-skyline.jpg",
+    month: "October", year: 2026, caption: "",
+    ratio: "3837 / 5755", visibility: "public",
+    location: "Central Park",
+    iso: 320, aperture: 2.5, shutter: 0.00625,
+  },
+  {
+    src: "images/photo-2026-10-upper-east-side-rowhouses.jpg",
+    month: "October", year: 2026, caption: "",
+    ratio: "1 / 1", visibility: "public",
+    location: "Upper East Side",
+    iso: 640, aperture: 3.6, shutter: 0.004,
+  },
+  {
+    src: "images/photo-2026-10-central-park-bethesda-arcade.jpg",
+    month: "October", year: 2026, caption: "",
+    ratio: "3436 / 5154", visibility: "public",
+    location: "Central Park",
+    iso: 500, aperture: 2, shutter: 0.01,
+  },
 ];
 
 const MONTH_ORDER = [
@@ -678,27 +751,13 @@ const MONTH_ORDER = [
 
 function sortChronological(photos, direction) {
   // direction "asc" = oldest first, feed reads top-to-bottom as
-  // forward-moving time. "desc" = strictly newest first. A pinBefore
-  // reference is an editorial override used only for the ascending view;
-  // descending stays fully chronological so the newest frame is always first.
-  if (direction === "desc") {
-    return [...photos].sort((a, b) => {
-      if (a.year !== b.year) return b.year - a.year;
-      return MONTH_ORDER.indexOf(b.month) - MONTH_ORDER.indexOf(a.month);
-    });
-  }
-
-  const pinned = photos.filter((p) => p.pinBefore);
-  const rest = photos.filter((p) => !p.pinBefore);
-  rest.sort((a, b) => {
-    if (a.year !== b.year) return a.year - b.year;
-    return MONTH_ORDER.indexOf(a.month) - MONTH_ORDER.indexOf(b.month);
+  // forward-moving time. "desc" = strictly newest first. Both directions
+  // use the same date key; there are no editorial jumps in the Away feed.
+  const sign = direction === "desc" ? -1 : 1;
+  return [...photos].sort((a, b) => {
+    if (a.year !== b.year) return (a.year - b.year) * sign;
+    return (MONTH_ORDER.indexOf(a.month) - MONTH_ORDER.indexOf(b.month)) * sign;
   });
-  pinned.forEach((photo) => {
-    const targetIndex = rest.findIndex((candidate) => candidate.src === photo.pinBefore);
-    rest.splice(targetIndex < 0 ? rest.length : targetIndex, 0, photo);
-  });
-  return rest;
 }
 
 // True if a photo's own ratio is wider than it is tall — used to give

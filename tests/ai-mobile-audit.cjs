@@ -32,8 +32,8 @@ const assert = require('node:assert/strict');
     assert.deepEqual(report.overflow, [], `${width}px visible elements must stay in viewport`);
     assert.deepEqual(report.links, [], `${width}px controls must meet 44px touch target`);
     if (width === 390) {
-      await page.screenshot({ path: '/private/tmp/oneshotlabs-ai-mobile.png', fullPage: true });
-      await page.locator('.ai-curve-section').screenshot({ path: '/private/tmp/oneshotlabs-ai-curve-mobile.png' });
+      await page.screenshot({ path: '/private/tmp/oneshotlens-ai-mobile.png', fullPage: true });
+      await page.locator('.ai-curve-section').screenshot({ path: '/private/tmp/oneshotlens-ai-curve-mobile.png' });
     }
     await page.close();
   }

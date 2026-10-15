@@ -8,7 +8,7 @@ const routes = [
   '/', '/ai.html', '/photography.html', '/contact.html', '/career.html', '/bio.html', '/musings.html', '/post.html',
   '/career-intelligence/index.html', '/career-intelligence/styles.css', '/career-intelligence/app.js',
   '/musings/ai-has-a-branding-problem/index.html',
-  '/assets/editorial/ai-has-a-branding-problem-hero.png', '/assets/editorial/ai-has-a-branding-problem-social.png',
+  '/assets/editorial/ai-has-a-branding-problem-hero-v2.png', '/assets/editorial/ai-has-a-branding-problem-social-v2.png',
   '/decision-cube/index.html', '/css/home-motion.css', '/js/home-motion.js', '/css/site-motion.css', '/js/site-motion.js',
   '/css/fabric-finish.css', '/css/fabric-method.css', '/css/fabric-questionnaire.css', '/css/fabric-assessment-navy.css',
   '/js/navy-veil.js', '/js/fabric-breath.js', '/js/fabric-finish.js', '/js/fabric-method.js', '/js/fabric-questionnaire.js',

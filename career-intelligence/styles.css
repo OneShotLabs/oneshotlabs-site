@@ -1,5 +1,5 @@
 :root {
-  --paper: #f4f1e9;
+  --paper: #fffdf8;                  /* site cream (matches css/style.css --bg) */
   --paper-bright: #fbfaf6;
   --brand-navy: #1d2f4e;
   --ink: var(--brand-navy);
@@ -21,15 +21,14 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   color: var(--ink);
-  background:
-    radial-gradient(circle at 18% 2%, rgba(255,255,255,.9), transparent 32rem),
-    var(--paper);
+  background: var(--paper);
   font-family: var(--sans);
   font-size: 16px;
   line-height: 1.45;
   -webkit-font-smoothing: antialiased;
 }
 body::before {
+  display: none;                      /* grain overlay off: keeps the page the same flat cream as the rest of the site */
   content: "";
   position: fixed;
   inset: 0;
@@ -960,6 +959,7 @@ body { max-width:100%; overflow-x:clip; }
   text-transform:uppercase;
 }
 .capability-group-label span { color:var(--copper); font-size:.58rem; }
+.capability-group-label strong { min-width:0; font:inherit; }
 .capability-group .capability-card {
   grid-column:auto;
   width:100%;
@@ -1081,6 +1081,23 @@ body { max-width:100%; overflow-x:clip; }
 }
 
 @media (max-width:1040px) {
+  .capability-group-label {
+    min-width:0;
+    max-width:100%;
+    overflow:hidden;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    gap:.18rem;
+    padding-right:.4rem;
+    font-size:.58rem;
+    letter-spacing:.09em;
+  }
+  .capability-group-label strong {
+    display:block;
+    max-width:100%;
+    overflow-wrap:anywhere;
+  }
   .input-rail { grid-template-columns:145px repeat(4,minmax(0,1fr)); }
   .output-rail { grid-template-columns:145px repeat(3,minmax(0,1fr)); }
   .input-rail .rail-heading,.output-rail .rail-heading { grid-column:1; grid-row:1 / span 2; }
@@ -1222,3 +1239,16 @@ body { max-width:100%; overflow-x:clip; }
 .career-embed .hero { padding-top:clamp(3rem,6vw,5.5rem); }
 .career-embed .system { padding-bottom:clamp(3rem,6vw,5rem); }
 .career-embed main { overflow:visible; }
+
+/* 2026-09-28 phone legibility: labels that scaled below ~8px on phones get a readable floor. */
+@media (max-width: 700px) {
+  body .output-rail .output-card > .output-meta { font-size: 10px; line-height: 1.25; letter-spacing: .04em; white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: normal; word-break: keep-all; hyphens: none; margin-right: .9rem; }
+  body .rail-heading .rail-kicker, body .stage-heading .rail-kicker span { font-size: 10px; }
+  body .capability-group .capability-group-label strong { font-size: 10.5px; }
+}
+
+/* 2026-09-28: stage labels (e.g. "Underwrite") read on one line in the side-column layout. */
+@media (min-width: 541px) and (max-width: 1040px) {
+  .capability-group { grid-template-columns: 96px repeat(2, minmax(0, 1fr)); }
+  body .capability-group .capability-group-label strong { font-size: 10px; letter-spacing: .05em; white-space: nowrap; overflow-wrap: normal; word-break: keep-all; }
+}
