@@ -67,6 +67,19 @@ const PHOTOS = [
     shutter: 0.01,
   },
   {
+    // GPS EXIF: 40.713N, 73.957W — Brooklyn, NY.
+    src: "images/photo-2025-09-brooklyn-bulldogs.jpg",
+    month: "September",
+    year: 2025,
+    caption: "",
+    ratio: "1184 / 1776",
+    visibility: "public",
+    location: "Brooklyn",
+    iso: 1250,
+    aperture: 2,
+    shutter: 0.01,
+  },
+  {
     // Only the lower foreground concrete is repaired; the subject and the
     // remainder of the original photograph are preserved pixel-for-pixel.
     src: "images/photo-2025-08-girl-pink-dress-road-concrete-fixed.png",
@@ -488,19 +501,6 @@ const PHOTOS = [
     shutter: 0.0055556,
   },
   {
-    // GPS EXIF: 40.713N, 73.957W — Brooklyn, NY.
-    src: "images/photo-2025-09-brooklyn-bulldogs.jpg",
-    month: "September",
-    year: 2025,
-    caption: "",
-    ratio: "1184 / 1776",
-    visibility: "public",
-    location: "Brooklyn",
-    iso: 1250,
-    aperture: 2,
-    shutter: 0.01,
-  },
-  {
     src: "images/photo-2025-11-autumn-park.jpg",
     month: "November",
     year: 2025,
@@ -722,18 +722,18 @@ const PHOTOS = [
     iso: 640, aperture: 3.6, shutter: 0.0033333,
   },
   {
-    src: "images/photo-2026-10-central-park-lake-skyline.jpg",
-    month: "October", year: 2026, caption: "",
-    ratio: "3837 / 5755", visibility: "public",
-    location: "Central Park",
-    iso: 320, aperture: 2.5, shutter: 0.00625,
-  },
-  {
     src: "images/photo-2026-10-upper-east-side-rowhouses.jpg",
     month: "October", year: 2026, caption: "",
     ratio: "1 / 1", visibility: "public",
     location: "Upper East Side",
     iso: 640, aperture: 3.6, shutter: 0.004,
+  },
+  {
+    src: "images/photo-2026-10-central-park-lake-skyline.jpg",
+    month: "October", year: 2026, caption: "",
+    ratio: "3837 / 5755", visibility: "public",
+    location: "Central Park",
+    iso: 320, aperture: 2.5, shutter: 0.00625,
   },
   {
     src: "images/photo-2026-10-central-park-bethesda-arcade.jpg",
