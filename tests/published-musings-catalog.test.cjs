@@ -7,6 +7,7 @@ const root = path.resolve(__dirname, '..');
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
 
 const published = [
+  'the-intelligence-inside-your-business',
   'luck-by-design',
   'taking-an-idea-further-with-ai',
   'systems-thinkers-netflix',

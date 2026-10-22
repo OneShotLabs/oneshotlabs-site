@@ -25,6 +25,7 @@ const routes = new Map([
   ['/contact', 'contact.html'],
   ['/musings', 'musings.html'],
   ['/photography', 'photography.html'],
+  ['/musings/the-intelligence-inside-your-business', 'musings/the-intelligence-inside-your-business/index.html'],
   ['/musings/ai-has-a-branding-problem', 'musings/ai-has-a-branding-problem/index.html'],
   ['/musings/systems-thinkers-netflix', 'musings/systems-thinkers-netflix/index.html'],
 ]);

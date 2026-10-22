@@ -9,6 +9,8 @@ const routes = [
   '/career-intelligence/index.html', '/career-intelligence/styles.css', '/career-intelligence/app.js',
   '/musings/ai-has-a-branding-problem/index.html',
   '/assets/editorial/ai-has-a-branding-problem-hero-v2.png', '/assets/editorial/ai-has-a-branding-problem-social-v2.png',
+  '/musings/the-intelligence-inside-your-business/index.html',
+  '/assets/editorial/the-intelligence-inside-your-business-hero.png', '/assets/editorial/the-intelligence-inside-your-business-social.png',
   '/decision-cube/index.html', '/css/home-motion.css', '/js/home-motion.js', '/css/site-motion.css', '/js/site-motion.js',
   '/css/fabric-finish.css', '/css/fabric-method.css', '/css/fabric-questionnaire.css', '/css/fabric-assessment-navy.css',
   '/js/navy-veil.js', '/js/fabric-breath.js', '/js/fabric-finish.js', '/js/fabric-method.js', '/js/fabric-questionnaire.js',

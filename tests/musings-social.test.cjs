@@ -37,7 +37,7 @@ assert.match(index, /View Finder · Edition 001/);
 assert.match(index, /All opinions expressed here are my own and do not reflect the views of my employer\./);
 
 const manifest = JSON.parse(read('posts/manifest.json'));
-assert.deepEqual(manifest.posts, ['luck-by-design', 'taking-an-idea-further-with-ai', 'systems-thinkers-netflix', 'q4-is-here-lets-finish-strong', 'ai-has-a-branding-problem']);
+assert.deepEqual(manifest.posts, ['the-intelligence-inside-your-business', 'luck-by-design', 'taking-an-idea-further-with-ai', 'systems-thinkers-netflix', 'q4-is-here-lets-finish-strong', 'ai-has-a-branding-problem']);
 const netlifyConfig = read('netlify.toml');
 assert.match(netlifyConfig, /from = "\/musings\/systems-thinkers-netflix"[\s\S]*?to = "\/musings\/systems-thinkers-netflix\/index\.html"[\s\S]*?status = 200/);
 

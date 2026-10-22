@@ -38,6 +38,7 @@ for (const page of [
   'photography.html',
   'post.html',
   'musings/ai-has-a-branding-problem/index.html',
+  'musings/the-intelligence-inside-your-business/index.html',
 ]) {
   const html = fs.readFileSync(path.join(root, page), 'utf8');
   assert.match(html, /href="\/favicon\.svg"/, `${page} must use the root favicon`);

@@ -275,6 +275,18 @@ force = false
   [redirects.headers]
 
 [[redirects]]
+from = "/musings/the-intelligence-inside-your-business"
+to = "/musings/the-intelligence-inside-your-business/index.html"
+status = 200
+force = false
+
+  [redirects.query]
+
+  [redirects.conditions]
+
+  [redirects.headers]
+
+[[redirects]]
 from = "/musings/luck-by-design"
 to = "/musings/luck-by-design/index.html"
 status = 200
