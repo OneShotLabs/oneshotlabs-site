@@ -36,6 +36,12 @@ test('Leveraging the Intelligence Within Your Business uses the approved article
   assert.match(index, /id="perspectives"/);
   assert.match(index, /id="studio"/);
   assert.match(index, /id="view-finder"/);
+  assert.equal((index.match(/perspective-feature/g) || []).length >= 2, true);
+  assert.match(index, /OneShotLens editorial illustration · September 2026/);
+  assert.doesNotMatch(index, /href="#perspectives">Read Perspectives/);
+  assert.match(index, /#perspectives\{border-bottom:1px solid var\(--navy\)\}/);
+  assert.match(index, /#perspectives \.story>\.read\{justify-self:start;align-self:start\}/);
   assert.ok(index.indexOf('id="perspectives"') < index.indexOf('id="studio"'));
   assert.ok(index.indexOf('id="studio"') < index.indexOf('id="view-finder"'));
+  assert.ok(index.indexOf('id="view-finder"') < index.indexOf('/musings/systems-thinkers-netflix'));
 });

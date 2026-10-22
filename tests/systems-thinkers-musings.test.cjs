@@ -52,7 +52,8 @@ assert.match(shell, /rel="canonical" href="https:\/\/oneshotlens\.com\/musings\/
 
 const index = read('musings.html');
 assert.match(index, /id="view-finder"/);
-assert.match(index, />View Finder<\/h2>/);
+assert.match(index, /class="story view-finder-story" id="view-finder"/);
+assert.match(index, /View Finder · Edition 001/);
 assert.ok(index.indexOf('id="studio"') < index.indexOf('id="view-finder"'));
 assert.ok(index.indexOf('id="view-finder"') < index.indexOf('/musings/systems-thinkers-netflix'));
 
