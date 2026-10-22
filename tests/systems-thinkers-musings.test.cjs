@@ -51,7 +51,10 @@ assert.match(shell, /"@type": "VideoObject"/);
 assert.match(shell, /rel="canonical" href="https:\/\/oneshotlens\.com\/musings\/systems-thinkers-netflix"/);
 
 const index = read('musings.html');
-assert.ok(index.indexOf('/musings/systems-thinkers-netflix') < index.indexOf('/musings/q4-is-here-lets-finish-strong'));
+assert.match(index, /id="view-finder"/);
+assert.match(index, />View Finder<\/h2>/);
+assert.ok(index.indexOf('id="studio"') < index.indexOf('id="view-finder"'));
+assert.ok(index.indexOf('id="view-finder"') < index.indexOf('/musings/systems-thinkers-netflix'));
 
 const sitemap = read('sitemap.xml');
 assert.match(sitemap, /https:\/\/oneshotlens\.com\/musings\/systems-thinkers-netflix/);

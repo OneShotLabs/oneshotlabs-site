@@ -2,6 +2,7 @@
 title: Q4 Is Here. Let’s Finish Strong.
 date: 2026-10-01
 tags: [ai-video, generative-ai, marketing]
+collection: Studio
 excerpt: A timely experiment in using generative video to turn an idea into a finished story while the moment still matters.
 cover: /assets/editorial/q4-is-here-lets-finish-strong.jpg
 coverAlt: A business leader addressing a focused team in a stadium sideline huddle

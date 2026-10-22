@@ -2,6 +2,7 @@
 title: Leveraging the Intelligence Within Your Business
 date: 2026-10-21
 tags: [ai, work, systems]
+collection: Perspectives
 excerpt: Most organizations do not have an intelligence problem. The opportunity is to organize what the business already knows and put that knowledge to work.
 cover: /assets/editorial/the-intelligence-inside-your-business-hero.png
 coverAlt: A professional operates a red machine that draws from files, a binder, correspondence and documents, producing an organized report under a desk lamp

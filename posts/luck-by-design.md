@@ -2,6 +2,7 @@
 title: Luck, by Design
 date: 2026-10-11
 tags: [ai-video, generative-ai, marketing]
+collection: Studio
 excerpt: What looks like luck is often the result of learning, experimenting, and preparing long before opportunity arrives.
 cover: /assets/editorial/luck-by-design.jpg
 coverAlt: A Las Vegas slot machine displaying the OneShotLens star mark

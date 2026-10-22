@@ -2,6 +2,7 @@
 title: Taking an Idea Further with AI
 date: 2026-10-08
 tags: [ai-video, ui-design, marketing]
+collection: Studio
 excerpt: An experiment in using AI to design a credible product interface, build hypothetical deal scenarios and bring the story together with video and voiceover.
 cover: /assets/editorial/taking-an-idea-further-with-ai.jpg
 coverAlt: OneShotLens real estate finance interface displaying an illustrative deal review

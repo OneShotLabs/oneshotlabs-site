@@ -10,6 +10,7 @@ const slug = 'the-intelligence-inside-your-business';
 test('Leveraging the Intelligence Within Your Business uses the approved article copy and editorial art', () => {
   const post = read(`posts/${slug}.md`);
   assert.match(post, /title: Leveraging the Intelligence Within Your Business/);
+  assert.match(post, /collection: Perspectives/);
   assert.match(post, /Trust will depend on showing users not only the answer but also the path used to reach it\./);
   assert.match(post, /institutional-grade solution\./);
   assert.match(post, /apply that judgment quicker and with greater consistency\./);
@@ -32,4 +33,9 @@ test('Leveraging the Intelligence Within Your Business uses the approved article
   const index = read('musings.html');
   assert.match(index, /Leveraging the Intelligence Within Your Business/);
   assert.match(index, /assets\/editorial\/the-intelligence-inside-your-business-hero\.png/);
+  assert.match(index, /id="perspectives"/);
+  assert.match(index, /id="studio"/);
+  assert.match(index, /id="view-finder"/);
+  assert.ok(index.indexOf('id="perspectives"') < index.indexOf('id="studio"'));
+  assert.ok(index.indexOf('id="studio"') < index.indexOf('id="view-finder"'));
 });
