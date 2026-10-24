@@ -3649,6 +3649,7 @@ html.no-splash .splash { display: none; }
   <link rel="stylesheet" href="css/home-motion.css?v=20260914-merged1">
   <link rel="stylesheet" href="css/site-motion.css?v=20260913-review2">
   <script src="js/navy-veil.js?v=20260920-ai-route" defer></script>
+  <link rel="stylesheet" href="css/homepage-positioning.css?v=20261023-approved1" />
 </head>
 <body>
   <div class="grain-overlay" aria-hidden="true"></div>
@@ -3673,14 +3674,15 @@ html.no-splash .splash { display: none; }
     </div>
   </div>
 
+  <button class="intro-skip" id="intro-skip" type="button" hidden>Skip intro</button>
   <header class="site-header">
     <div class="container-wide">
       <a class='logo' href='/'><span class="logo-icon" aria-hidden="true"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><polygon id="os-blade-nav" points="53.5,2 55.8,20 50,46 41.5,20.6" /><path id="os-corner-arc" d="M6,15 A9,9 0 0 1 15,6" /></defs><g fill="none" stroke="var(--trim)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(0 50 50)" /><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(90 50 50)" /><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(180 50 50)" /><use href="#os-corner-arc" xlink:href="#os-corner-arc" transform="rotate(270 50 50)" /></g><g class="os-blades" fill="currentColor"><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(0 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(45 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(90 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(135 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(180 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(225 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(270 50 50)" /><use href="#os-blade-nav" xlink:href="#os-blade-nav" transform="rotate(315 50 50)" /></g></svg></span><span class="logo-text">OneShotLens</span></a>
       <nav class="nav" id="site-nav">
         <a href='/career'>Career</a>
         <a href="/ai">AI</a>
-        <a href='/photography'>Photography</a>
         <a href="/musings">Musings</a>
+        <a href='/photography'>Photography</a>
         <a href='/bio'>Bio</a>
         <a href='/contact'>Contact</a>
       </nav>
@@ -3698,12 +3700,15 @@ html.no-splash .splash { display: none; }
 
   <section class="launch-film-hero" id="launch-film-hero" aria-labelledby="launch-film-heading">
     <h1 class="launch-film-heading" id="launch-film-heading">Intelligence for What&rsquo;s <em>Next.</em></h1>
+<div class="positioning-bridge">
+<p class="positioning-bridge-explanation">OneShotLens explores what becomes possible when twenty years of institutional finance experience meets the accelerating frontier of applied AI.</p>
+</div>
     <figure class="launch-film-stage">
       <video
         class="launch-film-loop"
         id="launch-film-loop"
         playsinline
-        preload="auto"
+        preload="none"
         poster="assets/video/oneshotlens-poster-open.jpg?v=20260928b"
         aria-hidden="true"
       >
@@ -3719,6 +3724,10 @@ html.no-splash .splash { display: none; }
         <span>Play</span>
       </button>
     </figure>
+<nav class="hero-destinations" aria-label="Explore OneShotLens">
+<a class="hero-destination" href="/musings">Musings</a>
+<a class="hero-destination" href="/photography">Photography</a>
+</nav>
   </section>
 
   <dialog class="launch-film-dialog" id="launch-film-dialog" aria-label="OneShotLens launch film">
@@ -4242,190 +4251,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 </script>
-  <script>
-// Opening splash — heritage quote reveal (fade-in lines, hard-hitting
-// "hustle" drop), then vault-door logo reveal. The logo's corner
-// brackets act as a camera viewfinder locked onto the mark: once they're
-// visible, clicking them fires the shutter and opens the site
-// immediately; left alone, the same click-and-open happens on its own a
-// beat later. Plays once per browser session on first load (see the
-// sessionStorage check below and the inline <script> in <head> that
-// adds .no-splash before first paint) — and additionally replays itself
-// if the page sits stalled, with no user input at all, for a full
-// minute. That's the only trigger for a repeat play; normal browsing
-// never re-shows it.
-(() => {
-  const splash = document.getElementById("splash");
-  if (!splash) return;
-
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const quoteEl = document.getElementById("splash-quote");
-  const stageEl = document.getElementById("splash-quote-stage");
-  const frameEl = document.querySelector(".splash-frame");
-  const iconFrameEl = document.querySelector(".splash-icon-frame");
-
-  const LINE1 = "Good things come to those who wait,";
-  const LINE2 = "but only things left over by those who";
-  const LINE3 = "hustle.";
-
-  const IDLE_REPLAY_MS = 60000; // stalled this long with zero input -> replay
-  let playing = false;
-  let idleTimer = null;
-
-  // Splash is intentionally silent; visual timings remain unchanged.
-
-  function armIdleTimer() {
-    clearTimeout(idleTimer);
-    idleTimer = setTimeout(playSplash, IDLE_REPLAY_MS);
-  }
-
-  function resetIdleTimer() {
-    if (playing) return; // ignore input generated by the splash itself
-    armIdleTimer();
-  }
-
-  function finish() {
-    splash.style.display = "none";
-    document.body.style.overflow = "";
-    playing = false;
-    armIdleTimer();
-    // The timeline waits until this splash exit is complete.
-  }
-
-  // ---- Automatic focus lock ----
-  // The mark resolves, the brackets acquire it, then the lock snaps and
-  // the panels open. No click or instruction is required.
-  const DIAL_DONE = 950;
-  const CLICK_DUR = 220; // matches splash-bolt-click's duration in CSS
-  const DOORS_DUR = 500; // matches splash-panel-*-out's duration in CSS
-  const FINISH_BUFFER = 200;
-
-  let clickable = false;
-  let doorsOpened = false;
-  let shutterTimer = null;
-  let openTimer = null;
-  let finishTimer = null;
-
-  function openDoors() {
-    if (doorsOpened) return;
-    doorsOpened = true;
-    clickable = false;
-    if (frameEl) frameEl.classList.remove("clickable");
-    splash.classList.add("doors-open");
-    finishTimer = setTimeout(finish, DOORS_DUR + FINISH_BUFFER);
-  }
-
-  function fireShutter() {
-    if (!clickable || doorsOpened) return;
-    clickable = false;
-    if (frameEl) frameEl.classList.remove("clickable");
-    clearTimeout(shutterTimer);
-    if (frameEl) frameEl.classList.add("clicked");
-    if (iconFrameEl) iconFrameEl.classList.add("clicked");
-    openTimer = setTimeout(openDoors, CLICK_DUR);
-  }
-
-  function playSplash() {
-    if (playing) return;
-    playing = true;
-    clearTimeout(idleTimer);
-
-    // Fresh state for this run — matters for the idle-replay path, where
-    // a previous play already opened the doors and clicked the shutter.
-    clickable = false;
-    doorsOpened = false;
-    clearTimeout(shutterTimer);
-    clearTimeout(openTimer);
-    clearTimeout(finishTimer);
-    if (frameEl) frameEl.classList.remove("clickable", "clicked");
-    if (iconFrameEl) iconFrameEl.classList.remove("clicked");
-
-    document.documentElement.classList.remove("no-splash");
-    splash.style.display = "";
-    splash.classList.remove("animate", "doors-open", "reduced", "quote-reduced");
-    stageEl.classList.remove("quote-done");
-    quoteEl.innerHTML = "";
-    document.body.style.overflow = "hidden";
-
-    const clause1 = document.createElement("span");
-    clause1.className = "splash-quote-clause";
-    clause1.textContent = LINE1;
-    const clause2 = document.createElement("span");
-    clause2.className = "splash-quote-clause";
-    clause2.textContent = LINE2;
-    const finale = document.createElement("span");
-    finale.className = "splash-quote-finale";
-    finale.textContent = LINE3;
-    quoteEl.append(clause1, clause2, finale);
-
-    if (reduced) {
-      clause1.style.opacity = 1;
-      clause2.style.opacity = 1;
-      finale.style.opacity = 1;
-      splash.classList.add("reduced", "quote-reduced");
-      setTimeout(finish, 260);
-      return;
-    }
-
-    const START_DELAY = 300;
-    const FADE = 700;
-    const PAUSE = 750;
-    const PAUSE_BEFORE_HUSTLE = 998; // 750ms base, extended 33%
-    const CLAUSE1_START = START_DELAY;
-    const CLAUSE2_START = CLAUSE1_START + FADE + PAUSE;
-    const FINALE_START = CLAUSE2_START + FADE + PAUSE_BEFORE_HUSTLE;
-    const UNDERLINE_START = FINALE_START + 380;
-
-    setTimeout(() => {
-      clause1.style.animation = "splash-clause-fade 700ms ease-out forwards";
-    }, CLAUSE1_START);
-
-    setTimeout(() => {
-      clause2.style.animation = "splash-clause-fade 700ms ease-out forwards";
-    }, CLAUSE2_START);
-
-    setTimeout(() => {
-      finale.style.animation = "punch-drop 220ms cubic-bezier(0.55,0,1,0.45) forwards";
-    }, FINALE_START);
-
-    // The silent impact flash lands right at the moment the
-    // punch-drop keyframes hit their squash (70% of 220ms ≈ 150ms in).
-    setTimeout(() => {
-      finale.classList.add("impact-flash");
-    }, FINALE_START + 150);
-
-    setTimeout(() => {
-      finale.classList.add("underline-go");
-    }, UNDERLINE_START);
-
-    const QUOTE_DONE = UNDERLINE_START + 163 + 1250; // pause 1.25s after underline before quote fades
-    const QUOTE_FADE = 616; // quote fades out
-    setTimeout(() => {
-      stageEl.classList.add("quote-done");
-    }, QUOTE_DONE);
-
-    setTimeout(() => {
-      splash.classList.add("animate");
-      clickable = true;
-      // Fire the focus lock automatically once the mark has resolved.
-      shutterTimer = setTimeout(fireShutter, DIAL_DONE);
-    }, QUOTE_DONE + QUOTE_FADE); // logo pops on screen right as the quote finishes fading
-  }
-
-  ["mousemove", "mousedown", "keydown", "scroll", "touchstart", "wheel"].forEach((evt) => {
-    window.addEventListener(evt, resetIdleTimer, { passive: true });
-  });
-
-  if (sessionStorage.getItem("oneshot-splash-seen")) {
-    splash.style.display = "none";
-    armIdleTimer();
-    return;
-  }
-  sessionStorage.setItem("oneshot-splash-seen", "1");
-  playSplash();
-})();
-
-</script>
+  <script src="js/homepage-intro.js?v=20261023-approved1"></script>
   <script>
 (function () {
   var root = document.querySelector('.turn-strip');
@@ -4648,7 +4474,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="control-row"><label for="corner-slider">Corners</label><input type="range" id="corner-slider" min="3" max="20" step="1" value="8" /></div>
     <div class="control-row"><label for="flag-slider">Flag</label><input type="range" id="flag-slider" min="0" max="1" step="0.05" value="0.85" /></div>
   </div>
-  <script src="js/launch-film.js?v=20260928-popout" defer></script>
+  <script src="js/launch-film.js?v=20261023-approved1"></script>
   <script src="js/home-motion.js?v=20260914-merged1"></script>
   <script src="js/site-motion.js?v=20260913-review2"></script>
 </body>
