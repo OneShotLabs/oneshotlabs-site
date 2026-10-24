@@ -722,13 +722,6 @@ const PHOTOS = [
     iso: 640, aperture: 3.6, shutter: 0.0033333,
   },
   {
-    src: "images/photo-2026-10-upper-east-side-rowhouses.jpg",
-    month: "October", year: 2026, caption: "",
-    ratio: "1 / 1", visibility: "public",
-    location: "Upper East Side",
-    iso: 640, aperture: 3.6, shutter: 0.004,
-  },
-  {
     src: "images/photo-2026-10-central-park-lake-skyline.jpg",
     month: "October", year: 2026, caption: "",
     ratio: "3837 / 5755", visibility: "public",

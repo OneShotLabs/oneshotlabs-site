@@ -26,7 +26,6 @@ const imported = [
   'photo-2026-10-playground-spinner-bw.jpg',
   'photo-2026-10-upper-east-side-facade.jpg',
   'photo-2026-10-central-park-lake-skyline.jpg',
-  'photo-2026-10-upper-east-side-rowhouses.jpg',
   'photo-2026-10-central-park-bethesda-arcade.jpg',
 ];
 
@@ -46,6 +45,7 @@ const archived = [
 ];
 
 const removedByReview = [
+  'photo-2026-10-upper-east-side-rowhouses.jpg',
   'photo-2025-05-boardwalk-shadow.jpg',
   'photo-2026-09-fishing-boats.webp',
 ];
@@ -68,7 +68,6 @@ assert.match(timeline, /photo-2026-10-sphere-concert-vocalist\.jpg[\s\S]*?locati
 assert.match(timeline, /photo-2026-10-sphere-concert-red-stage\.jpg[\s\S]*?location:\s*"The Sphere"/, 'the red-stage concert photo must be labeled The Sphere');
 assert.match(timeline, /photo-2026-10-upper-east-side-facade\.jpg[\s\S]*?location:\s*"Upper East Side"/, 'the large home must be labeled Upper East Side');
 assert.match(timeline, /photo-2026-10-central-park-lake-skyline\.jpg[\s\S]*?location:\s*"Central Park"/, 'the lake and skyline photo must be labeled Central Park');
-assert.match(timeline, /photo-2026-10-upper-east-side-rowhouses\.jpg[\s\S]*?location:\s*"Upper East Side"/, 'the rowhouses photo must be labeled Upper East Side');
 assert.match(timeline, /photo-2026-10-central-park-bethesda-arcade\.jpg[\s\S]*?location:\s*"Central Park"/, 'the Bethesda Arcade photo must be labeled Central Park');
 for (const file of [
   'photo-2026-09-concert-globe-close.webp',
