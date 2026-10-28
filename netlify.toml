@@ -335,6 +335,12 @@ force = false
   [redirects.headers]
 
 [[redirects]]
+from = "/musings/the-fabric"
+to = "/musings/the-fabric/index.html"
+status = 200
+force = false
+
+[[redirects]]
 from = "/musings/:slug"
 to = "/post.html?slug=:slug"
 status = 200
