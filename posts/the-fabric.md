@@ -11,7 +11,7 @@ socialAlt: The Fabric, an evolving experiment in frontier technology
 socialDescription: From a scrolling prompt to a living fabric, a reflection on building with AI and how my understanding continues to evolve.
 ---
 
-When I introduced OneShotLens as an evolving experiment in frontier technology, The Fabric encapsulated how I viewed that pursuit.
+When I introduced OneShotLens as an evolving experiment in frontier technology, [The Fabric](https://oneshotlens.com/ai) encapsulated how I viewed that pursuit.
 
 That may be difficult to see in its newly introduced state. The current design is already about the fifth evolution of the original idea.
 
@@ -54,5 +54,7 @@ I kept the controls on screen so each visitor can influence the experience. The 
 The build went through many iterations as I incorporated it into the site, each of which is shown briefly in the carousel. I began the idea with Claude Sonnet, developed the current design in ChatGPT Astra 6, and completed the finishing polish in Opus 5.5. That progression feels appropriate. The work itself is a product of the changing technology it is meant to represent.
 
 I plan for The Fabric to remain an evolving display of my understanding of the technology at a particular point in time, becoming more informational, more responsive and more immersive over time.
+
+[Explore The Fabric ↗](https://oneshotlens.com/ai)
 
 The Fabric is best experienced in a desktop web browser, where its movement, lighting and interactive controls can be seen in full.

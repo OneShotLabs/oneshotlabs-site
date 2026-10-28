@@ -36,3 +36,10 @@
 #phase-7 .art img{object-fit:contain;width:100%;height:100%}
 /* Keep the condensed masthead centered within narrow screens. */
 @media(max-width:650px){.title-fabric{width:max-content;position:relative;left:50%;margin-inline:0;transform:translateX(-50%) scaleX(.57);font-size:clamp(120px,42vw,220px)}}
+.fabric-inline-link{text-decoration:underline;text-decoration-color:#c5a05999!important;text-underline-offset:.2em}
+.article-body>.fabric-explore{margin-top:6px;margin-bottom:30px}
+.fabric-explore a{display:inline-flex;gap:18px;align-items:center;font-weight:600;text-decoration:none;border-bottom:1px solid #c5a059;padding-bottom:8px}
+.fabric-explore a span{color:#d7bd86;transition:transform .3s}
+.fabric-explore a:hover span{transform:translate(2px,-2px)}
+.fabric-explore a:focus-visible{outline:2px solid #c5a059;outline-offset:6px}
+.article-body>.reader-note{margin-top:30px}
