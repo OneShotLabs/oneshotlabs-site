@@ -543,12 +543,6 @@ const PHOTOS = [
     iso: 640, aperture: 5.6, shutter: 0.0666667,
   },
   {
-    src: "images/photo-2026-08-lifeguard-chair.webp",
-    month: "August", year: 2026, caption: "",
-    ratio: "724 / 1086", visibility: "private",
-    iso: 250, aperture: 5.6, shutter: 0.0009091,
-  },
-  {
     src: "images/photo-2026-08-bulldog-laptop.webp",
     month: "August", year: 2026, caption: "",
     ratio: "724 / 1086", visibility: "private",
@@ -594,7 +588,7 @@ const PHOTOS = [
     location: "Soldier Field",
     iso: 6400, aperture: 2, shutter: 0.0263158,
   },
-  // Synced from the current Google Drive Photos folder through 2026-10-12.
+  // Synced from the current Google Drive Photos folder through 2026-11-01.
   // Exact duplicate uploads and photos already represented by an optimized
   // local copy are intentionally shown once in the timeline.
   {
@@ -633,6 +627,12 @@ const PHOTOS = [
     month: "March", year: 2026, caption: "",
     ratio: "700 / 1122", visibility: "private",
     iso: 320, aperture: 2.8, shutter: 0.01,
+  },
+  {
+    src: "images/photo-2026-08-lifeguard-chair.webp",
+    month: "August", year: 2026, caption: "",
+    ratio: "724 / 1086", visibility: "private",
+    iso: 250, aperture: 5.6, shutter: 0.0009091,
   },
   {
     src: "images/photo-2026-08-beach-girl.jpg",
@@ -705,12 +705,14 @@ const PHOTOS = [
   {
     src: "images/photo-2026-10-playground-flower-bw.jpg",
     month: "October", year: 2026, caption: "",
+    takenAt: "2026-10-03T18:04:26",
     ratio: "1144 / 686", visibility: "private",
     iso: 5000, aperture: 2, shutter: 0.01,
   },
   {
     src: "images/photo-2026-10-playground-spinner-bw.jpg",
     month: "October", year: 2026, caption: "",
+    takenAt: "2026-10-03T17:51:06",
     ratio: "724 / 1086", visibility: "private",
     iso: 250, aperture: 2, shutter: 0.0384615,
   },
@@ -735,6 +737,56 @@ const PHOTOS = [
     location: "Central Park",
     iso: 500, aperture: 2, shutter: 0.01,
   },
+  {
+    src: "images/photo-2026-10-greenfield-village-playground-child.jpg",
+    month: "October", year: 2026, takenAt: "2026-10-17T10:55:46", caption: "",
+    ratio: "845 / 1268", visibility: "private",
+  },
+  {
+    src: "images/photo-2026-10-greenfield-village-mill.jpg",
+    month: "October", year: 2026, takenAt: "2026-10-17T15:16:49", caption: "",
+    ratio: "1603 / 1069", visibility: "public",
+    location: "Greenfield Village",
+  },
+  {
+    src: "images/photo-2026-10-greenfield-village-carousel-family.jpg",
+    month: "October", year: 2026, takenAt: "2026-10-17T17:32:14", caption: "",
+    ratio: "1116 / 1674", visibility: "private",
+  },
+  {
+    src: "images/photo-2026-10-greenfield-village-halloween-street.jpg",
+    month: "October", year: 2026, takenAt: "2026-10-17T18:00:42", caption: "",
+    ratio: "564 / 846", visibility: "public",
+    location: "Greenfield Village",
+  },
+  {
+    src: "images/photo-2026-10-greenfield-village-night-smoke.jpg",
+    month: "October", year: 2026, takenAt: "2026-10-17T18:20:25", caption: "",
+    ratio: "1207 / 805", visibility: "public",
+    location: "Greenfield Village",
+  },
+  {
+    src: "images/photo-2026-10-downtown-chicago-chairs.jpg",
+    month: "October", year: 2026, takenAt: "2026-10-22T13:56:24", caption: "",
+    ratio: "614 / 859", visibility: "public",
+    location: "Downtown Chicago",
+  },
+  {
+    src: "images/photo-2026-10-southport-carved-pumpkin.jpg",
+    month: "October", year: 2026, takenAt: "2026-10-29T21:39:08", caption: "",
+    ratio: "1184 / 1776", visibility: "public",
+    location: "Southport",
+  },
+  {
+    src: "images/photo-2026-10-halloween-sisters.jpg",
+    month: "October", year: 2026, takenAt: "2026-10-31T18:01:41", caption: "",
+    ratio: "1077 / 1616", visibility: "private",
+  },
+  {
+    src: "images/photo-2026-10-carousel-princess-motion.jpg",
+    month: "October", year: 2026, takenAt: "2026-10-31T18:28:51", caption: "",
+    ratio: "991 / 1487", visibility: "private",
+  },
 ];
 
 const MONTH_ORDER = [
@@ -749,7 +801,18 @@ function sortChronological(photos, direction) {
   const sign = direction === "desc" ? -1 : 1;
   return [...photos].sort((a, b) => {
     if (a.year !== b.year) return (a.year - b.year) * sign;
-    return (MONTH_ORDER.indexOf(a.month) - MONTH_ORDER.indexOf(b.month)) * sign;
+    const monthDelta = MONTH_ORDER.indexOf(a.month) - MONTH_ORDER.indexOf(b.month);
+    if (monthDelta) return monthDelta * sign;
+
+    // Photos captured in the same month retain their actual shooting order
+    // when exact EXIF timestamps are available. Older entries without a
+    // timestamp remain in their established source order.
+    const aTime = Date.parse(a.takenAt || "");
+    const bTime = Date.parse(b.takenAt || "");
+    if (Number.isFinite(aTime) && Number.isFinite(bTime) && aTime !== bTime) {
+      return (aTime - bTime) * sign;
+    }
+    return 0;
   });
 }
 
@@ -832,7 +895,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentVisibility = "public";
   const directionsByVisibility = {
-    public: "desc",
+    public: "asc",
     private: "asc",
   };
   let currentDirection = directionsByVisibility[currentVisibility];

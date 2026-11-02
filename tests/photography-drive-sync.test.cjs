@@ -27,6 +27,15 @@ const imported = [
   'photo-2026-10-upper-east-side-facade.jpg',
   'photo-2026-10-central-park-lake-skyline.jpg',
   'photo-2026-10-central-park-bethesda-arcade.jpg',
+  'photo-2026-10-greenfield-village-playground-child.jpg',
+  'photo-2026-10-greenfield-village-mill.jpg',
+  'photo-2026-10-greenfield-village-carousel-family.jpg',
+  'photo-2026-10-greenfield-village-halloween-street.jpg',
+  'photo-2026-10-greenfield-village-night-smoke.jpg',
+  'photo-2026-10-downtown-chicago-chairs.jpg',
+  'photo-2026-10-southport-carved-pumpkin.jpg',
+  'photo-2026-10-halloween-sisters.jpg',
+  'photo-2026-10-carousel-princess-motion.jpg',
 ];
 
 for (const file of imported) {
@@ -45,7 +54,6 @@ const archived = [
 ];
 
 const removedByReview = [
-  'photo-2026-10-upper-east-side-rowhouses.jpg',
   'photo-2025-05-boardwalk-shadow.jpg',
   'photo-2026-09-fishing-boats.webp',
 ];
@@ -69,6 +77,31 @@ assert.match(timeline, /photo-2026-10-sphere-concert-red-stage\.jpg[\s\S]*?locat
 assert.match(timeline, /photo-2026-10-upper-east-side-facade\.jpg[\s\S]*?location:\s*"Upper East Side"/, 'the large home must be labeled Upper East Side');
 assert.match(timeline, /photo-2026-10-central-park-lake-skyline\.jpg[\s\S]*?location:\s*"Central Park"/, 'the lake and skyline photo must be labeled Central Park');
 assert.match(timeline, /photo-2026-10-central-park-bethesda-arcade\.jpg[\s\S]*?location:\s*"Central Park"/, 'the Bethesda Arcade photo must be labeled Central Park');
+assert.match(timeline, /photo-2026-10-downtown-chicago-chairs\.jpg[\s\S]*?visibility:\s*"public"[\s\S]*?location:\s*"Downtown Chicago"/, 'the people in chairs must be public and labeled Downtown Chicago');
+assert.match(timeline, /photo-2026-10-southport-carved-pumpkin\.jpg[\s\S]*?visibility:\s*"public"[\s\S]*?location:\s*"Southport"/, 'the carved pumpkin must be public and labeled Southport');
+for (const file of [
+  'photo-2026-10-greenfield-village-mill.jpg',
+  'photo-2026-10-greenfield-village-halloween-street.jpg',
+  'photo-2026-10-greenfield-village-night-smoke.jpg',
+]) {
+  assert.match(
+    timeline,
+    new RegExp(`${file.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[\\s\\S]*?visibility:\\s*"public"[\\s\\S]*?location:\\s*"Greenfield Village"`),
+    `${file} must be public and labeled Greenfield Village`,
+  );
+}
+for (const file of [
+  'photo-2026-10-greenfield-village-playground-child.jpg',
+  'photo-2026-10-greenfield-village-carousel-family.jpg',
+  'photo-2026-10-halloween-sisters.jpg',
+  'photo-2026-10-carousel-princess-motion.jpg',
+]) {
+  assert.match(
+    timeline,
+    new RegExp(`${file.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[\\s\\S]*?visibility:\\s*"private"`),
+    `${file} must stay on the family Home timeline`,
+  );
+}
 for (const file of [
   'photo-2026-09-concert-globe-close.webp',
   'photo-2026-09-concert-silhouettes.webp',
@@ -84,9 +117,30 @@ for (const file of [
 }
 assert.match(timeline, /photo-2025-05-soldier-field-acdc\.jpg[\s\S]*?location:\s*"Soldier Field"/, 'the AC\/DC concert must remain labeled Soldier Field');
 assert.doesNotMatch(timeline, /pinBefore/, 'timeline order must never contain editorial jumps');
+assert.match(
+  timeline,
+  /directionsByVisibility\s*=\s*\{\s*public:\s*"asc",\s*private:\s*"asc"/,
+  'Away and Home must both default to oldest-first chronological order',
+);
 
 const sources = [...timeline.matchAll(/src:\s*["'](images\/[^"']+)["']/g)].map(match => match[1]);
 assert.equal(sources.length, new Set(sources).size, 'timeline image sources must not be duplicated');
+assert.equal(
+  sources.indexOf('images/photo-2025-09-brooklyn-bulldogs.jpg'),
+  sources.indexOf('images/photo-2025-09-brooklyn-basketball.jpg') + 1,
+  'the two Brooklyn photos must remain adjacent in the Away timeline source order',
+);
+assert.equal(
+  sources.indexOf('images/photo-2026-08-beach-girl.jpg'),
+  sources.indexOf('images/photo-2026-08-lifeguard-chair.webp') + 1,
+  'the happy beach toddler photo must follow the lifeguard chair from the same trip',
+);
+assert.equal(
+  sources.indexOf('images/photo-2026-08-birthday-card.jpg'),
+  sources.indexOf('images/photo-2026-08-beach-girl.jpg') + 1,
+  'the happy birthday bag photo must remain with the same beach trip',
+);
+assert.doesNotMatch(timeline, /photo-2026-10-upper-east-side-rowhouses\.jpg/, 'the removed Upper East Side rowhouses photo must stay off the timeline');
 for (const source of sources) assert.ok(fs.existsSync(path.join(root, source)), `${source} must resolve to a local image`);
 
 console.log('PASS: the photography timeline matches the current Drive selection and excludes archived photos.');
