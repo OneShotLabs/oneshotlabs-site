@@ -895,8 +895,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentVisibility = "public";
   const directionsByVisibility = {
-    public: "asc",
-    private: "asc",
+    public: "desc",
+    private: "desc",
   };
   let currentDirection = directionsByVisibility[currentVisibility];
   let io = null;

@@ -119,8 +119,8 @@ assert.match(timeline, /photo-2025-05-soldier-field-acdc\.jpg[\s\S]*?location:\s
 assert.doesNotMatch(timeline, /pinBefore/, 'timeline order must never contain editorial jumps');
 assert.match(
   timeline,
-  /directionsByVisibility\s*=\s*\{\s*public:\s*"asc",\s*private:\s*"asc"/,
-  'Away and Home must both default to oldest-first chronological order',
+  /directionsByVisibility\s*=\s*\{\s*public:\s*"desc",\s*private:\s*"desc"/,
+  'Away and Home must both default to newest-first chronological order',
 );
 
 const sources = [...timeline.matchAll(/src:\s*["'](images\/[^"']+)["']/g)].map(match => match[1]);
