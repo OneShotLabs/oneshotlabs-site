@@ -9,7 +9,9 @@ const guard = fs.readFileSync(path.join(root, 'scripts/verify-production-source.
 assert.match(packageJson.scripts['deploy:production'], /verify:production-source/);
 assert.match(packageJson.scripts['verify:production-source'], /published-musings-catalog\.test\.cjs/);
 assert.match(guard, /git\(\['fetch', 'origin', 'main', '--quiet'\]\)/);
-assert.match(guard, /git\(\['merge-base', '--is-ancestor', 'origin\/main', 'HEAD'\]\)/);
+assert.match(guard, /branch !== 'main'/);
+assert.match(guard, /head !== originMain/);
+assert.match(guard, /status', '--porcelain', '--untracked-files=all/);
 assert.match(guard, /Production deploy blocked/);
 
-console.log('PASS: production deploys require current main and the protected Musings catalog.');
+console.log('PASS: production deploys require a clean exact main and the protected Musings catalog.');

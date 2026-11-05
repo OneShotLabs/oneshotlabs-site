@@ -11,7 +11,8 @@ This repository is the canonical source for `oneshotlens.com`.
 - Keep every published Musings slug in all three places: `posts/manifest.json`, `musings.html`, and `sitemap.xml`. The article markdown, route shell, and referenced media must also exist.
 - Run `node --test tests/published-musings-catalog.test.cjs` before every production deploy, plus the tests relevant to the files changed. The Netlify production build must keep this catalog gate enabled.
 - Preserve `.netlify/` in `.gitignore`. Link only this canonical checkout to the OneShotLens Netlify project.
-- Prefer Git-backed production deploys from `origin/main`. If a manual production deploy is unavoidable, deploy only this clean canonical checkout after its commit has been pushed.
+- This checkout is the only local directory authorized to link to the OneShotLens Netlify production site. Dated task folders and alternate clones are snapshots and must stay unlinked.
+- Prefer Git-backed production deploys from `origin/main`. If a manual production deploy is unavoidable, run only `npm run deploy:production` from this clean canonical checkout after its commit has been pushed. Never bypass the source guard with a raw `netlify deploy --prod` command.
 
 ## Published Musings
 

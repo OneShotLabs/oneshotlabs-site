@@ -21,12 +21,25 @@ if (fetchMain.status !== 0) {
   process.exit(1);
 }
 
-const containsMain = git(['merge-base', '--is-ancestor', 'origin/main', 'HEAD']);
-if (containsMain.status !== 0) {
-  const branch = git(['branch', '--show-current']).stdout.trim() || '(detached HEAD)';
-  console.error(`Production deploy blocked: ${branch} does not contain the latest origin/main.`);
-  console.error('Rebase or merge the requested update onto origin/main before publishing the full site.');
+const branch = git(['branch', '--show-current']).stdout.trim() || '(detached HEAD)';
+if (branch !== 'main') {
+  console.error(`Production deploy blocked: production must be published from main, not ${branch}.`);
   process.exit(1);
 }
 
-console.log('PASS: production source contains the latest canonical main branch.');
+const head = git(['rev-parse', 'HEAD']).stdout.trim();
+const originMain = git(['rev-parse', 'origin/main']).stdout.trim();
+if (!head || head !== originMain) {
+  console.error('Production deploy blocked: HEAD must exactly match the latest origin/main.');
+  console.error('Commit and push the complete requested update before publishing.');
+  process.exit(1);
+}
+
+const worktreeStatus = git(['status', '--porcelain', '--untracked-files=all']).stdout.trim();
+if (worktreeStatus) {
+  console.error('Production deploy blocked: the canonical checkout has uncommitted files.');
+  console.error('Commit and push the complete requested update before publishing.');
+  process.exit(1);
+}
+
+console.log('PASS: production source is a clean, exact copy of canonical origin/main.');
