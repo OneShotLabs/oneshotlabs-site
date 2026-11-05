@@ -74,6 +74,21 @@ assert.match(timeline, /photo-2025-10-halloween-family\.jpg[\s\S]*?month:\s*"Oct
 assert.match(timeline, /photo-2026-10-sphere-concert\.jpg[\s\S]*?location:\s*"The Sphere"/, 'the new concert photo must be labeled The Sphere');
 assert.match(timeline, /photo-2026-10-sphere-concert-vocalist\.jpg[\s\S]*?location:\s*"The Sphere"/, 'the vocalist concert photo must be labeled The Sphere');
 assert.match(timeline, /photo-2026-10-sphere-concert-red-stage\.jpg[\s\S]*?location:\s*"The Sphere"/, 'the red-stage concert photo must be labeled The Sphere');
+for (const [file, takenAt] of [
+  ['photo-2026-10-sphere-concert.jpg', '2026-10-10T22:05:00'],
+  ['photo-2026-10-sphere-concert-vocalist.jpg', '2026-10-10T21:32:14'],
+  ['photo-2026-10-sphere-concert-red-stage.jpg', '2026-10-10T21:38:00'],
+  ['photo-2026-10-las-vegas-sphere.jpg', '2026-10-10T08:53:22'],
+  ['photo-2026-10-upper-east-side-facade.jpg', '2026-10-08T10:06:06'],
+  ['photo-2026-10-central-park-lake-skyline.jpg', '2026-10-08T09:34:35'],
+  ['photo-2026-10-central-park-bethesda-arcade.jpg', '2026-10-08T09:53:50'],
+]) {
+  assert.match(
+    timeline,
+    new RegExp(`${file.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[\\s\\S]*?takenAt:\\s*"${takenAt}"`),
+    `${file} must retain its exact capture time so newer October photos sort above it`,
+  );
+}
 assert.match(timeline, /photo-2026-10-upper-east-side-facade\.jpg[\s\S]*?location:\s*"Upper East Side"/, 'the large home must be labeled Upper East Side');
 assert.match(timeline, /photo-2026-10-central-park-lake-skyline\.jpg[\s\S]*?location:\s*"Central Park"/, 'the lake and skyline photo must be labeled Central Park');
 assert.match(timeline, /photo-2026-10-central-park-bethesda-arcade\.jpg[\s\S]*?location:\s*"Central Park"/, 'the Bethesda Arcade photo must be labeled Central Park');

@@ -677,6 +677,7 @@ const PHOTOS = [
   {
     src: "images/photo-2026-10-sphere-concert.jpg",
     month: "October", year: 2026, caption: "",
+    takenAt: "2026-10-10T22:05:00",
     ratio: "3783 / 5674", visibility: "public",
     location: "The Sphere",
     iso: 6400, aperture: 2, shutter: 0.0333333,
@@ -684,6 +685,7 @@ const PHOTOS = [
   {
     src: "images/photo-2026-10-sphere-concert-vocalist.jpg",
     month: "October", year: 2026, caption: "",
+    takenAt: "2026-10-10T21:32:14",
     ratio: "3745 / 5617", visibility: "public",
     location: "The Sphere",
     iso: 4000, aperture: 2, shutter: 0.01,
@@ -691,6 +693,7 @@ const PHOTOS = [
   {
     src: "images/photo-2026-10-sphere-concert-red-stage.jpg",
     month: "October", year: 2026, caption: "",
+    takenAt: "2026-10-10T21:38:00",
     ratio: "6240 / 4160", visibility: "public",
     location: "The Sphere",
     iso: 6400, aperture: 2, shutter: 0.0125,
@@ -698,6 +701,7 @@ const PHOTOS = [
   {
     src: "images/photo-2026-10-las-vegas-sphere.jpg",
     month: "October", year: 2026, caption: "",
+    takenAt: "2026-10-10T08:53:22",
     ratio: "4160 / 6240", visibility: "public",
     location: "Las Vegas",
     iso: 1600, aperture: 2, shutter: 0.01,
@@ -719,6 +723,7 @@ const PHOTOS = [
   {
     src: "images/photo-2026-10-upper-east-side-facade.jpg",
     month: "October", year: 2026, caption: "",
+    takenAt: "2026-10-08T10:06:06",
     ratio: "1086 / 724", visibility: "public",
     location: "Upper East Side",
     iso: 640, aperture: 3.6, shutter: 0.0033333,
@@ -726,6 +731,7 @@ const PHOTOS = [
   {
     src: "images/photo-2026-10-central-park-lake-skyline.jpg",
     month: "October", year: 2026, caption: "",
+    takenAt: "2026-10-08T09:34:35",
     ratio: "3837 / 5755", visibility: "public",
     location: "Central Park",
     iso: 320, aperture: 2.5, shutter: 0.00625,
@@ -733,6 +739,7 @@ const PHOTOS = [
   {
     src: "images/photo-2026-10-central-park-bethesda-arcade.jpg",
     month: "October", year: 2026, caption: "",
+    takenAt: "2026-10-08T09:53:50",
     ratio: "3436 / 5154", visibility: "public",
     location: "Central Park",
     iso: 500, aperture: 2, shutter: 0.01,
