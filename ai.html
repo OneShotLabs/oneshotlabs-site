@@ -81,6 +81,8 @@ body:not(.exploring-system) .founder-note{display:none}
 #questionnaire[hidden]{display:none!important}
 @media(max-width:700px){
  .fabric .copy a[href="#woven-method"]{display:none}
+ /* The story link stands alone on phones: flush left, with a full touch target. */
+ .fabric .copy a.story-link{display:inline-flex;align-items:flex-end;gap:.35em;min-height:44px;box-sizing:border-box;margin:0 0 10px;padding-bottom:8px}
  .fabric .copy .mobile-note{display:grid;gap:10px;margin:2px 0 0;max-width:32ch}
  .fabric .copy .mobile-note .gesture{font:500 12px/1.3 "Barlow Condensed",Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#d9bf86}
  .fabric .copy .mobile-note .desktop{font:400 15px/1.5 "Source Sans 3",Inter,Arial,sans-serif;color:#bec8d8;text-wrap:balance}
@@ -172,7 +174,7 @@ html.ai-intro .lumen-sound{opacity:0;pointer-events:none}
 <canvas class="art" id="fabric-breath" aria-hidden="true"></canvas>
 <div class="fabric-light" aria-hidden="true"></div><div class="light-veil" aria-hidden="true"></div>
 <div class="woven-network" aria-label="Tools woven into the practice"><svg aria-hidden="true"><g></g></svg><div class="woven-nodes"></div></div>
-<div class="copy"><h1 id="fabric-title" class="fabric-title" aria-label="The Fabric"><span class="title-the">The</span><span class="title-ornament" aria-hidden="true"></span><span class="title-fabric"><span style="--i:0">F</span><span style="--i:1">A</span><span style="--i:2">B</span><span style="--i:3">R</span><span style="--i:4">I</span><span style="--i:5">C</span></span></h1><p class="standfirst"><span>An evolving experiment</span> <span>in frontier technology</span></p><a href="#woven-method">Explore the system</a><p class="mobile-note"><span class="gesture">Swipe to turn · Pinch to zoom</span><span class="desktop">The full Fabric is best experienced in a desktop browser.</span></p></div>
+<div class="copy"><h1 id="fabric-title" class="fabric-title" aria-label="The Fabric"><span class="title-the">The</span><span class="title-ornament" aria-hidden="true"></span><span class="title-fabric"><span style="--i:0">F</span><span style="--i:1">A</span><span style="--i:2">B</span><span style="--i:3">R</span><span style="--i:4">I</span><span style="--i:5">C</span></span></h1><p class="standfirst"><span>An evolving experiment</span> <span>in frontier technology</span></p><a href="#woven-method">Explore the system</a><a class="story-link" href="/musings/the-fabric">Read the story</a><p class="mobile-note"><span class="gesture">Swipe to turn · Pinch to zoom</span><span class="desktop">The full Fabric is best experienced in a desktop browser.</span></p></div>
 <button class="motion-toggle" type="button" id="motion-toggle" hidden>Pause motion</button>
 </section>
 <section class="woven-method" id="woven-method" aria-labelledby="method-heading">
