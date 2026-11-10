@@ -1,0 +1,20 @@
+/* The Fabric (next). Loaded only by js/fabric-next.js at /ai?next.
+   With the system open, the night sky continues behind the method panel
+   instead of stopping at a flat navy block. The canvas fills the whole
+   viewport; the panel sits on a feathered, softly blurred scrim that holds
+   the copy's contrast and settles to site navy where the page continues. */
+body.fabric-next.exploring-system .system-viewport{position:relative}
+body.fabric-next.exploring-system .fabric{overflow:visible;background:none}
+body.fabric-next.fabric-material-study.exploring-system .fabric[data-cloth-ready="true"] #fabric-breath{inset:0 0 auto 0;height:max(100svh,520px);-webkit-mask-image:none;mask-image:none}
+body.fabric-next.exploring-system .woven-method{background:none}
+/* The scrim: clear at its top edge, then deep midnight under the copy. */
+body.fabric-next.exploring-system .system-viewport::after{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--panel-height,46svh) + 34px);z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(12,24,52,0) 0,rgba(12,24,52,.50) 34px,rgba(12,24,52,.74) 78px,rgba(14,27,57,.82) 62%,rgba(29,47,78,.96) 92%,#1d2f4e 100%);
+  -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 46px);mask-image:linear-gradient(180deg,transparent 0,#000 46px)}
+/* The hairline becomes a quiet gold thread that fades at both ends. */
+body.fabric-next.exploring-system .woven-method::before{background:linear-gradient(90deg,transparent,#c6a15340 14%,#c6a15326 62%,transparent)}
+/* Copy sits on sky now: a soft midnight halo keeps every line crisp. */
+body.fabric-next.exploring-system .woven-method{text-shadow:0 1px 14px #0c1834cc}
+body.fabric-next.exploring-system .method-description{color:#e3e9f1}
+body.fabric-next.exploring-system .lumen-controls{text-shadow:0 1px 10px #0c1834}
