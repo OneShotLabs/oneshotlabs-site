@@ -3,7 +3,7 @@ redirectsOrigin = "config"
 plugins = []
 
 [build]
-command = "node --test tests/published-musings-catalog.test.cjs"
+command = "npm run build"
 publish = "."
 publishOrigin = "config"
 functions = "netlify/functions"
@@ -81,30 +81,6 @@ for = "/ai-curve.html"
   X-Frame-Options = "SAMEORIGIN"
   X-Content-Type-Options = "nosniff"
   Referrer-Policy = "strict-origin-when-cross-origin"
-
-[[redirects]]
-from = "https://oneshotlabsai.com/*"
-to = "https://oneshotlens.com/:splat"
-status = 301
-force = true
-
-  [redirects.query]
-
-  [redirects.conditions]
-
-  [redirects.headers]
-
-[[redirects]]
-from = "https://www.oneshotlabsai.com/*"
-to = "https://oneshotlens.com/:splat"
-status = 301
-force = true
-
-  [redirects.query]
-
-  [redirects.conditions]
-
-  [redirects.headers]
 
 [[redirects]]
 from = "https://oneshotlabs-david-jergovic.netlify.app/*"

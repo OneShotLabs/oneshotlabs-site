@@ -4,6 +4,13 @@
   const root = document.documentElement;
   if (root.dataset.layoutTool !== "true") return;
 
+  const panel = document.querySelector(".photo-layout-tool");
+  if (panel) {
+    panel.hidden = false;
+    panel.inert = false;
+    panel.removeAttribute("aria-hidden");
+  }
+
   const params = new URLSearchParams(window.location.search);
   const titleInput = document.querySelector("[data-title-y]");
   const copyInput = document.querySelector("[data-copy-y]");
