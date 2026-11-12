@@ -52,12 +52,12 @@ test('video posts retain their production media and social metadata', () => {
   }
 
   const luckShell = read('musings/luck-by-design/index.html');
-  assert.match(luckShell, /rel="canonical" href="https:\/\/oneshotlens\.com\/musings\/luck-by-design"/);
-  assert.match(luckShell, /property="og:url" content="https:\/\/oneshotlens\.com\/musings\/luck-by-design"/);
+  assert.match(luckShell, /rel="canonical" href="https:\/\/oneshotlens\.com\/musings\/luck-by-design\/"/);
+  assert.match(luckShell, /property="og:url" content="https:\/\/oneshotlens\.com\/musings\/luck-by-design\/"/);
   assert.match(luckShell, /name="twitter:card" content="summary_large_image"/);
 
   const panForwardShell = read('musings/taking-an-idea-further-with-ai/index.html');
-  assert.match(panForwardShell, /rel="canonical" href="https:\/\/oneshotlens\.com\/musings\/taking-an-idea-further-with-ai"/);
-  assert.match(panForwardShell, /property="og:url" content="https:\/\/oneshotlens\.com\/musings\/taking-an-idea-further-with-ai"/);
+  assert.match(panForwardShell, /rel="canonical" href="https:\/\/oneshotlens\.com\/musings\/taking-an-idea-further-with-ai\/"/);
+  assert.match(panForwardShell, /property="og:url" content="https:\/\/oneshotlens\.com\/musings\/taking-an-idea-further-with-ai\/"/);
   assert.match(panForwardShell, /name="twitter:card" content="summary_large_image"/);
 });

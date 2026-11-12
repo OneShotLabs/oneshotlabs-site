@@ -61,6 +61,6 @@ assert.match(robots, /Sitemap: https:\/\/oneshotlens\.com\/sitemap\.xml/);
 for (const canonical of Object.values(pages).map(([url]) => url)) {
   assert.ok(sitemap.includes(`<loc>${canonical}</loc>`), `sitemap must include ${canonical}`);
 }
-assert.ok(sitemap.includes('<loc>https://oneshotlens.com/musings/ai-has-a-branding-problem</loc>'));
+assert.ok(sitemap.includes('<loc>https://oneshotlens.com/musings/ai-has-a-branding-problem/</loc>'));
 
 console.log('PASS: contact, analytics, sharing, structured data, discovery and SEO metadata are wired.');

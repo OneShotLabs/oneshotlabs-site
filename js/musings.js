@@ -78,7 +78,7 @@ function formatDate(dateStr) {
 }
 
 function postHref(slug) {
-  return `/musings/${encodeURIComponent(slug)}`;
+  return `/musings/${encodeURIComponent(slug)}/`;
 }
 
 function formatDisplayTitle(title) {
@@ -107,6 +107,7 @@ async function loadAllPosts() {
         slug,
         title: meta.title || slug,
         date: meta.date || "",
+        dateModified: meta.dateModified || meta.updated || meta.date || "",
         tags: Array.isArray(meta.tags) ? meta.tags : [],
         collection: meta.collection || "",
         edition: meta.edition || "",
@@ -419,9 +420,9 @@ async function initPostPage() {
         description: socialDescription,
         image: socialImage,
         datePublished: post.date,
-        dateModified: post.date,
+        dateModified: post.dateModified || post.date,
         author: { "@id": "https://oneshotlens.com/#david-jergovic" },
-        publisher: { "@id": "https://oneshotlens.com/#organization" },
+        publisher: { "@id": "https://oneshotlabsai.com/#organization" },
       },
       {
         "@type": "BreadcrumbList",

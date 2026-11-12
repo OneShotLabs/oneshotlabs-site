@@ -7,7 +7,7 @@
     "test": "node --test tests/*.test.cjs",
     "verify:production-source": "node scripts/verify-production-source.cjs && node --test tests/published-musings-catalog.test.cjs",
     "deploy:production": "npm run verify:production-source && netlify deploy --prod --dir .",
-    "build": "node scripts/build-seo.mjs && node --test tests/published-musings-catalog.test.cjs tests/seo-foundation.test.cjs"
+    "build": "node scripts/build-seo.mjs && node scripts/build-geo.mjs && node --test tests/published-musings-catalog.test.cjs tests/seo-foundation.test.cjs tests/geo.test.cjs"
   },
   "dependencies": {
     "@netlify/blobs": "^10.0.0",

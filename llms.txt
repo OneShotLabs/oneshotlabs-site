@@ -1,0 +1,36 @@
+# OneShotLens
+
+> OneShotLens is David Jergovic’s canonical personal publishing hub for applied AI, commercial real estate finance, essays and Fujifilm X100V photography. David is based in Chicago and is the founder of OneShotLabs, the parent organization of the OneShot ecosystem.
+
+The primary site is https://oneshotlens.com/. David’s biography, authored essays and photography are published here. OneShotLabs is identified at https://oneshotlabsai.com/. The sister properties below are distinct projects within the same ecosystem.
+
+## David Jergovic and core pages
+
+- [OneShotLens](https://oneshotlens.com/): David Jergovic’s personal publishing hub.
+- [David Jergovic](https://oneshotlens.com/bio): Biography, Chicago background, education at Texas Christian University and the University of Dallas, commercial real estate finance, applied AI and photography.
+- [Career](https://oneshotlens.com/career): David’s experience in commercial real estate finance.
+- [Applied AI systems](https://oneshotlens.com/ai): The Fabric and The Curve, experiments in connected tools, workflows and human judgment.
+- [Musings](https://oneshotlens.com/musings): Essays, creative experiments and perspectives on AI, work and judgment.
+- [Photography](https://oneshotlens.com/photography): Chicago and travel photographs by David Jergovic, made with a Fujifilm X100V.
+
+## Published essays
+
+- [The Fabric](https://oneshotlens.com/musings/the-fabric/): From a scrolling prompt to a living fabric, a reflection on building with AI and how my understanding continues to evolve.
+- [Leveraging the Intelligence Within Your Business](https://oneshotlens.com/musings/the-intelligence-inside-your-business/): Most organizations do not have an intelligence problem. The opportunity is to organize what the business already knows and put that knowledge to work.
+- [Luck, by Design](https://oneshotlens.com/musings/luck-by-design/): What looks like luck is often the result of learning, experimenting, and preparing long before opportunity arrives.
+- [Taking an Idea Further with AI](https://oneshotlens.com/musings/taking-an-idea-further-with-ai/): An experiment in using AI to design a credible product interface, build hypothetical deal scenarios and bring the story together with video and voiceover.
+- [Step Out One Click](https://oneshotlens.com/musings/systems-thinkers-netflix/): Elizabeth Stone’s practical case for looking beyond individual AI tasks and designing systems that can scale.
+- [Q4 Is Here. Let’s Finish Strong.](https://oneshotlens.com/musings/q4-is-here-lets-finish-strong/): A timely experiment in using generative video to turn an idea into a finished story while the moment still matters.
+- [A Technology for Human Ambition](https://oneshotlens.com/musings/ai-has-a-branding-problem/): The loudest story about AI is what it may take away. The more interesting story is what it puts within reach.
+
+## OneShot ecosystem
+
+- [OneShotLabs](https://oneshotlabsai.com/): Parent organization founded by David Jergovic.
+- [OneShotLooks](https://oneshotlooks.com/): Sister property in the OneShot ecosystem.
+- [OneShotSpins](https://oneshotspins.com/): Sister property in the OneShot ecosystem.
+- [OneShotLines](https://oneshotlines.com/): Sister property in the OneShot ecosystem.
+
+## Optional
+
+- [Sitemap](https://oneshotlens.com/sitemap.xml): Canonical public page index.
+- [Contact](https://oneshotlens.com/contact): Contact OneShotLens.
