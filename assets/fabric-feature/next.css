@@ -1,0 +1,54 @@
+/* The Fabric feature (next). Loaded only with ?next. The published post never
+   requests this file. Copy is unchanged; this adds the title's arrival, the
+   carousel's motion and the closing link. The backdrop is the published one. */
+/* The published backdrop and reading wash are kept as they are. */
+/* The title arrives as it does on the AI page: out of a soft, warm light. */
+html.post-next .immersive-title .eyebrow{animation:post-fade 1.8s ease .2s both}
+html.post-next .title-the{animation:post-rise 2.6s cubic-bezier(.19,.72,.14,1) .9s both}
+html.post-next .title-ornament{animation:post-fade 2s ease 1.3s both}
+html.post-next .title-fabric{animation:post-rise 2.8s cubic-bezier(.19,.72,.14,1) .45s both}
+html.post-next .immersive-title .standfirst{animation:post-fade 2s ease 1.9s both}
+html.post-next .scroll-cue{animation:post-fade 2s ease 2.6s both}
+@keyframes post-rise{from{opacity:0;filter:blur(14px);text-shadow:0 0 .4em #ffefcf}55%{opacity:.9}to{opacity:1;filter:blur(0)}}
+@keyframes post-fade{from{opacity:0}to{opacity:1}}
+/* Carousel. Same structure; quieter stage, depth between chapters, captions that arrive. */
+html.post-next .evolution:before{inset:-60px -44px;background:radial-gradient(ellipse at 46% 56%,#152a44a6,#152a4470 55%,transparent 78%)}
+html.post-next .frame{opacity:.34;scale:.955;transform-origin:left center;transition:opacity 1.1s cubic-bezier(.2,.65,.2,1),scale 1.4s cubic-bezier(.16,.76,.18,1)}
+html.post-next .frame.active{opacity:1;scale:1}
+/* Each image drifts a little slower than its frame, and eases inward while it is the chapter being read. */
+html.post-next .art img{translate:var(--drift,0px) 0;scale:1.06;transition:scale 9s cubic-bezier(.2,.6,.2,1)}
+html.post-next .frame.active .art img{scale:1.1}
+html.post-next #phase-7 .art img,html.post-next #phase-8 .art img{object-fit:cover;object-position:50% 62%;scale:1}
+html.post-next #phase-7.active .art img,html.post-next #phase-8.active .art img{scale:1.035}
+html.post-next #phase-8 .art{background:#1d2f4e}
+html.post-next .frame figcaption>*{opacity:0;translate:0 10px;transition:opacity 1s cubic-bezier(.2,.65,.2,1),translate 1.25s cubic-bezier(.16,.76,.18,1)}
+html.post-next .frame.active figcaption>*{opacity:1;translate:0 0}
+html.post-next .frame.active figcaption>*:nth-child(1){transition-delay:.18s}
+html.post-next .frame.active figcaption>*:nth-child(2){transition-delay:.34s}
+html.post-next .frame.active figcaption>*:nth-child(3){transition-delay:.52s}
+/* Timeline: one gold thread, with a point of light that travels to the chosen chapter. */
+html.post-next .evolution .timeline{grid-template-columns:repeat(8,minmax(0,1fr));position:relative}
+html.post-next .timeline-light{position:absolute;top:10px;left:0;width:54px;height:1px;margin-left:-27px;pointer-events:none;
+  background:radial-gradient(closest-side,#fff3d6,#e9cf94 38%,#c5a05900);box-shadow:0 0 12px 2px #e9cf9455;opacity:0;
+  transition:left 1.25s cubic-bezier(.45,.05,.2,1),opacity .8s}
+html.post-next .timeline-light.is-lit{opacity:1}
+@media(max-width:650px){
+  html.post-next .frame{flex-basis:86%}html.post-next .frame:last-child{margin-right:14%}
+  html.post-next .evolution .timeline{gap:5px}
+}
+/* The closing link answers the opening one. The page begins with a small
+   letterspaced cue, "Scroll to unfold"; it ends with the same object, now
+   pointing onward. Same words, set in capitals by style only. */
+html.post-next .article-body>.fabric-explore{margin-top:44px;margin-bottom:40px}
+html.post-next .fabric-explore a{display:inline-flex;align-items:center;gap:18px;min-height:48px;box-sizing:border-box;padding:0 24px 0 22px;
+  font:600 11px/1 Source,Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#f5f5f0;text-decoration:none;text-shadow:none;
+  background:#1d2f4eac;border:1px solid #c5a05966;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  transition:border-color .5s,background .5s,color .5s}
+html.post-next .fabric-explore a::before{content:"";width:26px;height:1px;background:linear-gradient(90deg,#c5a05900,#dec894);transition:width .7s cubic-bezier(.16,.76,.18,1)}
+html.post-next .fabric-explore a span{color:#dec894;font-size:15px;letter-spacing:0;transition:transform .5s cubic-bezier(.16,.76,.18,1)}
+html.post-next .fabric-explore a:hover{border-color:#dec894;background:#24395ccc;color:#fffaf0}
+html.post-next .fabric-explore a:hover::before{width:40px}
+html.post-next .fabric-explore a:hover span{transform:translate(2px,-2px)}
+html.post-next .fabric-explore a:focus-visible{outline:2px solid #c5a059;outline-offset:5px}
+@media(prefers-reduced-motion:reduce){html.post-next .immersive-title *{animation:none!important}html.post-next .frame figcaption>*{opacity:1;translate:0 0}html.post-next .art img{scale:1.06}}
+html.post-next.motion-off .frame figcaption>*{opacity:1;translate:0 0}

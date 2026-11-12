@@ -1,0 +1,176 @@
+/* The Fabric (next). Loaded only by js/fabric-next.js at /ai?next.
+   With the system open, the night sky continues behind the method panel
+   instead of stopping at a flat navy block. The canvas fills the whole
+   viewport; the panel sits on a feathered, softly blurred scrim that holds
+   the copy's contrast and settles to site navy where the page continues. */
+body.fabric-next.exploring-system .system-viewport{position:relative}
+body.fabric-next.exploring-system .fabric{overflow:visible;background:none}
+body.fabric-next.fabric-material-study.exploring-system .fabric[data-cloth-ready="true"] #fabric-breath{inset:0 0 auto 0;height:max(100svh,520px);-webkit-mask-image:none;mask-image:none}
+body.fabric-next.exploring-system .woven-method{background:none}
+/* The scrim: clear at its top edge, then deep midnight under the copy. */
+body.fabric-next.exploring-system .system-viewport::after{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--panel-height,46svh) + 34px);z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(12,24,52,0) 0,rgba(12,24,52,.50) 34px,rgba(12,24,52,.74) 78px,rgba(14,27,57,.82) 62%,rgba(29,47,78,.96) 92%,#1d2f4e 100%);
+  -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 46px);mask-image:linear-gradient(180deg,transparent 0,#000 46px)}
+/* The hairline becomes a quiet gold thread that fades at both ends. */
+body.fabric-next.exploring-system .woven-method::before{background:linear-gradient(90deg,transparent,#c6a15340 14%,#c6a15326 62%,transparent)}
+/* Copy sits on sky now: a soft midnight halo keeps every line crisp. */
+body.fabric-next.exploring-system .woven-method{text-shadow:0 1px 14px #0c1834cc}
+body.fabric-next.exploring-system .method-description{color:#e3e9f1}
+body.fabric-next.exploring-system .lumen-controls{text-shadow:0 1px 10px #0c1834}
+
+/* ── The Curve's quiz, on the sky ───────────────────────────────────────
+   The questions no longer sit in a navy block beside a cropped globe. The
+   same sky and planet stay behind them, full width, and the copy rests on
+   a feathered midnight scrim. The planet's limb stays clear on the right:
+   it is where the visitor's place is marked. Results are unchanged. */
+body.fabric-next.questionnaire-open:not(.assessment-result) #questionnaire:not(.has-result){width:100%;background:none}
+body.fabric-next.questionnaire-open:not(.assessment-result) #questionnaire:not(.has-result)::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(12,24,52,.86) 0,rgba(12,24,52,.80) 46%,rgba(12,24,52,.42) 63%,rgba(12,24,52,0) 80%);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  -webkit-mask-image:linear-gradient(90deg,#000 0,#000 52%,transparent 78%);mask-image:linear-gradient(90deg,#000 0,#000 52%,transparent 78%)}
+body.fabric-next.questionnaire-open:not(.assessment-result) #questionnaire:not(.has-result)>*{max-width:min(58vw,860px)}
+body.fabric-next.questionnaire-open:not(.assessment-result) #questionnaire:not(.has-result) #ai-curve-app{margin:0}
+body.fabric-next.questionnaire-open:not(.assessment-result) .horizon{left:0;right:0;width:100%;clip-path:inset(var(--quiz-top,0px) 0 var(--quiz-bottom,0px) 0)}
+body.fabric-next.questionnaire-open:not(.assessment-result) .horizon .art,body.fabric-next.questionnaire-open:not(.assessment-result) .horizon .globe-stage{opacity:1;-webkit-mask-image:linear-gradient(transparent 0,#000 18%);mask-image:linear-gradient(transparent 0,#000 18%)}
+body.fabric-next.questionnaire-open:not(.assessment-result) .horizon .globe-stage{top:0;height:100%;translate:18% 16%}
+/* The panel takes focus for screen readers; it does not need a gold box drawn round it. */
+body.fabric-next #questionnaire:not(.has-result) .curve-panel:focus{outline:none}
+body.fabric-next #questionnaire:not(.has-result) .curve-option{background:transparent}
+body.fabric-next #questionnaire:not(.has-result) .curve-option:hover{background:#ffffff0d}
+body.fabric-next #questionnaire:not(.has-result) .curve-option:has(input:checked){background:linear-gradient(90deg,#c6a15330,#c6a1530f 70%,transparent)}
+@media(max-width:700px){
+  body.fabric-next.questionnaire-open:not(.assessment-result) #questionnaire:not(.has-result)>*{max-width:none}
+  body.fabric-next.questionnaire-open:not(.assessment-result) #questionnaire:not(.has-result)::before{background:rgba(12,24,52,.80);-webkit-mask-image:none;mask-image:none}
+  body.fabric-next.questionnaire-open:not(.assessment-result) .horizon{opacity:.7}
+  body.fabric-next.questionnaire-open:not(.assessment-result) .horizon .globe-stage{translate:0 12%}
+}
+
+/* Scene controls: a quiet way to put the panel away, set apart from the two actions above it. */
+body.fabric-next .horizon .direction-panel button.direction-close{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:44px;margin-top:18px;padding:12px 0 0;
+  background:none;border:0;border-top:1px solid #c6a15333;color:#d9bf86;font:500 10px/1 "Barlow Condensed",Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;transition:color .4s}
+body.fabric-next .horizon .direction-panel button.direction-close::after{content:"\00d7";font:400 15px/1 Inter,Arial,sans-serif;letter-spacing:0;color:#c6a153}
+body.fabric-next .horizon .direction-panel button.direction-close:hover{color:#f2e8d3;border-color:#c6a15366}
+
+/* ── Quiz questions ─────────────────────────────────────────────────────
+   Set in Barlow Condensed, the voice of the page's labels (David's choice of
+   three options, 2026-11-11). It replaces Bodoni Moda at a display optical
+   size, whose hairlines thinned out over a question's length. Compact, so
+   long questions hold to fewer lines. */
+body.fabric-next #questionnaire:not(.has-result) .curve-question{font:500 clamp(29px,2.7vw,43px)/1.14 "Barlow Condensed",Arial,sans-serif;font-variation-settings:normal;letter-spacing:.012em;max-width:30ch}
+@media(max-width:700px){body.fabric-next #questionnaire:not(.has-result) .curve-question{font-size:clamp(25px,7vw,31px)}}
+
+/* ── Results, in the same night ─────────────────────────────────────────
+   Same order, same blocks, same words. The ivory paper gives way to the
+   sky the visitor has been under since the Fabric: midnight, a still field
+   of stars, ivory type, gold light. */
+body.fabric-next #questionnaire.has-result{position:relative;overflow:hidden;color:#e6ebf2;
+  background:linear-gradient(#0f1d3c 0,#0c1834 26%,#0e1b37 72%,#13234a 93%,#1d2f4e 100%);
+  --fg:#fffdf8;--fg-dim:#c5cfdd;--oneshot-navy:#fffdf8;--oneshot-cream:#14244199;--oneshot-warm-white:#0f1e3d;--oneshot-gold-shadow:#d9bf86;--border-thread:1px solid #c6a15340}
+/* One sky, fixed to the window and shown only within the results' own extent. */
+body.fabric-next #questionnaire.has-result .results-sky{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none;clip-path:inset(var(--quiz-top,0px) 0 var(--quiz-bottom,0px) 0)}
+body.fabric-next #questionnaire.has-result>*:not(.results-sky){position:relative;z-index:1}
+body.fabric-next #questionnaire.has-result .questionnaire-header{color:#d9bf86}
+body.fabric-next #questionnaire.has-result .questionnaire-header button{color:#fffdf8}
+body.fabric-next #questionnaire.has-result .questionnaire-paper{background:none;border-top:1px solid #c6a15355}
+body.fabric-next #questionnaire.has-result .questionnaire-note{color:#aebbcc}
+body.fabric-next #questionnaire.has-result #ai-curve-app,body.fabric-next #questionnaire.has-result .curve-panel{color:#e6ebf2}
+body.fabric-next #questionnaire.has-result .curve-result{position:relative}
+body.fabric-next #questionnaire.has-result .hero-eyebrow,body.fabric-next #questionnaire.has-result .curve-participation-head .muted{color:#d9bf86}
+body.fabric-next #questionnaire.has-result .curve-result h2{color:#fffdf8;text-shadow:0 2px 26px #0b162ecc}
+body.fabric-next #questionnaire.has-result .curve-result-lede{color:#dbe2ec}
+/* The curve: a gold path on the night. */
+body.fabric-next #questionnaire .curve-svg.curve-lit .curve-line{stroke:#ffffff26}
+body.fabric-next #questionnaire.has-result .curve-svg-label{fill:#d9bf86}
+body.fabric-next #questionnaire.has-result .curve-svg-label-user,body.fabric-next #questionnaire .curve-drop-label{fill:#fffdf8}
+body.fabric-next #questionnaire .curve-ahead,body.fabric-next #questionnaire .curve-drop line{stroke:#d9bf86}
+body.fabric-next #questionnaire .curve-lit .curve-user-marker{stroke:#0c1834}
+body.fabric-next #questionnaire .curve-reached-glow{opacity:.7}
+/* The score, in the lockup's cut, lit like the titles. */
+body.fabric-next #questionnaire.has-result .curve-score-row{border-bottom-color:#c6a15344}
+body.fabric-next #questionnaire.has-result .curve-score-num{color:#fffdf8;text-shadow:0 0 70px #c6a15338,0 2px 24px #0b162e}
+body.fabric-next #questionnaire.has-result .curve-level{color:#e7cf98}
+body.fabric-next #questionnaire.has-result .curve-score-meta .muted{color:#b3a37c}
+body.fabric-next #questionnaire.has-result .curve-dim-label{color:#c9d3e0}
+body.fabric-next #questionnaire.has-result .curve-dim-track{background:#ffffff1f}
+body.fabric-next #questionnaire.has-result .curve-dim-fill{background:linear-gradient(90deg,#c6a15340,#e2c88e);box-shadow:0 0 10px #c6a15366}
+body.fabric-next #questionnaire.has-result .curve-dim-fill::after{background:#f3e2b8;box-shadow:0 0 0 3px #c6a15344,0 0 12px #e2c88e}
+body.fabric-next #questionnaire.has-result .curve-dim-val{color:#fffdf8}
+body.fabric-next #questionnaire.has-result .curve-interp{border-top-color:#c6a15344}
+body.fabric-next #questionnaire.has-result .curve-interp h3,body.fabric-next #questionnaire.has-result .curve-retest strong,body.fabric-next #questionnaire.has-result .curve-disclosure summary{color:#d9bf86}
+body.fabric-next #questionnaire.has-result .curve-interp p,body.fabric-next #questionnaire.has-result .curve-next-steps li,body.fabric-next #questionnaire.has-result .curve-retest,body.fabric-next #questionnaire.has-result .curve-disclosure p{color:#d5dde8}
+body.fabric-next #questionnaire.has-result .curve-interp .curve-challenge-title{color:#fffdf8}
+body.fabric-next #questionnaire.has-result .curve-next-steps li{border-bottom-color:#ffffff16}
+body.fabric-next #questionnaire.has-result .curve-next-steps li::before{color:#d9bf86}
+body.fabric-next #questionnaire.has-result .curve-retest,body.fabric-next #questionnaire.has-result .curve-cta,body.fabric-next #questionnaire.has-result .curve-disclosure{border-color:#c6a15333}
+/* Calls to action in the page's gold-edged language. */
+body.fabric-next #questionnaire.has-result .curve-cta .btn{border-color:#c6a15366;color:#e5d8b9;background:#14244166;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+body.fabric-next #questionnaire.has-result .curve-cta .btn:hover{border-color:#c6a153;background:#1a2d4fcc;color:#fffdf8}
+body.fabric-next #questionnaire.has-result .curve-cta .btn-accent{color:#1d2f4e;background:linear-gradient(120deg,#e7cf98,#c6a153 60%,#e2c88e);border-color:#e2c88e}
+body.fabric-next #questionnaire.has-result .curve-cta .btn-accent:hover{filter:brightness(1.06);color:#1d2f4e;background:linear-gradient(120deg,#e7cf98,#c6a153 60%,#e2c88e)}
+/* Participation: the planet on the night, with its own thin atmosphere. */
+body.fabric-next #questionnaire.has-result .curve-participation{background:none;color:#e6ebf2;border-top-color:#c6a15344}
+body.fabric-next #questionnaire.has-result .curve-participation h3{color:#fffdf8}
+body.fabric-next #questionnaire.has-result .curve-participation h4,body.fabric-next #questionnaire.has-result .curve-participation p,body.fabric-next #questionnaire.has-result .curve-participation .muted,body.fabric-next #questionnaire.has-result .curve-participation-foot,body.fabric-next #questionnaire.has-result .curve-participation-foot span,body.fabric-next #questionnaire.has-result .results-globe-hint{color:#c9d3e0}
+body.fabric-next #questionnaire.has-result .curve-participation-update{color:#d9bf86}
+body.fabric-next #questionnaire .curve-participation-stage{background:#0d1a38;box-shadow:0 0 90px #3f6fd026,0 0 0 1px #c6a15344}
+body.fabric-next #questionnaire.has-result .globe-view-button,body.fabric-next #questionnaire.has-result .curve-globe-zoom{color:#e5d8b9;border-color:#c6a15366;background:#14244166}
+body.fabric-next #questionnaire.has-result .globe-view-button:hover,body.fabric-next #questionnaire.has-result .curve-globe-zoom:hover{border-color:#c6a153}
+body.fabric-next #questionnaire.has-result :focus-visible{outline-color:#c6a153}
+/* OneShotLens, presented as on the site's own masthead: the mark, then the
+   wordmark over a gold hairline. It replaces the small grey chip. */
+body.fabric-next #questionnaire.has-result .curve-brand-mark{display:none}
+body.fabric-next .curve-brand-plate{position:absolute;right:0;top:-6px;display:flex;align-items:center;gap:12px;color:#fffdf8;--trim:#c6a153}
+body.fabric-next .curve-brand-plate svg{width:38px;height:38px;display:block;filter:drop-shadow(0 0 14px #c6a15333)}
+body.fabric-next .curve-brand-plate .plate-word{font:600 21px/1.1 "Bodoni Moda",Didot,Georgia,serif;letter-spacing:-.01em;padding-bottom:5px;background:linear-gradient(90deg,#c6a153,#e2c88e) left bottom/100% 1.5px no-repeat}
+/* A closing mark: the star between two gold hairlines. No words. */
+body.fabric-next .curve-brand-seal{display:flex;align-items:center;justify-content:center;gap:22px;margin:56px 0 8px;color:#fffdf8;--trim:#c6a153}
+body.fabric-next .curve-brand-seal::before,body.fabric-next .curve-brand-seal::after{content:"";flex:0 1 120px;height:1px;background:linear-gradient(90deg,#c6a15300,#c6a15388)}
+body.fabric-next .curve-brand-seal::after{background:linear-gradient(90deg,#c6a15388,#c6a15300)}
+body.fabric-next .curve-brand-seal svg{width:34px;height:34px;display:block;opacity:.92}
+body.fabric-next .curve-brand-seal .os-blades{transform-box:fill-box;transform-origin:center;animation:curve-mark-turn 36s linear infinite}
+@media(prefers-reduced-motion:reduce){body.fabric-next .curve-brand-seal .os-blades{animation:none}}
+@media(max-width:700px){
+  body.fabric-next .curve-brand-plate{position:static;margin:0 0 22px}
+  body.fabric-next .curve-brand-plate svg{width:32px;height:32px}
+  body.fabric-next .curve-brand-plate .plate-word{font-size:19px}
+}
+/* The frontier mark at the end of the curve reads in ivory on the night. */
+body.fabric-next #questionnaire.has-result .curve-frontier-brand{color:#fffdf8;--trim:#c6a153}
+body.fabric-next #questionnaire.has-result .curve-frontier-brand .os-blades,body.fabric-next #questionnaire.has-result .curve-frontier-brand .os-blades *{fill:#fffdf8}
+
+/* ── Depth ──────────────────────────────────────────────────────────────
+   The results were one flat plane. Now there are three: the sky behind, soft
+   pools of light in the middle distance, and the key blocks raised toward
+   the reader on glass, each with its own shadow. */
+body.fabric-next #questionnaire.has-result .curve-result::before{content:"";position:absolute;left:-22%;right:-22%;top:-80px;height:1500px;z-index:-1;pointer-events:none;
+  background:radial-gradient(46% 30% at 30% 16%,#2f55a02e,transparent 72%),radial-gradient(34% 20% at 74% 40%,#c6a15316,transparent 72%),radial-gradient(50% 26% at 40% 74%,#2f55a022,transparent 72%)}
+/* The curve floats: its gold path casts a shadow on the wash beneath it. */
+body.fabric-next #questionnaire .curve-reached{filter:drop-shadow(0 12px 12px #050b18b0)}
+body.fabric-next #questionnaire .curve-lit .curve-user-marker{filter:drop-shadow(0 0 8px #e2c88e) drop-shadow(0 8px 10px #050b18)}
+/* The score: ivory falling to champagne, standing off the page. */
+body.fabric-next #questionnaire.has-result .curve-score-num{background:linear-gradient(180deg,#fffdf8 34%,#e3d2a8 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;text-shadow:none;
+  filter:drop-shadow(0 16px 26px #050b18d0) drop-shadow(0 0 46px #c6a15333)}
+body.fabric-next #questionnaire.has-result .curve-level{text-shadow:0 8px 22px #050b18cc}
+body.fabric-next #questionnaire.has-result .curve-score-row{border-bottom:0;padding-bottom:6px;margin-bottom:26px}
+/* Raised glass: the five dimensions, and the next challenge. */
+body.fabric-next #questionnaire.has-result .curve-dimensions,body.fabric-next #questionnaire.has-result .curve-interp-challenge{position:relative;border:1px solid #c6a15330;border-top-color:#e2c88e55;
+  background:linear-gradient(180deg,#1a2e56b8,#0f1e3d99);box-shadow:0 34px 80px #050b18a8,0 2px 0 #ffffff0a inset,0 0 0 1px #0a142c66;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+body.fabric-next #questionnaire.has-result .curve-dimensions{padding:30px 32px;margin-bottom:54px}
+body.fabric-next #questionnaire.has-result .curve-interp{border-top:0;padding-top:0;align-items:start}
+body.fabric-next #questionnaire.has-result .curve-interp-challenge{padding:30px 34px 26px;border-left:1px solid #c6a15330}
+body.fabric-next #questionnaire.has-result .curve-dim-track{box-shadow:inset 0 1px 1px #050b18}
+body.fabric-next #questionnaire.has-result .curve-dim-fill{box-shadow:0 0 14px #e2c88e88,0 6px 10px #050b1899}
+/* Buttons sit forward too, and lift when approached. */
+body.fabric-next #questionnaire.has-result .curve-cta .btn{box-shadow:0 14px 30px #050b1890;transition:transform .5s cubic-bezier(.16,.76,.18,1),box-shadow .5s,border-color .4s,background .4s,color .4s}
+body.fabric-next #questionnaire.has-result .curve-cta .btn:hover{transform:translateY(-2px);box-shadow:0 22px 44px #050b18b0}
+body.fabric-next #questionnaire.has-result .curve-cta .btn-accent{box-shadow:0 16px 40px #050b18a0,0 0 0 1px #f3e2b855,0 0 34px #c6a15326}
+/* The planet hangs in space: a pool of its own blue light around it, and its shadow below. */
+body.fabric-next #questionnaire .curve-participation-stage{background:radial-gradient(circle at 42% 36%,#16305e,#0b1836 72%);box-shadow:0 60px 110px #050b18d8,0 0 140px #3f6fd03a,0 0 0 1px #c6a15344,inset 0 0 60px #050b18}
+body.fabric-next #questionnaire.has-result .curve-participation{isolation:isolate}
+body.fabric-next #questionnaire.has-result .curve-brand-plate svg{filter:drop-shadow(0 0 14px #c6a15344) drop-shadow(0 8px 12px #050b18)}
+@media(max-width:700px){
+  body.fabric-next #questionnaire.has-result .curve-dimensions{padding:22px 18px}
+  body.fabric-next #questionnaire.has-result .curve-interp-challenge{padding:24px 20px 20px;margin-top:30px}
+}
+@media(prefers-reduced-motion:reduce){body.fabric-next #questionnaire.has-result .curve-cta .btn{transition:none}body.fabric-next #questionnaire.has-result .curve-cta .btn:hover{transform:none}}
