@@ -89,9 +89,6 @@ function formatDisplayTitle(title) {
 }
 
 async function loadAllPosts() {
-  // Published article pages carry the catalog at build time for offline enhancement.
-  const snapshot = typeof document !== "undefined" && document.getElementById("musings-post-catalog");
-  if (snapshot) return JSON.parse(snapshot.textContent);
   const manifestRes = await fetch(MANIFEST_URL);
   if (!manifestRes.ok) throw new Error("Could not load posts/manifest.json");
   const manifest = await manifestRes.json();
@@ -132,10 +129,16 @@ async function loadAllPosts() {
 }
 
 function showFetchError(container, err) {
-  // A network failure must never replace the published, pre-rendered article.
-  console.warn("Musings enhancement unavailable", err);
-  if (container.dataset.prerendered === "true") return;
-  container.innerHTML = `<div class="musings-status" data-nosnippet><p>Musings are temporarily unavailable. <a href="/musings">Browse the Musings index</a>.</p></div>`;
+  container.innerHTML = `
+    <div class="musings-status">
+      <p><strong>Couldn't load posts.</strong></p>
+      <p>${err.message || err}</p>
+      <p>This is almost always because the page was opened directly as a file
+      (<code>file://</code>) rather than served over http(s). Browsers block
+      that kind of fetch for security reasons. Try running a quick local
+      server from this folder — <code>python3 -m http.server</code> — then
+      open <code>http://localhost:8000</code>, or deploy it to any static host.</p>
+    </div>`;
 }
 
 function setMeta(attribute, name, content) {
@@ -283,69 +286,6 @@ async function initMusingsIndex() {
   render();
 }
 
-// The same renderer is used during the production build and in the fallback reader.
-function renderPostContent(post, bodyHtml) {
-  const cover = post.cover || "/assets/editorial/architectural-hero-v1.png";
-  const coverAlt = post.coverAlt || "Architectural planes in light and shadow";
-  const heroMedia = post.youtube && post.videoCover
-    ? `<button class="post-monument-video-cover" type="button" data-youtube-src="${post.youtube}" aria-label="Play the clip here from the beginning">
-        <span class="video-cover-art"><img src="${post.videoCover}" alt="${coverAlt}"></span>
-        <span class="video-cover-copy" aria-hidden="true">
-          <span class="video-cover-wordmark"><img src="/assets/brand/view-finder-original-wordmark.png" alt="View Finder"></span>
-          <span class="video-cover-edition">Edition ${post.edition || "001"}</span>
-          <span class="video-cover-selection">
-            <span class="video-cover-subtitle">${post.title}</span>
-            <span class="video-cover-topic">Systems thinking in the AI era</span>
-            <span class="video-cover-source">Elizabeth Stone × Lenny’s Podcast</span>
-          </span>
-        </span>
-        <span class="video-cover-play" aria-hidden="true"><span class="video-cover-play-icon"></span>Watch the clip</span>
-      </button>`
-    : post.youtube
-      ? `<iframe class="post-monument-youtube" src="${post.youtube}" title="Why Netflix is betting on systems thinkers, with Elizabeth Stone on Lenny’s Podcast" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`
-    : post.video
-      ? `<video class="post-monument-video" controls playsinline preload="metadata" poster="${cover}" aria-label="${coverAlt}"><source src="${post.video}" type="video/mp4">Your browser does not support embedded video.</video>`
-      : `<img src="${cover}" alt="${coverAlt}">`;
-  const isEditorial = post.coverTreatment === "editorial";
-  const coverTreatment = isEditorial ? " post-monument-photo--editorial" : "";
-  const dropCapClass = post.dropCap ? "" : " post-body-content--no-drop-cap";
-  const tagLabel = post.tags.map((tag) => tag.charAt(0).toUpperCase() + tag.slice(1)).join(" & ");
-  const titleTags = isEditorial && post.tags.length
-    ? `<div class="post-monument-tags">${post.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>`
-    : "";
-
-  return `
-    <section class="post-monument-shell">
-      <div class="post-monument-inner">
-        <a href="/musings" class="post-monument-back">&larr; Musings</a>
-        <figure class="post-monument-photo${coverTreatment}">
-          ${heroMedia}
-          <figcaption class="post-monument-title">
-            ${isEditorial ? "" : `<p class="post-monument-eyebrow">Musings${tagLabel ? ` · ${tagLabel}` : ""}</p>`}
-            <h1${post.youtube && post.videoCover ? ' class="sr-only"' : ''}>${formatDisplayTitle(post.title)}</h1>
-            <p class="post-monument-meta">${formatDate(post.date)} · ${post.readMinutes} min read</p>
-            ${titleTags}
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-    <section class="post-story-layout${isEditorial ? " post-story-layout--editorial" : ""}${post.collection === 'View Finder' ? ' post-story-layout--viewfinder' : ''}">
-      ${isEditorial ? "" : `<aside class="post-story-rail" aria-label="Article information">
-        <strong>OneShotLens Musings</strong>
-        <span>Independent thinking.<br>Practical perspective.</span>
-        <div class="post-story-tags">
-          ${post.tags.map((t) => `<span>${t}</span>`).join("")}
-        </div>
-      </aside>`}
-      <article class="post-article-copy">
-        <div id="post-toc"></div>
-        <div id="post-body" class="post-body-content${dropCapClass}">${bodyHtml}</div>
-      </article>
-    </section>
-  `;
-
-}
-
 // ---------- Single post page ----------
 
 async function initPostPage() {
@@ -354,7 +294,7 @@ async function initPostPage() {
 
   const params = new URLSearchParams(window.location.search);
   const cleanRoute = window.location.pathname.match(/^\/musings\/([^/]+)\/?$/);
-  const slug = contentEl.dataset.postSlug || params.get("slug") || (cleanRoute ? decodeURIComponent(cleanRoute[1]) : null);
+  const slug = params.get("slug") || (cleanRoute ? decodeURIComponent(cleanRoute[1]) : null);
 
   let allPosts = [];
   try {
@@ -368,7 +308,6 @@ async function initPostPage() {
   const post = index >= 0 ? allPosts[index] : null;
 
   if (!post) {
-    if (contentEl.dataset.prerendered === "true") return;
     contentEl.innerHTML = `
       <div class="musings-status">
         <p><strong>Post not found.</strong></p>
@@ -434,14 +373,69 @@ async function initPostPage() {
     ],
   });
 
-  const bodyHtml = contentEl.dataset.prerendered === "true" ? "" :
+  const bodyHtml =
     typeof marked !== "undefined" ? marked.parse(post.body) : `<pre>${post.body}</pre>`;
 
+  const cover = post.cover || "/assets/editorial/architectural-hero-v1.png";
+  const coverAlt = post.coverAlt || "Architectural planes in light and shadow";
+  const heroMedia = post.youtube && post.videoCover
+    ? `<button class="post-monument-video-cover" type="button" data-youtube-src="${post.youtube}" aria-label="Play the clip here from the beginning">
+        <span class="video-cover-art"><img src="${post.videoCover}" alt="${coverAlt}"></span>
+        <span class="video-cover-copy" aria-hidden="true">
+          <span class="video-cover-wordmark"><img src="/assets/brand/view-finder-original-wordmark.png" alt="View Finder"></span>
+          <span class="video-cover-edition">Edition ${post.edition || "001"}</span>
+          <span class="video-cover-selection">
+            <span class="video-cover-subtitle">${post.title}</span>
+            <span class="video-cover-topic">Systems thinking in the AI era</span>
+            <span class="video-cover-source">Elizabeth Stone × Lenny’s Podcast</span>
+          </span>
+        </span>
+        <span class="video-cover-play" aria-hidden="true"><span class="video-cover-play-icon"></span>Watch the clip</span>
+      </button>`
+    : post.youtube
+      ? `<iframe class="post-monument-youtube" src="${post.youtube}" title="Why Netflix is betting on systems thinkers, with Elizabeth Stone on Lenny’s Podcast" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`
+    : post.video
+      ? `<video class="post-monument-video" controls playsinline preload="metadata" poster="${cover}" aria-label="${coverAlt}"><source src="${post.video}" type="video/mp4">Your browser does not support embedded video.</video>`
+      : `<img src="${cover}" alt="${coverAlt}">`;
   const isEditorial = post.coverTreatment === "editorial";
+  const coverTreatment = isEditorial ? " post-monument-photo--editorial" : "";
+  const dropCapClass = post.dropCap ? "" : " post-body-content--no-drop-cap";
+  const tagLabel = post.tags.map((tag) => tag.charAt(0).toUpperCase() + tag.slice(1)).join(" & ");
+  const titleTags = isEditorial && post.tags.length
+    ? `<div class="post-monument-tags">${post.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>`
+    : "";
+
   document.querySelector(".post-page")?.classList.toggle("post-page--editorial", isEditorial);
-  if (contentEl.dataset.prerendered !== "true") {
-    contentEl.innerHTML = renderPostContent(post, bodyHtml);
-  }
+
+  contentEl.innerHTML = `
+    <section class="post-monument-shell">
+      <div class="post-monument-inner">
+        <a href="/musings" class="post-monument-back">&larr; Musings</a>
+        <figure class="post-monument-photo${coverTreatment}">
+          ${heroMedia}
+          <figcaption class="post-monument-title">
+            ${isEditorial ? "" : `<p class="post-monument-eyebrow">Musings${tagLabel ? ` · ${tagLabel}` : ""}</p>`}
+            <h1${post.youtube && post.videoCover ? ' class="sr-only"' : ''}>${formatDisplayTitle(post.title)}</h1>
+            <p class="post-monument-meta">${formatDate(post.date)} · ${post.readMinutes} min read</p>
+            ${titleTags}
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="post-story-layout${isEditorial ? " post-story-layout--editorial" : ""}${post.collection === 'View Finder' ? ' post-story-layout--viewfinder' : ''}">
+      ${isEditorial ? "" : `<aside class="post-story-rail" aria-label="Article information">
+        <strong>OneShotLens Musings</strong>
+        <span>Independent thinking.<br>Practical perspective.</span>
+        <div class="post-story-tags">
+          ${post.tags.map((t) => `<span>${t}</span>`).join("")}
+        </div>
+      </aside>`}
+      <article class="post-article-copy">
+        <div id="post-toc"></div>
+        <div id="post-body" class="post-body-content${dropCapClass}">${bodyHtml}</div>
+      </article>
+    </section>
+  `;
 
   const videoCover = contentEl.querySelector('.post-monument-video-cover');
   videoCover?.addEventListener('click', () => {
@@ -514,12 +508,7 @@ async function initPostPage() {
   }
 }
 
-if (typeof document !== "undefined") {
-  document.addEventListener("DOMContentLoaded", () => {
-    initMusingsIndex();
-    initPostPage();
-  });
-}
-if (typeof module !== "undefined" && module.exports) {
-  module.exports = { parseFrontmatter, estimateReadMinutes, renderPostContent };
-}
+document.addEventListener("DOMContentLoaded", () => {
+  initMusingsIndex();
+  initPostPage();
+});

@@ -1,4 +1,11 @@
 const { spawnSync } = require('node:child_process');
+const fs = require('node:fs');
+
+const canonicalRoot = '/Users/davidjergovic/Documents/Codex/oneshotlens-site';
+if (fs.realpathSync(process.cwd()) !== canonicalRoot) {
+  console.error('Production deploy blocked: run only from the canonical checkout ' + canonicalRoot);
+  process.exit(1);
+}
 
 function git(args, options = {}) {
   return spawnSync('git', args, {

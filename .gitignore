@@ -3,3 +3,4 @@ node_modules/
 .netlify/
 work/
 __pycache__/
+dist/

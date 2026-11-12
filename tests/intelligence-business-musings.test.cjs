@@ -18,7 +18,7 @@ test('Leveraging the Intelligence Within Your Business uses the approved article
   assert.match(post, /dropCap: false/);
 
   const shell = read(`musings/${slug}/index.html`);
-  assert.match(shell, new RegExp(`rel="canonical" href="https://oneshotlens\\.com/musings/${slug}"`));
+  assert.match(shell, new RegExp(`rel="canonical" href="https://oneshotlens\\.com/musings/${slug}/"`));
   assert.match(shell, /property="og:type" content="article"/);
   assert.match(shell, /property="og:image" content="https:\/\/oneshotlens\.com\/assets\/editorial\/the-intelligence-inside-your-business-social\.png"/);
   assert.match(shell, /property="og:image:width" content="1200"/);

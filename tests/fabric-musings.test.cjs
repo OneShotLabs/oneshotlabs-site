@@ -16,7 +16,7 @@ test('Fabric publishes seven archived chapters and the approved model history', 
   for (const m of html.matchAll(/(?:src|href)="(\/assets\/[^"?]+)/g)) {
     assert.ok(fs.existsSync(path.join(root, m[1])), `Missing ${m[1]}`);
   }
-  assert.match(html, /rel="canonical" href="https:\/\/oneshotlens.com\/musings\/the-fabric"/);
+  assert.match(html, /rel="canonical" href="https:\/\/oneshotlens.com\/musings\/the-fabric\/"/);
   assert.match(read('netlify.toml'), /from = "\/musings\/the-fabric"[\s\S]*?status = 200/);
 });
 test('Evolutions leads and Perspectives remain grouped without preview controls', () => {

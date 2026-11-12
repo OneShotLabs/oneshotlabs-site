@@ -48,7 +48,7 @@ assert.match(shell, /<title>Step Out One Click — OneShotLens Musings<\/title>/
 assert.match(shell, /property="article:tag" content="Shared Media"/);
 assert.match(shell, /property="article:tag" content="Clips"/);
 assert.match(shell, /"@type": "VideoObject"/);
-assert.match(shell, /rel="canonical" href="https:\/\/oneshotlens\.com\/musings\/systems-thinkers-netflix"/);
+assert.match(shell, /rel="canonical" href="https:\/\/oneshotlens\.com\/musings\/systems-thinkers-netflix\/"/);
 
 const index = read('musings.html');
 assert.match(index, /id="view-finder"/);

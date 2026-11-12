@@ -21,7 +21,7 @@ assert.match(shell, /property="og:image" content="https:\/\/oneshotlens\.com\/as
 assert.match(shell, /property="og:image:width" content="1200"/);
 assert.match(shell, /property="og:image:height" content="630"/);
 assert.match(shell, /name="twitter:card" content="summary_large_image"/);
-assert.match(shell, /rel="canonical" href="https:\/\/oneshotlens\.com\/musings\/ai-has-a-branding-problem"/);
+assert.match(shell, /rel="canonical" href="https:\/\/oneshotlens\.com\/musings\/ai-has-a-branding-problem\/"/);
 
 const social = fs.readFileSync(path.join(root, 'assets/editorial/ai-has-a-branding-problem-social-v2.png'));
 assert.equal(social.toString('ascii', 1, 4), 'PNG');
