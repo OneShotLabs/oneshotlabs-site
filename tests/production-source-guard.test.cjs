@@ -21,3 +21,7 @@ assert.ok(guard.includes('/Users/davidjergovic/Documents/Codex/oneshotlens-site'
 assert.equal(packageJson.scripts['deploy:production'],'npm run verify:production-source && npm run build && netlify deploy --prod --dir dist');
 const config = fs.readFileSync(path.join(root,'netlify.toml'),'utf8');
 assert.match(config,/command = "npm run build"/);assert.match(config,/publish = "dist"/);
+for(const scheme of ['http','https']) for(const host of ['oneshotlabsai.com','www.oneshotlabsai.com']) {
+  const rule=`from = "${scheme}://${host}/*"\nto = "https://oneshotlens.com/"\nstatus = 301\nforce = true`;
+  assert.ok(config.includes(rule),`Parent alias must redirect every path to the hub: ${scheme}://${host}`);
+}
