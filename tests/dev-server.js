@@ -25,6 +25,8 @@ const routes = new Map([
   ['/contact', 'contact.html'],
   ['/musings', 'musings.html'],
   ['/photography', 'photography.html'],
+  ['/musings/the-fabric', 'musings/the-fabric/index.html'],
+  ['/musings/the-fabric/', 'musings/the-fabric/index.html'],
   ['/musings/the-intelligence-inside-your-business', 'musings/the-intelligence-inside-your-business/index.html'],
   ['/musings/ai-has-a-branding-problem', 'musings/ai-has-a-branding-problem/index.html'],
   ['/musings/systems-thinkers-netflix', 'musings/systems-thinkers-netflix/index.html'],
@@ -32,6 +34,23 @@ const routes = new Map([
 
 http.createServer((request, response) => {
   const url = new URL(request.url, `http://${request.headers.host || 'localhost'}`);
+  // Local review only: run the AI Curve scorer in-process, so the quiz can be completed without Netlify.
+  if (url.pathname === '/.netlify/functions/score-curve') {
+    let body = '';
+    request.on('data', (chunk) => { body += chunk; });
+    request.on('end', async () => {
+      try {
+        const { handler } = require('../netlify/functions/score-curve.js');
+        const result = await handler({ httpMethod: request.method, headers: { origin: `http://${request.headers.host || 'localhost'}` }, body });
+        response.writeHead(result.statusCode || 200, { 'Content-Type': 'application/json; charset=utf-8', ...(result.headers || {}) });
+        response.end(result.body || '');
+      } catch (error) {
+        response.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+        response.end(JSON.stringify({ error: String(error && error.message) }));
+      }
+    });
+    return;
+  }
   const requested = routes.get(url.pathname) || decodeURIComponent(url.pathname).replace(/^\/+/, '');
   const resolved = path.resolve(root, requested || 'index.html');
   if (!resolved.startsWith(`${root}${path.sep}`) || !fs.existsSync(resolved) || fs.statSync(resolved).isDirectory()) {

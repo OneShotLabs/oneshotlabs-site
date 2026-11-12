@@ -21,6 +21,8 @@ function onScroll(){
   if(paused){scrollCurrent=scrollTarget;renderOnce?.();}
 }
 addEventListener('scroll',onScroll,{passive:true});onScroll();motion();
+// A visitor in the preview stays in the preview: links to the AI page open its preview, on this same host.
+for(const link of document.querySelectorAll('a[href="https://oneshotlens.com/ai"]'))link.setAttribute('href','/ai?next');
 // The carousel reports how much of it is on screen; the weave settles a little so the chapters read.
 const stage={goal:1,level:1};
 document.addEventListener('fabric-chapter',e=>{stage.goal=1-.22*Math.min(1,Math.max(0,(e.detail.weight-.25)/.45));if(paused)renderOnce?.();});

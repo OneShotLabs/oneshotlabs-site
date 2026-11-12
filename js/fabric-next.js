@@ -1537,9 +1537,11 @@ function mount(T,OrbitControls){
   canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();contextLost=true;suspend();toolbar.hidden=true;fallback('WebGL context lost');});
   canvas.addEventListener('webglcontextrestored',()=>{contextLost=false;toolbar.hidden=false;section.dataset.lumen='ready';section.dataset.clothReady='true';resize();wake();});
   step(0);geometry.attributes.position.needsUpdate=true;geometry.computeVertexNormals();
+  // A visitor in the preview stays in the preview: the story link opens the post's preview too.
+  {const story=section.querySelector('.copy a.story-link');if(story&&!/[?&]next\b/.test(story.getAttribute('href')))story.setAttribute('href',story.getAttribute('href')+'?next');}
   // Preview styling is scoped to this build, so the approved page is untouched.
   document.body.classList.add('fabric-next');
-  {const sheet=document.createElement('link');sheet.rel='stylesheet';sheet.href='css/fabric-next.css?v=20261109-next2';document.head.append(sheet);}
+  {const sheet=document.createElement('link');sheet.rel='stylesheet';sheet.href='css/fabric-next.css?v=20261111-next10';document.head.append(sheet);}
   section.dataset.lumen='ready';section.dataset.clothReady='true';section.dataset.clothDragging='false';label();resize();resetView();
   // ?pose=1|2 previews the other composed rest poses, as ?light= previews the hour.
   const previewPose=restPoses[Number(new URLSearchParams(location.search).get('pose'))];

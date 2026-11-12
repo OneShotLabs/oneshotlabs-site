@@ -16,6 +16,7 @@ for(const band of bands)for(let i=0;i<band.count;i++){const k=Math.pow(rnd(),2.2
 const clouds=Array.from({length:7},()=>({x:rnd(),y:.04+.42*rnd(),r:.16+.22*rnd(),a:.035+.045*rnd()}));
 let width=0,height=0,ratio=1,frame=0,visible=false,time=0,last=0,haze=null;
 function paintHaze(){
+  if(!width||!height){haze=null;return;}
   haze=document.createElement('canvas');haze.width=Math.max(2,Math.round(width/4));haze.height=Math.max(2,Math.round(height/4));
   const h=haze.getContext('2d');
   for(const c of clouds){const x=c.x*haze.width,y=c.y*haze.height,r=c.r*haze.width,g=h.createRadialGradient(x,y,0,x,y,r);
@@ -26,6 +27,7 @@ function paintHaze(){
 }
 function size(){ratio=Math.min(devicePixelRatio||1,2);width=section.clientWidth;height=section.clientHeight;canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);paintHaze();draw();}
 function draw(){
+  if(!width||!height)return;
   const box=section.getBoundingClientRect(),travel=reduce.matches?0:(box.top+box.height/2-innerHeight/2)/innerHeight;
   ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,width,height);
   if(haze){ctx.globalAlpha=1;ctx.drawImage(haze,0,travel*8,width,height);}
