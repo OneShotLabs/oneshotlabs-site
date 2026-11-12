@@ -1,6 +1,9 @@
 // OneShotLens — musings engine.
 //
 // Content model: /posts/manifest.json lists post filenames (no extension).
+// Each /posts/<slug>.md is a plain markdown file with a frontmatter block.
+// Films (format: film, runtime: m:ss) need only a title, a one-line excerpt, a video and a cover;
+// their body can be a single line, and they show a runtime instead of a reading time.
 // Each /posts/<slug>.md is a plain markdown file with a frontmatter block:
 //
 //   ---
@@ -77,6 +80,10 @@ function formatDate(dateStr) {
   return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 }
 
+function lengthLabel(p) {
+  return p.format === "film" && p.runtime ? `Film · ${p.runtime}` : `${p.readMinutes} min read`;
+}
+
 function postHref(slug) {
   return `/musings/${encodeURIComponent(slug)}`;
 }
@@ -113,6 +120,8 @@ async function loadAllPosts() {
         video: meta.video || "",
         youtube: meta.youtube || "",
         videoCover: meta.videoCover || "",
+        format: meta.format || "",
+        runtime: meta.runtime || "",
         coverTreatment: meta.coverTreatment || "",
         dropCap: meta.dropCap !== "false",
         socialImage: meta.socialImage || "",
@@ -247,7 +256,7 @@ async function initMusingsIndex() {
         <a class="post-card" href="${postHref(p.slug)}">
           <div class="post-card-meta">
             <span>${formatDate(p.date)}</span>
-            <span>${p.readMinutes} min read</span>
+            <span>${lengthLabel(p)}</span>
           </div>
           <h3>${p.title}</h3>
           <p>${p.excerpt}</p>
@@ -416,7 +425,7 @@ async function initPostPage() {
           <figcaption class="post-monument-title">
             ${isEditorial ? "" : `<p class="post-monument-eyebrow">Musings${tagLabel ? ` · ${tagLabel}` : ""}</p>`}
             <h1${post.youtube && post.videoCover ? ' class="sr-only"' : ''}>${formatDisplayTitle(post.title)}</h1>
-            <p class="post-monument-meta">${formatDate(post.date)} · ${post.readMinutes} min read</p>
+            <p class="post-monument-meta">${formatDate(post.date)} · ${lengthLabel(post)}</p>
             ${titleTags}
           </figcaption>
         </figure>
@@ -489,7 +498,7 @@ async function initPostPage() {
           <span class="post-nav-copy">
             <span class="post-nav-label">${label}${targetTags ? ` · ${targetTags}` : ""}</span>
             <span class="post-nav-title">${target.title}</span>
-            <span class="post-nav-meta">${formatDate(target.date)} · ${target.readMinutes} min read</span>
+            <span class="post-nav-meta">${formatDate(target.date)} · ${lengthLabel(target)}</span>
           </span>
           <span class="post-nav-arrow" aria-hidden="true">${arrow}</span>
         </a>`;

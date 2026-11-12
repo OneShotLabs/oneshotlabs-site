@@ -38,6 +38,7 @@ assert.match(index, /All opinions expressed here are my own and do not reflect t
 
 const manifest = JSON.parse(read('posts/manifest.json'));
 for (const slug of JSON.parse(read('data/published-catalog.json')).posts) assert.ok(manifest.posts.includes(slug), `Published post removed: ${slug}`);
+assert.ok(manifest.posts.includes('the-turn'), 'The Studio release must retain The Turn');
 const netlifyConfig = read('netlify.toml');
 assert.match(netlifyConfig, /from = "\/musings\/systems-thinkers-netflix"[\s\S]*?to = "\/musings\/systems-thinkers-netflix\/index\.html"[\s\S]*?status = 200/);
 

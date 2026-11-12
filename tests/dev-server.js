@@ -15,6 +15,7 @@ const types = {
   '.png': 'image/png',
   '.svg': 'image/svg+xml',
   '.webp': 'image/webp',
+  '.mp4': 'video/mp4',
 };
 
 const routes = new Map([
@@ -30,6 +31,8 @@ const routes = new Map([
   ['/musings/the-intelligence-inside-your-business', 'musings/the-intelligence-inside-your-business/index.html'],
   ['/musings/ai-has-a-branding-problem', 'musings/ai-has-a-branding-problem/index.html'],
   ['/musings/systems-thinkers-netflix', 'musings/systems-thinkers-netflix/index.html'],
+  ['/musings/the-turn', 'musings/the-turn/index.html'],
+  ['/musings/luck-by-design', 'musings/luck-by-design/index.html'],
 ]);
 
 http.createServer((request, response) => {
