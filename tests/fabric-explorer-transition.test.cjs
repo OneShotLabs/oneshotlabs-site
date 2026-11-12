@@ -5,7 +5,8 @@ const path = require('node:path');
 const css = fs.readFileSync(path.resolve(__dirname, '../css/ai-fabric-study.css'), 'utf8');
 const html = fs.readFileSync(path.resolve(__dirname, '../ai.html'), 'utf8');
 const explorer = fs.readFileSync(path.resolve(__dirname, '../js/fabric-explorer.js'), 'utf8');
-const cloth = fs.readFileSync(path.resolve(__dirname, '../js/fabric-cloth-3d.js'), 'utf8');
+// The Fabric rebuild (js/fabric-next.js) replaced fabric-cloth-3d.js as the AI page scene in the 2026-11 release.
+const cloth = fs.readFileSync(path.resolve(__dirname, '../js/fabric-next.js'), 'utf8');
 const lumen = fs.readFileSync(path.resolve(__dirname, '../css/lumen.css'), 'utf8');
 
 assert.match(
@@ -34,7 +35,7 @@ assert.match(
   'the AI page must bypass cached copies of the removed first-click transition'
 );
 assert.match(explorer, /heroCopy\.hidden=expansion\.open/, 'the explored state must remove the hero copy from the DOM render tree');
-assert.match(html, /fabric-cloth-3d\.js\?v=20260925-approved-pose/, 'the AI page must load the approved interactive 3D cloth presentation');
+assert.match(html, /js\/fabric-next\.js\?v=/, 'the AI page must load the rebuilt interactive 3D cloth presentation');
 assert.match(cloth, /controls\.enableZoom=false/, 'wheel zoom must stay disabled so the page can scroll to the AI Curve');
 assert.match(cloth, /Scroll down to continue/, 'the expanded installation must explain the onward scroll behavior');
 assert.match(lumen, /touch-action:pan-y/, 'vertical touch gestures must continue to scroll the page');

@@ -1,4 +1,4 @@
-/* Results globe (next). Preview build, loaded only at /ai?next. Same globe,
+/* Results globe (next). The published rebuild (default since the 2026-11 release). Same globe,
    controls and data as fabric-results-globe.js; it sits on the night instead
    of on ivory paper, and it is modelled as a sphere: relief on the land,
    clouds that ride above the ground and cast shadows, water that reflects

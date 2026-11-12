@@ -1,4 +1,4 @@
-/* The AI Curve's night sky (next). Preview build, loaded only at /ai?next.
+/* The AI Curve's night sky (next). The published rebuild (default since the 2026-11 release).
    The same night as The Fabric continues here: stars in three depths that
    drift with parallax as the visitor scrolls, and a very faint navy haze
    high in the sky. The planet, drawn on its own canvas above, occludes the

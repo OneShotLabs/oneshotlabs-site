@@ -1,5 +1,5 @@
 /* LUMEN (next) — a suspended textile. The camera orbits; the structural anchors never move.
- * Preview build, loaded only at /ai?next. Same idea and components as
+ * The published rebuild (default since the 2026-11 release). Same idea and components as
  * fabric-cloth-3d.js; the execution is rebuilt: a procedural silk material,
  * scene-linear HDR with one AgX pass, bloom on true highlights, stars that
  * become threads, layered wind, a deeper sky and device quality tiers.
@@ -1538,7 +1538,6 @@ function mount(T,OrbitControls){
   canvas.addEventListener('webglcontextrestored',()=>{contextLost=false;toolbar.hidden=false;section.dataset.lumen='ready';section.dataset.clothReady='true';resize();wake();});
   step(0);geometry.attributes.position.needsUpdate=true;geometry.computeVertexNormals();
   // A visitor in the preview stays in the preview: the story link opens the post's preview too.
-  {const story=section.querySelector('.copy a.story-link');if(story&&!/[?&]next\b/.test(story.getAttribute('href')))story.setAttribute('href',story.getAttribute('href')+'?next');}
   // Preview styling is scoped to this build, so the approved page is untouched.
   document.body.classList.add('fabric-next');
   {const sheet=document.createElement('link');sheet.rel='stylesheet';sheet.href='css/fabric-next.css?v=20261111-next10';document.head.append(sheet);}

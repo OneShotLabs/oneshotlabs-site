@@ -1,4 +1,4 @@
-/* (next) Preview build, loaded only at /ai?next. Same globe, same position and
+/* (next) The published rebuild (default since the 2026-11 release). Same globe, same position and
    mapping as fabric-finish.js. The light is carried in high dynamic range:
    the limb, the sun glint and the comet head exceed display white and roll
    off through a soft shoulder instead of clipping, and the limb keeps a

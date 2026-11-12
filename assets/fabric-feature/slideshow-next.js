@@ -1,4 +1,4 @@
-/* The Fabric feature carousel (next). Preview build, loaded only with ?next.
+/* The Fabric feature carousel (next). The published rebuild (default since the 2026-11 release).
    Same structure and controls as slideshow.js. Adds the eighth chapter (the
    Fable 5.2 rebuild), slower and softer travel, images that drift inside
    their frames, a prompt that types itself, a light that travels the
