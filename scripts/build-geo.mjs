@@ -3,9 +3,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 const require=createRequire(import.meta.url);
-const {parseFrontmatter}=require('../js/musings.js');
+const {parseFrontmatter}=require('./lib/content.cjs');
 const {PHOTOS,sortChronological,photoCardHTML}=require('../js/photography.js');
-const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const root=process.env.SITE_BUILD_ROOT;
+if(!root)throw Error('Run npm run build to generate GEO in dist/.');
 process.chdir(root);
 const read=file=>fs.readFileSync(file,'utf8');
 const write=(file,text)=>fs.writeFileSync(file,text.replace(/[ \t]+$/gm,'').replace(/\n{3,}/g,'\n\n'));
@@ -33,10 +34,6 @@ function upsert(file,node){
  if(!found)source=source.replace('</head>',`<script type="application/ld+json">\n${json(node)}\n</script>\n</head>`);
  write(file,source);
 }
-for(const post of posts){
- const url=origin+`/musings/${post.slug}/`;
- upsert(`musings/${post.slug}/index.html`,{'@context':'https://schema.org','@type':'BlogPosting','@id':url+'#article',url,headline:post.title,description:post.socialDescription||post.excerpt,image:origin+(post.socialImage||post.cover),datePublished:post.date,dateModified:post.dateModified||post.updated||post.date,author:person,publisher,mainEntityOfPage:{'@type':'WebPage','@id':url},isPartOf:{'@id':origin+'/#website'}});
-}
 const publicPhotos=sortChronological(PHOTOS.filter(p=>(p.visibility||'public')==='public'),'desc');
 for(const photo of PHOTOS){
  if(!photo.alt||!photo.width||!photo.height)throw Error(`Photo metadata missing: ${photo.src}`);
@@ -57,7 +54,14 @@ for(const file of files){
  source=source.replace(/(href=["']\/musings\/[^/#?"']+)\/?(["'])/g,(_,url,quote)=>url.replace(/\/$/,'')+'/'+quote);
  write(file,source);
 }
+// The base build owns sitemap and llms generation for all posts, including films.
 write('sitemap.xml',canonical(read('sitemap.xml')));
-const llms=`# OneShotLens\n\n> OneShotLens is David Jergovic’s canonical personal publishing hub for applied AI, commercial real estate finance, essays and Fujifilm X100V photography. David is based in Chicago and is the founder of OneShotLabs, the parent organization of the OneShot ecosystem.\n\nThe primary site is https://oneshotlens.com/. David’s biography, authored essays and photography are published here. OneShotLabs is identified at https://oneshotlabsai.com/. The sister properties below are distinct projects within the same ecosystem.\n\n## David Jergovic and core pages\n\n- [OneShotLens](https://oneshotlens.com/): David Jergovic’s personal publishing hub.\n- [David Jergovic](https://oneshotlens.com/bio): Biography, Chicago background, education at Texas Christian University and the University of Dallas, commercial real estate finance, applied AI and photography.\n- [Career](https://oneshotlens.com/career): David’s experience in commercial real estate finance.\n- [Applied AI systems](https://oneshotlens.com/ai): The Fabric and The Curve, experiments in connected tools, workflows and human judgment.\n- [Musings](https://oneshotlens.com/musings): Essays, creative experiments and perspectives on AI, work and judgment.\n- [Photography](https://oneshotlens.com/photography): Chicago and travel photographs by David Jergovic, made with a Fujifilm X100V.\n\n## Published essays\n\n${posts.map(p=>`- [${p.title}](${origin}/musings/${p.slug}/): ${p.excerpt}`).join('\n')}\n\n## OneShot ecosystem\n\n- [OneShotLabs](https://oneshotlabsai.com/): Parent organization founded by David Jergovic.\n- [OneShotLooks](https://oneshotlooks.com/): Sister property in the OneShot ecosystem.\n- [OneShotSpins](https://oneshotspins.com/): Sister property in the OneShot ecosystem.\n- [OneShotLines](https://oneshotlines.com/): Sister property in the OneShot ecosystem.\n\n## Optional\n\n- [Sitemap](https://oneshotlens.com/sitemap.xml): Canonical public page index.\n- [Contact](https://oneshotlens.com/contact): Contact OneShotLens.\n`;
-fs.mkdirSync('public',{recursive:true});write('public/llms.txt',llms);write('llms.txt',llms);
-console.log(`Built route schema for ${posts.length} essays and ${publicPhotos.length} public gallery images; audited ${PHOTOS.length} photo descriptions; published /llms.txt.`);
+let ai=read('ai.html');
+ai=ai.replace('aria-label="The Fabric"','aria-label="The Fabric — Applied AI Systems for Commercial Real Estate"').replace('style="--i:5">C</span></span></h1>','style="--i:5">C</span></span><span class="seo-sr-only"> — Applied AI Systems for Commercial Real Estate</span></h1>');
+if(!ai.includes('class="geo-pillar-links"')) ai=ai.replace('</section>\n</div>\n<div class="navy-interval method-to-globe"','<p class="geo-pillar-links">Created by <a href="/bio">David Jergovic</a>, The Fabric explores applied AI systems for commercial real estate finance. Read the <a href="/musings/the-fabric/">story behind The Fabric</a> and further <a href="/musings">essays on AI and human judgment</a>, or explore <a href="/photography">Fujifilm X100V photography</a>.</p>\n</section>\n</div>\n<div class="navy-interval method-to-globe"');
+write('ai.html',ai);
+let musings=read('musings.html');
+musings=musings.replace('<h1>Musings</h1>','<h1>Musings<span class="seo-sr-only"> by David Jergovic — AI, Work and Judgment</span></h1>');
+musings=musings.replace('Musings reflect the founder’s belief that AI can structure and sharpen ideas, while perspective, voice and final edit belong to the author.','Musings reflect <a href="/bio">David Jergovic’s</a> belief that <a href="/ai">applied AI systems</a> can structure and sharpen ideas, while perspective, voice and final edit belong to the author. Explore the <a href="/photography">photography and visual craft</a> behind OneShotLens.');
+write('musings.html',musings);
+console.log(`Built ImageGallery for ${publicPhotos.length} public images and GEO enhancements in dist/.`);

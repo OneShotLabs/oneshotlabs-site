@@ -6,7 +6,7 @@ const vm=require('node:vm');
 const root=path.resolve(__dirname,'..');
 const read=file=>fs.readFileSync(path.join(root,file),'utf8');
 const {PHOTOS,photoCardHTML}=require('../js/photography.js');
-const {parseFrontmatter}=require('../js/musings.js');
+const {parseFrontmatter}=require('../scripts/lib/content.cjs');
 const slugs=JSON.parse(read('posts/manifest.json')).posts;
 const nodes=file=>[...read(file).matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].flatMap(m=>{const d=JSON.parse(m[1]);return d['@graph']||[d];});
 const fileFor=url=>{const p=new URL(url).pathname;return p==='/'?'index.html':p.startsWith('/musings/')?p.replace(/^\//,'')+'index.html':p.slice(1)+'.html';};
@@ -59,7 +59,8 @@ test('all 81 catalog photos retain descriptive accessible text and stable dimens
 
 test('canonical, OpenGraph and sitemap URLs agree for all public routes',()=>{
  const urls=[...read('sitemap.xml').matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);
- assert.equal(urls.length,14);
+ assert.equal(new Set(urls).size,urls.length);
+ for(const slug of slugs)assert.ok(urls.includes(`https://oneshotlens.com/musings/${slug}/`));
  for(const url of urls){
   const source=read(fileFor(url));
   const canonical=source.match(/<link rel="canonical" href="([^"]+)"/)[1];assert.equal(canonical,url);
@@ -86,7 +87,7 @@ test('pillar pages have one descriptive H1 and no skipped heading levels',()=>{
 
 test('llms.txt follows the proposal and stays in sync with the published catalog',()=>{
  const text=read('llms.txt');assert.equal(text,read('public/llms.txt'));
- assert.ok(text.startsWith('# OneShotLens\n\n> '));assert.match(text,/\n## Published essays\n/);
+ assert.ok(text.startsWith('# OneShotLens\n\n> '));assert.match(text,/\n## Published essays(?: and films)?\n/);
  for(const slug of slugs)assert.ok(text.includes(`https://oneshotlens.com/musings/${slug}/`));
  for(const domain of ['oneshotlabsai.com','oneshotlooks.com','oneshotspins.com','oneshotlines.com'])assert.ok(text.includes(`https://${domain}/`));
  assert.doesNotMatch(text,/starting-one-shot|one-shot-method|why-a-fixed-lens/);

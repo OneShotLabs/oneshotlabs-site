@@ -4,7 +4,7 @@ plugins = []
 
 [build]
 command = "npm run build"
-publish = "."
+publish = "dist"
 publishOrigin = "config"
 functions = "netlify/functions"
 
@@ -88,6 +88,30 @@ for = "/ai-curve.html"
   X-Frame-Options = "SAMEORIGIN"
   X-Content-Type-Options = "nosniff"
   Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[redirects]]
+from = "http://oneshotlabsai.com/*"
+to = "https://oneshotlens.com/"
+status = 301
+force = true
+
+[[redirects]]
+from = "http://www.oneshotlabsai.com/*"
+to = "https://oneshotlens.com/"
+status = 301
+force = true
+
+[[redirects]]
+from = "https://oneshotlabsai.com/*"
+to = "https://oneshotlens.com/"
+status = 301
+force = true
+
+[[redirects]]
+from = "https://www.oneshotlabsai.com/*"
+to = "https://oneshotlens.com/"
+status = 301
+force = true
 
 [[redirects]]
 from = "https://oneshotlabs-david-jergovic.netlify.app/*"

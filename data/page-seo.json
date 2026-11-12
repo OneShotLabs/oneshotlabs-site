@@ -1,0 +1,22 @@
+{
+  "index.html": {
+    "title": "David Jergovic | OneShotLens \u2014 Applied AI, Real Estate & Photography",
+    "description": "David Jergovic in Chicago explores Applied AI for Commercial Real Estate, Fujifilm X100V photography and new ideas through OneShotLens, part of OneShotLabs."
+  },
+  "bio.html": {
+    "title": "David Jergovic | Chicago Founder of OneShotLens & OneShotLabs",
+    "description": "Meet David Jergovic, Chicago-based founder of OneShotLens and OneShotLabs, exploring commercial real estate finance, applied AI and photography."
+  },
+  "ai.html": {
+    "title": "Applied AI for Commercial Real Estate | David Jergovic \u2014 OneShotLens",
+    "description": "Explore David Jergovic\u2019s applied AI experiments for commercial real estate finance: connected tools, workflows, controls and human judgment at OneShotLens."
+  },
+  "musings.html": {
+    "title": "Musings on AI, Work & Judgment | David Jergovic \u2014 OneShotLens",
+    "description": "Read David Jergovic\u2019s essays on applied AI, work, creativity and human judgment, with experiments and perspectives from OneShotLens in Chicago."
+  },
+  "photography.html": {
+    "title": "Fujifilm X100V Photography | David Jergovic \u2014 OneShotLens",
+    "description": "Explore David Jergovic\u2019s Fujifilm X100V photography: Chicago, travel and family, captured with custom film recipes and a distinctive perspective at OneShotLens."
+  }
+}

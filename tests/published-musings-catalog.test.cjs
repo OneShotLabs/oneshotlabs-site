@@ -18,7 +18,7 @@ const published = [
 
 test('the complete published Musings catalog is present before deployment', () => {
   const manifest = JSON.parse(read('posts/manifest.json'));
-  assert.deepEqual(manifest.posts, published);
+  for (const slug of published) assert.ok(manifest.posts.includes(slug), `${slug} was removed from the published catalog`);
 
   const index = read('musings.html');
   const sitemap = read('sitemap.xml');

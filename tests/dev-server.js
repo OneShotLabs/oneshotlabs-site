@@ -14,7 +14,6 @@ const types = {
   '.md': 'text/markdown; charset=utf-8',
   '.png': 'image/png',
   '.svg': 'image/svg+xml',
-  '.txt': 'text/plain; charset=utf-8',
   '.webp': 'image/webp',
 };
 
@@ -33,9 +32,8 @@ const routes = new Map([
 
 http.createServer((request, response) => {
   const url = new URL(request.url, `http://${request.headers.host || 'localhost'}`);
-  const requested = routes.get(url.pathname) || routes.get(url.pathname.replace(/\/$/, "")) || decodeURIComponent(url.pathname).replace(/^\/+/, '');
-  let resolved = path.resolve(root, requested || 'index.html');
-  if (fs.existsSync(resolved) && fs.statSync(resolved).isDirectory()) resolved = path.join(resolved, 'index.html');
+  const requested = routes.get(url.pathname) || decodeURIComponent(url.pathname).replace(/^\/+/, '');
+  const resolved = path.resolve(root, requested || 'index.html');
   if (!resolved.startsWith(`${root}${path.sep}`) || !fs.existsSync(resolved) || fs.statSync(resolved).isDirectory()) {
     response.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
     response.end('Not found');

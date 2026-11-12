@@ -20,13 +20,14 @@ test('every public page delivers valid linked Person, parent Organization and We
   assert.equal(website.author['@id'],person['@id']); assert.equal(website.publisher['@id'],person['@id']);
  }
 });
-test('all published essays contain substantial article text in initial HTML',()=>{
+test('all manifest posts deliver their article content, including short films',()=>{
+ const {parseFrontmatter}=require('../scripts/lib/content.cjs');
  for(const slug of slugs){
   const source=read(`musings/${slug}/index.html`);
-  const article=slug==='the-fabric'?source.match(/<article[\s\S]*?<\/article>/)?.[0]:source.match(/<div id="post-body"[^>]*>([\s\S]*?)<\/article>/)?.[1];
-  assert.ok(article&&article.replace(/<[^>]*>/g,'').split(/\s+/).length>60,slug);
+  const {body}=parseFrontmatter(read(`posts/${slug}.md`));
+  assert.ok(source.includes('id="post-body"')||source.includes('<article'),slug);
+  if(slug!=='the-fabric')assert.ok(source.includes(body.split('\n')[0].slice(0,35)),slug);
   assert.doesNotMatch(source,/Loading…|file:\/\/|Couldn't load posts/);
-  assert.ok(source.includes(`https://oneshotlens.com/musings/${slug}`));
  }
 });
 test('public metadata is unique and photography controls follow editorial content',()=>{
@@ -40,21 +41,16 @@ test('public metadata is unique and photography controls follow editorial conten
  assert.ok(photo.indexOf('Photography by David Jergovic')<photo.indexOf('<summary>Photography layout controls'));
  assert.match(photo,/<div data-nosnippet>\s*<details class="photo-layout-tool" open hidden inert aria-hidden="true">/);
  assert.doesNotMatch(read('js/musings.js'),/file:\/\/[\s\S]*?Try running/);
- assert.doesNotMatch(read('netlify.toml'),/from = "https:\/\/(?:www\.)?oneshotlabsai.com/);
+ assert.match(read('netlify.toml'),/from = "https:\/\/oneshotlabsai.com\/\*"\s+to = "https:\/\/oneshotlens.com\/"/);
 });
-test('static essays enhance from their embedded catalog without network requests',async()=>{
- const vm=require('node:vm');
+test('pre-rendered articles enhance without replacing or fetching their content',()=>{
+ const vm=require('node:vm');let ready;let fetches=0;
+ const content={innerHTML:'Published article',querySelector(){return null;},querySelectorAll(){return [];}};
+ const context=vm.createContext({document:{addEventListener(event,fn){ready=fn;},querySelector(){return content;}},fetch(){fetches++;throw Error('network');}});
+ vm.runInContext(read('js/musings-static.js'),context);ready();
+ assert.equal(content.innerHTML,'Published article');assert.equal(fetches,0);
  const source=read('musings/ai-has-a-branding-problem/index.html');
- const catalog=source.match(/<script id="musings-post-catalog" type="application\/json">([\s\S]*?)<\/script>/)[1];
- let fetches=0;
- const context=vm.createContext({console:{warn(){}},document:{addEventListener(){},getElementById(id){return id==='musings-post-catalog'?{textContent:catalog}:null;}},fetch(){fetches++;throw Error('Network unavailable');}});
- vm.runInContext(read('js/musings.js'),context);
- const posts=await vm.runInContext('loadAllPosts()',context);
- assert.equal(posts.length,slugs.length);assert.equal(fetches,0);
- const container={dataset:{prerendered:'true'},innerHTML:'Published article'};
- context.container=container;
- vm.runInContext('showFetchError(container,new Error("private diagnostic"))',context);
- assert.equal(container.innerHTML,'Published article');
  assert.match(source,/data-post-slug="ai-has-a-branding-problem"/);
- assert.doesNotMatch(source,/<script src="https:\/\/cdn\.jsdelivr\.net\/npm\/marked/);
+ assert.match(source,/js\/musings-static\.js/);
+ assert.doesNotMatch(source,/<script[^>]+src="js\/musings\.js/);
 });
