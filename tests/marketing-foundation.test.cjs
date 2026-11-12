@@ -38,10 +38,10 @@ assert.match(contact, /name="utm_source"/);
 assert.match(read('js/main.js'), /Content-Type": "application\/x-www-form-urlencoded"/);
 
 const home = read('index.html');
-assert.match(home, /<title>Applied AI for Commercial Real Estate \| OneShotLens<\/title>/);
-assert.match(home, /name="description" content="OneShotLens explores applied AI, commercial real estate finance, photography and the ideas shaping what comes next\."/);
-assert.match(home, /property="og:title" content="Intelligence for What’s Next"/);
-assert.match(home, /name="twitter:title" content="Intelligence for What’s Next"/);
+assert.match(home, /<title>David Jergovic \| OneShotLens — Applied AI, Real Estate &amp; Photography<\/title>/);
+assert.match(home, /name="description" content="David Jergovic in Chicago explores Applied AI for Commercial Real Estate, Fujifilm X100V photography/);
+assert.match(home, /property="og:title" content="David Jergovic/);
+assert.match(home, /name="twitter:title" content="David Jergovic/);
 
 const analyticsClient = read('js/analytics.js');
 assert.doesNotMatch(analyticsClient, /localStorage|document\.cookie|userAgent|fingerprint/i);

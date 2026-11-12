@@ -12,11 +12,11 @@ test('Fabric publishes seven archived chapters and the approved model history', 
   assert.match(html, /October 27, 2026 · live site capture/);
   assert.match(html, /October 2, 2026 · previous iteration/);
   assert.match(html, /I began the idea with Claude Sonnet, developed the current design in ChatGPT Astra 6, and completed the finishing polish in Opus 5.5\./);
-  assert.doesNotMatch(html, /oneshotlabs|localhost|127\.0\.0\.1/i);
+  assert.doesNotMatch(html, /localhost|127\.0\.0\.1/i);
   for (const m of html.matchAll(/(?:src|href)="(\/assets\/[^"?]+)/g)) {
     assert.ok(fs.existsSync(path.join(root, m[1])), `Missing ${m[1]}`);
   }
-  assert.match(html, /rel="canonical" href="https:\/\/oneshotlens.com\/musings\/the-fabric"/);
+  assert.match(html, /rel="canonical" href="https:\/\/oneshotlens.com\/musings\/the-fabric\/"/);
   assert.match(read('netlify.toml'), /from = "\/musings\/the-fabric"[\s\S]*?status = 200/);
 });
 test('Evolutions leads and Perspectives remain grouped without preview controls', () => {

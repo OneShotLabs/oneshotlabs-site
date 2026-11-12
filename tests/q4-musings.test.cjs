@@ -20,7 +20,7 @@ assert.match(shell, /"@type": "VideoObject"/);
 assert.match(shell, /<meta property="article:tag" content="AI Video"/);
 assert.match(shell, /<meta property="article:tag" content="Generative AI"/);
 assert.match(shell, /<meta property="article:tag" content="Marketing"/);
-assert.match(shell, /rel="canonical" href="https:\/\/oneshotlens\.com\/musings\/q4-is-here-lets-finish-strong"/);
+assert.match(shell, /rel="canonical" href="https:\/\/oneshotlens\.com\/musings\/q4-is-here-lets-finish-strong\/"/);
 
 const index = read('musings.html');
 assert.match(index, /id="lead"/);

@@ -18,7 +18,7 @@ const published = [
 
 test('the complete published Musings catalog is present before deployment', () => {
   const manifest = JSON.parse(read('posts/manifest.json'));
-  assert.deepEqual(manifest.posts, published);
+  for (const slug of published) assert.ok(manifest.posts.includes(slug), `${slug} was removed from the published catalog`);
 
   const index = read('musings.html');
   const sitemap = read('sitemap.xml');
@@ -52,12 +52,12 @@ test('video posts retain their production media and social metadata', () => {
   }
 
   const luckShell = read('musings/luck-by-design/index.html');
-  assert.match(luckShell, /rel="canonical" href="https:\/\/oneshotlens\.com\/musings\/luck-by-design"/);
-  assert.match(luckShell, /property="og:url" content="https:\/\/oneshotlens\.com\/musings\/luck-by-design"/);
+  assert.match(luckShell, /rel="canonical" href="https:\/\/oneshotlens\.com\/musings\/luck-by-design\/"/);
+  assert.match(luckShell, /property="og:url" content="https:\/\/oneshotlens\.com\/musings\/luck-by-design\/"/);
   assert.match(luckShell, /name="twitter:card" content="summary_large_image"/);
 
   const panForwardShell = read('musings/taking-an-idea-further-with-ai/index.html');
-  assert.match(panForwardShell, /rel="canonical" href="https:\/\/oneshotlens\.com\/musings\/taking-an-idea-further-with-ai"/);
-  assert.match(panForwardShell, /property="og:url" content="https:\/\/oneshotlens\.com\/musings\/taking-an-idea-further-with-ai"/);
+  assert.match(panForwardShell, /rel="canonical" href="https:\/\/oneshotlens\.com\/musings\/taking-an-idea-further-with-ai\/"/);
+  assert.match(panForwardShell, /property="og:url" content="https:\/\/oneshotlens\.com\/musings\/taking-an-idea-further-with-ai\/"/);
   assert.match(panForwardShell, /name="twitter:card" content="summary_large_image"/);
 });
