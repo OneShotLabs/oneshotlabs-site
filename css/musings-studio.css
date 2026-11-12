@@ -1,0 +1,36 @@
+/* Musings · Studio film shelf
+   Every film poster in #studio is a play button that opens the film in an on-page player.
+   The newest film sits in a featured row above the existing two-column grid. */
+#studio .studio-intro{margin:-12px 0 24px;font-size:15px;color:var(--muted)}
+#studio .film-play{position:relative;display:block;width:100%;padding:0;border:0;background:var(--navy);cursor:pointer;color:inherit;text-align:left}
+#studio .film-badge{position:absolute;left:16px;bottom:16px;display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 8px;border-radius:999px;background:rgba(29,47,78,.88);color:#fffdf8;font:600 12px/1 Source,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;transition:background .2s ease}
+#studio .film-badge i{position:relative;width:26px;height:26px;border:1.5px solid #fffdf8;border-radius:50%}
+#studio .film-badge i::after{content:"";position:absolute;left:50%;top:50%;width:8px;height:9px;background:#fffdf8;clip-path:polygon(0 0,100% 50%,0 100%);transform:translate(-35%,-50%)}
+#studio .film-play:hover .film-badge,#studio .film-play:focus-visible .film-badge{background:var(--gold);color:var(--navy)}
+#studio .film-play:hover .film-badge i,#studio .film-play:focus-visible .film-badge i{border-color:var(--navy)}
+#studio .film-play:hover .film-badge i::after,#studio .film-play:focus-visible .film-badge i::after{background:var(--navy)}
+#studio .film-feature{padding-bottom:35px;margin-bottom:29px;border-bottom:1px solid var(--line)}
+#studio .film-feature>.image-link{aspect-ratio:16/9;margin-bottom:19px}
+#studio .film-feature>.image-link img{width:100%;height:100%;object-fit:cover;margin:0}
+#studio .film-feature h3{font-size:31px;line-height:1.08;letter-spacing:-.65px;min-height:0;margin:0}
+#studio .film-feature .film-line{font-size:21px;line-height:1.38;color:var(--navy);margin:15px 0 13px}
+#studio .film-feature .meta{margin:7px 0 16px}
+@media(min-width:601px){
+  #studio .film-feature{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);column-gap:29px;align-items:center}
+  #studio .film-feature>.image-link{margin-bottom:0}
+  #studio .film-feature h3{font-size:44px;letter-spacing:-1px}
+}
+/* on-page player */
+.film-dialog{width:min(1180px,94vw);max-width:none;padding:0;border:0;background:#0d1626;color:#fffdf8;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.film-dialog::backdrop{background:rgba(13,22,38,.88)}
+.film-dialog video{display:block;width:100%;aspect-ratio:16/9;background:#000}
+.film-dialog-bar{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:18px 22px 20px}
+.film-dialog-title{margin:0;font:400 28px/1.1 Bodoni,Didot,serif;letter-spacing:-.4px}
+.film-dialog-line{margin:6px 0 0;font-size:15px;line-height:1.4;color:#c9cfd8}
+.film-dialog-link{flex:none;font-size:14px;font-weight:600;color:#fffdf8;border-bottom:1px solid var(--gold,#c6a153);padding-bottom:4px}
+.film-dialog-close{position:absolute;top:10px;right:10px;display:block;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:rgba(13,22,38,.72);color:#fffdf8;z-index:2;cursor:pointer}
+.film-dialog-close::before,.film-dialog-close::after{content:"";position:absolute;left:50%;top:50%;width:18px;height:2px;border-radius:1px;background:currentColor;transform:translate(-50%,-50%) rotate(45deg)}
+.film-dialog-close::after{transform:translate(-50%,-50%) rotate(-45deg)}
+.film-dialog-close:hover{background:var(--gold,#c6a153);color:#1d2f4e}
+@media(max-width:600px){.film-dialog{width:100vw;max-height:100vh}.film-dialog-bar{flex-direction:column;align-items:flex-start;gap:12px;padding:14px 16px 18px}.film-dialog-title{font-size:23px}}
+@media(prefers-reduced-motion:reduce){#studio .film-badge{transition:none}}

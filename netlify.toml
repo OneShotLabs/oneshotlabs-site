@@ -287,6 +287,12 @@ force = false
   [redirects.headers]
 
 [[redirects]]
+from = "/musings/the-turn"
+to = "/musings/the-turn/index.html"
+status = 200
+force = false
+
+[[redirects]]
 from = "/musings/luck-by-design"
 to = "/musings/luck-by-design/index.html"
 status = 200

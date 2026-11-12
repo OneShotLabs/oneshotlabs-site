@@ -1,0 +1,23 @@
+/* Musings · Studio banner
+   A silent loop of the films behind the condensed Bodoni STUDIO wordmark (a sibling of the FABRIC cover),
+   with a gold "Play the latest" button that opens the newest film in the on-page player. */
+#studio .studio-banner{position:relative;height:400px;margin:0 0 30px;overflow:hidden;background:var(--navy);color:#fffdf8}
+#studio .studio-reel{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#studio .studio-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(29,47,78,.96) 0%,rgba(29,47,78,.82) 38%,rgba(29,47,78,.15) 75%,rgba(29,47,78,0) 100%);pointer-events:none}
+#studio .studio-banner-copy{position:absolute;z-index:1;left:44px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:flex-start}
+#studio .studio-word{display:block;font:400 128px/.95 Bodoni,Didot,serif;font-variation-settings:'opsz' 96;letter-spacing:-2.5px;transform:scaleX(.66);transform-origin:left center;margin-right:-34%;text-transform:uppercase}
+#studio .studio-rule{display:block;width:52px;height:1px;background:var(--gold);margin:16px 0 14px}
+#studio .studio-dek{margin:0 0 26px;font:600 12px/1.4 Source,Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#e6d6b0}
+#studio .studio-banner-play{display:inline-flex;width:auto;align-items:center;gap:12px;padding:10px 20px 10px 10px;border-radius:999px;background:var(--gold);color:var(--navy);font:600 13px/1 Source,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;transition:background .2s ease}
+#studio .studio-banner-play i{position:relative;width:30px;height:30px;border:1.5px solid var(--navy);border-radius:50%}
+#studio .studio-banner-play i::after{content:"";position:absolute;left:50%;top:50%;width:9px;height:10px;background:var(--navy);clip-path:polygon(0 0,100% 50%,0 100%);transform:translate(-35%,-50%)}
+#studio .studio-banner-play:hover,#studio .studio-banner-play:focus-visible{background:#fffdf8}
+@media(max-width:600px){
+  #studio .studio-banner{height:420px}
+  #studio .studio-banner::after{background:linear-gradient(0deg,rgba(29,47,78,.97) 0%,rgba(29,47,78,.85) 52%,rgba(29,47,78,.1) 100%)}
+  #studio .studio-banner-copy{left:20px;right:20px;top:auto;bottom:26px;transform:none}
+  #studio .studio-word{font-size:88px;letter-spacing:-1.7px}
+  #studio .studio-rule{margin:12px 0 11px}
+  #studio .studio-dek{font-size:11px;letter-spacing:.18em;margin-bottom:20px}
+}
+@media(prefers-reduced-motion:reduce){#studio .studio-banner-play{transition:none}}
