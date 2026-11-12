@@ -6,6 +6,8 @@
 // Add an object to the PHOTOS array below. Fields:
 //   src        — path to the image file (e.g. "images/photo-01.jpg"). Leave
 //                null to keep the numbered placeholder block.
+//   alt        — descriptive subject, known location and camera context.
+//   width/height — displayed-orientation pixel dimensions from the image file.
 //   month      — full month name, e.g. "March"
 //   year       — four-digit year, e.g. 2024
 //   caption    — optional one-line caption shown under the date (leave "" for none)
@@ -56,6 +58,8 @@ const PHOTOS = [
   // instantly and correctly regardless of network/CORS conditions.
   {
     src: "images/photo-2025-09-brooklyn-basketball.jpg",
+    alt: "Street basketball player taking a jump shot, Brooklyn — Fujifilm X100V photography",
+    width: 724, height: 1086,
     month: "September",
     year: 2025,
     caption: "",
@@ -69,6 +73,8 @@ const PHOTOS = [
   {
     // GPS EXIF: 40.713N, 73.957W — Brooklyn, NY.
     src: "images/photo-2025-09-brooklyn-bulldogs.jpg",
+    alt: "Bulldogs on a city walk, Brooklyn — Fujifilm X100V photography",
+    width: 1184, height: 1776,
     month: "September",
     year: 2025,
     caption: "",
@@ -83,6 +89,8 @@ const PHOTOS = [
     // Only the lower foreground concrete is repaired; the subject and the
     // remainder of the original photograph are preserved pixel-for-pixel.
     src: "images/photo-2025-08-girl-pink-dress-road-concrete-fixed.png",
+    alt: "Child in a pink dress on a road — Fujifilm X100V photography",
+    width: 1776, height: 1184,
     month: "August",
     year: 2025,
     caption: "",
@@ -94,6 +102,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2025-05-soldier-field-acdc.jpg",
+    alt: "AC/DC concert, Soldier Field — Fujifilm X100V photography",
+    width: 1776, height: 1184,
     month: "May",
     year: 2025,
     caption: "",
@@ -106,6 +116,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2024-03-couch-dog.jpg",
+    alt: "Bulldog resting on a couch — Fujifilm X100V photography",
+    width: 1500, height: 1000,
     month: "March",
     year: 2024,
     caption: "",
@@ -118,6 +130,8 @@ const PHOTOS = [
   {
     // v2: other swimmers airbrushed out of the water, background otherwise untouched.
     src: "images/photo-2024-08-beach-carry-v2.jpg",
+    alt: "Parent carrying a child on the beach — Fujifilm X100V photography",
+    width: 1500, height: 1000,
     month: "August",
     year: 2024,
     caption: "",
@@ -129,6 +143,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2024-09-baby-crawl-pink.jpg",
+    alt: "Baby crawling in pink clothing — Fujifilm X100V photography",
+    width: 540, height: 360,
     month: "September",
     year: 2024,
     caption: "",
@@ -140,6 +156,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2024-11-siblings-rug.jpg",
+    alt: "Siblings together on a rug — Fujifilm X100V photography",
+    width: 540, height: 360,
     month: "November",
     year: 2024,
     caption: "",
@@ -151,6 +169,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2024-11-stroller-pink-hat.jpg",
+    alt: "Child in a stroller wearing a pink hat — Fujifilm X100V photography",
+    width: 360, height: 540,
     month: "November",
     year: 2024,
     caption: "",
@@ -162,6 +182,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2024-12-chicago-sunset.jpg",
+    alt: "Sunset over Chicago, Lakeview — Fujifilm X100V photography",
+    width: 360, height: 540,
     month: "December",
     year: 2024,
     caption: "",
@@ -176,6 +198,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2025-01-crib-bw.jpg",
+    alt: "Black-and-white photograph of a child in a crib — Fujifilm X100V photography",
+    width: 540, height: 360,
     month: "January",
     year: 2025,
     caption: "",
@@ -187,6 +211,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2025-03-bulldog-closeup.jpg",
+    alt: "Close-up portrait of a bulldog — Fujifilm X100V photography",
+    width: 1086, height: 724,
     month: "March",
     year: 2025,
     caption: "",
@@ -199,6 +225,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2025-09-mountain-lake.jpg",
+    alt: "Mountain lake and surrounding peaks, Glacier National Park — Fujifilm X100V photography",
+    width: 540, height: 360,
     month: "September",
     year: 2025,
     caption: "",
@@ -212,6 +240,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2026-01-bulldog-ball-v2.jpg",
+    alt: "Bulldog with a ball — Fujifilm X100V photography",
+    width: 540, height: 360,
     month: "January",
     year: 2026,
     caption: "",
@@ -224,6 +254,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2026-03-beanie-rooftop.jpg",
+    alt: "Portrait on a rooftop in a knit hat — Fujifilm X100V photography",
+    width: 724, height: 1086,
     month: "March",
     year: 2026,
     caption: "",
@@ -235,6 +267,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2025-09-mountain-pebbles.jpg",
+    alt: "Pebbles beside a mountain lake, Glacier National Park — Fujifilm X100V photography",
+    width: 360, height: 540,
     month: "September",
     year: 2025,
     caption: "",
@@ -249,6 +283,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2026-01-playground-tunnel.jpg",
+    alt: "Child exploring a playground tunnel — Fujifilm X100V photography",
+    width: 723, height: 1086,
     month: "January",
     year: 2026,
     caption: "",
@@ -260,6 +296,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2025-01-chicago-bean-bw.jpg",
+    alt: "Cloud Gate in black and white, Millennium Park — Fujifilm X100V photography",
+    width: 1438, height: 1099,
     month: "January",
     year: 2025,
     caption: "",
@@ -273,6 +311,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2025-01-marina-city.jpg",
+    alt: "Marina City towers, Chicago — Fujifilm X100V photography",
+    width: 1067, height: 1600,
     month: "January",
     year: 2025,
     caption: "",
@@ -287,6 +327,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2025-01-chicago-river-ice.jpg",
+    alt: "Ice on the Chicago River, Chicago — Fujifilm X100V photography",
+    width: 1067, height: 1600,
     month: "January",
     year: 2025,
     caption: "",
@@ -299,6 +341,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2025-05-rainbow-mural-dog.jpg",
+    alt: "Bulldog beside a rainbow mural — Fujifilm X100V photography",
+    width: 1600, height: 1067,
     month: "May",
     year: 2025,
     caption: "",
@@ -311,6 +355,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2025-08-beach-dog-run.jpg",
+    alt: "Dog running along a beach — Fujifilm X100V photography",
+    width: 886, height: 886,
     month: "August",
     year: 2025,
     caption: "",
@@ -323,6 +369,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2024-06-boardwalk-windy.jpg",
+    alt: "Windy day on a boardwalk — Fujifilm X100V photography",
+    width: 1086, height: 724,
     month: "June",
     year: 2024,
     caption: "",
@@ -334,6 +382,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2024-08-bulldog-teeth-bw.jpg",
+    alt: "Black-and-white close-up of a bulldog’s face — Fujifilm X100V photography",
+    width: 1086, height: 724,
     month: "August",
     year: 2024,
     caption: "",
@@ -346,6 +396,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2024-10-sunglasses-girl.jpg",
+    alt: "Child wearing sunglasses — Fujifilm X100V photography",
+    width: 1600, height: 1067,
     month: "October",
     year: 2024,
     caption: "",
@@ -357,6 +409,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2024-10-craps-table.jpg",
+    alt: "Casino craps table, Las Vegas — Fujifilm X100V photography",
+    width: 1600, height: 1067,
     month: "October",
     year: 2024,
     caption: "",
@@ -370,6 +424,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2024-10-halloween-dino.jpg",
+    alt: "Parent in a witch costume carrying a child in a dinosaur costume — Fujifilm X100V photography",
+    width: 1067, height: 1600,
     month: "October",
     year: 2024,
     caption: "",
@@ -381,6 +437,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2024-11-blanket-peek.jpg",
+    alt: "Child peeking out from a blanket — Fujifilm X100V photography",
+    width: 482, height: 359,
     month: "November",
     year: 2024,
     caption: "",
@@ -392,6 +450,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2025-10-fall-park.jpg",
+    alt: "Autumn scene in a city park, Chicago — Fujifilm X100V photography",
+    width: 360, height: 638,
     month: "October",
     year: 2025,
     caption: "",
@@ -403,6 +463,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2025-09-forest.jpg",
+    alt: "Forest landscape, Glacier National Park — Fujifilm X100V photography",
+    width: 724, height: 1086,
     month: "September",
     year: 2025,
     caption: "",
@@ -417,6 +479,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2025-08-log-trail.jpg",
+    alt: "Child exploring a log beside a trail — Fujifilm X100V photography",
+    width: 1086, height: 724,
     month: "August",
     year: 2025,
     caption: "",
@@ -428,6 +492,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2024-04-rooftop-basketball-dog.jpg",
+    alt: "Bulldog beside a basketball on a rooftop — Fujifilm X100V photography",
+    width: 1050, height: 1576,
     month: "April",
     year: 2024,
     caption: "",
@@ -439,6 +505,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2025-01-chicago-river-ice-underbridge.jpg",
+    alt: "Frozen Chicago River beneath a bridge, Chicago — Fujifilm X100V photography",
+    width: 1154, height: 1732,
     month: "January",
     year: 2025,
     caption: "",
@@ -451,6 +519,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2025-05-chicago-bp-bridge.jpg",
+    alt: "BP Pedestrian Bridge, Millennium Park — Fujifilm X100V photography",
+    width: 1122, height: 965,
     month: "May",
     year: 2025,
     caption: "",
@@ -464,6 +534,8 @@ const PHOTOS = [
   {
     // GPS EXIF: 48.668N, 113.800W — Glacier National Park, MT.
     src: "images/photo-2025-09-glacier-mossy-forest.jpg",
+    alt: "Mossy forest floor, Glacier National Park — Fujifilm X100V photography",
+    width: 1184, height: 1776,
     month: "September",
     year: 2025,
     caption: "",
@@ -477,6 +549,8 @@ const PHOTOS = [
   {
     // GPS EXIF: 48.585N, 113.903W — Glacier National Park, MT.
     src: "images/photo-2025-09-glacier-tall-trees.jpg",
+    alt: "Tall trees in a forest, Glacier National Park — Fujifilm X100V photography",
+    width: 1184, height: 1776,
     month: "September",
     year: 2025,
     caption: "",
@@ -490,6 +564,8 @@ const PHOTOS = [
   {
     // GPS EXIF: 48.585N, 113.903W — Glacier National Park, MT.
     src: "images/photo-2025-09-glacier-waterfall.jpg",
+    alt: "Waterfall in a mountain landscape, Glacier National Park — Fujifilm X100V photography",
+    width: 1184, height: 1776,
     month: "September",
     year: 2025,
     caption: "",
@@ -502,6 +578,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2025-11-autumn-park.jpg",
+    alt: "Autumn foliage in a city park, Chicago — Fujifilm X100V photography",
+    width: 1179, height: 2096,
     month: "November",
     year: 2025,
     caption: "",
@@ -514,54 +592,72 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2024-04-bulldog-paw-sock.jpg",
+    alt: "Close-up of a bulldog’s paw and a sock — Fujifilm X100V photography",
+    width: 1776, height: 1184,
     month: "April", year: 2024, caption: "",
     ratio: "1776 / 1184", visibility: "private",
     iso: 320, aperture: 2, shutter: 0.01,
   },
   {
     src: "images/photo-2024-12-bulldog-sleeping.jpg",
+    alt: "Sleeping bulldog — Fujifilm X100V photography",
+    width: 1776, height: 1184,
     month: "December", year: 2024, caption: "",
     ratio: "1776 / 1184", visibility: "private",
     iso: 640, aperture: 2, shutter: 0.0095238,
   },
   {
     src: "images/photo-2025-01-pink-pom-hat.jpg",
+    alt: "Child wearing a pink pom-pom hat — Fujifilm X100V photography",
+    width: 1776, height: 1184,
     month: "January", year: 2025, caption: "",
     ratio: "1776 / 1184", visibility: "private",
     iso: 3200, aperture: 2, shutter: 0.01,
   },
   {
     src: "images/photo-2025-06-cateye-sunglasses.jpg",
+    alt: "Portrait with cat-eye sunglasses — Fujifilm X100V photography",
+    width: 1184, height: 1776,
     month: "June", year: 2025, caption: "",
     ratio: "1184 / 1776", visibility: "private",
     iso: 1250, aperture: 4, shutter: 0.01,
   },
   {
     src: "images/photo-2026-06-playground-spinner.jpg",
+    alt: "Child on a playground spinner — Fujifilm X100V photography",
+    width: 540, height: 360,
     month: "June", year: 2026, caption: "",
     ratio: "540 / 360", visibility: "private",
     iso: 640, aperture: 5.6, shutter: 0.0666667,
   },
   {
     src: "images/photo-2026-08-bulldog-laptop.webp",
+    alt: "Bulldog beside a laptop — Fujifilm X100V photography",
+    width: 724, height: 1086,
     month: "August", year: 2026, caption: "",
     ratio: "724 / 1086", visibility: "private",
     iso: 5000, aperture: 2, shutter: 0.01,
   },
   {
     src: "images/photo-2026-08-rain-boots-umbrella.webp",
+    alt: "Child holding a clear umbrella — Fujifilm X100V photography",
+    width: 724, height: 1086,
     month: "August", year: 2026, caption: "",
     ratio: "724 / 1086", visibility: "private",
     iso: 160, aperture: 2.5, shutter: 0.0066667,
   },
   {
     src: "images/photo-2026-09-pink-umbrella.webp",
+    alt: "Child beneath a pink umbrella — Fujifilm X100V photography",
+    width: 666, height: 1182,
     month: "September", year: 2026, caption: "",
     ratio: "666 / 1182", visibility: "private",
     iso: 1000, aperture: 2, shutter: 0.01,
   },
   {
     src: "images/photo-2026-09-train-sunset.webp",
+    alt: "Train at a station at sunset, Southport — Fujifilm X100V photography",
+    width: 900, height: 1200,
     month: "September", year: 2026, caption: "",
     ratio: "900 / 1200", visibility: "public",
     location: "Southport",
@@ -569,6 +665,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2026-09-concert-globe-close.webp",
+    alt: "Close view of an illuminated concert globe, Soldier Field — Fujifilm X100V photography",
+    width: 901, height: 1600,
     month: "September", year: 2026, caption: "",
     ratio: "901 / 1600", visibility: "public",
     location: "Soldier Field",
@@ -576,6 +674,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2026-09-concert-silhouettes.webp",
+    alt: "Silhouettes against concert lighting, Soldier Field — Fujifilm X100V photography",
+    width: 1178, height: 884,
     month: "September", year: 2026, caption: "",
     ratio: "1178 / 884", visibility: "public",
     location: "Soldier Field",
@@ -583,6 +683,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2026-09-concert-globe-wide.webp",
+    alt: "Wide view of a globe above the concert stage, Soldier Field — Fujifilm X100V photography",
+    width: 1086, height: 724,
     month: "September", year: 2026, caption: "",
     ratio: "1086 / 724", visibility: "public",
     location: "Soldier Field",
@@ -593,30 +695,40 @@ const PHOTOS = [
   // local copy are intentionally shown once in the timeline.
   {
     src: "images/photo-2024-08-baby-pink.jpg",
+    alt: "Baby wearing pink — Fujifilm X100V photography",
+    width: 1776, height: 1184,
     month: "August", year: 2024, caption: "",
     ratio: "1776 / 1184", visibility: "private",
     iso: 1600, aperture: 2, shutter: 0.01,
   },
   {
     src: "images/photo-2024-08-mother-baby-beach.jpg",
+    alt: "Mother and baby together on a beach — Fujifilm X100V photography",
+    width: 1184, height: 1776,
     month: "August", year: 2024, caption: "",
     ratio: "1184 / 1776", visibility: "private",
     iso: 640, aperture: 5, shutter: 0.0013333,
   },
   {
     src: "images/photo-2025-10-girl-bulldog-mural.jpg",
+    alt: "Child and bulldog beside a mural — Fujifilm X100V photography",
+    width: 1019, height: 1177,
     month: "October", year: 2025, caption: "",
     ratio: "1019 / 1177", visibility: "private",
     iso: 320, aperture: 2, shutter: 0.01,
   },
   {
     src: "images/photo-2025-10-upside-down-costume.jpg",
+    alt: "Child playing upside down in a costume — Fujifilm X100V photography",
+    width: 1184, height: 1776,
     month: "October", year: 2025, caption: "",
     ratio: "1184 / 1776", visibility: "private",
     iso: 6400, aperture: 2, shutter: 0.05,
   },
   {
     src: "images/photo-2026-02-winter-mountains.jpg",
+    alt: "Snow-covered mountain landscape, Aspen — Fujifilm X100V photography",
+    width: 724, height: 1086,
     month: "February", year: 2026, caption: "",
     ratio: "724 / 1086", visibility: "public",
     location: "Aspen",
@@ -624,30 +736,40 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2026-03-child-profile.jpg",
+    alt: "Child’s portrait in profile — Fujifilm X100V photography",
+    width: 700, height: 1122,
     month: "March", year: 2026, caption: "",
     ratio: "700 / 1122", visibility: "private",
     iso: 320, aperture: 2.8, shutter: 0.01,
   },
   {
     src: "images/photo-2026-08-lifeguard-chair.webp",
+    alt: "Lifeguard chair on a beach — Fujifilm X100V photography",
+    width: 724, height: 1086,
     month: "August", year: 2026, caption: "",
     ratio: "724 / 1086", visibility: "private",
     iso: 250, aperture: 5.6, shutter: 0.0009091,
   },
   {
     src: "images/photo-2026-08-beach-girl.jpg",
+    alt: "Child on a beach — Fujifilm X100V photography",
+    width: 1776, height: 1184,
     month: "August", year: 2026, caption: "",
     ratio: "1776 / 1184", visibility: "private",
     iso: 160, aperture: 2.8, shutter: 0.0025,
   },
   {
     src: "images/photo-2026-08-birthday-card.jpg",
+    alt: "Child holding a birthday card — Fujifilm X100V photography",
+    width: 724, height: 1086,
     month: "August", year: 2026, caption: "",
     ratio: "724 / 1086", visibility: "private",
     iso: 500, aperture: 2.8, shutter: 0.01,
   },
   {
     src: "images/photo-2026-09-concert-smoke.jpg",
+    alt: "Smoke and light above a concert stage, Soldier Field — Fujifilm X100V photography",
+    width: 1148, height: 918,
     month: "September", year: 2026, caption: "",
     ratio: "1148 / 918", visibility: "public",
     location: "Soldier Field",
@@ -655,6 +777,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2026-09-concert-laser-silhouette.jpg",
+    alt: "Concert silhouette illuminated by lasers, Soldier Field — Fujifilm X100V photography",
+    width: 1086, height: 724,
     month: "September", year: 2026, caption: "",
     ratio: "1086 / 724", visibility: "public",
     location: "Soldier Field",
@@ -662,6 +786,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2025-09-wrigley-field-game.jpg",
+    alt: "Baseball game, Wrigley Field — Fujifilm X100V photography",
+    width: 768, height: 1024,
     month: "September", year: 2025, caption: "",
     ratio: "768 / 1024", visibility: "public",
     location: "Wrigley Field",
@@ -670,12 +796,16 @@ const PHOTOS = [
   {
     // Date and exposure settings come from the Drive original's EXIF.
     src: "images/photo-2025-10-halloween-family.jpg",
+    alt: "Family together in Halloween costumes — Fujifilm X100V photography",
+    width: 724, height: 1086,
     month: "October", year: 2025, caption: "",
     ratio: "724 / 1086", visibility: "private",
     iso: 4000, aperture: 2, shutter: 0.01,
   },
   {
     src: "images/photo-2026-10-sphere-concert.jpg",
+    alt: "Concert performance beneath the dome, The Sphere — Fujifilm X100V photography",
+    width: 1600, height: 2400,
     month: "October", year: 2026, caption: "",
     takenAt: "2026-10-10T22:05:00",
     ratio: "3783 / 5674", visibility: "public",
@@ -684,6 +814,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2026-10-sphere-concert-vocalist.jpg",
+    alt: "Vocalist performing on stage, The Sphere — Fujifilm X100V photography",
+    width: 1600, height: 2400,
     month: "October", year: 2026, caption: "",
     takenAt: "2026-10-10T21:32:14",
     ratio: "3745 / 5617", visibility: "public",
@@ -692,6 +824,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2026-10-sphere-concert-red-stage.jpg",
+    alt: "Concert stage in red light, The Sphere — Fujifilm X100V photography",
+    width: 2400, height: 1600,
     month: "October", year: 2026, caption: "",
     takenAt: "2026-10-10T21:38:00",
     ratio: "6240 / 4160", visibility: "public",
@@ -700,6 +834,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2026-10-las-vegas-sphere.jpg",
+    alt: "The Sphere exterior, Las Vegas — Fujifilm X100V photography",
+    width: 1600, height: 2400,
     month: "October", year: 2026, caption: "",
     takenAt: "2026-10-10T08:53:22",
     ratio: "4160 / 6240", visibility: "public",
@@ -708,6 +844,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2026-10-playground-flower-bw.jpg",
+    alt: "Black-and-white portrait beside a painted playground flower — Fujifilm X100V photography",
+    width: 1144, height: 686,
     month: "October", year: 2026, caption: "",
     takenAt: "2026-10-03T18:04:26",
     ratio: "1144 / 686", visibility: "private",
@@ -715,6 +853,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2026-10-playground-spinner-bw.jpg",
+    alt: "Black-and-white photograph of a child on playground equipment — Fujifilm X100V photography",
+    width: 724, height: 1086,
     month: "October", year: 2026, caption: "",
     takenAt: "2026-10-03T17:51:06",
     ratio: "724 / 1086", visibility: "private",
@@ -722,6 +862,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2026-10-upper-east-side-facade.jpg",
+    alt: "Building facade, Upper East Side — Fujifilm X100V photography",
+    width: 1086, height: 724,
     month: "October", year: 2026, caption: "",
     takenAt: "2026-10-08T10:06:06",
     ratio: "1086 / 724", visibility: "public",
@@ -730,6 +872,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2026-10-central-park-lake-skyline.jpg",
+    alt: "Lake and city skyline, Central Park — Fujifilm X100V photography",
+    width: 3837, height: 5755,
     month: "October", year: 2026, caption: "",
     takenAt: "2026-10-08T09:34:35",
     ratio: "3837 / 5755", visibility: "public",
@@ -738,6 +882,8 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2026-10-central-park-bethesda-arcade.jpg",
+    alt: "Bethesda Terrace arcade, Central Park — Fujifilm X100V photography",
+    width: 3436, height: 5154,
     month: "October", year: 2026, caption: "",
     takenAt: "2026-10-08T09:53:50",
     ratio: "3436 / 5154", visibility: "public",
@@ -746,51 +892,69 @@ const PHOTOS = [
   },
   {
     src: "images/photo-2026-10-greenfield-village-playground-child.jpg",
+    alt: "Child at a playground in Greenfield Village — Fujifilm X100V photography",
+    width: 845, height: 1268,
     month: "October", year: 2026, takenAt: "2026-10-17T10:55:46", caption: "",
     ratio: "845 / 1268", visibility: "private",
   },
   {
     src: "images/photo-2026-10-greenfield-village-mill.jpg",
+    alt: "Historic mill, Greenfield Village — Fujifilm X100V photography",
+    width: 1603, height: 1069,
     month: "October", year: 2026, takenAt: "2026-10-17T15:16:49", caption: "",
     ratio: "1603 / 1069", visibility: "public",
     location: "Greenfield Village",
   },
   {
     src: "images/photo-2026-10-greenfield-village-carousel-family.jpg",
+    alt: "Family on a carousel, Greenfield Village — Fujifilm X100V photography",
+    width: 1116, height: 1674,
     month: "October", year: 2026, takenAt: "2026-10-17T17:32:14", caption: "",
     ratio: "1116 / 1674", visibility: "private",
   },
   {
     src: "images/photo-2026-10-greenfield-village-halloween-street.jpg",
+    alt: "Village chapel in black and white, Greenfield Village — Fujifilm X100V photography",
+    width: 564, height: 846,
     month: "October", year: 2026, takenAt: "2026-10-17T18:00:42", caption: "",
     ratio: "564 / 846", visibility: "public",
     location: "Greenfield Village",
   },
   {
     src: "images/photo-2026-10-greenfield-village-night-smoke.jpg",
+    alt: "Steam locomotive at night, Greenfield Village — Fujifilm X100V photography",
+    width: 1207, height: 805,
     month: "October", year: 2026, takenAt: "2026-10-17T18:20:25", caption: "",
     ratio: "1207 / 805", visibility: "public",
     location: "Greenfield Village",
   },
   {
     src: "images/photo-2026-10-downtown-chicago-chairs.jpg",
+    alt: "Colorful chairs on a riverside lawn, Downtown Chicago — Fujifilm X100V photography",
+    width: 614, height: 859,
     month: "October", year: 2026, takenAt: "2026-10-22T13:56:24", caption: "",
     ratio: "614 / 859", visibility: "public",
     location: "Downtown Chicago",
   },
   {
     src: "images/photo-2026-10-southport-carved-pumpkin.jpg",
+    alt: "Carved Halloween pumpkin, Southport — Fujifilm X100V photography",
+    width: 1184, height: 1776,
     month: "October", year: 2026, takenAt: "2026-10-29T21:39:08", caption: "",
     ratio: "1184 / 1776", visibility: "public",
     location: "Southport",
   },
   {
     src: "images/photo-2026-10-halloween-sisters.jpg",
+    alt: "Sisters together in Halloween costumes — Fujifilm X100V photography",
+    width: 1077, height: 1616,
     month: "October", year: 2026, takenAt: "2026-10-31T18:01:41", caption: "",
     ratio: "1077 / 1616", visibility: "private",
   },
   {
     src: "images/photo-2026-10-carousel-princess-motion.jpg",
+    alt: "Child in a princess costume on a moving carousel — Fujifilm X100V photography",
+    width: 991, height: 1487,
     month: "October", year: 2026, takenAt: "2026-10-31T18:28:51", caption: "",
     ratio: "991 / 1487", visibility: "private",
   },
@@ -832,11 +996,15 @@ function isLandscape(ratio) {
   return parts[0] > parts[1];
 }
 
+function escapePhotoText(value) {
+  return String(value).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
 function photoCardHTML(photo, index) {
   const side = index % 2 === 1 ? " side-right" : "";
   const landscape = isLandscape(photo.ratio) ? " is-landscape" : "";
   const photoEl = photo.src
-    ? `<img class="timeline-photo" src="${photo.src}" alt="${photo.caption || `${photo.month} ${photo.year}`}" style="--photo-ratio: ${photo.ratio || "4 / 5"};" loading="${index < 2 ? "eager" : "lazy"}" ${index < 2 ? 'fetchpriority="high"' : ''} decoding="async" />`
+    ? `<img class="timeline-photo" src="${photo.src}" alt="${escapePhotoText(photo.alt || photo.caption || `${photo.location || "Travel and family"} — Fujifilm X100V photography`)}" width="${photo.width}" height="${photo.height}" style="--photo-ratio: ${photo.ratio || "4 / 5"};" loading="lazy" decoding="async" />`
     : `<div class="timeline-photo is-placeholder" style="--photo-ratio: ${photo.ratio || "4 / 5"};">Photo</div>`;
   // Only real photos get an EXIF line — placeholders have no metadata to read.
   const exifEl = photo.src ? `<span class="timeline-exif"></span>` : "";
@@ -890,6 +1058,7 @@ function buildExifLine(parts) {
 }
 
 
+if (typeof document !== "undefined") {
 document.addEventListener("DOMContentLoaded", () => {
   const mount = document.getElementById("photo-timeline");
   if (!mount) return;
@@ -907,6 +1076,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   let currentDirection = directionsByVisibility[currentVisibility];
   let io = null;
+  let exifObserver = null;
 
   function attachReveal() {
     if (io) io.disconnect();
@@ -941,6 +1111,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // the exifr library hasn't loaded or a file has no readable EXIF, the
   // line falls back to whatever was set manually, or disappears entirely.
   function hydrateExif(photos) {
+    if (exifObserver) exifObserver.disconnect();
+    const pendingExif = new Map();
+    exifObserver = "IntersectionObserver" in window ? new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        exifObserver.unobserve(entry.target);
+        pendingExif.get(entry.target)?.();
+        pendingExif.delete(entry.target);
+      });
+    }, { rootMargin: "160px" }) : null;
     const frames = mount.querySelectorAll(".timeline-photo-frame");
     photos.forEach((photo, i) => {
       if (!photo.src) return;
@@ -966,7 +1146,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      exifr
+      const readExif = () => exifr
         .parse(photo.src, { pick: ["ISO", "FNumber", "ExposureTime", "FilmMode"] })
         .then((tags) => {
           tags = tags || {};
@@ -980,6 +1160,13 @@ document.addEventListener("DOMContentLoaded", () => {
           );
         })
         .catch(() => settle(buildExifLine(manual)));
+      // EXIF readers fetch image bytes too; defer them along with the image.
+      if (exifObserver && frame) {
+        pendingExif.set(frame, readExif);
+        exifObserver.observe(frame);
+      } else {
+        readExif();
+      }
     });
   }
 
@@ -992,7 +1179,12 @@ document.addEventListener("DOMContentLoaded", () => {
     hydrateExif(photos);
   }
 
-  render();
+  if (mount.dataset.prerendered === "public") {
+    attachReveal();
+    hydrateExif(currentPhotoSet());
+  } else {
+    render();
+  }
 
   sortButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -1058,3 +1250,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   updateSpine();
 });
+}
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = { PHOTOS, sortChronological, photoCardHTML };
+}

@@ -17,7 +17,7 @@ test("Luck, by Design is published with its video and final copy", () => {
   assert.match(post, /Those moments may look like luck to some\./);
   assert.match(post, /More often, the work that made them possible began long before the opportunity arrived\./);
   assert.ok(!post.includes("—"));
-  assert.match(index, /href="\/musings\/luck-by-design"/);
+  assert.match(index, /href="\/musings\/luck-by-design\/"/);
   assert.match(sitemap, /https:\/\/oneshotlens\.com\/musings\/luck-by-design/);
   assert.ok(fs.statSync(path.join(root, "assets/video/luck-by-design.mp4")).size > 1_000_000);
   assert.ok(fs.statSync(path.join(root, "assets/editorial/luck-by-design.jpg")).size > 50_000);

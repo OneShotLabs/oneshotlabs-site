@@ -7,7 +7,7 @@
     "test": "npm run generate && node --test dist/tests/*.test.cjs",
     "verify:production-source": "node scripts/verify-production-source.cjs && node --test tests/catalog-additive.test.cjs",
     "deploy:production": "npm run verify:production-source && npm run build && netlify deploy --prod --dir dist",
-    "build": "npm run generate && node --test dist/tests/published-musings-catalog.test.cjs dist/tests/catalog-additive.test.cjs dist/tests/seo-foundation.test.cjs dist/tests/future-musings.test.cjs",
+    "build": "npm run generate && node --test dist/tests/published-musings-catalog.test.cjs dist/tests/catalog-additive.test.cjs dist/tests/seo-foundation.test.cjs dist/tests/future-musings.test.cjs dist/tests/geo.test.cjs",
     "generate": "node scripts/build-site.mjs"
   },
   "dependencies": {
