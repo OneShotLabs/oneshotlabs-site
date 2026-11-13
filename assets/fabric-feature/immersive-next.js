@@ -33,7 +33,7 @@ try{
   const THREE=await import('./vendor/three.module.js');const canvas=document.querySelector('#fabric-scene');
   const renderer=new THREE.WebGLRenderer({canvas,alpha:false,antialias:true,powerPreference:'low-power'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.setClearColor('#1d2f4e');renderer.outputColorSpace=THREE.SRGBColorSpace;
   const scene=new THREE.Scene(),camera=new THREE.OrthographicCamera(-1,1,1,-1,.1,10);camera.position.z=2;
-  const texture=await new THREE.TextureLoader().loadAsync('/assets/fabric-feature/hero.png');texture.colorSpace=THREE.SRGBColorSpace;texture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
+  const texture=await new THREE.TextureLoader().loadAsync('/assets/fabric-feature/hero.jpg');texture.colorSpace=THREE.SRGBColorSpace;texture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
   const uniforms={uMap:{value:texture},uTime:{value:0},uScroll:{value:0},uAspect:{value:1},uImageAspect:{value:texture.image.width/texture.image.height},uTexel:{value:new THREE.Vector2(1/texture.image.width,1/texture.image.height)},uPointer:{value:new THREE.Vector2()},uStage:{value:1}};
   const material=new THREE.ShaderMaterial({uniforms,vertexShader:`
   varying vec2 vUv;

@@ -31,6 +31,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (toggle && nav) {
     const setOpen = (open) => {
+      if (!open && nav.classList.contains("open")) {
+        nav.classList.add("is-closing");
+        const done = () => nav.classList.remove("is-closing");
+        nav.addEventListener("transitionend", done, { once: true });
+        setTimeout(done, 700);
+      }
       nav.classList.toggle("open", open);
       toggle.setAttribute("aria-expanded", String(open));
       if (backdrop) backdrop.classList.toggle("is-visible", open);

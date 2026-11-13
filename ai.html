@@ -171,7 +171,7 @@ html.ai-intro .lumen-sound{opacity:0;pointer-events:none}
 <main>
 <div class="system-viewport">
 <section class="study-section fabric" aria-labelledby="fabric-title">
-<img class="art" alt="" src="images/fabric-photoreal-study-v2.png">
+<img class="art" alt="" src="images/fabric-photoreal-study-v2.jpg">
 <canvas class="art" id="fabric-breath" aria-hidden="true"></canvas>
 <div class="fabric-light" aria-hidden="true"></div><div class="light-veil" aria-hidden="true"></div>
 <div class="woven-network" aria-label="Tools woven into the practice"><svg aria-hidden="true"><g></g></svg><div class="woven-nodes"></div></div>
@@ -206,7 +206,7 @@ html.ai-intro .lumen-sound{opacity:0;pointer-events:none}
 <script>
 const toggle=document.querySelector('.nav-toggle'),nav=document.querySelector('#site-nav');
 const backdrop=document.querySelector('.nav-backdrop');
-function setNav(open){toggle.setAttribute('aria-expanded',String(open));nav.classList.toggle('open',open);backdrop.classList.toggle('is-visible',open);document.body.style.overflow=open?'hidden':'';}
+function setNav(open){if(!open&&nav.classList.contains('open')){nav.classList.add('is-closing');const done=()=>nav.classList.remove('is-closing');nav.addEventListener('transitionend',done,{once:true});setTimeout(done,700);}toggle.setAttribute('aria-expanded',String(open));nav.classList.toggle('open',open);backdrop.classList.toggle('is-visible',open);document.body.style.overflow=open?'hidden':'';}
 toggle?.addEventListener('click',()=>setNav(toggle.getAttribute('aria-expanded')!=='true'));
 backdrop.addEventListener('click',()=>setNav(false));document.addEventListener('keydown',e=>{if(e.key==='Escape')setNav(false)});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setNav(false)));
 </script><script>(()=>{const s=document.createElement('script');s.async=false;s.src='js/fabric-finish-next.js?v=20261111-next13';document.currentScript.after(s);})();</script><script>/* The Fabric rebuild scene. */(()=>{const s=document.createElement('script');s.async=false;s.src='js/fabric-next.js?v=20261111-next10';document.currentScript.after(s);})();</script><script src="js/fabric-method-data.js?v=20260923-descriptions7"></script><script src="js/fabric-method.js?v=20260921-electric-preview8"></script><script src="js/fabric-scroll.js?v=20260914-merged1"></script><script>(()=>{const s=document.createElement('script');s.async=false;s.src='js/curve-sky-next.js?v=20261111-next4';document.currentScript.after(s);})();</script><script src="js/fabric-sound.js?v=20261004"></script><script src="js/fabric-explorer.js?v=20261006-founder-letter"></script><link rel="stylesheet" href="css/fabric-method.css?v=20260916-layout15"></body></html>

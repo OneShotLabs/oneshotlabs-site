@@ -32,7 +32,8 @@ test('Leveraging the Intelligence Within Your Business uses the approved article
 
   const index = read('musings.html');
   assert.match(index, /Leveraging the Intelligence Within Your Business/);
-  assert.match(index, /assets\/editorial\/the-intelligence-inside-your-business-hero\.png/);
+  // The index shows an optimized JPG copy of the same approved art (2026-11 mobile pass).
+  assert.match(index, /assets\/editorial\/the-intelligence-inside-your-business-hero\.(png|jpg)/);
   assert.match(index, /id="perspectives"/);
   assert.match(index, /id="studio"/);
   assert.match(index, /id="view-finder"/);

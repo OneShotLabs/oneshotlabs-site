@@ -31,7 +31,8 @@ assert.equal(social.readUInt32BE(20), 630);
 const index = read('musings.html');
 assert.match(index, /A Technology for Human Ambition/);
 assert.match(index, /The loudest story about AI is what it may take away\. The more interesting story is what it puts within reach\./);
-assert.match(index, /assets\/editorial\/ai-has-a-branding-problem-hero-v2\.png/);
+// The index shows an optimized JPG copy of the same approved art (2026-11 mobile pass).
+assert.match(index, /assets\/editorial\/ai-has-a-branding-problem-hero-v2\.(png|jpg)/);
 assert.match(index, /systems-thinkers-netflix/);
 assert.match(index, /View Finder · Edition 001/);
 assert.match(index, /All opinions expressed here are my own and do not reflect the views of my employer\./);

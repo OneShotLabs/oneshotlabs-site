@@ -51,3 +51,7 @@
 .osl-wordmark-icon svg{display:block;width:100%;height:100%}
 .osl-wordmark-text{display:inline-block;padding-bottom:calc(.0504em + 3.65px);background:linear-gradient(90deg,#a77e36 0%,#c6a153 48%,#e0c276 72%,#b88c3d 100%) no-repeat left calc(100% - .45px)/100% 2.3px}
 @media(max-width:650px){.masthead a.osl-wordmark{font-size:19px}}
+
+/* Keep the chapter timeline's glow from widening the page on phones. */
+html,body{overflow-x:clip}
+.evolution{overflow-x:clip}

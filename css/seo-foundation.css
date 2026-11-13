@@ -1,5 +1,5 @@
 /* Shared attribution follows each page’s existing colors and typography. */
-.ecosystem-attribution{display:block;font-size:12px;line-height:1.6;opacity:.8;margin:12px 0 0;padding:0 5vw}
+.ecosystem-attribution{display:block;font-size:12px;line-height:1.6;opacity:1;margin:12px 0 0;padding:0 5vw}
 .ecosystem-attribution a{text-decoration:underline;text-underline-offset:3px}
 .photo-layout-tool[hidden]{display:none!important}
 footer:has(>.ecosystem-attribution){flex-wrap:wrap}

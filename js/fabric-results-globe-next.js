@@ -51,7 +51,8 @@ if(d<1.){float z=sqrt(1.-d);vec3 n=vec3(q.x,-q.y,z);
   color=mix(sky,color,smoothstep(0.,.018,z));}
 gl_FragColor=vec4(color,1.);}`;
 const image=src=>new Promise((resolve,reject)=>{const i=new Image();i.onload=()=>resolve(i);i.onerror=reject;i.src=src});
-const assets=Promise.all([image('images/earth-surface-4k.jpg'),image('images/earth-clouds-4k.png')]);
+// Phones and small screens get 2K textures; clouds ship as WebP (alpha preserved).
+const small=(Math.min(screen.width,screen.height)<=820||innerWidth<=900);const assets=Promise.all([image(small?'images/earth-surface-2k.jpg':'images/earth-surface-4k.jpg'),image(small?'images/earth-clouds-2k.webp':'images/earth-clouds-4k.webp')]);
 async function init(stage){if(stage.dataset.cinematicGlobe)return;stage.dataset.cinematicGlobe='loading';const canvas=document.createElement('canvas');// A denser canvas on larger screens keeps the surface crisp when the visitor zooms in.
 canvas.width=canvas.height=innerWidth>700?1536:1024;canvas.setAttribute('aria-hidden','true');stage.append(canvas);stage.tabIndex=0;stage.setAttribute('role','group');stage.setAttribute('aria-label','Participation globe. Drag or use left and right arrows to rotate. Pinch with two fingers or use the plus and minus controls to zoom.');const hint=document.createElement('p');hint.className='results-globe-hint';hint.textContent='Drag to rotate · Pinch or use + / − to zoom';stage.before(hint);let angle=0,latitude=-.26,radius=430;
 try{const [earth,clouds]=await assets;if(!stage.isConnected)return;const gl=canvas.getContext('webgl',{alpha:false});if(!gl)throw Error('WebGL unavailable');
