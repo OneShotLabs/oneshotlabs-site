@@ -19,7 +19,7 @@ assert.match(bio, /site-motion\.css\?v=20260919-signatures1/, 'bio loads the sig
 const contact = read('contact.html');
 assert.match(contact, /body class="contact-page"/, 'contact opts into the simple stagger signature');
 assert.match(contact, /site-motion\.css\?v=20260919-signatures1/, 'contact loads the signature motion stylesheet');
-assert.match(contact, /Bring me a consequential problem, an ambitious idea, or a project that deserves a thoughtful build\./, 'contact opens with the approved invitation');
+assert.doesNotMatch(contact, /Bring me a consequential problem/, 'contact intro line was retired (David, 2026-11-12)');
 
 const musings = read('musings.html');
 assert.match(musings, /musings-page-turn/, 'Musings carries the storybook page-turn entry');
