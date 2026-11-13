@@ -12,8 +12,12 @@ html.ai-intro body.fabric-next .ai-sky-dusk{opacity:.72}
 
 /* The hero always fills the visible screen, so nothing below peeks in under the splash. */
 body.fabric-next .fabric{min-height:max(100svh,100dvh)}
-/* While the galaxy arrival plays, the section below stays out of view (same failsafe as the hero copy). */
-html.ai-intro body.fabric-next .woven-method{visibility:hidden;animation:osl-intro-failsafe 0s 14s forwards}
+/* The system's detail stays out of view until the system is opened; the hero offers
+   only "Explore the system" and "Read the story". */
+body.fabric-next:not(.exploring-system) .woven-method{display:none}
+/* The title and standfirst belong to the opening splash. Once the system has been
+   opened and closed, the hero returns to the two links alone. */
+body.fabric-next.has-explored .fabric .copy .fabric-title,body.fabric-next.has-explored .fabric .copy .standfirst{display:none}
 /* Sections let the sky through. */
 body.fabric-next .fabric,html.ai-intro body.fabric-next .fabric,body.fabric-next.fabric-material-study .fabric[data-cloth-ready="true"]{background:transparent!important}
 body.fabric-next .woven-method{background:transparent}
@@ -22,8 +26,6 @@ body.fabric-next .horizon{background:radial-gradient(ellipse 80% 55% at 62% 58%,
 body.fabric-next .study-footer{background:transparent}
 /* The hero's cloth scene paints its own navy night; feather its lower edge into the page sky. */
 body.fabric-next:not(.exploring-system) .fabric #fabric-breath{-webkit-mask-image:linear-gradient(#000 0%,#000 78%,transparent 100%);mask-image:linear-gradient(#000 0%,#000 78%,transparent 100%)}
-/* The SEO line under the system spans the full width instead of sitting in one grid column. */
-body.fabric-next .woven-method>.geo-pillar-links{grid-column:1/-1;max-width:760px;margin:26px 0 0;padding:0;font-size:14px;line-height:1.7;color:#d9dfe8}
 /* The hero no longer needs a dark box behind its copy. */
 body.fabric-next .fabric::after{display:none}
 

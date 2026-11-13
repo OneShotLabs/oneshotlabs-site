@@ -58,7 +58,6 @@ for(const file of files){
 write('sitemap.xml',canonical(read('sitemap.xml')));
 let ai=read('ai.html');
 ai=ai.replace('aria-label="The Fabric"','aria-label="The Fabric — Applied AI Systems for Commercial Real Estate"').replace('style="--i:5">C</span></span></h1>','style="--i:5">C</span></span><span class="seo-sr-only"> — Applied AI Systems for Commercial Real Estate</span></h1>');
-if(!ai.includes('class="geo-pillar-links"')) ai=ai.replace('</section>\n</div>\n<div class="navy-interval method-to-globe"','<p class="geo-pillar-links">Created by <a href="/bio">David Jergovic</a>, The Fabric explores applied AI systems for commercial real estate finance. Read the <a href="/musings/the-fabric/">story behind The Fabric</a> and further <a href="/musings">essays on AI and human judgment</a>, or explore <a href="/photography">Fujifilm X100V photography</a>.</p>\n</section>\n</div>\n<div class="navy-interval method-to-globe"');
 write('ai.html',ai);
 let musings=read('musings.html');
 musings=musings.replace('<h1>Musings</h1>','<h1>Musings<span class="seo-sr-only"> by David Jergovic — AI, Work and Judgment</span></h1>');

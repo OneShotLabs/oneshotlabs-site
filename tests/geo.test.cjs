@@ -93,8 +93,10 @@ test('llms.txt follows the proposal and stays in sync with the published catalog
  assert.doesNotMatch(text,/starting-one-shot|one-shot-method|why-a-fixed-lens/);
 });
 
-test('contextual pillar links occur inside bio, AI and Musings editorial body copy',()=>{
- for(const file of ['bio.html','ai.html','musings.html']){
+// The AI page carries no body paragraph by design (David, 2026-11-12): its hero offers only
+// "Explore the system" and "Read the story". It links to the other pillars through the site navigation.
+test('contextual pillar links occur inside bio and Musings editorial body copy',()=>{
+ for(const file of ['bio.html','musings.html']){
   const source=read(file).match(/<body[\s\S]*?<\/body>/)[0].replace(/<header[\s\S]*?<\/header>|<footer[\s\S]*?<\/footer>/g,'');
   const paragraphs=[...source.matchAll(/<p\b[^>]*>[\s\S]*?<\/p>/g)].map(m=>m[0]).join('');
   for(const route of ['/bio','/ai','/musings','/photography'].filter(r=>r!==('/'+file.replace('.html',''))))assert.ok(paragraphs.includes(`href="${route}"`),`${file} lacks body link to ${route}`);

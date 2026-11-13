@@ -1,8 +1,8 @@
 /* In-page inspection mode: the real artwork and its controls share a viewport. */
 (()=>{'use strict';
 const expansion=document.querySelector('.method-expansion'),fabric=document.querySelector('.fabric'),method=document.querySelector('.woven-method'),heroCopy=fabric.querySelector('.copy');
-function sync(){document.body.classList.toggle('exploring-system',expansion.open);heroCopy.hidden=expansion.open;heroCopy.setAttribute('aria-hidden',String(expansion.open));
-requestAnimationFrame(()=>{if(expansion.open)fabric.scrollIntoView({behavior:'instant',block:'start'});else method.scrollIntoView({behavior:'instant',block:'end'});});}
+function sync(){document.body.classList.toggle('exploring-system',expansion.open);if(expansion.open)document.body.classList.add('has-explored');heroCopy.hidden=expansion.open;heroCopy.setAttribute('aria-hidden',String(expansion.open));
+requestAnimationFrame(()=>{if(expansion.open)fabric.scrollIntoView({behavior:'instant',block:'start'});else fabric.scrollIntoView({behavior:'instant',block:'start'});});}
 expansion.addEventListener('toggle',sync);
 // A founder's note appears shortly after the system opens. Once folded it
 // stays folded for the session; the tab reopens it at any time.

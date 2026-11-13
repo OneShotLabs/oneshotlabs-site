@@ -43,3 +43,11 @@
 .fabric-explore a:hover span{transform:translate(2px,-2px)}
 .fabric-explore a:focus-visible{outline:2px solid #c5a059;outline-offset:6px}
 .article-body>.reader-note{margin-top:30px}
+
+/* OneShotLens wordmark: the canonical site lockup (star mark + Bodoni Moda semibold + gold rule), as in the site header. */
+@font-face{font-family:"OSL Wordmark";src:url(/assets/musings/BodoniModa.ttf);font-weight:100 900;font-display:swap}
+.masthead a.osl-wordmark{display:inline-flex;align-items:center;gap:.4em;font:600 22px/1.125 "OSL Wordmark","Bodoni Moda",Didot,Georgia,serif;letter-spacing:-.01em;color:#fdfbf6;text-decoration:none;--trim:#c6a153}
+.osl-wordmark-icon{display:inline-flex;width:1.8em;height:1.8em;color:#fdfbf6}
+.osl-wordmark-icon svg{display:block;width:100%;height:100%}
+.osl-wordmark-text{display:inline-block;padding-bottom:calc(.0504em + 3.65px);background:linear-gradient(90deg,#a77e36 0%,#c6a153 48%,#e0c276 72%,#b88c3d 100%) no-repeat left calc(100% - .45px)/100% 2.3px}
+@media(max-width:650px){.masthead a.osl-wordmark{font-size:19px}}
