@@ -1,3 +1,4 @@
+// OneShotLens is the organization (no OneShotLabs entity; David does not hold that name, 2026-11-12).
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -12,10 +13,11 @@ test('every public page delivers valid linked Person, parent Organization and We
   const blocks=[...source.matchAll(/<script(?: [^>]*?)? type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)];
   const nodes=blocks.flatMap(m=>{const data=JSON.parse(m[1]);return data['@graph']||[data];});
   const person=nodes.find(n=>n['@type']==='Person'&&n['@id']==='https://oneshotlens.com/#david-jergovic');
-  assert.ok(person,file); assert.equal(person.worksFor['@id'],'https://oneshotlabsai.com/#organization');
+  assert.ok(person,file); assert.equal(person.worksFor['@id'],'https://oneshotlens.com/#organization');
   assert.equal(person.homeLocation.name,'Chicago, Illinois');
-  const parent=nodes.find(n=>n['@id']==='https://oneshotlabsai.com/#organization');
-  assert.equal(parent.subOrganization.length,4);
+  const org=nodes.find(n=>n['@id']==='https://oneshotlens.com/#organization');
+  assert.ok(org&&!org.parentOrganization,file);
+  assert.ok(!nodes.some(n=>/oneshotlabs/i.test(JSON.stringify(n))),file+' must not reference OneShotLabs');
   const website=nodes.find(n=>n['@type']==='WebSite');
   assert.equal(website.author['@id'],person['@id']); assert.equal(website.publisher['@id'],person['@id']);
  }

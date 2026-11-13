@@ -12,7 +12,7 @@ const read=file=>fs.readFileSync(file,'utf8');
 const write=(file,text)=>fs.writeFileSync(file,text.replace(/[ \t]+$/gm,'').replace(/\n{3,}/g,'\n\n'));
 const origin='https://oneshotlens.com';
 const person={'@id':origin+'/#david-jergovic'};
-const publisher={'@id':'https://oneshotlabsai.com/#organization'};
+const publisher={'@id':origin+'/#organization'};
 const slugs=JSON.parse(read('posts/manifest.json')).posts;
 const posts=slugs.map(slug=>({slug,...parseFrontmatter(read(`posts/${slug}.md`)).meta}));
 // Follow the static host's native shape: directory essays end in /; flat pillars do not.

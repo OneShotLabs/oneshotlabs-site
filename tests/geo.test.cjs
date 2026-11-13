@@ -1,3 +1,4 @@
+// OneShotLens is the organization (no OneShotLabs entity; David does not hold that name, 2026-11-12).
 const test=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
@@ -17,12 +18,12 @@ test('each published essay has one complete BlogPosting with consistent parent p
   const articles=nodes(file).filter(n=>n['@type']==='BlogPosting');assert.equal(articles.length,1,slug);
   const article=articles[0];const meta=parseFrontmatter(read(`posts/${slug}.md`)).meta;
   assert.equal(article.author['@id'],'https://oneshotlens.com/#david-jergovic');
-  assert.equal(article.publisher['@id'],'https://oneshotlabsai.com/#organization');
+  assert.equal(article.publisher['@id'],'https://oneshotlens.com/#organization');
   assert.equal(article.headline,meta.title);assert.equal(article.datePublished,meta.date);
   assert.ok(article.description.length>30);assert.ok(Date.parse(article.dateModified)>=Date.parse(article.datePublished));
   assert.equal(article.mainEntityOfPage['@id'],`https://oneshotlens.com/musings/${slug}/`);
  }
- assert.match(read('js/musings.js'),/publisher: \{ "@id": "https:\/\/oneshotlabsai.com\/#organization" \}/);
+ assert.match(read('js/musings.js'),/publisher: \{ "@id": "https:\/\/oneshotlens.com\/#organization" \}/);
 });
 
 test('bio profile links to the Person with education and expertise',()=>{
@@ -89,7 +90,7 @@ test('llms.txt follows the proposal and stays in sync with the published catalog
  const text=read('llms.txt');assert.equal(text,read('public/llms.txt'));
  assert.ok(text.startsWith('# OneShotLens\n\n> '));assert.match(text,/\n## Published essays(?: and films)?\n/);
  for(const slug of slugs)assert.ok(text.includes(`https://oneshotlens.com/musings/${slug}/`));
- for(const domain of ['oneshotlabsai.com','oneshotlooks.com','oneshotspins.com','oneshotlines.com'])assert.ok(text.includes(`https://${domain}/`));
+ for(const domain of ['oneshotlooks.com','oneshotspins.com','oneshotlines.com'])assert.ok(text.includes(`https://${domain}/`));
  assert.doesNotMatch(text,/starting-one-shot|one-shot-method|why-a-fixed-lens/);
 });
 
