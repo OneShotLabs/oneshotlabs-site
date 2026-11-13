@@ -71,7 +71,7 @@ function commonHead(source,entities) {
   const block=`<!-- site-entities:start --><script type="application/ld+json">\n${json(entities)}\n</script><!-- site-entities:end -->`;
   source=source.includes('<!-- site-entities:start -->')?source.replace(/<!-- site-entities:start -->[\s\S]*?<!-- site-entities:end -->/,()=>block):source.replace('</head>',block+'\n</head>');
   if(!source.includes('/css/seo-foundation.css')) source=source.replace('</head>','<link rel="stylesheet" href="/css/seo-foundation.css?v=20261112" />\n</head>');
-  if(!source.includes('class="ecosystem-attribution"')) source=source.replace('</footer>','<span class="ecosystem-attribution">OneShotLens · A <a href="https://oneshotlabsai.com">OneShotLabs</a> project by <a href="/bio">David Jergovic</a></span></footer>');
+  // No ecosystem attribution line in page footers (removed at David's request, 2026-11-12).
   return source;
 }
 function navigation(posts,index) {
