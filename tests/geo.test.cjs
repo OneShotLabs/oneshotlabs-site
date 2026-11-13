@@ -96,12 +96,16 @@ test('llms.txt follows the proposal and stays in sync with the published catalog
 
 // The AI page carries no body paragraph by design (David, 2026-11-12): its hero offers only
 // "Explore the system" and "Read the story". It links to the other pillars through the site navigation.
-test('contextual pillar links occur inside bio and Musings editorial body copy',()=>{
- for(const file of ['bio.html','musings.html']){
-  const source=read(file).match(/<body[\s\S]*?<\/body>/)[0].replace(/<header[\s\S]*?<\/header>|<footer[\s\S]*?<\/footer>/g,'');
-  const paragraphs=[...source.matchAll(/<p\b[^>]*>[\s\S]*?<\/p>/g)].map(m=>m[0]).join('');
-  for(const route of ['/bio','/ai','/musings','/photography'].filter(r=>r!==('/'+file.replace('.html',''))))assert.ok(paragraphs.includes(`href="${route}"`),`${file} lacks body link to ${route}`);
- }
+test('contextual pillar links occur inside Musings editorial body copy',()=>{
+ const source=read('musings.html').match(/<body[\s\S]*?<\/body>/)[0].replace(/<header[\s\S]*?<\/header>|<footer[\s\S]*?<\/footer>/g,'');
+ const paragraphs=[...source.matchAll(/<p\b[^>]*>[\s\S]*?<\/p>/g)].map(m=>m[0]).join('');
+ for(const route of ['/bio','/ai','/photography'])assert.ok(paragraphs.includes(`href="${route}"`),`musings.html lacks body link to ${route}`);
+});
+
+test('Bio editorial copy stays plain text',()=>{
+ const bioBody=read('bio.html').match(/<body[\s\S]*?<\/body>/)[0].replace(/<header[\s\S]*?<\/header>|<footer[\s\S]*?<\/footer>/g,'');
+ const bioParagraphs=[...bioBody.matchAll(/<p\b[^>]*>[\s\S]*?<\/p>/g)].map(m=>m[0]).join('');
+ assert.doesNotMatch(bioParagraphs,/<a\b/i,'Bio prose must not contain hyperlinks');
 });
 
 test('offscreen EXIF reads wait until an image approaches the viewport',()=>{
